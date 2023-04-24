@@ -21,9 +21,9 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="时间 增加内容    2023年4月24日 19点02分 init   模式描述装饰模式(Decorator)，动态地给一个对象添加一些额外的职责。 需求装饰模式实现给 Person 动态进行穿衣。 UML 类图12345678910111213141516171819202122232425262728293031classDiagramclass Finery &amp;#123;	&lt;&amp;l">
-<meta property="og:type" content="article">
+<meta property="og:type" content="website">
 <meta property="og:title" content="装饰模式">
-<meta property="og:url" content="http://hanzhang2566.github.com/2023/04/24/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:url" content="http://hanzhang2566.github.com/articles/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F.html">
 <meta property="og:site_name" content="张晗的个人博客">
 <meta property="og:description" content="时间 增加内容    2023年4月24日 19点02分 init   模式描述装饰模式(Decorator)，动态地给一个对象添加一些额外的职责。 需求装饰模式实现给 Person 动态进行穿衣。 UML 类图12345678910111213141516171819202122232425262728293031classDiagramclass Finery &amp;#123;	&lt;&amp;l">
 <meta property="og:locale" content="zh_CN">
@@ -34,14 +34,15 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.com/2023/04/24/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/">
+<link rel="canonical" href="http://hanzhang2566.github.com/articles/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.com/2023/04/24/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/","path":"2023/04/24/装饰模式/","title":"装饰模式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.com/articles/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F.html","path":"articles/装饰模式.html","title":"装饰模式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>装饰模式 | 张晗的个人博客</title>
+<title>装饰模式 | 张晗的个人博客
+</title>
   
 
 
@@ -89,7 +90,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-首页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-文章"><a href="/articles/" rel="section"><i class="fa fa-book fa-fw"></i>文章</a></li><li class="menu-item menu-item-项目"><a href="/projects/" rel="section"><i class="fa fa-archive fa-fw"></i>项目</a></li><li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-关于我"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于我</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-articles"><a href="/articles/" rel="section"><i class="fa fa-book fa-fw"></i>文章</a></li><li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-archive fa-fw"></i>项目</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">0</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于我</a></li>
   </ul>
 </nav>
 
@@ -120,6 +121,8 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张晗_Jeremy"
+      src="/images/avatar.gif">
   <p class="site-author-name" itemprop="name">张晗_Jeremy</p>
   <div class="site-description" itemprop="description">Javaer | Gopher | Nerd | Artisan</div>
 </div>
@@ -127,16 +130,20 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">标签</span>
-      </div>
   </nav>
 </div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hanzhang2566" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hanzhang2566" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hanzhang2566@foxmail.com" title="E-Mail → mailto:hanzhang2566@foxmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
   <div class="cc-license animated" itemprop="license">
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
   </div>
@@ -151,61 +158,26 @@
 
     </div>
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner page posts-expand">
 
 
-  
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
 
+<h1 class="post-title" itemprop="name headline">装饰模式
+</h1>
 
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.com/2023/04/24/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Artisan">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="装饰模式 | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          装饰模式
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-04-24 18:57:33 / 修改时间：19:08:37" itemprop="dateCreated datePublished" datetime="2023-04-24T18:57:33+08:00">2023-04-24</time>
-    </span>
-
-  
+<div class="post-meta-container">
 </div>
 
-        </div>
-      </header>
+</header>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-        <table>
+      
+      
+      <div class="post-body">
+          <table>
 <thead>
 <tr>
 <th align="center">时间</th>
@@ -245,52 +217,14 @@
 </ol>
 <h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>代理类附加的是跟原始类无关的功能，而在装饰器模式中，装饰器类附加的是跟原始类相关的增强功能。</p>
 
+      </div>
+      
+      
+      
     </div>
 
     
     
-    
-
-    <footer class="post-footer">
-          
-
-<div class="post-copyright">
-<ul>
-  <li class="post-copyright-author">
-      <strong>本文作者： </strong>张晗_Jeremy
-  </li>
-  <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.com/2023/04/24/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/" title="装饰模式">http://hanzhang2566.github.com/2023/04/24/装饰模式/</a>
-  </li>
-  <li class="post-copyright-license">
-      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-          <div class="post-tags">
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2023/04/24/afirst/" rel="prev" title="afirst">
-                  <i class="fa fa-chevron-left"></i> afirst
-                </a>
-            </div>
-            <div class="post-nav-item">
-            </div>
-          </div>
-    </footer>
-  </article>
-</div>
-
-
-
-
 
 
 </div>
