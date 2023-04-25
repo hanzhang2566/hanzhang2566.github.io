@@ -1,85 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>结构型之装饰模式</title>
-    <url>/2023/04/24/%E7%BB%93%E6%9E%84%E5%9E%8B%E4%B9%8B%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">时间</th>
-<th align="center">增加内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月24日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>装饰模式(Decorator)，动态地给一个对象添加一些额外的职责。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>装饰模式实现给 Person 动态进行穿衣。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Finery &#123;
-	&lt;&lt;nterface&gt;&gt;
-	wear(): void
-&#125;
-
-class FineryDecorator &#123;
-	-Finery finery
-	&lt;&lt;abstract&gt;&gt;
-	+decorate(Finery finery): void
-    +wear(): void
-&#125;
-
-class Person &#123;
-	-String name
-    +wear(): void
-&#125;
-
-class SneakerFinery &#123;
-    +wear(): void
-&#125;
-
-class TShirtFinery &#123;
-    +wear(): void
-&#125;
-
-Finery &lt;|.. Person
-Finery &lt;|-- FineryDecorator
-FineryDecorator o-- Finery
-FineryDecorator &lt;|-- SneakerFinery
-FineryDecorator &lt;|-- TShirtFinery</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Finery"><a href="#Finery" class="headerlink" title="Finery"></a>Finery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿衣接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:22 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Person"><a href="#Person" class="headerlink" title="Person"></a>Person</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 人物类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;装扮的&quot;</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="FineryDecorator"><a href="#FineryDecorator" class="headerlink" title="FineryDecorator"></a>FineryDecorator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> Finery&#125; 装饰器 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">FineryDecorator</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Finery finery;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.finery = finery;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(finery)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.finery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="SneakerFinery"><a href="#SneakerFinery" class="headerlink" title="SneakerFinery"></a>SneakerFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿鞋功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:09 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SneakerFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;球鞋&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="TShirtFinery"><a href="#TShirtFinery" class="headerlink" title="TShirtFinery"></a>TShirtFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿 T 恤功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TShirtFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;T恤&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 装饰模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:36 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DecoratorTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Finery</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">tShirt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirt.decorate(person);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">sneaker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneaker.decorate(tShirt);</span><br><span class="line">        sneaker.wear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">hanzhang</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">SneakerFinery</span> <span class="variable">sneakerFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneakerFinery.decorate(hanzhang);</span><br><span class="line">        <span class="type">TShirtFinery</span> <span class="variable">tShirtFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirtFinery.decorate(sneakerFinery);</span><br><span class="line">        tShirtFinery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
-<li>装饰器类 <code>FineryDecorator</code> 和原始类 <code>Person</code> 继承同样的父类 Finery，可以对原始类“嵌套”多个装饰器；</li>
-<li>装饰器类 <code>FineryDecorator</code> 是对原始类 <code>Person</code> 功能的增强；</li>
-<li>通过组合代替继承，解决继承关系过于复杂。把原有类中的装饰功能移除，简化原有类；</li>
-<li>把类的核心职责和装饰功能区分开，减少重复的装饰逻辑；</li>
-</ol>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>代理类附加的是跟原始类无关的功能，而在装饰器模式中，装饰器类附加的是跟原始类相关的增强功能。</p>
-]]></content>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/2023/04/22/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -171,6 +92,85 @@ SchoolGril &lt;-- Pursuer</code></pre>
 <li><p>缓存</p>
 </li>
 </ol>
+]]></content>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>结构型之装饰模式</title>
+    <url>/2023/04/24/%E7%BB%93%E6%9E%84%E5%9E%8B%E4%B9%8B%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">时间</th>
+<th align="center">增加内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月24日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>装饰模式(Decorator)，动态地给一个对象添加一些额外的职责。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>装饰模式实现给 Person 动态进行穿衣。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Finery &#123;
+	&lt;&lt;nterface&gt;&gt;
+	wear(): void
+&#125;
+
+class FineryDecorator &#123;
+	-Finery finery
+	&lt;&lt;abstract&gt;&gt;
+	+decorate(Finery finery): void
+    +wear(): void
+&#125;
+
+class Person &#123;
+	-String name
+    +wear(): void
+&#125;
+
+class SneakerFinery &#123;
+    +wear(): void
+&#125;
+
+class TShirtFinery &#123;
+    +wear(): void
+&#125;
+
+Finery &lt;|.. Person
+Finery &lt;|-- FineryDecorator
+FineryDecorator o-- Finery
+FineryDecorator &lt;|-- SneakerFinery
+FineryDecorator &lt;|-- TShirtFinery</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Finery"><a href="#Finery" class="headerlink" title="Finery"></a>Finery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿衣接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:22 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Person"><a href="#Person" class="headerlink" title="Person"></a>Person</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 人物类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;装扮的&quot;</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="FineryDecorator"><a href="#FineryDecorator" class="headerlink" title="FineryDecorator"></a>FineryDecorator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> Finery&#125; 装饰器 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">FineryDecorator</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Finery finery;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.finery = finery;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(finery)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.finery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SneakerFinery"><a href="#SneakerFinery" class="headerlink" title="SneakerFinery"></a>SneakerFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿鞋功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:09 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SneakerFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;球鞋&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="TShirtFinery"><a href="#TShirtFinery" class="headerlink" title="TShirtFinery"></a>TShirtFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿 T 恤功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TShirtFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;T恤&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 装饰模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:36 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DecoratorTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Finery</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">tShirt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirt.decorate(person);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">sneaker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneaker.decorate(tShirt);</span><br><span class="line">        sneaker.wear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">hanzhang</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">SneakerFinery</span> <span class="variable">sneakerFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneakerFinery.decorate(hanzhang);</span><br><span class="line">        <span class="type">TShirtFinery</span> <span class="variable">tShirtFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirtFinery.decorate(sneakerFinery);</span><br><span class="line">        tShirtFinery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
+<li>装饰器类 <code>FineryDecorator</code> 和原始类 <code>Person</code> 继承同样的父类 Finery，可以对原始类“嵌套”多个装饰器；</li>
+<li>装饰器类 <code>FineryDecorator</code> 是对原始类 <code>Person</code> 功能的增强；</li>
+<li>通过组合代替继承，解决继承关系过于复杂。把原有类中的装饰功能移除，简化原有类；</li>
+<li>把类的核心职责和装饰功能区分开，减少重复的装饰逻辑；</li>
+</ol>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>代理类附加的是跟原始类无关的功能，而在装饰器模式中，装饰器类附加的是跟原始类相关的增强功能。</p>
 ]]></content>
       <tags>
         <tag>设计模式</tag>
