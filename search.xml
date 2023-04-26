@@ -1,6 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>工厂方法模式</title>
+    <url>/2023/04/26/creational-tmpl-factory/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">时间</th>
+<th align="center">增加内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月26日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>工厂方法实现计算器的加减乘除功能。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class CalcFactory &#123;
+	&lt;&lt;interface&gt;&gt;
+	getOperator(String opt) Operator
+&#125;
+
+class BasicCalcCalcFactory &#123;
+    getOperator(String opt) Operator
+&#125;
+
+class AdvancedCalcCalcFactory &#123;
+    getOperator(String opt) Operator
+&#125;
+
+CalcFactory &lt;|-- BasicCalcCalcFactory
+CalcFactory &lt;|-- AdvancedCalcCalcFactory
+
+class Operator &#123;
+	&lt;&lt;abstract&gt;&gt;
+    calc(double n1, double n2)* double
+&#125;
+
+class AddOperator &#123;
+    calc(double n1, double n2) double
+&#125;
+
+class MulOperator &#123;
+    calc(double n1, double n2) double
+&#125;
+
+Operator &lt;|.. AddOperator
+Operator &lt;|.. MulOperator
+Operator &lt;.. CalcFactory
+
+class OperatorFactory &#123;
+	Operator getOperator(String opt)$ Operator
+&#125;
+
+OperatorFactory &lt;.. Operator
+OperatorFactory &lt;.. CalcFactory</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="TmplCalcFactoryTest"><a href="#TmplCalcFactoryTest" class="headerlink" title="TmplCalcFactoryTest"></a>TmplCalcFactoryTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TmplCalcFactoryTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Add</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">opt</span> <span class="operator">=</span> <span class="string">&quot;+&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">1</span>, n2 = <span class="number">2</span>;</span><br><span class="line">        <span class="type">Operator</span> <span class="variable">operator</span> <span class="operator">=</span> OperatorFactory.getOperator(opt);</span><br><span class="line">        <span class="type">double</span> <span class="variable">ret</span> <span class="operator">=</span> operator.calc(n1, n2);</span><br><span class="line">        Assert.assertEquals(<span class="number">3.0</span>, ret, <span class="number">0.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Mul</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">opt</span> <span class="operator">=</span> <span class="string">&quot;*&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">1</span>, n2 = <span class="number">2</span>;</span><br><span class="line">        <span class="type">Operator</span> <span class="variable">operator</span> <span class="operator">=</span> OperatorFactory.getOperator(opt);</span><br><span class="line">        <span class="type">double</span> <span class="variable">ret</span> <span class="operator">=</span> operator.calc(n1, n2);</span><br><span class="line">        Assert.assertEquals(<span class="number">2.0</span>, ret, <span class="number">0.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="OperatorFactory"><a href="#OperatorFactory" class="headerlink" title="OperatorFactory"></a>OperatorFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OperatorFactory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span> &#123;</span><br><span class="line">        <span class="type">Operator</span> <span class="variable">operator</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">CalcFactory</span> <span class="variable">calcFactory</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">                calcFactory = <span class="keyword">new</span> <span class="title class_">BasicCalcCalcFactory</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;*&quot;</span>:</span><br><span class="line">                calcFactory = <span class="keyword">new</span> <span class="title class_">AdvancedCalcCalcFactory</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(opt);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> calcFactory.getOperator(opt);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Operator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用来计算的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n1 number1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n2 number2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">double</span> <span class="title function_">calc</span><span class="params">(<span class="type">double</span> n1, <span class="type">double</span> n2)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CalcFactory"><a href="#CalcFactory" class="headerlink" title="CalcFactory"></a>CalcFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CalcFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回运算类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> opt 操作</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Operator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="BasicCalcFactory"><a href="#BasicCalcFactory" class="headerlink" title="BasicCalcFactory"></a>BasicCalcFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BasicCalcCalcFactory</span> <span class="keyword">implements</span> <span class="title class_">CalcFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回运算类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> opt 操作</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Operator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AddOperator</span>();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="AdvancedCalcFactory"><a href="#AdvancedCalcFactory" class="headerlink" title="AdvancedCalcFactory"></a>AdvancedCalcFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AdvancedCalcCalcFactory</span> <span class="keyword">implements</span> <span class="title class_">CalcFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回运算类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> opt 操作</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Operator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;*&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MulAddOperator</span>();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="AddOperator"><a href="#AddOperator" class="headerlink" title="AddOperator"></a>AddOperator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AddOperator</span> <span class="keyword">extends</span> <span class="title class_">Operator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算加法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n1 number1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n2 number2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">double</span> <span class="title function_">calc</span><span class="params">(<span class="type">double</span> n1, <span class="type">double</span> n2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> n1 + n2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="MulOperator"><a href="#MulOperator" class="headerlink" title="MulOperator"></a>MulOperator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MulAddOperator</span> <span class="keyword">extends</span> <span class="title class_">Operator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算乘法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n1 number1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n2 number2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">double</span> <span class="title function_">calc</span><span class="params">(<span class="type">double</span> n1, <span class="type">double</span> n2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> n1 * n2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="简单工厂和工厂方法的选择"><a href="#简单工厂和工厂方法的选择" class="headerlink" title="简单工厂和工厂方法的选择"></a>简单工厂和工厂方法的选择</h1><p>工厂方法模式是对简单工厂中创建产品进行封装，不同的产品使用不同的工厂进行生产，提供一个统一的生产方法给用户。</p>
+<p>当对象的创建逻辑比较复杂，不只是简单的 new ，而是要组合其他类对象，做各种初始化操作的时候，推荐使用工厂方法模式，将复杂的创建逻辑拆分到多个工厂类中，让每个工厂类都不至于过于复杂。</p>
+]]></content>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2023/04/22/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -19,87 +103,8 @@
 ]]></content>
   </entry>
   <entry>
-    <title>结构型之代理模式</title>
-    <url>/2023/04/25/%E7%BB%93%E6%9E%84%E5%9E%8B%E4%B9%8B%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">时间</th>
-<th align="center">增加内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月25日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来给原始类附加功能。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>通过代理模式来实现追求者给被追求者送礼物。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Gift &#123;
-	&lt;&lt;interface&gt;&gt;
-	giveDoll():void
-	giveFlower():void
-&#125;
-
-class PursuerProxy &#123;
-	Pursuer pursuer
-    giveDoll():void
-	giveFlower():void
-&#125;
-
-class Pursuer &#123;
-	SchoolGril gril
-    giveDoll():void
-	giveFlower():void
-&#125;
-
-class SchoolGril &#123;
-	String name
-&#125;
-
-Gift &lt;|.. Pursuer
-Gift &lt;|.. PursuerProxy
-Pursuer &lt;-- PursuerProxy
-SchoolGril &lt;-- Pursuer</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Gift"><a href="#Gift" class="headerlink" title="Gift"></a>Gift</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 礼物接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="PursuerProxy"><a href="#PursuerProxy" class="headerlink" title="PursuerProxy"></a>PursuerProxy</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者代理类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:03 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PursuerProxy</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 追求者对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> Pursuer pursuer;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PursuerProxy</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        pursuer = <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Pursuer"><a href="#Pursuer" class="headerlink" title="Pursuer"></a>Pursuer</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Pursuer</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 被追求者</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SchoolGril gril;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Pursuer</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.gril = gril;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你洋娃娃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你鲜花&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="SchoolGril"><a href="#SchoolGril" class="headerlink" title="SchoolGril"></a>SchoolGril</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Usage: 被追求者 &lt;br/&gt;</span><br><span class="line"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span><br><span class="line"> *</span><br><span class="line"> * @author &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span><br><span class="line"> */</span><br><span class="line">public class SchoolGril &#123;</span><br><span class="line">    @Getter</span><br><span class="line">    @Setter</span><br><span class="line">    private String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="ProxyTest"><a href="#ProxyTest" class="headerlink" title="ProxyTest"></a>ProxyTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 代理模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:57 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProxyTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Pursuer</span> <span class="variable">pursuer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;bar&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">PursuerProxy</span> <span class="variable">pursuerProxy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PursuerProxy</span>(gril);</span><br><span class="line">        pursuerProxy.giveDoll();</span><br><span class="line">        pursuerProxy.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h1><p>静态代理的缺点：1. 编写的目标代理类太多；2. 当代理类接口改变，所有的代理类都需要进行更新。</p>
-<p>使用反射可以完成原始类的动态代理。</p>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</p>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li><p>业务系统的非功能性需求开发</p>
-<p>监控、统计、鉴权、限流、事务、幂等、日志。</p>
-</li>
-<li><p>RPC</p>
-</li>
-<li><p>缓存</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>结构型之装饰模式</title>
-    <url>/2023/04/24/%E7%BB%93%E6%9E%84%E5%9E%8B%E4%B9%8B%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F/</url>
+    <url>/2023/04/24/structural-decorator/</url>
     <content><![CDATA[<table>
 <thead>
 <tr>
@@ -171,6 +176,85 @@ FineryDecorator &lt;|-- TShirtFinery</code></pre>
 <li>把类的核心职责和装饰功能区分开，减少重复的装饰逻辑；</li>
 </ol>
 <h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>代理类附加的是跟原始类无关的功能，而在装饰器模式中，装饰器类附加的是跟原始类相关的增强功能。</p>
+]]></content>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>结构型之代理模式</title>
+    <url>/2023/04/25/structural-proxy/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">时间</th>
+<th align="center">增加内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月25日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来给原始类附加功能。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>通过代理模式来实现追求者给被追求者送礼物。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Gift &#123;
+	&lt;&lt;interface&gt;&gt;
+	giveDoll():void
+	giveFlower():void
+&#125;
+
+class PursuerProxy &#123;
+	Pursuer pursuer
+    giveDoll():void
+	giveFlower():void
+&#125;
+
+class Pursuer &#123;
+	SchoolGril gril
+    giveDoll():void
+	giveFlower():void
+&#125;
+
+class SchoolGril &#123;
+	String name
+&#125;
+
+Gift &lt;|.. Pursuer
+Gift &lt;|.. PursuerProxy
+Pursuer &lt;-- PursuerProxy
+SchoolGril &lt;-- Pursuer</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Gift"><a href="#Gift" class="headerlink" title="Gift"></a>Gift</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 礼物接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="PursuerProxy"><a href="#PursuerProxy" class="headerlink" title="PursuerProxy"></a>PursuerProxy</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者代理类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:03 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PursuerProxy</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 追求者对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> Pursuer pursuer;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PursuerProxy</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        pursuer = <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pursuer"><a href="#Pursuer" class="headerlink" title="Pursuer"></a>Pursuer</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Pursuer</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 被追求者</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SchoolGril gril;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Pursuer</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.gril = gril;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你洋娃娃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你鲜花&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SchoolGril"><a href="#SchoolGril" class="headerlink" title="SchoolGril"></a>SchoolGril</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Usage: 被追求者 &lt;br/&gt;</span><br><span class="line"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span><br><span class="line"> *</span><br><span class="line"> * @author &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span><br><span class="line"> */</span><br><span class="line">public class SchoolGril &#123;</span><br><span class="line">    @Getter</span><br><span class="line">    @Setter</span><br><span class="line">    private String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="ProxyTest"><a href="#ProxyTest" class="headerlink" title="ProxyTest"></a>ProxyTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 代理模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:57 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProxyTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Pursuer</span> <span class="variable">pursuer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;bar&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">PursuerProxy</span> <span class="variable">pursuerProxy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PursuerProxy</span>(gril);</span><br><span class="line">        pursuerProxy.giveDoll();</span><br><span class="line">        pursuerProxy.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h1><p>静态代理的缺点：1. 编写的目标代理类太多；2. 当代理类接口改变，所有的代理类都需要进行更新。</p>
+<p>使用反射可以完成原始类的动态代理。</p>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</p>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li><p>业务系统的非功能性需求开发</p>
+<p>监控、统计、鉴权、限流、事务、幂等、日志。</p>
+</li>
+<li><p>RPC</p>
+</li>
+<li><p>缓存</p>
+</li>
+</ol>
 ]]></content>
       <tags>
         <tag>设计模式</tag>
