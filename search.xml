@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>模板方法模式</title>
+    <url>/behaviour-template/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月28日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用模板模式来实现批改试卷。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Examination &#123;
+	&lt;&lt;Abstract&gt;&gt;
+	#question01() void
+    #question02() void
+    #answer01()* int
+    #answer02()* int
+&#125;
+
+class Bar &#123;
+    answer01() int
+    answer02() int
+&#125;
+
+class Foo &#123;
+    answer01() int
+    answer02() int
+&#125;
+
+
+Examination &lt;|-- Bar
+Examination &lt;|-- Foo</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="PrototypeTest"><a href="#PrototypeTest" class="headerlink" title="PrototypeTest"></a>PrototypeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">FooTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">foo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line">        foo.question01();</span><br><span class="line">        foo.question02();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">BarTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">bar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bar</span>();</span><br><span class="line">        bar.question01();</span><br><span class="line">        bar.question02();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Examination"><a href="#Examination" class="headerlink" title="Examination"></a>Examination</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer01();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 1 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer02();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 2 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Bar"><a href="#Bar" class="headerlink" title="Bar"></a>Bar</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bar</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Foo"><a href="#Foo" class="headerlink" title="Foo"></a>Foo</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foo</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</p>
+]]></content>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>原型模式</title>
     <url>/creational-prototype/</url>
     <content><![CDATA[<table>
@@ -65,6 +122,90 @@ Cloneable &lt;|.. Experience</code></pre>
 </li>
 </ul>
 <p>也就是说，浅拷贝和原始对象共享引用数据，而深拷贝是完全独立的对象。</p>
+]]></content>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工厂方法模式</title>
+    <url>/creational-tmpl-factory/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月26日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>工厂方法实现计算器的加减乘除功能。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class CalcFactory &#123;
+	&lt;&lt;interface&gt;&gt;
+	getOperator(String opt) Operator
+&#125;
+
+class BasicCalcCalcFactory &#123;
+    getOperator(String opt) Operator
+&#125;
+
+class AdvancedCalcCalcFactory &#123;
+    getOperator(String opt) Operator
+&#125;
+
+CalcFactory &lt;|-- BasicCalcCalcFactory
+CalcFactory &lt;|-- AdvancedCalcCalcFactory
+
+class Operator &#123;
+	&lt;&lt;abstract&gt;&gt;
+    calc(double n1, double n2)* double
+&#125;
+
+class AddOperator &#123;
+    calc(double n1, double n2) double
+&#125;
+
+class MulOperator &#123;
+    calc(double n1, double n2) double
+&#125;
+
+Operator &lt;|.. AddOperator
+Operator &lt;|.. MulOperator
+Operator &lt;.. CalcFactory
+
+class OperatorFactory &#123;
+	Operator getOperator(String opt)$ Operator
+&#125;
+
+OperatorFactory &lt;.. Operator
+OperatorFactory &lt;.. CalcFactory</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="TmplCalcFactoryTest"><a href="#TmplCalcFactoryTest" class="headerlink" title="TmplCalcFactoryTest"></a>TmplCalcFactoryTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TmplCalcFactoryTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Add</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">opt</span> <span class="operator">=</span> <span class="string">&quot;+&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">1</span>, n2 = <span class="number">2</span>;</span><br><span class="line">        <span class="type">Operator</span> <span class="variable">operator</span> <span class="operator">=</span> OperatorFactory.getOperator(opt);</span><br><span class="line">        <span class="type">double</span> <span class="variable">ret</span> <span class="operator">=</span> operator.calc(n1, n2);</span><br><span class="line">        Assert.assertEquals(<span class="number">3.0</span>, ret, <span class="number">0.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Mul</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">opt</span> <span class="operator">=</span> <span class="string">&quot;*&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">1</span>, n2 = <span class="number">2</span>;</span><br><span class="line">        <span class="type">Operator</span> <span class="variable">operator</span> <span class="operator">=</span> OperatorFactory.getOperator(opt);</span><br><span class="line">        <span class="type">double</span> <span class="variable">ret</span> <span class="operator">=</span> operator.calc(n1, n2);</span><br><span class="line">        Assert.assertEquals(<span class="number">2.0</span>, ret, <span class="number">0.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="OperatorFactory"><a href="#OperatorFactory" class="headerlink" title="OperatorFactory"></a>OperatorFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OperatorFactory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span> &#123;</span><br><span class="line">        <span class="type">Operator</span> <span class="variable">operator</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">CalcFactory</span> <span class="variable">calcFactory</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">                calcFactory = <span class="keyword">new</span> <span class="title class_">BasicCalcCalcFactory</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;*&quot;</span>:</span><br><span class="line">                calcFactory = <span class="keyword">new</span> <span class="title class_">AdvancedCalcCalcFactory</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(opt);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> calcFactory.getOperator(opt);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Operator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用来计算的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n1 number1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n2 number2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">double</span> <span class="title function_">calc</span><span class="params">(<span class="type">double</span> n1, <span class="type">double</span> n2)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CalcFactory"><a href="#CalcFactory" class="headerlink" title="CalcFactory"></a>CalcFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CalcFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回运算类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> opt 操作</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Operator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="BasicCalcFactory"><a href="#BasicCalcFactory" class="headerlink" title="BasicCalcFactory"></a>BasicCalcFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BasicCalcCalcFactory</span> <span class="keyword">implements</span> <span class="title class_">CalcFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回运算类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> opt 操作</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Operator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AddOperator</span>();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="AdvancedCalcFactory"><a href="#AdvancedCalcFactory" class="headerlink" title="AdvancedCalcFactory"></a>AdvancedCalcFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AdvancedCalcCalcFactory</span> <span class="keyword">implements</span> <span class="title class_">CalcFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回运算类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> opt 操作</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Operator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;*&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MulAddOperator</span>();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="AddOperator"><a href="#AddOperator" class="headerlink" title="AddOperator"></a>AddOperator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AddOperator</span> <span class="keyword">extends</span> <span class="title class_">Operator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算加法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n1 number1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n2 number2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">double</span> <span class="title function_">calc</span><span class="params">(<span class="type">double</span> n1, <span class="type">double</span> n2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> n1 + n2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="MulOperator"><a href="#MulOperator" class="headerlink" title="MulOperator"></a>MulOperator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MulAddOperator</span> <span class="keyword">extends</span> <span class="title class_">Operator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算乘法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n1 number1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n2 number2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">double</span> <span class="title function_">calc</span><span class="params">(<span class="type">double</span> n1, <span class="type">double</span> n2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> n1 * n2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="简单工厂和工厂方法的选择"><a href="#简单工厂和工厂方法的选择" class="headerlink" title="简单工厂和工厂方法的选择"></a>简单工厂和工厂方法的选择</h1><p>工厂方法模式是对简单工厂中创建产品进行封装，不同的产品使用不同的工厂进行生产，提供一个统一的生产方法给用户。</p>
+<p>当对象的创建逻辑比较复杂，不只是简单的 new ，而是要组合其他类对象，做各种初始化操作的时候，推荐使用工厂方法模式，将复杂的创建逻辑拆分到多个工厂类中，让每个工厂类都不至于过于复杂。</p>
 ]]></content>
       <tags>
         <tag>设计模式</tag>
@@ -162,90 +303,6 @@ SchoolGril &lt;-- Pursuer</code></pre>
 <li><p>缓存</p>
 </li>
 </ol>
-]]></content>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>工厂方法模式</title>
-    <url>/creational-tmpl-factory/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月26日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>工厂方法实现计算器的加减乘除功能。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class CalcFactory &#123;
-	&lt;&lt;interface&gt;&gt;
-	getOperator(String opt) Operator
-&#125;
-
-class BasicCalcCalcFactory &#123;
-    getOperator(String opt) Operator
-&#125;
-
-class AdvancedCalcCalcFactory &#123;
-    getOperator(String opt) Operator
-&#125;
-
-CalcFactory &lt;|-- BasicCalcCalcFactory
-CalcFactory &lt;|-- AdvancedCalcCalcFactory
-
-class Operator &#123;
-	&lt;&lt;abstract&gt;&gt;
-    calc(double n1, double n2)* double
-&#125;
-
-class AddOperator &#123;
-    calc(double n1, double n2) double
-&#125;
-
-class MulOperator &#123;
-    calc(double n1, double n2) double
-&#125;
-
-Operator &lt;|.. AddOperator
-Operator &lt;|.. MulOperator
-Operator &lt;.. CalcFactory
-
-class OperatorFactory &#123;
-	Operator getOperator(String opt)$ Operator
-&#125;
-
-OperatorFactory &lt;.. Operator
-OperatorFactory &lt;.. CalcFactory</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="TmplCalcFactoryTest"><a href="#TmplCalcFactoryTest" class="headerlink" title="TmplCalcFactoryTest"></a>TmplCalcFactoryTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TmplCalcFactoryTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Add</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">opt</span> <span class="operator">=</span> <span class="string">&quot;+&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">1</span>, n2 = <span class="number">2</span>;</span><br><span class="line">        <span class="type">Operator</span> <span class="variable">operator</span> <span class="operator">=</span> OperatorFactory.getOperator(opt);</span><br><span class="line">        <span class="type">double</span> <span class="variable">ret</span> <span class="operator">=</span> operator.calc(n1, n2);</span><br><span class="line">        Assert.assertEquals(<span class="number">3.0</span>, ret, <span class="number">0.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">Mul</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">opt</span> <span class="operator">=</span> <span class="string">&quot;*&quot;</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">1</span>, n2 = <span class="number">2</span>;</span><br><span class="line">        <span class="type">Operator</span> <span class="variable">operator</span> <span class="operator">=</span> OperatorFactory.getOperator(opt);</span><br><span class="line">        <span class="type">double</span> <span class="variable">ret</span> <span class="operator">=</span> operator.calc(n1, n2);</span><br><span class="line">        Assert.assertEquals(<span class="number">2.0</span>, ret, <span class="number">0.0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="OperatorFactory"><a href="#OperatorFactory" class="headerlink" title="OperatorFactory"></a>OperatorFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OperatorFactory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span> &#123;</span><br><span class="line">        <span class="type">Operator</span> <span class="variable">operator</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">CalcFactory</span> <span class="variable">calcFactory</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">                calcFactory = <span class="keyword">new</span> <span class="title class_">BasicCalcCalcFactory</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;*&quot;</span>:</span><br><span class="line">                calcFactory = <span class="keyword">new</span> <span class="title class_">AdvancedCalcCalcFactory</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(opt);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> calcFactory.getOperator(opt);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Operator"><a href="#Operator" class="headerlink" title="Operator"></a>Operator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Operator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用来计算的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n1 number1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n2 number2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">double</span> <span class="title function_">calc</span><span class="params">(<span class="type">double</span> n1, <span class="type">double</span> n2)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="CalcFactory"><a href="#CalcFactory" class="headerlink" title="CalcFactory"></a>CalcFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">CalcFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回运算类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> opt 操作</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Operator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="BasicCalcFactory"><a href="#BasicCalcFactory" class="headerlink" title="BasicCalcFactory"></a>BasicCalcFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BasicCalcCalcFactory</span> <span class="keyword">implements</span> <span class="title class_">CalcFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回运算类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> opt 操作</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Operator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">AddOperator</span>();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="AdvancedCalcFactory"><a href="#AdvancedCalcFactory" class="headerlink" title="AdvancedCalcFactory"></a>AdvancedCalcFactory</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AdvancedCalcCalcFactory</span> <span class="keyword">implements</span> <span class="title class_">CalcFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回运算类</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> opt 操作</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Operator</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Operator <span class="title function_">getOperator</span><span class="params">(String opt)</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;*&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MulAddOperator</span>();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="AddOperator"><a href="#AddOperator" class="headerlink" title="AddOperator"></a>AddOperator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AddOperator</span> <span class="keyword">extends</span> <span class="title class_">Operator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算加法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n1 number1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n2 number2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">double</span> <span class="title function_">calc</span><span class="params">(<span class="type">double</span> n1, <span class="type">double</span> n2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> n1 + n2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="MulOperator"><a href="#MulOperator" class="headerlink" title="MulOperator"></a>MulOperator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MulAddOperator</span> <span class="keyword">extends</span> <span class="title class_">Operator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算乘法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n1 number1</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> n2 number2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> result</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">double</span> <span class="title function_">calc</span><span class="params">(<span class="type">double</span> n1, <span class="type">double</span> n2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> n1 * n2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="简单工厂和工厂方法的选择"><a href="#简单工厂和工厂方法的选择" class="headerlink" title="简单工厂和工厂方法的选择"></a>简单工厂和工厂方法的选择</h1><p>工厂方法模式是对简单工厂中创建产品进行封装，不同的产品使用不同的工厂进行生产，提供一个统一的生产方法给用户。</p>
-<p>当对象的创建逻辑比较复杂，不只是简单的 new ，而是要组合其他类对象，做各种初始化操作的时候，推荐使用工厂方法模式，将复杂的创建逻辑拆分到多个工厂类中，让每个工厂类都不至于过于复杂。</p>
 ]]></content>
       <tags>
         <tag>设计模式</tag>
