@@ -70,8 +70,8 @@ Examination &lt;|-- Foo</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>原型模式</title>
-    <url>/2023/04/27/creational-prototype/</url>
+    <title>装饰模式</title>
+    <url>/2023/04/24/structural-decorator/</url>
     <content><![CDATA[<table>
 <thead>
 <tr>
@@ -80,60 +80,69 @@ Examination &lt;|-- Foo</code></pre>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年4月27日</td>
+<td align="center">2023年4月24日</td>
 <td align="center">init</td>
 </tr>
 </tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个对象的基础上，创建另外一个相同对象，而不用知道创建细节。</p>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>装饰模式(Decorator)，动态地给一个对象添加一些额外的职责。</p>
 <span id="more"></span>
 
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用原型模式创建简历。</p>
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>装饰模式实现给 Person 动态进行穿衣。</p>
 <h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Cloneable &#123;
-	&lt;&lt;interface&gt;&gt;
-	clone() Object
+class Finery &#123;
+	&lt;&lt;nterface&gt;&gt;
+	wear(): void
 &#125;
 
-class Resume &#123;
-	String name
-	int age
-	Experience experience
-    clone() Resume
+class FineryDecorator &#123;
+	-Finery finery
+	&lt;&lt;abstract&gt;&gt;
+	+decorate(Finery finery): void
+    +wear(): void
 &#125;
 
-class Experience &#123;
-	String company
-    clone() Experience
+class Person &#123;
+	-String name
+    +wear(): void
 &#125;
 
-Cloneable &lt;|.. Resume
-Cloneable &lt;|.. Experience</code></pre>
+class SneakerFinery &#123;
+    +wear(): void
+&#125;
 
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="PrototypeTest"><a href="#PrototypeTest" class="headerlink" title="PrototypeTest"></a>PrototypeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrototypeTest</span> &#123;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException &#123;</span><br><span class="line">        <span class="type">Resume</span> <span class="variable">r1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Resume</span>(<span class="string">&quot;r1&quot;</span>);</span><br><span class="line">        r1.setPersonalInfo(<span class="string">&quot;男&quot;</span>, <span class="number">28</span>);</span><br><span class="line">        r1.setExperience(<span class="string">&quot;1998/10&quot;</span>, <span class="string">&quot;xx公司&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 通过 r1 克隆 r2</span></span><br><span class="line">        <span class="type">Resume</span> <span class="variable">r2</span> <span class="operator">=</span> r1.clone();</span><br><span class="line">        r2.setExperience(<span class="string">&quot;2000/10&quot;</span>, <span class="string">&quot;yy公司&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;r1 = &quot;</span> + r1);</span><br><span class="line">        System.out.println(<span class="string">&quot;r2 = &quot;</span> + r2);</span><br><span class="line">        Assert.assertNotSame(r1, r2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+class TShirtFinery &#123;
+    +wear(): void
+&#125;
 
-<h2 id="Cloneable"><a href="#Cloneable" class="headerlink" title="Cloneable"></a>Cloneable</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Cloneable</span> &#123;</span><br><span class="line">    Object <span class="title function_">clone</span><span class="params">()</span>；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+Finery &lt;|.. Person
+Finery &lt;|-- FineryDecorator
+FineryDecorator o-- Finery
+FineryDecorator &lt;|-- SneakerFinery
+FineryDecorator &lt;|-- TShirtFinery</code></pre>
 
-<h2 id="Resume"><a href="#Resume" class="headerlink" title="Resume"></a>Resume</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Resume</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 性别</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 年龄</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 住址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Setter</span></span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 工作经历</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Experience experience;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Resume</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        experience = <span class="keyword">new</span> <span class="title class_">Experience</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置个人信息</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sex 性别</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> age 年龄</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPersonalInfo</span><span class="params">(String sex, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.sex = sex;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置工作经历</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> hireDate 入职时间</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> company  公司</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setExperience</span><span class="params">(String hireDate, String company)</span> &#123;</span><br><span class="line">        experience.setHireDate(hireDate);</span><br><span class="line">        experience.setCompany(company);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拷贝 &#123;<span class="doctag">@link</span> Resume&#125; 对象</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Resume &#123;<span class="doctag">@link</span> Resume&#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CloneNotSupportedException 实现 clone 方法但没有 implements &#123;<span class="doctag">@link</span> Cloneable&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Resume <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException &#123;</span><br><span class="line">        <span class="type">Resume</span> <span class="variable">resume</span> <span class="operator">=</span> (Resume) <span class="built_in">super</span>.clone();</span><br><span class="line">        <span class="comment">// 调用引用对象的 clone 方法</span></span><br><span class="line">        resume.experience = experience.clone();</span><br><span class="line">        <span class="keyword">return</span> resume;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Finery"><a href="#Finery" class="headerlink" title="Finery"></a>Finery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿衣接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:22 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a>Experience</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Experience</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 入职时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String hireDate;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 公司</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String company;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拷贝 &#123;<span class="doctag">@link</span> Resume&#125; 对象</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Resume &#123;<span class="doctag">@link</span> Resume&#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CloneNotSupportedException 实现 clone 方法但没有 implements &#123;<span class="doctag">@link</span> Cloneable&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Experience <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException &#123;</span><br><span class="line">        <span class="keyword">return</span> (Experience) <span class="built_in">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
-<li><p>对象创建的数据需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取；</p>
-</li>
-<li><p>对象创建成本大、不同对象大部分字段都相同;</p>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1></li>
-</ul>
-<p>推荐使用深拷贝，除非有足够的理由。</p>
-<h1 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h1><ul>
-<li>浅拷贝只会复制引用（Java 的 Object 方法是浅拷贝）；</li>
-<li>深拷贝除了复制引用，还会复制数据本身；<ul>
-<li>序列化拷贝；</li>
-<li>递归拷贝；</li>
-</ul>
-</li>
-</ul>
-<p>也就是说，浅拷贝和原始对象共享引用数据，而深拷贝是完全独立的对象。</p>
+
+<h2 id="Person"><a href="#Person" class="headerlink" title="Person"></a>Person</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 人物类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;装扮的&quot;</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="FineryDecorator"><a href="#FineryDecorator" class="headerlink" title="FineryDecorator"></a>FineryDecorator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> Finery&#125; 装饰器 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">FineryDecorator</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Finery finery;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.finery = finery;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(finery)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.finery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SneakerFinery"><a href="#SneakerFinery" class="headerlink" title="SneakerFinery"></a>SneakerFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿鞋功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:09 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SneakerFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;球鞋&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="TShirtFinery"><a href="#TShirtFinery" class="headerlink" title="TShirtFinery"></a>TShirtFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿 T 恤功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TShirtFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;T恤&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 装饰模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:36 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DecoratorTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Finery</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">tShirt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirt.decorate(person);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">sneaker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneaker.decorate(tShirt);</span><br><span class="line">        sneaker.wear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">hanzhang</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">SneakerFinery</span> <span class="variable">sneakerFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneakerFinery.decorate(hanzhang);</span><br><span class="line">        <span class="type">TShirtFinery</span> <span class="variable">tShirtFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirtFinery.decorate(sneakerFinery);</span><br><span class="line">        tShirtFinery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
+<li>装饰器类 <code>FineryDecorator</code> 和原始类 <code>Person</code> 继承同样的父类 Finery，可以对原始类“嵌套”多个装饰器；</li>
+<li>装饰器类 <code>FineryDecorator</code> 是对原始类 <code>Person</code> 功能的增强；</li>
+<li>通过组合代替继承，解决继承关系过于复杂。把原有类中的装饰功能移除，简化原有类；</li>
+<li>把类的核心职责和装饰功能区分开，减少重复的装饰逻辑；</li>
+</ol>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>代理类附加的是跟原始类无关的功能，而在装饰器模式中，装饰器类附加的是跟原始类相关的增强功能。</p>
 ]]></content>
       <tags>
         <tag>设计模式</tag>
@@ -224,6 +233,76 @@ OperatorFactory &lt;.. CalcFactory</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>原型模式</title>
+    <url>/2023/04/27/creational-prototype/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月27日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个对象的基础上，创建另外一个相同对象，而不用知道创建细节。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用原型模式创建简历。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Cloneable &#123;
+	&lt;&lt;interface&gt;&gt;
+	clone() Object
+&#125;
+
+class Resume &#123;
+	String name
+	int age
+	Experience experience
+    clone() Resume
+&#125;
+
+class Experience &#123;
+	String company
+    clone() Experience
+&#125;
+
+Cloneable &lt;|.. Resume
+Cloneable &lt;|.. Experience</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="PrototypeTest"><a href="#PrototypeTest" class="headerlink" title="PrototypeTest"></a>PrototypeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrototypeTest</span> &#123;</span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException &#123;</span><br><span class="line">        <span class="type">Resume</span> <span class="variable">r1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Resume</span>(<span class="string">&quot;r1&quot;</span>);</span><br><span class="line">        r1.setPersonalInfo(<span class="string">&quot;男&quot;</span>, <span class="number">28</span>);</span><br><span class="line">        r1.setExperience(<span class="string">&quot;1998/10&quot;</span>, <span class="string">&quot;xx公司&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 通过 r1 克隆 r2</span></span><br><span class="line">        <span class="type">Resume</span> <span class="variable">r2</span> <span class="operator">=</span> r1.clone();</span><br><span class="line">        r2.setExperience(<span class="string">&quot;2000/10&quot;</span>, <span class="string">&quot;yy公司&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;r1 = &quot;</span> + r1);</span><br><span class="line">        System.out.println(<span class="string">&quot;r2 = &quot;</span> + r2);</span><br><span class="line">        Assert.assertNotSame(r1, r2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Cloneable"><a href="#Cloneable" class="headerlink" title="Cloneable"></a>Cloneable</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Cloneable</span> &#123;</span><br><span class="line">    Object <span class="title function_">clone</span><span class="params">()</span>；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Resume"><a href="#Resume" class="headerlink" title="Resume"></a>Resume</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Resume</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 性别</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String sex;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 年龄</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 住址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Setter</span></span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 工作经历</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Experience experience;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Resume</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        experience = <span class="keyword">new</span> <span class="title class_">Experience</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置个人信息</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sex 性别</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> age 年龄</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPersonalInfo</span><span class="params">(String sex, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.sex = sex;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置工作经历</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> hireDate 入职时间</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> company  公司</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setExperience</span><span class="params">(String hireDate, String company)</span> &#123;</span><br><span class="line">        experience.setHireDate(hireDate);</span><br><span class="line">        experience.setCompany(company);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拷贝 &#123;<span class="doctag">@link</span> Resume&#125; 对象</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Resume &#123;<span class="doctag">@link</span> Resume&#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CloneNotSupportedException 实现 clone 方法但没有 implements &#123;<span class="doctag">@link</span> Cloneable&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Resume <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException &#123;</span><br><span class="line">        <span class="type">Resume</span> <span class="variable">resume</span> <span class="operator">=</span> (Resume) <span class="built_in">super</span>.clone();</span><br><span class="line">        <span class="comment">// 调用引用对象的 clone 方法</span></span><br><span class="line">        resume.experience = experience.clone();</span><br><span class="line">        <span class="keyword">return</span> resume;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a>Experience</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Experience</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 入职时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String hireDate;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 公司</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String company;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 拷贝 &#123;<span class="doctag">@link</span> Resume&#125; 对象</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Resume &#123;<span class="doctag">@link</span> Resume&#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> CloneNotSupportedException 实现 clone 方法但没有 implements &#123;<span class="doctag">@link</span> Cloneable&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Experience <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException &#123;</span><br><span class="line">        <span class="keyword">return</span> (Experience) <span class="built_in">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
+<li><p>对象创建的数据需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取；</p>
+</li>
+<li><p>对象创建成本大、不同对象大部分字段都相同;</p>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1></li>
+</ul>
+<p>推荐使用深拷贝，除非有足够的理由。</p>
+<h1 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h1><ul>
+<li>浅拷贝只会复制引用（Java 的 Object 方法是浅拷贝）；</li>
+<li>深拷贝除了复制引用，还会复制数据本身；<ul>
+<li>序列化拷贝；</li>
+<li>递归拷贝；</li>
+</ul>
+</li>
+</ul>
+<p>也就是说，浅拷贝和原始对象共享引用数据，而深拷贝是完全独立的对象。</p>
+]]></content>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>代理模式</title>
     <url>/2023/04/25/structural-proxy/</url>
     <content><![CDATA[<table>
@@ -297,85 +376,6 @@ SchoolGril &lt;-- Pursuer</code></pre>
 <li><p>缓存</p>
 </li>
 </ol>
-]]></content>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>装饰模式</title>
-    <url>/2023/04/24/structural-decorator/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月24日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>装饰模式(Decorator)，动态地给一个对象添加一些额外的职责。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>装饰模式实现给 Person 动态进行穿衣。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Finery &#123;
-	&lt;&lt;nterface&gt;&gt;
-	wear(): void
-&#125;
-
-class FineryDecorator &#123;
-	-Finery finery
-	&lt;&lt;abstract&gt;&gt;
-	+decorate(Finery finery): void
-    +wear(): void
-&#125;
-
-class Person &#123;
-	-String name
-    +wear(): void
-&#125;
-
-class SneakerFinery &#123;
-    +wear(): void
-&#125;
-
-class TShirtFinery &#123;
-    +wear(): void
-&#125;
-
-Finery &lt;|.. Person
-Finery &lt;|-- FineryDecorator
-FineryDecorator o-- Finery
-FineryDecorator &lt;|-- SneakerFinery
-FineryDecorator &lt;|-- TShirtFinery</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Finery"><a href="#Finery" class="headerlink" title="Finery"></a>Finery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿衣接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:22 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Person"><a href="#Person" class="headerlink" title="Person"></a>Person</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 人物类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;装扮的&quot;</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="FineryDecorator"><a href="#FineryDecorator" class="headerlink" title="FineryDecorator"></a>FineryDecorator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> Finery&#125; 装饰器 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">FineryDecorator</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Finery finery;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.finery = finery;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(finery)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.finery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="SneakerFinery"><a href="#SneakerFinery" class="headerlink" title="SneakerFinery"></a>SneakerFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿鞋功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:09 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SneakerFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;球鞋&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="TShirtFinery"><a href="#TShirtFinery" class="headerlink" title="TShirtFinery"></a>TShirtFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿 T 恤功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TShirtFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;T恤&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 装饰模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:36 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DecoratorTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Finery</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">tShirt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirt.decorate(person);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">sneaker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneaker.decorate(tShirt);</span><br><span class="line">        sneaker.wear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">hanzhang</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">SneakerFinery</span> <span class="variable">sneakerFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneakerFinery.decorate(hanzhang);</span><br><span class="line">        <span class="type">TShirtFinery</span> <span class="variable">tShirtFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirtFinery.decorate(sneakerFinery);</span><br><span class="line">        tShirtFinery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
-<li>装饰器类 <code>FineryDecorator</code> 和原始类 <code>Person</code> 继承同样的父类 Finery，可以对原始类“嵌套”多个装饰器；</li>
-<li>装饰器类 <code>FineryDecorator</code> 是对原始类 <code>Person</code> 功能的增强；</li>
-<li>通过组合代替继承，解决继承关系过于复杂。把原有类中的装饰功能移除，简化原有类；</li>
-<li>把类的核心职责和装饰功能区分开，减少重复的装饰逻辑；</li>
-</ol>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>代理类附加的是跟原始类无关的功能，而在装饰器模式中，装饰器类附加的是跟原始类相关的增强功能。</p>
 ]]></content>
       <tags>
         <tag>设计模式</tag>
