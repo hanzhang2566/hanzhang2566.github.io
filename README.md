@@ -1,15 +1,23 @@
+这是张晗_Jeremy 的个人博客，记录了我的学习和生活。欢迎各位 Star，并关注我的 BiliBli 和小宇宙。
 
+# 预览
 
+![preview](https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/preview.png)
 
+# 访问
 
-# 目录说明
+[点击](https://hanzhang2566.github.io/)
 
 # 网站搭建
 
-# 效果预览
+本站使用 [Github Pages](https://pages.github.com/) +[Hexo](https://hexo.io/) + [NexT](https://theme-next.js.org/) 进行搭建。
 
 # 联系
 
-如果对本博客模板或者内容有任何建议，可以通过 [Issues](https://github.com/mzlogin/mzlogin.github.io/issues) 或者微信公众号「闷骚的程序员」与我取得联系。
+如果在搭建个人博客中有任何问题，可以通过 [Issues](https://github.com/hanzhang2566/hanzhang2566.github.io/issues) 或邮件与我取得联系。
 
 # 致谢
+
+[Hexo Github](https://github.com/hexojs/hexo)
+
+[NexT](https://github.com/theme-next/hexo-theme-next)
