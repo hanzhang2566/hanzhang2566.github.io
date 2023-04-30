@@ -22,28 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="DATE CHANGELOG    2023年4月29日 init   MarkdownMarkdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。 优势 平台独立。任何 os 都可以方便的创建和浏览； 适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写； 广泛支持。大量论坛、网站、桌面程序和 Web 程序">
+    <meta name="description" content="模式描述策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。 优点 提供了一组 Strategy； 组合代替了继承； 消除分支； client 选择 Strategy 实现；  缺点 client 需要了解 Strategy 实现的不同； 某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Typora 和 Markdown">
-<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/29/typora-and-markdown/index.html">
+<meta property="og:title" content="策略模式">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="DATE CHANGELOG    2023年4月29日 init   MarkdownMarkdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。 优势 平台独立。任何 os 都可以方便的创建和浏览； 适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写； 广泛支持。大量论坛、网站、桌面程序和 Web 程序">
+<meta property="og:description" content="模式描述策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。 优点 提供了一组 Strategy； 组合代替了继承； 消除分支； client 选择 Strategy 实现；  缺点 client 需要了解 Strategy 实现的不同； 某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-29T07:46:20.000Z">
-<meta property="article:modified_time" content="2023-04-29T09:06:24.689Z">
+<meta property="article:published_time" content="2023-04-25T07:47:43.000Z">
+<meta property="article:modified_time" content="2023-04-30T13:45:35.180Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="工具">
+<meta property="article:tag" content="design pattern">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/29/typora-and-markdown/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/29/typora-and-markdown/","path":"2023/04/29/typora-and-markdown/","title":"Typora 和 Markdown"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/","path":"2023/04/25/behavioral-strategy/","title":"策略模式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Typora 和 Markdown | 张晗的个人博客</title>
+<title>策略模式 | 张晗的个人博客</title>
   
 
 
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Markdown"><span class="nav-number">1.</span> <span class="nav-text">Markdown</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E9%80%94"><span class="nav-number">1.2.</span> <span class="nav-text">用途</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Typora"><span class="nav-number">2.</span> <span class="nav-text">Typora</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.</span> <span class="nav-text">最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">标题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC"><span class="nav-number">3.2.</span> <span class="nav-text">表格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8"><span class="nav-number">3.3.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E8%A1%A8"><span class="nav-number">3.4.</span> <span class="nav-text">列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.5.</span> <span class="nav-text">格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.6.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">3.7.</span> <span class="nav-text">常用操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Context-%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.1.</span> <span class="nav-text">Context 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strategy-%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.2.</span> <span class="nav-text">Strategy 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteStrategyX%E7%B1%BB"><span class="nav-number">6.3.</span> <span class="nav-text">ConcreteStrategyX类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.4.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -208,7 +208,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/29/typora-and-markdown/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -221,12 +221,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Typora 和 Markdown | 张晗的个人博客">
+      <meta itemprop="name" content="策略模式 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Typora 和 Markdown
+          策略模式
         </h1>
 
         <div class="post-meta-container">
@@ -237,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-04-29 15:46:20" itemprop="dateCreated datePublished" datetime="2023-04-29T15:46:20+08:00">2023-04-29</time>
+      <time title="创建时间：2023-04-25 15:47:43" itemprop="dateCreated datePublished" datetime="2023-04-25T15:47:43+08:00">2023-04-25</time>
     </span>
 
   
@@ -247,7 +247,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>508</span>
+      <span>469</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -265,7 +265,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <table>
+        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>提供了一组 Strategy；</li>
+<li>组合代替了继承；</li>
+<li>消除分支；</li>
+<li>client 选择 Strategy 实现；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>client 需要了解 Strategy 实现的不同；</li>
+<li>某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；</li>
+<li>增加了类的数目；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>替换的仅仅是类中的行为；</li>
+<li>行为中的数据对用户是隐藏的；</li>
+</ol>
+<span id="more"></span>
+
+<table>
 <thead>
 <tr>
 <th align="center">DATE</th>
@@ -273,224 +291,72 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">init</td>
+<td align="center">2023年4月25日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年4月30日</td>
+<td align="center">添加 Go 语言实现</td>
 </tr>
 </tbody></table>
-<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。</p>
-<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
-<li>平台独立。任何 os 都可以方便的创建和浏览；</li>
-<li>适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写；</li>
-<li>广泛支持。大量论坛、网站、桌面程序和 Web 程序都支持；</li>
-</ol>
-<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ol>
-<li>写文章；</li>
-<li>项目的 README；</li>
-</ol>
-<h1 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h1><p>Typora 类似于 Windows 中的记事本，是一个专门用来创建和编写 Markdown 的软件。</p>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><p>在 Typora 上写 Markdown 如虎添翼，下面会介绍自己在学习工作中使用 Typora 中快捷键编写 Markdown 的最佳实践，基本能够应对 90% 以上的情况。</p>
-<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>不建议使用 3 级以上的标题，这样会让文章编排很乱。</p>
-<table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">一级标题</td>
-<td align="center">Ctrl + 1</td>
-<td align="center">Command + 1</td>
-</tr>
-<tr>
-<td align="center">二级标题</td>
-<td align="center">Ctrl + 2</td>
-<td align="center">Command + 2</td>
-</tr>
-<tr>
-<td align="center">三级标题</td>
-<td align="center">Ctrl + 3</td>
-<td align="center">Command + 3</td>
-</tr>
-<tr>
-<td align="center">段落</td>
-<td align="center">Ctrl + 0</td>
-<td align="center">Command + 4</td>
-</tr>
-</tbody></table>
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">插入表格</td>
-<td align="center">Ctrl + T</td>
-<td align="center">Command + T</td>
-</tr>
-<tr>
-<td align="center">行上移</td>
-<td align="center">Alt + 上箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">行下移</td>
-<td align="center">Alt + 下箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">列左移</td>
-<td align="center">Alt + 左箭头</td>
-<td align="center">Command + 左箭头</td>
-</tr>
-<tr>
-<td align="center">列右移</td>
-<td align="center">Alt + 右箭头</td>
-<td align="center">Command + 右箭头</td>
-</tr>
-<tr>
-<td align="center">插入行</td>
-<td align="center">Ctrl + Enter</td>
-<td align="center">Command + Enter</td>
-</tr>
-<tr>
-<td align="center">删除行</td>
-<td align="center">Ctrl + Shift + Delete</td>
-<td align="center">Command + Shift + Delete</td>
-</tr>
-</tbody></table>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">引用</td>
-<td align="center">Ctrl + Shift + Q</td>
-<td align="center">Command + Shift + Q</td>
-</tr>
-</tbody></table>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">有序列表</td>
-<td align="center">Ctrl + Shift + [</td>
-<td align="center">Command + Shift + [</td>
-</tr>
-<tr>
-<td align="center">无序列表</td>
-<td align="center">Ctrl + Shift + ]</td>
-<td align="center">Command + Shift + ]</td>
-</tr>
-<tr>
-<td align="center">任务列表</td>
-<td align="center">Ctrl + Shift + X</td>
-<td align="center">Command + Shift + X</td>
-</tr>
-<tr>
-<td align="center">增加列表缩进</td>
-<td align="center">Tab</td>
-<td align="center">Tab</td>
-</tr>
-<tr>
-<td align="center">减少列表缩进</td>
-<td align="center">Shift + Tab</td>
-<td align="center">Shift + Tab</td>
-</tr>
-</tbody></table>
-<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">链接</td>
-<td align="center">Ctrl + K</td>
-<td align="center">Command + K</td>
-</tr>
-<tr>
-<td align="center">加粗</td>
-<td align="center">Ctrl + B</td>
-<td align="center">Command + B</td>
-</tr>
-<tr>
-<td align="center">斜体</td>
-<td align="center">Ctrl + I</td>
-<td align="center">Command + I</td>
-</tr>
-<tr>
-<td align="center">下划线</td>
-<td align="center">Ctrl + U</td>
-<td align="center">Command + U</td>
-</tr>
-<tr>
-<td align="center">删除线</td>
-<td align="center">Shift + Alt + 5</td>
-<td align="center">Shift + Alt + 5</td>
-</tr>
-</tbody></table>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">代码</td>
-<td align="center">Ctrl + Shift + &#96;</td>
-<td align="center">Command + Shift + &#96;</td>
-</tr>
-<tr>
-<td align="center">代码块</td>
-<td align="center">Ctrl + Shift + K</td>
-<td align="center">Command + Shift + K</td>
-</tr>
-</tbody></table>
-<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">隐藏 &#x2F; 显示侧边栏</td>
-<td align="center">Ctrl + Shift + L</td>
-<td align="center">Command + Shift + L</td>
-</tr>
-<tr>
-<td align="center">源代码</td>
-<td align="center">Ctrl + &#x2F;</td>
-<td align="center">Command + &#x2F;</td>
-</tr>
-</tbody></table>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.markdownguide.org/">Markdown</a></li>
-<li><a target="_blank" rel="noopener" href="https://typora.io/">Typora</a></li>
-<li><a target="_blank" rel="noopener" href="https://typora.io/#download">Typora 下载</a></li>
-<li><a target="_blank" rel="noopener" href="https://typora.io/#purchase">Typora 购买</a></li>
-<li>typora-段落</li>
-<li>typora-格式</li>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Context &#123;
+	&lt;&lt;interface&gt;&gt;
+	getContext()
+&#125;
+
+class Strategy &#123;
+	&lt;&lt;interface&gt;&gt;
+	handle()
+&#125;
+
+Context o--&gt; Strategy
+
+class ConcreteStrategyA &#123;
+	handle()
+&#125;
+
+class ConcreteStrategyB &#123;
+	handle()
+&#125;
+
+class ConcreteStrategyC &#123;
+	handle()
+&#125;
+
+Strategy &lt;|.. ConcreteStrategyA
+Strategy &lt;|.. ConcreteStrategyB
+Strategy &lt;|.. ConcreteStrategyC
+
+Context &lt;-- Client
+Strategy &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Context-接口"><a href="#Context-接口" class="headerlink" title="Context 接口"></a>Context 接口</h2><ul>
+<li><p>提供一个方法来配置自身；</p>
+</li>
+<li><p>维护对 Strategy 的引用；</p>
+</li>
 </ul>
+<h2 id="Strategy-接口"><a href="#Strategy-接口" class="headerlink" title="Strategy 接口"></a>Strategy 接口</h2><p>支持行为的公共接口。Context 使用 Strategy 提供的方法来调用某个 ConcreteStrategyX。</p>
+<h2 id="ConcreteStrategyX类"><a href="#ConcreteStrategyX类" class="headerlink" title="ConcreteStrategyX类"></a>ConcreteStrategyX类</h2><p>具体实现 Strategy 接口。</p>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 通常创建 ConcreteStrategyX 对象交给 Context 接收，这样 client 仅与 Context 进行交互；</li>
+<li>当 client 调用时，Context 将 Strategy 所需的数据传递给 ConcreteStrategyX，处理完成后回调给 Context;</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>享元模式（Flyweight）：Strategy 对象是很好的轻量级对象。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li><p>Strategy 可以通过工厂模式来创建。</p>
+</li>
+<li><p>ConcreteStrategy 一般是无状态的，是纯粹的算法实现。可以将 ConcreteStrategy 对象缓存到工厂类中，不需要每次调用时创建；如果是有状态的，则需要新创建对象。</p>
+</li>
+<li><p>配置文件或注解指定 ConcreteStrategy 族，StrategyFactory 加载 ConcreteStrategy 族，使用反射在运行时动态决定 ConcreteStrategy 是最典型的用法。</p>
+</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/strategy/strategy_test.go">golang</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/strategy/ClientTest.java">java</a></p>
 
     </div>
 
@@ -526,7 +392,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/04/29/typora-and-markdown/" title="Typora 和 Markdown">http://hanzhang2566.github.io/2023/04/29/typora-and-markdown/</a>
+      <a href="http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/" title="策略模式">http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
@@ -566,20 +432,20 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+              <a href="/tags/design-pattern/" rel="tag"># design pattern</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/04/29/structural-facade/" rel="prev" title="门面模式">
-                  <i class="fa fa-chevron-left"></i> 门面模式
+                <a href="/2023/04/24/structural-decorator/" rel="prev" title="装饰模式">
+                  <i class="fa fa-chevron-left"></i> 装饰模式
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/04/30/uml-class-diagram/" rel="next" title="UML 类图">
-                  UML 类图 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/04/25/structural-proxy/" rel="next" title="代理模式">
+                  代理模式 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
