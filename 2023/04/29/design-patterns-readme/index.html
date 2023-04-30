@@ -22,26 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Javaer | Gopher | Nerd | Engineer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张晗的个人博客">
-<meta property="og:url" content="http://hanzhang2566.github.io/index.html">
+    <meta name="description" content="DATE CHANGELOG    2023年4月29日 init   设计模式是记录 OOP 中重要和重复出现的设计，用来对抗未来的需求和变化，帮助设计者更快、更好地完成系统设计的模板或者说套路。 概览   设计模式 意图 重构原因 扩展点    抽象工厂模式 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类 显式创建类对象 对平台的依赖 显式对象的依赖 紧耦合 产品对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/29/design-patterns-readme/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="Javaer | Gopher | Nerd | Engineer">
+<meta property="og:description" content="DATE CHANGELOG    2023年4月29日 init   设计模式是记录 OOP 中重要和重复出现的设计，用来对抗未来的需求和变化，帮助设计者更快、更好地完成系统设计的模板或者说套路。 概览   设计模式 意图 重构原因 扩展点    抽象工厂模式 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类 显式创建类对象 对平台的依赖 显式对象的依赖 紧耦合 产品对象">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-29T05:12:12.000Z">
+<meta property="article:modified_time" content="2023-04-30T05:17:25.947Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="张晗 hanzhang zhanghan">
+<meta property="article:tag" content="readme">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/29/design-patterns-readme/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/29/design-patterns-readme/","path":"2023/04/29/design-patterns-readme/","title":"设计模式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>张晗的个人博客</title>
+<title>设计模式 | 张晗的个人博客</title>
   
 
 
@@ -74,7 +76,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">张晗的个人博客</h1>
+      <p class="site-title">张晗的个人博客</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">技术的价值是业务</p>
@@ -128,7 +130,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -141,6 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%9E%8B-creational"><span class="nav-number">2.1.</span> <span class="nav-text">创建型 creational</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%9E%8B-structural"><span class="nav-number">2.2.</span> <span class="nav-text">结构型 structural</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E5%9E%8B-behavioral"><span class="nav-number">2.3.</span> <span class="nav-text">行为型 behavioral</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%AE%BE%E8%AE%A1%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">模式如何解决设计问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">选择模式的一般方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">使用模式的一般方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">6.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E4%B9%A6"><span class="nav-number">7.</span> <span class="nav-text">参考书</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -194,517 +197,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/22/README/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/22/README/" class="post-title-link" itemprop="url">入站必读</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-22 18:05:01" itemprop="dateCreated datePublished" datetime="2023-04-22T18:05:01+08:00">2023-04-22</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>158</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>欢迎来到张晗_Jeremy 的个人博客，源代码<a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/hanzhang2566.github.io">点击</a>。</p>
-<h1 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h1><p>本站所有文章都会以分页的方式展示在这里，如果您需要快速找到感兴趣的内容，使用标签或搜索的方式会更高效。</p>
-<h1 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h1><p>相同主题的文章会被归类在同一个标签中。</p>
-<h1 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h1><p>这里是我的个人信息和工作经历。</p>
-<h1 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h1><p>文章标题、文章内容、代码都可以通过搜索查询。</p>
-<h1 id="知识共创协议"><a href="#知识共创协议" class="headerlink" title="知识共创协议"></a>知识共创协议</h1><p>本站使用了最宽松的 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC 协议</a>，使用仅需署名即可。点击<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/">这里</a>，了解更多。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/29/typora-and-markdown/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/29/typora-and-markdown/" class="post-title-link" itemprop="url">Typora 和 Markdown</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-29 15:46:20" itemprop="dateCreated datePublished" datetime="2023-04-29T15:46:20+08:00">2023-04-29</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>508</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。</p>
-<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
-<li>平台独立。任何 os 都可以方便的创建和浏览；</li>
-<li>适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写；</li>
-<li>广泛支持。大量论坛、网站、桌面程序和 Web 程序都支持；</li>
-</ol>
-<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ol>
-<li>写文章；</li>
-<li>项目的 README；</li>
-</ol>
-<h1 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h1><p>Typora 类似于 Windows 中的记事本，是一个专门用来创建和编写 Markdown 的软件。</p>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><p>在 Typora 上写 Markdown 如虎添翼，下面会介绍自己在学习工作中使用 Typora 中快捷键编写 Markdown 的最佳实践，基本能够应对 90% 以上的情况。</p>
-<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>不建议使用 3 级以上的标题，这样会让文章编排很乱。</p>
-<table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">一级标题</td>
-<td align="center">Ctrl + 1</td>
-<td align="center">Command + 1</td>
-</tr>
-<tr>
-<td align="center">二级标题</td>
-<td align="center">Ctrl + 2</td>
-<td align="center">Command + 2</td>
-</tr>
-<tr>
-<td align="center">三级标题</td>
-<td align="center">Ctrl + 3</td>
-<td align="center">Command + 3</td>
-</tr>
-<tr>
-<td align="center">段落</td>
-<td align="center">Ctrl + 0</td>
-<td align="center">Command + 4</td>
-</tr>
-</tbody></table>
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">插入表格</td>
-<td align="center">Ctrl + T</td>
-<td align="center">Command + T</td>
-</tr>
-<tr>
-<td align="center">行上移</td>
-<td align="center">Alt + 上箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">行下移</td>
-<td align="center">Alt + 下箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">列左移</td>
-<td align="center">Alt + 左箭头</td>
-<td align="center">Command + 左箭头</td>
-</tr>
-<tr>
-<td align="center">列右移</td>
-<td align="center">Alt + 右箭头</td>
-<td align="center">Command + 右箭头</td>
-</tr>
-<tr>
-<td align="center">插入行</td>
-<td align="center">Ctrl + Enter</td>
-<td align="center">Command + Enter</td>
-</tr>
-<tr>
-<td align="center">删除行</td>
-<td align="center">Ctrl + Shift + Delete</td>
-<td align="center">Command + Shift + Delete</td>
-</tr>
-</tbody></table>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">引用</td>
-<td align="center">Ctrl + Shift + Q</td>
-<td align="center">Command + Shift + Q</td>
-</tr>
-</tbody></table>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">有序列表</td>
-<td align="center">Ctrl + Shift + [</td>
-<td align="center">Command + Shift + [</td>
-</tr>
-<tr>
-<td align="center">无序列表</td>
-<td align="center">Ctrl + Shift + ]</td>
-<td align="center">Command + Shift + ]</td>
-</tr>
-<tr>
-<td align="center">任务列表</td>
-<td align="center">Ctrl + Shift + X</td>
-<td align="center">Command + Shift + X</td>
-</tr>
-<tr>
-<td align="center">增加列表缩进</td>
-<td align="center">Tab</td>
-<td align="center">Tab</td>
-</tr>
-<tr>
-<td align="center">减少列表缩进</td>
-<td align="center">Shift + Tab</td>
-<td align="center">Shift + Tab</td>
-</tr>
-</tbody></table>
-<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">链接</td>
-<td align="center">Ctrl + K</td>
-<td align="center">Command + K</td>
-</tr>
-<tr>
-<td align="center">加粗</td>
-<td align="center">Ctrl + B</td>
-<td align="center">Command + B</td>
-</tr>
-<tr>
-<td align="center">斜体</td>
-<td align="center">Ctrl + I</td>
-<td align="center">Command + I</td>
-</tr>
-<tr>
-<td align="center">下划线</td>
-<td align="center">Ctrl + U</td>
-<td align="center">Command + U</td>
-</tr>
-<tr>
-<td align="center">删除线</td>
-<td align="center">Shift + Alt + 5</td>
-<td align="center">Shift + Alt + 5</td>
-</tr>
-</tbody></table>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">代码</td>
-<td align="center">Ctrl + Shift + &#96;</td>
-<td align="center">Command + Shift + &#96;</td>
-</tr>
-<tr>
-<td align="center">代码块</td>
-<td align="center">Ctrl + Shift + K</td>
-<td align="center">Command + Shift + K</td>
-</tr>
-</tbody></table>
-<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">隐藏 &#x2F; 显示侧边栏</td>
-<td align="center">Ctrl + Shift + L</td>
-<td align="center">Command + Shift + L</td>
-</tr>
-<tr>
-<td align="center">源代码</td>
-<td align="center">Ctrl + &#x2F;</td>
-<td align="center">Command + &#x2F;</td>
-</tr>
-</tbody></table>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.markdownguide.org/">Markdown</a></li>
-<li><a target="_blank" rel="noopener" href="https://typora.io/">Typora</a></li>
-<li><a target="_blank" rel="noopener" href="https://typora.io/#download">Typora 下载</a></li>
-<li><a target="_blank" rel="noopener" href="https://typora.io/#purchase">Typora 购买</a></li>
-<li>typora-段落</li>
-<li>typora-格式</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/29/structural-facade/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/29/structural-facade/" class="post-title-link" itemprop="url">门面模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-29 15:16:16" itemprop="dateCreated datePublished" datetime="2023-04-29T15:16:16+08:00">2023-04-29</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>357</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/29/structural-facade/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/29/design-patterns-readme/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -718,13 +221,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
+      <meta itemprop="name" content="设计模式 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/29/design-patterns-readme/" class="post-title-link" itemprop="url">设计模式</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          设计模式
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -762,7 +265,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <table>
+        <table>
 <thead>
 <tr>
 <th align="center">DATE</th>
@@ -992,7 +495,6 @@
 <li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/36262489/">Go语言设计模式（双色版）</a></li>
 </ul>
 
-      
     </div>
 
     
@@ -1000,111 +502,90 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="张晗_Jeremy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="张晗_Jeremy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
 </div>
 
+          
 
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/28/behaviour-template/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/28/behaviour-template/" class="post-title-link" itemprop="url">模板方法模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-28 11:56:48" itemprop="dateCreated datePublished" datetime="2023-04-28T11:56:48+08:00">2023-04-28</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>324</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>张晗_Jeremy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://hanzhang2566.github.io/2023/04/29/design-patterns-readme/" title="设计模式">http://hanzhang2566.github.io/2023/04/29/design-patterns-readme/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
+  </li>
+</ul>
 </div>
 
-        </div>
-      </header>
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月28日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/28/behaviour-template/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/images/wechat_channel.png">
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">BiliBili</span>
+          </span>
+
+          <img class="social-item-img" src="/images/bilibili_channel.png">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/readme/" rel="tag"># readme</a>
+          </div>
+
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/04/28/behaviour-template/" rel="prev" title="模板方法模式">
+                  <i class="fa fa-chevron-left"></i> 模板方法模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/04/29/structural-facade/" rel="next" title="门面模式">
+                  门面模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -1112,9 +593,7 @@
 
 
 
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+
 
 </div>
   </main>
