@@ -12,48 +12,504 @@
 ]]></content>
   </entry>
   <entry>
-    <title>策略模式</title>
-    <url>/2023/04/24/behavioral-strategy/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-<span id="more"></span>
+    <title>UML 类图</title>
+    <url>/2023/04/30/uml-class-diagram/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月30日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
+<pre><code class="highlight mermaid">---
+title: 接口示例
+---
+classDiagram
+class Speaker &#123;
+	&lt;&lt;interface&gt;&gt;
+	speak(String statement) String 
+&#125;</code></pre>
 
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用模板模式来实现批改试卷。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
+title: 类示例
+---
+classDiagram
+class Abstract &#123;
+	&lt;&lt;abstract&gt;&gt;
+&#125;</code></pre>
 
-class Examination &#123;
-	&lt;&lt;Abstract&gt;&gt;
-	#question01() void
-    #question02() void
-    #answer01()* int
-    #answer02()* int
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
+<pre><code class="highlight mermaid">---
+title: 类示例
+---
+classDiagram
+class Speakerman &#123;
+	String name
+    speak(String statement) String 
+&#125;</code></pre>
+
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
+<p>-表示 private</p>
+<p>#表示 protected</p>
+<p>~表示 package 或者 internal</p>
+<pre><code class="highlight mermaid">---
+title: 可见性示例
+---
+classDiagram
+class Visibility &#123;
+	+int n1
+	-int n2
+	#int n3
+	~int n4
+	
+	+m1()
+	-m1()
+	#m3()
+	~m4()
+&#125;</code></pre>
+
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
+<p>$表示 static，下划线</p>
+<pre><code class="highlight mermaid">---
+title: 修饰符示例
+---
+classDiagram
+class Modifier &#123;
+	int n1$
+	
+	+m1()*
+    +m2()$
+&#125;</code></pre>
+
+<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
+<p>Man is a Person</p>
+<pre><code class="highlight mermaid">---
+title: 继承示例
+---
+classDiagram
+class Person &#123;
+	
 &#125;
 
-class Bar &#123;
-    answer01() int
-    answer02() int
+class Man &#123;
+	
 &#125;
 
-class Foo &#123;
-    answer01() int
-    answer02() int
+Person &lt;|-- Man</code></pre>
+
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
+<p>Bird has Fly ability</p>
+<pre><code class="highlight mermaid">---
+title: 继承示例
+---
+classDiagram
+class Fly &#123;
+	&lt;&lt;interface&gt;&gt;
 &#125;
 
+class Bird &#123;
+	
+&#125;
 
-Examination &lt;|-- Bar
-Examination &lt;|-- Foo</code></pre>
+Fly &lt;|.. Bird</code></pre>
 
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="PrototypeTest"><a href="#PrototypeTest" class="headerlink" title="PrototypeTest"></a>PrototypeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">FooTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">foo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line">        foo.question01();</span><br><span class="line">        foo.question02();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">BarTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">bar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bar</span>();</span><br><span class="line">        bar.question01();</span><br><span class="line">        bar.question02();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
+<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
+<pre><code class="highlight mermaid">---
+title: 聚合示例
+---
+classDiagram
+class Classroom &#123;
+	Blackboard blackboard
+&#125;
 
-<h2 id="Examination"><a href="#Examination" class="headerlink" title="Examination"></a>Examination</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer01();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 1 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer02();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 2 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+class Blackboard &#123;
+	
+&#125;
 
-<h2 id="Bar"><a href="#Bar" class="headerlink" title="Bar"></a>Bar</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bar</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+Classroom o-- Blackboard</code></pre>
 
-<h2 id="Foo"><a href="#Foo" class="headerlink" title="Foo"></a>Foo</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foo</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
+<p>Arm is part of Person </p>
+<pre><code class="highlight mermaid">---
+title: 组合示例
+---
+classDiagram
+class Person &#123;
+	Arm arm
+&#125;
 
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</p>
+class Arm &#123;
+	
+&#125;
+
+Person *-- Arm</code></pre>
+
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
+<p>Person depand on Water</p>
+<pre><code class="highlight mermaid">---
+title: 依赖示例
+---
+classDiagram
+class Person &#123;
+	Water water
+&#125;
+
+class Water &#123;
+	
+&#125;
+
+Water &lt;.. Person</code></pre>
+
+<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
+<p>Person should know Climate</p>
+<pre><code class="highlight mermaid">---
+title: 关联示例
+---
+classDiagram
+class Person &#123;
+	Climate climate
+&#125;
+
+class Climate &#123;
+	
+&#125;
+
+Climate &lt;-- Person</code></pre>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
+<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
+<li>聚合适用范围比组合更广；</li>
+</ol>
 ]]></content>
       <tags>
-        <tag>design pattern</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Typora 和 Markdown</title>
+    <url>/2023/04/29/typora-and-markdown/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月29日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。</p>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
+<li>平台独立。任何 os 都可以方便的创建和浏览；</li>
+<li>适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写；</li>
+<li>广泛支持。大量论坛、网站、桌面程序和 Web 程序都支持；</li>
+</ol>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ol>
+<li>写文章；</li>
+<li>项目的 README；</li>
+</ol>
+<h1 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h1><p>Typora 类似于 Windows 中的记事本，是一个专门用来创建和编写 Markdown 的软件。</p>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><p>在 Typora 上写 Markdown 如虎添翼，下面会介绍自己在学习工作中使用 Typora 中快捷键编写 Markdown 的最佳实践，基本能够应对 90% 以上的情况。</p>
+<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>不建议使用 3 级以上的标题，这样会让文章编排很乱。</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">一级标题</td>
+<td align="center">Ctrl + 1</td>
+<td align="center">Command + 1</td>
+</tr>
+<tr>
+<td align="center">二级标题</td>
+<td align="center">Ctrl + 2</td>
+<td align="center">Command + 2</td>
+</tr>
+<tr>
+<td align="center">三级标题</td>
+<td align="center">Ctrl + 3</td>
+<td align="center">Command + 3</td>
+</tr>
+<tr>
+<td align="center">段落</td>
+<td align="center">Ctrl + 0</td>
+<td align="center">Command + 4</td>
+</tr>
+</tbody></table>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">插入表格</td>
+<td align="center">Ctrl + T</td>
+<td align="center">Command + T</td>
+</tr>
+<tr>
+<td align="center">行上移</td>
+<td align="center">Alt + 上箭头</td>
+<td align="center">Command + 下箭头</td>
+</tr>
+<tr>
+<td align="center">行下移</td>
+<td align="center">Alt + 下箭头</td>
+<td align="center">Command + 下箭头</td>
+</tr>
+<tr>
+<td align="center">列左移</td>
+<td align="center">Alt + 左箭头</td>
+<td align="center">Command + 左箭头</td>
+</tr>
+<tr>
+<td align="center">列右移</td>
+<td align="center">Alt + 右箭头</td>
+<td align="center">Command + 右箭头</td>
+</tr>
+<tr>
+<td align="center">插入行</td>
+<td align="center">Ctrl + Enter</td>
+<td align="center">Command + Enter</td>
+</tr>
+<tr>
+<td align="center">删除行</td>
+<td align="center">Ctrl + Shift + Delete</td>
+<td align="center">Command + Shift + Delete</td>
+</tr>
+</tbody></table>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">引用</td>
+<td align="center">Ctrl + Shift + Q</td>
+<td align="center">Command + Shift + Q</td>
+</tr>
+</tbody></table>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">有序列表</td>
+<td align="center">Ctrl + Shift + [</td>
+<td align="center">Command + Shift + [</td>
+</tr>
+<tr>
+<td align="center">无序列表</td>
+<td align="center">Ctrl + Shift + ]</td>
+<td align="center">Command + Shift + ]</td>
+</tr>
+<tr>
+<td align="center">任务列表</td>
+<td align="center">Ctrl + Shift + X</td>
+<td align="center">Command + Shift + X</td>
+</tr>
+<tr>
+<td align="center">增加列表缩进</td>
+<td align="center">Tab</td>
+<td align="center">Tab</td>
+</tr>
+<tr>
+<td align="center">减少列表缩进</td>
+<td align="center">Shift + Tab</td>
+<td align="center">Shift + Tab</td>
+</tr>
+</tbody></table>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">链接</td>
+<td align="center">Ctrl + K</td>
+<td align="center">Command + K</td>
+</tr>
+<tr>
+<td align="center">加粗</td>
+<td align="center">Ctrl + B</td>
+<td align="center">Command + B</td>
+</tr>
+<tr>
+<td align="center">斜体</td>
+<td align="center">Ctrl + I</td>
+<td align="center">Command + I</td>
+</tr>
+<tr>
+<td align="center">下划线</td>
+<td align="center">Ctrl + U</td>
+<td align="center">Command + U</td>
+</tr>
+<tr>
+<td align="center">删除线</td>
+<td align="center">Shift + Alt + 5</td>
+<td align="center">Shift + Alt + 5</td>
+</tr>
+</tbody></table>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">代码</td>
+<td align="center">Ctrl + Shift + &#96;</td>
+<td align="center">Command + Shift + &#96;</td>
+</tr>
+<tr>
+<td align="center">代码块</td>
+<td align="center">Ctrl + Shift + K</td>
+<td align="center">Command + Shift + K</td>
+</tr>
+</tbody></table>
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">隐藏 &#x2F; 显示侧边栏</td>
+<td align="center">Ctrl + Shift + L</td>
+<td align="center">Command + Shift + L</td>
+</tr>
+<tr>
+<td align="center">源代码</td>
+<td align="center">Ctrl + &#x2F;</td>
+<td align="center">Command + &#x2F;</td>
+</tr>
+</tbody></table>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.markdownguide.org/">Markdown</a></li>
+<li><a href="https://typora.io/">Typora</a></li>
+<li><a href="https://typora.io/#download">Typora 下载</a></li>
+<li><a href="https://typora.io/#purchase">Typora 购买</a></li>
+<li>typora-段落</li>
+<li>typora-格式</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>门面模式</title>
+    <url>/2023/04/29/structural-facade/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月29日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用门面模式来实现新闻发言人。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Statable &#123;
+	&lt;&lt;interface&gt;&gt;
+	domestic() void
+	foreign() void
+&#125;
+
+class Spokesman &#123;
+	domestic() void
+	foreign() void
+&#125;
+
+Statable &lt;|.. Spokesman
+
+class Commerce &#123;
+	state() void
+&#125;
+
+class Defense &#123;
+	state() void
+&#125;
+
+class Education &#123;
+	state() void
+&#125;
+
+class Foreign &#123;
+	state() void
+&#125;
+
+Spokesman o-- Commerce
+Spokesman o-- Defense
+Spokesman o-- Education
+Spokesman o-- Foreign</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="FacadeTest"><a href="#FacadeTest" class="headerlink" title="FacadeTest"></a>FacadeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FacadeTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Statable</span> <span class="variable">statable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Spokesman</span>();</span><br><span class="line">        statable.domestic();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Statable</span> <span class="variable">statable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Spokesman</span>();</span><br><span class="line">        statable.foreign();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Statable"><a href="#Statable" class="headerlink" title="Statable"></a>Statable</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Statable</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对内发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">domestic</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">foreign</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Spokesman"><a href="#Spokesman" class="headerlink" title="Spokesman"></a>Spokesman</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Spokesman</span> <span class="keyword">implements</span> <span class="title class_">Statable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Commerce commerce;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Defense defense;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Education education;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Foreign foreign;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Spokesman</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.commerce = <span class="keyword">new</span> <span class="title class_">Commerce</span>();</span><br><span class="line">        <span class="built_in">this</span>.defense = <span class="keyword">new</span> <span class="title class_">Defense</span>();</span><br><span class="line">        <span class="built_in">this</span>.education = <span class="keyword">new</span> <span class="title class_">Education</span>();</span><br><span class="line">        <span class="built_in">this</span>.foreign = <span class="keyword">new</span> <span class="title class_">Foreign</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对内发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">domestic</span><span class="params">()</span> &#123;</span><br><span class="line">        commerce.state();</span><br><span class="line">        education.state();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">foreign</span><span class="params">()</span> &#123;</span><br><span class="line">        defense.state();</span><br><span class="line">        foreign.state();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Commerce"><a href="#Commerce" class="headerlink" title="Commerce"></a>Commerce</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Commerce</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;欢迎来中国投资&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Defense"><a href="#Defense" class="headerlink" title="Defense"></a>Defense</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Defense</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;犯我德邦者，虽远必诛&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Education</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;之乎者也&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Foreign"><a href="#Foreign" class="headerlink" title="Foreign"></a>Foreign</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foreign</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;坚决维护和平共处五项原则&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
+<li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
+<li>解决性能问题。</li>
+<li>解决分布式事务问题。</li>
+</ul>
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>门面模式是通过门面接口提供了对封装底层组合功能的封装。</p>
+]]></content>
+      <tags>
+        <tag>设计模式</tag>
       </tags>
   </entry>
   <entry>
@@ -269,6 +725,209 @@ OperatorFactory &lt;.. CalcFactory</code></pre>
 ]]></content>
       <tags>
         <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代理模式</title>
+    <url>/2023/04/25/structural-proxy/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月25日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来给原始类附加功能。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>通过代理模式来实现追求者给被追求者送礼物。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Gift &#123;
+	&lt;&lt;interface&gt;&gt;
+	giveDoll():void
+	giveFlower():void
+&#125;
+
+class PursuerProxy &#123;
+	Pursuer pursuer
+    giveDoll():void
+	giveFlower():void
+&#125;
+
+class Pursuer &#123;
+	SchoolGril gril
+    giveDoll():void
+	giveFlower():void
+&#125;
+
+class SchoolGril &#123;
+	String name
+&#125;
+
+Gift &lt;|.. Pursuer
+Gift &lt;|.. PursuerProxy
+Pursuer &lt;-- PursuerProxy
+SchoolGril &lt;-- Pursuer</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Gift"><a href="#Gift" class="headerlink" title="Gift"></a>Gift</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 礼物接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="PursuerProxy"><a href="#PursuerProxy" class="headerlink" title="PursuerProxy"></a>PursuerProxy</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者代理类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:03 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PursuerProxy</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 追求者对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> Pursuer pursuer;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PursuerProxy</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        pursuer = <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pursuer"><a href="#Pursuer" class="headerlink" title="Pursuer"></a>Pursuer</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Pursuer</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 被追求者</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SchoolGril gril;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Pursuer</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.gril = gril;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你洋娃娃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你鲜花&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SchoolGril"><a href="#SchoolGril" class="headerlink" title="SchoolGril"></a>SchoolGril</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Usage: 被追求者 &lt;br/&gt;</span><br><span class="line"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span><br><span class="line"> *</span><br><span class="line"> * @author &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span><br><span class="line"> */</span><br><span class="line">public class SchoolGril &#123;</span><br><span class="line">    @Getter</span><br><span class="line">    @Setter</span><br><span class="line">    private String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="ProxyTest"><a href="#ProxyTest" class="headerlink" title="ProxyTest"></a>ProxyTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 代理模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:57 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProxyTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Pursuer</span> <span class="variable">pursuer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;bar&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">PursuerProxy</span> <span class="variable">pursuerProxy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PursuerProxy</span>(gril);</span><br><span class="line">        pursuerProxy.giveDoll();</span><br><span class="line">        pursuerProxy.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h1><p>静态代理的缺点：1. 编写的目标代理类太多；2. 当代理类接口改变，所有的代理类都需要进行更新。</p>
+<p>使用反射可以完成原始类的动态代理。</p>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</p>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li><p>业务系统的非功能性需求开发</p>
+<p>监控、统计、鉴权、限流、事务、幂等、日志。</p>
+</li>
+<li><p>RPC</p>
+</li>
+<li><p>缓存</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>装饰模式</title>
+    <url>/2023/04/24/structural-decorator/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月24日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>装饰模式(Decorator)，动态地给一个对象添加一些额外的职责。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>装饰模式实现给 Person 动态进行穿衣。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Finery &#123;
+	&lt;&lt;nterface&gt;&gt;
+	wear(): void
+&#125;
+
+class FineryDecorator &#123;
+	-Finery finery
+	&lt;&lt;abstract&gt;&gt;
+	+decorate(Finery finery): void
+    +wear(): void
+&#125;
+
+class Person &#123;
+	-String name
+    +wear(): void
+&#125;
+
+class SneakerFinery &#123;
+    +wear(): void
+&#125;
+
+class TShirtFinery &#123;
+    +wear(): void
+&#125;
+
+Finery &lt;|.. Person
+Finery &lt;|-- FineryDecorator
+FineryDecorator o-- Finery
+FineryDecorator &lt;|-- SneakerFinery
+FineryDecorator &lt;|-- TShirtFinery</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Finery"><a href="#Finery" class="headerlink" title="Finery"></a>Finery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿衣接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:22 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Person"><a href="#Person" class="headerlink" title="Person"></a>Person</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 人物类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;装扮的&quot;</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="FineryDecorator"><a href="#FineryDecorator" class="headerlink" title="FineryDecorator"></a>FineryDecorator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> Finery&#125; 装饰器 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">FineryDecorator</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Finery finery;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.finery = finery;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(finery)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.finery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SneakerFinery"><a href="#SneakerFinery" class="headerlink" title="SneakerFinery"></a>SneakerFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿鞋功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:09 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SneakerFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;球鞋&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="TShirtFinery"><a href="#TShirtFinery" class="headerlink" title="TShirtFinery"></a>TShirtFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿 T 恤功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TShirtFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;T恤&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 装饰模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:36 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DecoratorTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Finery</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">tShirt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirt.decorate(person);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">sneaker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneaker.decorate(tShirt);</span><br><span class="line">        sneaker.wear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">hanzhang</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">SneakerFinery</span> <span class="variable">sneakerFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneakerFinery.decorate(hanzhang);</span><br><span class="line">        <span class="type">TShirtFinery</span> <span class="variable">tShirtFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirtFinery.decorate(sneakerFinery);</span><br><span class="line">        tShirtFinery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
+<li>装饰器类 <code>FineryDecorator</code> 和原始类 <code>Person</code> 继承同样的父类 Finery，可以对原始类“嵌套”多个装饰器；</li>
+<li>装饰器类 <code>FineryDecorator</code> 是对原始类 <code>Person</code> 功能的增强；</li>
+<li>通过组合代替继承，解决继承关系过于复杂。把原有类中的装饰功能移除，简化原有类；</li>
+<li>把类的核心职责和装饰功能区分开，减少重复的装饰逻辑；</li>
+</ol>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>代理类附加的是跟原始类无关的功能，而在装饰器模式中，装饰器类附加的是跟原始类相关的增强功能。</p>
+]]></content>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>策略模式</title>
+    <url>/2023/04/24/behavioral-strategy/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用模板模式来实现批改试卷。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Examination &#123;
+	&lt;&lt;Abstract&gt;&gt;
+	#question01() void
+    #question02() void
+    #answer01()* int
+    #answer02()* int
+&#125;
+
+class Bar &#123;
+    answer01() int
+    answer02() int
+&#125;
+
+class Foo &#123;
+    answer01() int
+    answer02() int
+&#125;
+
+
+Examination &lt;|-- Bar
+Examination &lt;|-- Foo</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="PrototypeTest"><a href="#PrototypeTest" class="headerlink" title="PrototypeTest"></a>PrototypeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">FooTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">foo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line">        foo.question01();</span><br><span class="line">        foo.question02();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">BarTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">bar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bar</span>();</span><br><span class="line">        bar.question01();</span><br><span class="line">        bar.question02();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Examination"><a href="#Examination" class="headerlink" title="Examination"></a>Examination</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer01();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 1 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer02();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 2 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Bar"><a href="#Bar" class="headerlink" title="Bar"></a>Bar</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bar</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Foo"><a href="#Foo" class="headerlink" title="Foo"></a>Foo</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foo</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
       </tags>
   </entry>
   <entry>
@@ -510,666 +1169,7 @@ OperatorFactory &lt;.. CalcFactory</code></pre>
 </ul>
 ]]></content>
       <tags>
-        <tag>README</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>门面模式</title>
-    <url>/2023/04/29/structural-facade/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用门面模式来实现新闻发言人。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Statable &#123;
-	&lt;&lt;interface&gt;&gt;
-	domestic() void
-	foreign() void
-&#125;
-
-class Spokesman &#123;
-	domestic() void
-	foreign() void
-&#125;
-
-Statable &lt;|.. Spokesman
-
-class Commerce &#123;
-	state() void
-&#125;
-
-class Defense &#123;
-	state() void
-&#125;
-
-class Education &#123;
-	state() void
-&#125;
-
-class Foreign &#123;
-	state() void
-&#125;
-
-Spokesman o-- Commerce
-Spokesman o-- Defense
-Spokesman o-- Education
-Spokesman o-- Foreign</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="FacadeTest"><a href="#FacadeTest" class="headerlink" title="FacadeTest"></a>FacadeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FacadeTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Statable</span> <span class="variable">statable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Spokesman</span>();</span><br><span class="line">        statable.domestic();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Statable</span> <span class="variable">statable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Spokesman</span>();</span><br><span class="line">        statable.foreign();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Statable"><a href="#Statable" class="headerlink" title="Statable"></a>Statable</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Statable</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对内发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">domestic</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">foreign</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Spokesman"><a href="#Spokesman" class="headerlink" title="Spokesman"></a>Spokesman</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Spokesman</span> <span class="keyword">implements</span> <span class="title class_">Statable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Commerce commerce;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Defense defense;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Education education;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Foreign foreign;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Spokesman</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.commerce = <span class="keyword">new</span> <span class="title class_">Commerce</span>();</span><br><span class="line">        <span class="built_in">this</span>.defense = <span class="keyword">new</span> <span class="title class_">Defense</span>();</span><br><span class="line">        <span class="built_in">this</span>.education = <span class="keyword">new</span> <span class="title class_">Education</span>();</span><br><span class="line">        <span class="built_in">this</span>.foreign = <span class="keyword">new</span> <span class="title class_">Foreign</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对内发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">domestic</span><span class="params">()</span> &#123;</span><br><span class="line">        commerce.state();</span><br><span class="line">        education.state();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">foreign</span><span class="params">()</span> &#123;</span><br><span class="line">        defense.state();</span><br><span class="line">        foreign.state();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Commerce"><a href="#Commerce" class="headerlink" title="Commerce"></a>Commerce</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Commerce</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;欢迎来中国投资&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Defense"><a href="#Defense" class="headerlink" title="Defense"></a>Defense</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Defense</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;犯我德邦者，虽远必诛&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Education</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;之乎者也&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Foreign"><a href="#Foreign" class="headerlink" title="Foreign"></a>Foreign</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foreign</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;坚决维护和平共处五项原则&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
-<li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
-<li>解决性能问题。</li>
-<li>解决分布式事务问题。</li>
-</ul>
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>门面模式是通过门面接口提供了对封装底层组合功能的封装。</p>
-]]></content>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>装饰模式</title>
-    <url>/2023/04/24/structural-decorator/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月24日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>装饰模式(Decorator)，动态地给一个对象添加一些额外的职责。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>装饰模式实现给 Person 动态进行穿衣。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Finery &#123;
-	&lt;&lt;nterface&gt;&gt;
-	wear(): void
-&#125;
-
-class FineryDecorator &#123;
-	-Finery finery
-	&lt;&lt;abstract&gt;&gt;
-	+decorate(Finery finery): void
-    +wear(): void
-&#125;
-
-class Person &#123;
-	-String name
-    +wear(): void
-&#125;
-
-class SneakerFinery &#123;
-    +wear(): void
-&#125;
-
-class TShirtFinery &#123;
-    +wear(): void
-&#125;
-
-Finery &lt;|.. Person
-Finery &lt;|-- FineryDecorator
-FineryDecorator o-- Finery
-FineryDecorator &lt;|-- SneakerFinery
-FineryDecorator &lt;|-- TShirtFinery</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Finery"><a href="#Finery" class="headerlink" title="Finery"></a>Finery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿衣接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:22 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Person"><a href="#Person" class="headerlink" title="Person"></a>Person</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 人物类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 姓名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣服</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;装扮的&quot;</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="FineryDecorator"><a href="#FineryDecorator" class="headerlink" title="FineryDecorator"></a>FineryDecorator</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> Finery&#125; 装饰器 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">FineryDecorator</span> <span class="keyword">implements</span> <span class="title class_">Finery</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 穿衣接口</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Finery finery;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.finery = finery;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">wear</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(finery)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.finery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="SneakerFinery"><a href="#SneakerFinery" class="headerlink" title="SneakerFinery"></a>SneakerFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿鞋功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:09 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SneakerFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;球鞋&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="TShirtFinery"><a href="#TShirtFinery" class="headerlink" title="TShirtFinery"></a>TShirtFinery</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 穿 T 恤功能 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:08 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TShirtFinery</span> <span class="keyword">extends</span> <span class="title class_">FineryDecorator</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚合穿衣接口的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> finery 穿衣功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">decorate</span><span class="params">(Finery finery)</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;T恤&quot;</span>);</span><br><span class="line">        <span class="built_in">super</span>.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 装饰模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/24 14:36 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DecoratorTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Finery</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">tShirt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirt.decorate(person);</span><br><span class="line">        <span class="type">FineryDecorator</span> <span class="variable">sneaker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneaker.decorate(tShirt);</span><br><span class="line">        sneaker.wear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">hanzhang</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;hanzhang&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;第一种：&quot;</span>);</span><br><span class="line">        <span class="type">SneakerFinery</span> <span class="variable">sneakerFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SneakerFinery</span>();</span><br><span class="line">        sneakerFinery.decorate(hanzhang);</span><br><span class="line">        <span class="type">TShirtFinery</span> <span class="variable">tShirtFinery</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TShirtFinery</span>();</span><br><span class="line">        tShirtFinery.decorate(sneakerFinery);</span><br><span class="line">        tShirtFinery.wear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ol>
-<li>装饰器类 <code>FineryDecorator</code> 和原始类 <code>Person</code> 继承同样的父类 Finery，可以对原始类“嵌套”多个装饰器；</li>
-<li>装饰器类 <code>FineryDecorator</code> 是对原始类 <code>Person</code> 功能的增强；</li>
-<li>通过组合代替继承，解决继承关系过于复杂。把原有类中的装饰功能移除，简化原有类；</li>
-<li>把类的核心职责和装饰功能区分开，减少重复的装饰逻辑；</li>
-</ol>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>代理类附加的是跟原始类无关的功能，而在装饰器模式中，装饰器类附加的是跟原始类相关的增强功能。</p>
-]]></content>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>代理模式</title>
-    <url>/2023/04/25/structural-proxy/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月25日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来给原始类附加功能。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>通过代理模式来实现追求者给被追求者送礼物。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Gift &#123;
-	&lt;&lt;interface&gt;&gt;
-	giveDoll():void
-	giveFlower():void
-&#125;
-
-class PursuerProxy &#123;
-	Pursuer pursuer
-    giveDoll():void
-	giveFlower():void
-&#125;
-
-class Pursuer &#123;
-	SchoolGril gril
-    giveDoll():void
-	giveFlower():void
-&#125;
-
-class SchoolGril &#123;
-	String name
-&#125;
-
-Gift &lt;|.. Pursuer
-Gift &lt;|.. PursuerProxy
-Pursuer &lt;-- PursuerProxy
-SchoolGril &lt;-- Pursuer</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Gift"><a href="#Gift" class="headerlink" title="Gift"></a>Gift</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 礼物接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="PursuerProxy"><a href="#PursuerProxy" class="headerlink" title="PursuerProxy"></a>PursuerProxy</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者代理类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:03 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PursuerProxy</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 追求者对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> Pursuer pursuer;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PursuerProxy</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        pursuer = <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Pursuer"><a href="#Pursuer" class="headerlink" title="Pursuer"></a>Pursuer</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Pursuer</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 被追求者</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SchoolGril gril;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Pursuer</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.gril = gril;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你洋娃娃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你鲜花&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="SchoolGril"><a href="#SchoolGril" class="headerlink" title="SchoolGril"></a>SchoolGril</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Usage: 被追求者 &lt;br/&gt;</span><br><span class="line"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span><br><span class="line"> *</span><br><span class="line"> * @author &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span><br><span class="line"> */</span><br><span class="line">public class SchoolGril &#123;</span><br><span class="line">    @Getter</span><br><span class="line">    @Setter</span><br><span class="line">    private String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="ProxyTest"><a href="#ProxyTest" class="headerlink" title="ProxyTest"></a>ProxyTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 代理模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:57 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProxyTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Pursuer</span> <span class="variable">pursuer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;bar&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">PursuerProxy</span> <span class="variable">pursuerProxy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PursuerProxy</span>(gril);</span><br><span class="line">        pursuerProxy.giveDoll();</span><br><span class="line">        pursuerProxy.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h1><p>静态代理的缺点：1. 编写的目标代理类太多；2. 当代理类接口改变，所有的代理类都需要进行更新。</p>
-<p>使用反射可以完成原始类的动态代理。</p>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</p>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li><p>业务系统的非功能性需求开发</p>
-<p>监控、统计、鉴权、限流、事务、幂等、日志。</p>
-</li>
-<li><p>RPC</p>
-</li>
-<li><p>缓存</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Typora 和 Markdown</title>
-    <url>/2023/04/29/typora-and-markdown/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。</p>
-<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
-<li>平台独立。任何 os 都可以方便的创建和浏览；</li>
-<li>适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写；</li>
-<li>广泛支持。大量论坛、网站、桌面程序和 Web 程序都支持；</li>
-</ol>
-<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ol>
-<li>写文章；</li>
-<li>项目的 README；</li>
-</ol>
-<h1 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h1><p>Typora 类似于 Windows 中的记事本，是一个专门用来创建和编写 Markdown 的软件。</p>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><p>在 Typora 上写 Markdown 如虎添翼，下面会介绍自己在学习工作中使用 Typora 中快捷键编写 Markdown 的最佳实践，基本能够应对 90% 以上的情况。</p>
-<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>不建议使用 3 级以上的标题，这样会让文章编排很乱。</p>
-<table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">一级标题</td>
-<td align="center">Ctrl + 1</td>
-<td align="center">Command + 1</td>
-</tr>
-<tr>
-<td align="center">二级标题</td>
-<td align="center">Ctrl + 2</td>
-<td align="center">Command + 2</td>
-</tr>
-<tr>
-<td align="center">三级标题</td>
-<td align="center">Ctrl + 3</td>
-<td align="center">Command + 3</td>
-</tr>
-<tr>
-<td align="center">段落</td>
-<td align="center">Ctrl + 0</td>
-<td align="center">Command + 4</td>
-</tr>
-</tbody></table>
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">插入表格</td>
-<td align="center">Ctrl + T</td>
-<td align="center">Command + T</td>
-</tr>
-<tr>
-<td align="center">行上移</td>
-<td align="center">Alt + 上箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">行下移</td>
-<td align="center">Alt + 下箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">列左移</td>
-<td align="center">Alt + 左箭头</td>
-<td align="center">Command + 左箭头</td>
-</tr>
-<tr>
-<td align="center">列右移</td>
-<td align="center">Alt + 右箭头</td>
-<td align="center">Command + 右箭头</td>
-</tr>
-<tr>
-<td align="center">插入行</td>
-<td align="center">Ctrl + Enter</td>
-<td align="center">Command + Enter</td>
-</tr>
-<tr>
-<td align="center">删除行</td>
-<td align="center">Ctrl + Shift + Delete</td>
-<td align="center">Command + Shift + Delete</td>
-</tr>
-</tbody></table>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">引用</td>
-<td align="center">Ctrl + Shift + Q</td>
-<td align="center">Command + Shift + Q</td>
-</tr>
-</tbody></table>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">有序列表</td>
-<td align="center">Ctrl + Shift + [</td>
-<td align="center">Command + Shift + [</td>
-</tr>
-<tr>
-<td align="center">无序列表</td>
-<td align="center">Ctrl + Shift + ]</td>
-<td align="center">Command + Shift + ]</td>
-</tr>
-<tr>
-<td align="center">任务列表</td>
-<td align="center">Ctrl + Shift + X</td>
-<td align="center">Command + Shift + X</td>
-</tr>
-<tr>
-<td align="center">增加列表缩进</td>
-<td align="center">Tab</td>
-<td align="center">Tab</td>
-</tr>
-<tr>
-<td align="center">减少列表缩进</td>
-<td align="center">Shift + Tab</td>
-<td align="center">Shift + Tab</td>
-</tr>
-</tbody></table>
-<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">链接</td>
-<td align="center">Ctrl + K</td>
-<td align="center">Command + K</td>
-</tr>
-<tr>
-<td align="center">加粗</td>
-<td align="center">Ctrl + B</td>
-<td align="center">Command + B</td>
-</tr>
-<tr>
-<td align="center">斜体</td>
-<td align="center">Ctrl + I</td>
-<td align="center">Command + I</td>
-</tr>
-<tr>
-<td align="center">下划线</td>
-<td align="center">Ctrl + U</td>
-<td align="center">Command + U</td>
-</tr>
-<tr>
-<td align="center">删除线</td>
-<td align="center">Shift + Alt + 5</td>
-<td align="center">Shift + Alt + 5</td>
-</tr>
-</tbody></table>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">代码</td>
-<td align="center">Ctrl + Shift + &#96;</td>
-<td align="center">Command + Shift + &#96;</td>
-</tr>
-<tr>
-<td align="center">代码块</td>
-<td align="center">Ctrl + Shift + K</td>
-<td align="center">Command + Shift + K</td>
-</tr>
-</tbody></table>
-<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">隐藏 &#x2F; 显示侧边栏</td>
-<td align="center">Ctrl + Shift + L</td>
-<td align="center">Command + Shift + L</td>
-</tr>
-<tr>
-<td align="center">源代码</td>
-<td align="center">Ctrl + &#x2F;</td>
-<td align="center">Command + &#x2F;</td>
-</tr>
-</tbody></table>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://www.markdownguide.org/">Markdown</a></li>
-<li><a href="https://typora.io/">Typora</a></li>
-<li><a href="https://typora.io/#download">Typora 下载</a></li>
-<li><a href="https://typora.io/#purchase">Typora 购买</a></li>
-<li>typora-段落</li>
-<li>typora-格式</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UML 类图</title>
-    <url>/2023/04/30/uml-class-diagram/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月30日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
-<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
-<pre><code class="highlight mermaid">---
-title: 接口示例
----
-classDiagram
-class Speaker &#123;
-	&lt;&lt;interface&gt;&gt;
-	speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Abstract &#123;
-	&lt;&lt;abstract&gt;&gt;
-&#125;</code></pre>
-
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
-<pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Speakerman &#123;
-	String name
-    speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
-<p>-表示 private</p>
-<p>#表示 protected</p>
-<p>~表示 package 或者 internal</p>
-<pre><code class="highlight mermaid">---
-title: 可见性示例
----
-classDiagram
-class Visibility &#123;
-	+int n1
-	-int n2
-	#int n3
-	~int n4
-	
-	+m1()
-	-m1()
-	#m3()
-	~m4()
-&#125;</code></pre>
-
-<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
-<p>$表示 static，下划线</p>
-<pre><code class="highlight mermaid">---
-title: 修饰符示例
----
-classDiagram
-class Modifier &#123;
-	int n1$
-	
-	+m1()*
-    +m2()$
-&#125;</code></pre>
-
-<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
-<p>Man is a Person</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Person &#123;
-	
-&#125;
-
-class Man &#123;
-	
-&#125;
-
-Person &lt;|-- Man</code></pre>
-
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
-<p>Bird has Fly ability</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Fly &#123;
-	&lt;&lt;interface&gt;&gt;
-&#125;
-
-class Bird &#123;
-	
-&#125;
-
-Fly &lt;|.. Bird</code></pre>
-
-<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
-<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
-<pre><code class="highlight mermaid">---
-title: 聚合示例
----
-classDiagram
-class Classroom &#123;
-	Blackboard blackboard
-&#125;
-
-class Blackboard &#123;
-	
-&#125;
-
-Classroom o-- Blackboard</code></pre>
-
-<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
-<p>Arm is part of Person </p>
-<pre><code class="highlight mermaid">---
-title: 组合示例
----
-classDiagram
-class Person &#123;
-	Arm arm
-&#125;
-
-class Arm &#123;
-	
-&#125;
-
-Person *-- Arm</code></pre>
-
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
-<p>Person depand on Water</p>
-<pre><code class="highlight mermaid">---
-title: 依赖示例
----
-classDiagram
-class Person &#123;
-	Water water
-&#125;
-
-class Water &#123;
-	
-&#125;
-
-Water &lt;.. Person</code></pre>
-
-<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
-<p>Person should know Climate</p>
-<pre><code class="highlight mermaid">---
-title: 关联示例
----
-classDiagram
-class Person &#123;
-	Climate climate
-&#125;
-
-class Climate &#123;
-	
-&#125;
-
-Climate &lt;-- Person</code></pre>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
-<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
-<li>聚合适用范围比组合更广；</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>工具</tag>
+        <tag>readme</tag>
       </tags>
   </entry>
 </search>
