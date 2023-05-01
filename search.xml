@@ -197,9 +197,21 @@ Climate &lt;-- Person</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>模板方法模式</title>
-    <url>/2023/04/30/behaviour-template/</url>
-    <content><![CDATA[<table>
+    <title>装饰模式</title>
+    <url>/2023/04/29/behavioral-template/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>实现了反转控制；</li>
+<li>给子类提供了扩展的钩子 hook；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>实现算法不变的部分，将可变行为留给子类来实现；</li>
+<li>子类中公共的行为被提取到父类，避免代码重复；</li>
+<li>限制子类扩展</li>
+</ol>
+<span id="more"></span>
+
+<table>
 <thead>
 <tr>
 <th align="center">DATE</th>
@@ -207,47 +219,49 @@ Climate &lt;-- Person</code></pre>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年4月28日</td>
-<td align="center">init</td>
+<td align="center">2023年4月29日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月1日</td>
+<td align="center">添加 Go 语言实现</td>
 </tr>
 </tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用模板模式来实现批改试卷。</p>
 <h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
 
-class Examination &#123;
+class AbstractClass &#123;
 	&lt;&lt;Abstract&gt;&gt;
-	#question01() void
-    #question02() void
-    #answer01()* int
-    #answer02()* int
+	template()
+	stepX()*
 &#125;
 
-class Bar &#123;
-    answer01() int
-    answer02() int
+class ConcreteClass &#123;
+	stepX()
 &#125;
 
-class Foo &#123;
-    answer01() int
-    answer02() int
-&#125;
+AbstractClass &lt;|-- ConcreteClass
+AbstractClass &lt;-- Client</code></pre>
 
-
-Examination &lt;|-- Bar
-Examination &lt;|-- Foo</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="PrototypeTest"><a href="#PrototypeTest" class="headerlink" title="PrototypeTest"></a>PrototypeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">FooTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">foo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line">        foo.question01();</span><br><span class="line">        foo.question02();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">BarTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">bar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bar</span>();</span><br><span class="line">        bar.question01();</span><br><span class="line">        bar.question02();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Examination"><a href="#Examination" class="headerlink" title="Examination"></a>Examination</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer01();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 1 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer02();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 2 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Bar"><a href="#Bar" class="headerlink" title="Bar"></a>Bar</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bar</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="Foo"><a href="#Foo" class="headerlink" title="Foo"></a>Foo</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foo</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</p>
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="AbstractClass"><a href="#AbstractClass" class="headerlink" title="AbstractClass"></a>AbstractClass</h2><ul>
+<li>定义算法骨架，将具体步骤留到子类；</li>
+</ul>
+<h2 id="ConcreteClass"><a href="#ConcreteClass" class="headerlink" title="ConcreteClass"></a>ConcreteClass</h2><ul>
+<li>继承 AbstractClass，实现具体步骤；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 通常使用 AbstractClass 引用来创建一个 ConcreteClass 实例；</li>
+<li>client 调用 AbstractClass 中的 template 方法；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>工厂方法：常被模板方法调用；</li>
+<li>策略模式：模板方法使用继承来改变算法的一部分；但策略模式是使用委托来改变整个算法；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/template/template_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/template/ClientTest.java">java</a></p>
 ]]></content>
       <tags>
         <tag>design pattern</tag>
@@ -644,13 +658,12 @@ Spokesman o-- Foreign</code></pre>
     <title>代理模式</title>
     <url>/2023/04/28/structural-proxy/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来控制这个对象的访问。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>比静态的继承更加灵活；</li>
-<li>避免高层接口的功能太复杂。</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>有很多小对象；</li>
-</ol>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
+<li>间接访问原始类；</li>
+</ul>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ul>
+<li>编写的目标代理类太多，当代理类接口改变，所有的代理类都需要进行更新。</li>
+</ul>
 <h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
 <li><p>业务系统的非功能性需求开发。监控、统计、鉴权、限流、事务、幂等、日志。</p>
 </li>
@@ -710,23 +723,17 @@ Subject &lt;-- Client</code></pre>
 <li>客户端</li>
 </ul>
 <h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 创建一个 Component；</li>
-<li>通过 Decorator 层层包装 client；</li>
-<li>调用 Component 提供的方法进行工作；</li>
+<li>client 创建一个 Proxy ；</li>
+<li>通过 Proxy 代理类访问原始类；</li>
 </ol>
 <h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>适配器模式：装饰者模式仅改变对象职责，而适配器模式将给对象一个全新的接口；</li>
-<li>组合模式：装饰器模式被认为是退化为只有一个组件的组合；</li>
-<li>策略模式：装饰器模式改变的是对象外表，而策略模式改变对象内核。</li>
+<li>适配器模式：适配器模式将给对象一个全新的接口，而代理模式使用相同接口；</li>
+<li>装饰模式：装饰模式是给原始类增加功能，而代理关注访问和控制原始类；</li>
 </ul>
 <h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li><p>静态代理的缺点：1. 编写的目标代理类太多；2. 当代理类接口改变，所有的代理类都需要进行更新。</p>
-<p>使用反射可以完成原始类的动态代理。</p>
-</li>
-<li><p>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</p>
-</li>
-<li><p>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</p>
-</li>
+<li>使用反射可以完成原始类的动态代理。</li>
+<li>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</li>
+<li>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</li>
 </ul>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/proxy/proxy_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/proxy/ClientTest.java">java</a></p>

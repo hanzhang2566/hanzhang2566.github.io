@@ -22,26 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Javaer | Gopher | Nerd | Engineer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张晗的个人博客">
-<meta property="og:url" content="http://hanzhang2566.github.io/page/3/index.html">
+    <meta name="description" content="模式描述模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。 优点 实现了反转控制； 给子类提供了扩展的钩子 hook；  缺点应用场景 实现算法不变的部分，将可变行为留给子类来实现； 子类中公共的行为被提取到父类，避免代码重复； 限制子类扩展">
+<meta property="og:type" content="article">
+<meta property="og:title" content="装饰模式">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/29/behavioral-template/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="Javaer | Gopher | Nerd | Engineer">
+<meta property="og:description" content="模式描述模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。 优点 实现了反转控制； 给子类提供了扩展的钩子 hook；  缺点应用场景 实现算法不变的部分，将可变行为留给子类来实现； 子类中公共的行为被提取到父类，避免代码重复； 限制子类扩展">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-29T10:57:33.000Z">
+<meta property="article:modified_time" content="2023-05-01T05:13:30.528Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="张晗 hanzhang zhanghan">
+<meta property="article:tag" content="design pattern">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/page/3/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/29/behavioral-template/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/3/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/29/behavioral-template/","path":"2023/04/29/behavioral-template/","title":"装饰模式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>张晗的个人博客</title>
+<title>装饰模式 | 张晗的个人博客</title>
   
 
 
@@ -74,7 +76,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">张晗的个人博客</h1>
+      <p class="site-title">张晗的个人博客</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">技术的价值是业务</p>
@@ -128,7 +130,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -141,6 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AbstractClass"><span class="nav-number">6.1.</span> <span class="nav-text">AbstractClass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteClass"><span class="nav-number">6.2.</span> <span class="nav-text">ConcreteClass</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.3.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -194,16 +197,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/29/behavioral-template/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -217,13 +221,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
+      <meta itemprop="name" content="装饰模式 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/29/behavioral-template/" class="post-title-link" itemprop="url">装饰模式</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          装饰模式
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -261,7 +265,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
+        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
 <li>实现了反转控制；</li>
 <li>给子类提供了扩展的钩子 hook；</li>
@@ -271,15 +275,60 @@
 <li>子类中公共的行为被提取到父类，避免代码重复；</li>
 <li>限制子类扩展</li>
 </ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/29/behavioral-template/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月29日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月1日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class AbstractClass &#123;
+	&lt;&lt;Abstract&gt;&gt;
+	template()
+	stepX()*
+&#125;
+
+class ConcreteClass &#123;
+	stepX()
+&#125;
+
+AbstractClass &lt;|-- ConcreteClass
+AbstractClass &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="AbstractClass"><a href="#AbstractClass" class="headerlink" title="AbstractClass"></a>AbstractClass</h2><ul>
+<li>定义算法骨架，将具体步骤留到子类；</li>
+</ul>
+<h2 id="ConcreteClass"><a href="#ConcreteClass" class="headerlink" title="ConcreteClass"></a>ConcreteClass</h2><ul>
+<li>继承 AbstractClass，实现具体步骤；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 通常使用 AbstractClass 引用来创建一个 ConcreteClass 实例；</li>
+<li>client 调用 AbstractClass 中的 template 方法；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>工厂方法：常被模板方法调用；</li>
+<li>策略模式：模板方法使用继承来改变算法的一部分；但策略模式是使用委托来改变整个算法；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/template/template_test.go">golang</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/template/ClientTest.java">java</a></p>
+
     </div>
 
     
@@ -287,8 +336,90 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="张晗_Jeremy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="张晗_Jeremy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>张晗_Jeremy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://hanzhang2566.github.io/2023/04/29/behavioral-template/" title="装饰模式">http://hanzhang2566.github.io/2023/04/29/behavioral-template/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/images/wechat_channel.png">
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">BiliBili</span>
+          </span>
+
+          <img class="social-item-img" src="/images/bilibili_channel.png">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/design-pattern/" rel="tag"># design pattern</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/04/29/creational-prototype/" rel="prev" title="原型模式">
+                  <i class="fa fa-chevron-left"></i> 原型模式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/04/30/uml-class-diagram/" rel="next" title="UML 类图">
+                  UML 类图 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -296,9 +427,7 @@
 
 
 
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/4/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+
 
 </div>
   </main>

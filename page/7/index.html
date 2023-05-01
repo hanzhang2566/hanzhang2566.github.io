@@ -243,14 +243,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>460</span>
+      <span>392</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -262,13 +262,12 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来控制这个对象的访问。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>比静态的继承更加灵活；</li>
-<li>避免高层接口的功能太复杂。</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>有很多小对象；</li>
-</ol>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
+<li>间接访问原始类；</li>
+</ul>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ul>
+<li>编写的目标代理类太多，当代理类接口改变，所有的代理类都需要进行更新。</li>
+</ul>
 <h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
 <li><p>业务系统的非功能性需求开发。监控、统计、鉴权、限流、事务、幂等、日志。</p>
 </li>
