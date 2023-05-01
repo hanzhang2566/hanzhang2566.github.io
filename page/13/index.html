@@ -22,28 +22,26 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="DATE CHANGELOG    2023年4月30日 init   在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。 模型模型是类途中对现实世界的抽象。 接口一组行为的抽象。 --- title: 接口示例 --- classDiagram class Speaker &amp;#123; 	&lt;&lt;interface&gt;&gt; 	speak">
-<meta property="og:type" content="article">
-<meta property="og:title" content="UML 类图">
-<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/30/uml-class-diagram/index.html">
+    <meta name="description" content="Javaer | Gopher | Nerd | Engineer">
+<meta property="og:type" content="website">
+<meta property="og:title" content="张晗的个人博客">
+<meta property="og:url" content="http://hanzhang2566.github.io/page/13/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="DATE CHANGELOG    2023年4月30日 init   在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。 模型模型是类途中对现实世界的抽象。 接口一组行为的抽象。 --- title: 接口示例 --- classDiagram class Speaker &amp;#123; 	&lt;&lt;interface&gt;&gt; 	speak">
+<meta property="og:description" content="Javaer | Gopher | Nerd | Engineer">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-30T05:44:18.000Z">
-<meta property="article:modified_time" content="2023-04-30T15:56:15.874Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="tool">
+<meta property="article:tag" content="张晗 hanzhang zhanghan">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/30/uml-class-diagram/">
+<link rel="canonical" href="http://hanzhang2566.github.io/page/13/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/30/uml-class-diagram/","path":"2023/04/30/uml-class-diagram/","title":"UML 类图"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/13/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>UML 类图 | 张晗的个人博客</title>
+<title>张晗的个人博客</title>
   
 
 
@@ -76,7 +74,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">张晗的个人博客</p>
+      <h1 class="site-title">张晗的个人博客</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">技术的价值是业务</p>
@@ -130,7 +128,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -143,7 +141,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">1.4.</span> <span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">1.5.</span> <span class="nav-text">修饰符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-number">2.1.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E5%90%88"><span class="nav-number">2.3.</span> <span class="nav-text">聚合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88"><span class="nav-number">2.4.</span> <span class="nav-text">组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="nav-number">2.5.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E8%81%94"><span class="nav-number">2.6.</span> <span class="nav-text">关联</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -197,18 +194,17 @@
 
     </div>
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner index posts-expand">
 
-
-  
+    
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/30/uml-class-diagram/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/24/creational-factory-tmpl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -221,13 +217,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="UML 类图 | 张晗的个人博客">
+      <meta itemprop="name" content="undefined | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          UML 类图
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/24/creational-factory-tmpl/" class="post-title-link" itemprop="url">工厂方法模式</a>
+        </h2>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -237,7 +233,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-04-30 13:44:18" itemprop="dateCreated datePublished" datetime="2023-04-30T13:44:18+08:00">2023-04-30</time>
+      <time title="创建时间：2023-04-24 18:57:33" itemprop="dateCreated datePublished" datetime="2023-04-24T18:57:33+08:00">2023-04-24</time>
     </span>
 
   
@@ -247,14 +243,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>496</span>
+      <span>352</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -265,184 +261,27 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月30日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
-<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
-<pre><code class="highlight mermaid">---
-title: 接口示例
----
-classDiagram
-class Speaker &#123;
-	&lt;&lt;interface&gt;&gt;
-	speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Abstract &#123;
-	&lt;&lt;abstract&gt;&gt;
-&#125;</code></pre>
-
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
-<pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Speakerman &#123;
-	String name
-    speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
-<p>-表示 private</p>
-<p>#表示 protected</p>
-<p>~表示 package 或者 internal</p>
-<pre><code class="highlight mermaid">---
-title: 可见性示例
----
-classDiagram
-class Visibility &#123;
-	+int n1
-	-int n2
-	#int n3
-	~int n4
-	
-	+m1()
-	-m1()
-	#m3()
-	~m4()
-&#125;</code></pre>
-
-<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
-<p>$表示 static，下划线</p>
-<pre><code class="highlight mermaid">---
-title: 修饰符示例
----
-classDiagram
-class Modifier &#123;
-	int n1$
-	
-	+m1()*
-    +m2()$
-&#125;</code></pre>
-
-<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
-<p>Man is a Person</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Person &#123;
-	
-&#125;
-
-class Man &#123;
-	
-&#125;
-
-Person &lt;|-- Man</code></pre>
-
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
-<p>Bird has Fly ability</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Fly &#123;
-	&lt;&lt;interface&gt;&gt;
-&#125;
-
-class Bird &#123;
-	
-&#125;
-
-Fly &lt;|.. Bird</code></pre>
-
-<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
-<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
-<pre><code class="highlight mermaid">---
-title: 聚合示例
----
-classDiagram
-class Classroom &#123;
-	Blackboard blackboard
-&#125;
-
-class Blackboard &#123;
-	
-&#125;
-
-Classroom o-- Blackboard</code></pre>
-
-<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
-<p>Arm is part of Person </p>
-<pre><code class="highlight mermaid">---
-title: 组合示例
----
-classDiagram
-class Person &#123;
-	Arm arm
-&#125;
-
-class Arm &#123;
-	
-&#125;
-
-Person *-- Arm</code></pre>
-
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
-<p>Person depand on Water</p>
-<pre><code class="highlight mermaid">---
-title: 依赖示例
----
-classDiagram
-class Person &#123;
-	Water water
-&#125;
-
-class Water &#123;
-	
-&#125;
-
-Water &lt;.. Person</code></pre>
-
-<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
-<p>Person should know Climate</p>
-<pre><code class="highlight mermaid">---
-title: 关联示例
----
-classDiagram
-class Person &#123;
-	Climate climate
-&#125;
-
-class Climate &#123;
-	
-&#125;
-
-Climate &lt;-- Person</code></pre>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
-<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
-<li>聚合适用范围比组合更广；</li>
+          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>给子类创建对象预留扩展点；</li>
+<li>client 通过 Creator 间接创建对象；</li>
 </ol>
-
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>Creator 实现变多；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>一个类希望由它的子类来创建对象时；</li>
+<li>一个类不知道创建对象的类时；</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/04/24/creational-factory-tmpl/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
     </div>
 
     
@@ -450,90 +289,8 @@ Climate &lt;-- Person</code></pre>
     
 
     <footer class="post-footer">
-          <div class="reward-container">
-  <div>请我一杯咖啡吧！</div>
-  <button>
-    赞赏
-  </button>
-  <div class="post-reward">
-      <div>
-        <img src="/images/wechatpay.png" alt="张晗_Jeremy 微信">
-        <span>微信</span>
-      </div>
-      <div>
-        <img src="/images/alipay.png" alt="张晗_Jeremy 支付宝">
-        <span>支付宝</span>
-      </div>
-
-  </div>
-</div>
-
-          
-
-<div class="post-copyright">
-<ul>
-  <li class="post-copyright-author">
-      <strong>本文作者： </strong>张晗_Jeremy
-  </li>
-  <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/04/30/uml-class-diagram/" title="UML 类图">http://hanzhang2566.github.io/2023/04/30/uml-class-diagram/</a>
-  </li>
-  <li class="post-copyright-license">
-      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
-  </li>
-</ul>
-</div>
-
-          <div class="followme">
-  <span>欢迎关注我的其它发布渠道</span>
-
-  <div class="social-list">
-
-      <div class="social-item">
-          <span class="social-link">
-            <span class="icon">
-              <i class="fab fa-weixin"></i>
-            </span>
-
-            <span class="label">WeChat</span>
-          </span>
-
-          <img class="social-item-img" src="/images/wechat_channel.png">
-      </div>
-
-      <div class="social-item">
-          <span class="social-link">
-            <span class="icon">
-              <i class="fab fa-bilibili"></i>
-            </span>
-
-            <span class="label">BiliBili</span>
-          </span>
-
-          <img class="social-item-img" src="/images/bilibili_channel.png">
-      </div>
-  </div>
-</div>
-
-          <div class="post-tags">
-              <a href="/tags/tool/" rel="tag"># tool</a>
-          </div>
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2023/04/29/behavioral-template/" rel="prev" title="模板方法模式">
-                  <i class="fa fa-chevron-left"></i> 模板方法模式
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2023/04/30/structural-facade/" rel="next" title="门面模式">
-                  门面模式 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
+        <div class="post-eof"></div>
+      
     </footer>
   </article>
 </div>
@@ -541,7 +298,9 @@ Climate &lt;-- Person</code></pre>
 
 
 
-
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/14/"><i class="fa fa-angle-right"></i></a>
+  </nav>
 
 </div>
   </main>
