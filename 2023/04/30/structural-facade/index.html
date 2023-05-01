@@ -22,26 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Javaer | Gopher | Nerd | Engineer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张晗的个人博客">
-<meta property="og:url" content="http://hanzhang2566.github.io/page/5/index.html">
+    <meta name="description" content="模式描述门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。 优点1.  缺点1.  应用场景 解决易用性问题。例如 Linux 系统提供的系统调用函数等； 解决性能问题。 解决分布式事务问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="门面模式">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/30/structural-facade/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="Javaer | Gopher | Nerd | Engineer">
+<meta property="og:description" content="模式描述门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。 优点1.  缺点1.  应用场景 解决易用性问题。例如 Linux 系统提供的系统调用函数等； 解决性能问题。 解决分布式事务问题。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-30T07:16:16.000Z">
+<meta property="article:modified_time" content="2023-05-01T06:29:26.298Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="张晗 hanzhang zhanghan">
+<meta property="article:tag" content="design pattern">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/page/5/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/30/structural-facade/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/5/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/30/structural-facade/","path":"2023/04/30/structural-facade/","title":"门面模式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>张晗的个人博客</title>
+<title>门面模式 | 张晗的个人博客</title>
   
 
 
@@ -74,7 +76,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">张晗的个人博客</h1>
+      <p class="site-title">张晗的个人博客</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">技术的价值是业务</p>
@@ -128,7 +130,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -141,6 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.1.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -194,17 +197,18 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/29/creational-prototype/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/30/structural-facade/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -217,13 +221,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
+      <meta itemprop="name" content="门面模式 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/29/creational-prototype/" class="post-title-link" itemprop="url">原型模式</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          门面模式
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -233,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-04-29 18:54:51" itemprop="dateCreated datePublished" datetime="2023-04-29T18:54:51+08:00">2023-04-29</time>
+      <time title="创建时间：2023-04-30 15:16:16" itemprop="dateCreated datePublished" datetime="2023-04-30T15:16:16+08:00">2023-04-30</time>
     </span>
 
   
@@ -243,7 +247,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>278</span>
+      <span>258</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -261,28 +265,85 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个原型实例中创建另外一个相同对象，而不用知道创建细节。。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>运行时增加和删除对象；</li>
-<li>通过极少改变，创建新对象；</li>
+        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1. </p>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>1. </p>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
+<li>解决性能问题。</li>
+<li>解决分布式事务问题。</li>
 </ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>要使用深拷贝代替浅拷贝。循环依赖的问题可能使 clone 难以实现；</li>
-<li>Prototype 的每个子类都要实现 clone；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
-<li>对象创建的数据需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取；</li>
-<li>对象创建成本大、不同对象大部分字段都相同。</li>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月30日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月1日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Statable &#123;
+	&lt;&lt;interface&gt;&gt;
+	domestic() void
+	foreign() void
+&#125;
+
+class Spokesman &#123;
+	domestic() void
+	foreign() void
+&#125;
+
+Statable &lt;|.. Spokesman
+
+class Commerce &#123;
+	state() void
+&#125;
+
+class Defense &#123;
+	state() void
+&#125;
+
+class Education &#123;
+	state() void
+&#125;
+
+class Foreign &#123;
+	state() void
+&#125;
+
+Spokesman o-- Commerce
+Spokesman o-- Defense
+Spokesman o-- Education
+Spokesman o-- Foreign</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>客户端</li>
 </ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/29/creational-prototype/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 创建一个 Component；</li>
+<li>通过 Decorator 层层包装 client；</li>
+<li>调用 Component 提供的方法进行工作；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>抽象工厂：</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>门面模式是通过门面接口提供了对封装底层组合功能的封装。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/facade/facade_test.go">golang</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/facade/ClientTest.java">java</a></p>
+
     </div>
 
     
@@ -290,8 +351,87 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="张晗_Jeremy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="张晗_Jeremy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>张晗_Jeremy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://hanzhang2566.github.io/2023/04/30/structural-facade/" title="门面模式">http://hanzhang2566.github.io/2023/04/30/structural-facade/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/images/wechat_channel.png">
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">BiliBili</span>
+          </span>
+
+          <img class="social-item-img" src="/images/bilibili_channel.png">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/design-pattern/" rel="tag"># design pattern</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/04/30/uml-class-diagram/" rel="prev" title="UML 类图">
+                  <i class="fa fa-chevron-left"></i> UML 类图
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -299,9 +439,7 @@
 
 
 
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/6/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+
 
 </div>
   </main>
