@@ -22,28 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="模式描述工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。 优点 给子类创建对象预留扩展点； client 通过 Creator 间接创建对象；  缺点 Creator 实现变多；  应用场景 一个类希望由它的子类来创建对象时； 一个类不知道创建对象的类时；">
+    <meta name="description" content="模式描述不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来控制这个对象的访问。 优点 间接访问原始类；  缺点 编写的目标代理类太多，当代理类接口改变，所有的代理类都需要进行更新。  应用场景 业务系统的非功能性需求开发。监控、统计、鉴权、限流、事务、幂等、日志。  RPC  缓存">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工厂方法模式">
-<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/24/creational-tmpl-factory/index.html">
+<meta property="og:title" content="代理模式">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/27/structural-proxy/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="模式描述工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。 优点 给子类创建对象预留扩展点； client 通过 Creator 间接创建对象；  缺点 Creator 实现变多；  应用场景 一个类希望由它的子类来创建对象时； 一个类不知道创建对象的类时；">
+<meta property="og:description" content="模式描述不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来控制这个对象的访问。 优点 间接访问原始类；  缺点 编写的目标代理类太多，当代理类接口改变，所有的代理类都需要进行更新。  应用场景 业务系统的非功能性需求开发。监控、统计、鉴权、限流、事务、幂等、日志。  RPC  缓存">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-24T13:38:03.000Z">
-<meta property="article:modified_time" content="2023-04-30T15:10:31.837Z">
+<meta property="article:published_time" content="2023-04-27T12:55:01.000Z">
+<meta property="article:modified_time" content="2023-05-01T06:44:23.398Z">
 <meta property="article:author" content="张晗_Jeremy">
 <meta property="article:tag" content="design pattern">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/24/creational-tmpl-factory/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/27/structural-proxy/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/24/creational-tmpl-factory/","path":"2023/04/24/creational-tmpl-factory/","title":"工厂方法模式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/27/structural-proxy/","path":"2023/04/27/structural-proxy/","title":"代理模式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>工厂方法模式 | 张晗的个人博客</title>
+<title>代理模式 | 张晗的个人博客</title>
   
 
 
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Product-%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.1.</span> <span class="nav-text">Product 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteProduct-%E7%B1%BB"><span class="nav-number">6.2.</span> <span class="nav-text">ConcreteProduct 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Creator-%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">6.3.</span> <span class="nav-text">Creator 抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteCreator-%E7%B1%BB"><span class="nav-number">6.4.</span> <span class="nav-text">ConcreteCreator 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.5.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Subject-%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.1.</span> <span class="nav-text">Subject 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy-%E7%B1%BB"><span class="nav-number">6.2.</span> <span class="nav-text">Proxy 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RealSubject-%E7%B1%BB"><span class="nav-number">6.3.</span> <span class="nav-text">RealSubject 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.4.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -158,7 +158,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -208,7 +208,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/24/creational-tmpl-factory/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/27/structural-proxy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -221,12 +221,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="工厂方法模式 | 张晗的个人博客">
+      <meta itemprop="name" content="代理模式 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          工厂方法模式
+          代理模式
         </h1>
 
         <div class="post-meta-container">
@@ -237,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-04-24 21:38:03" itemprop="dateCreated datePublished" datetime="2023-04-24T21:38:03+08:00">2023-04-24</time>
+      <time title="创建时间：2023-04-27 20:55:01" itemprop="dateCreated datePublished" datetime="2023-04-27T20:55:01+08:00">2023-04-27</time>
     </span>
 
   
@@ -247,7 +247,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>352</span>
+      <span>392</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -265,17 +265,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>给子类创建对象预留扩展点；</li>
-<li>client 通过 Creator 间接创建对象；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>Creator 实现变多；</li>
-</ol>
+        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来控制这个对象的访问。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
+<li>间接访问原始类；</li>
+</ul>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ul>
+<li>编写的目标代理类太多，当代理类接口改变，所有的代理类都需要进行更新。</li>
+</ul>
 <h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>一个类希望由它的子类来创建对象时；</li>
-<li>一个类不知道创建对象的类时；</li>
+<li><p>业务系统的非功能性需求开发。监控、统计、鉴权、限流、事务、幂等、日志。</p>
+</li>
+<li><p>RPC</p>
+</li>
+<li><p>缓存</p>
+</li>
 </ol>
 <span id="more"></span>
 
@@ -287,68 +290,61 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年4月24日</td>
+<td align="center">2023年4月27日</td>
 <td align="center">初始化</td>
 </tr>
 <tr>
-<td align="center">2023年4月30日</td>
+<td align="center">2023年5月1日</td>
 <td align="center">添加 Go 语言实现</td>
 </tr>
 </tbody></table>
 <h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Creator &#123;
-	&lt;&lt;abstract&gt;&gt;
-	getProduct() Product
-&#125;
-
-class ConcreteCreator &#123;
-	getProduct() Product
-&#125;
-Creator &lt;|-- ConcreteCreator
-
-class Product &#123;
+class Subject &#123;
 	&lt;&lt;interface&gt;&gt;
-	handle()
+	operator()
 &#125;
 
-class ConcreteProduct &#123;
-	handle()
+class RealSubject &#123;
+	operator()
 &#125;
 
-Product &lt;|.. ConcreteProduct
+class Proxy &#123;
+	operator()
+&#125;
 
-ConcreteCreator &lt;-- Product
-Creator &lt;-- Client</code></pre>
+Subject &lt;|.. Proxy
+Subject &lt;|.. RealSubject
+Proxy o.. RealSubject
 
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Product-接口"><a href="#Product-接口" class="headerlink" title="Product 接口"></a>Product 接口</h2><ul>
-<li>定义工厂方法创建对象的接口。</li>
+Subject &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Subject-接口"><a href="#Subject-接口" class="headerlink" title="Subject 接口"></a>Subject 接口</h2><ul>
+<li>定义 Proxy 和 RealSubject 的方法，使得任何使用 RealSubject 的地方可以被 proxy 代替；</li>
 </ul>
-<h2 id="ConcreteProduct-类"><a href="#ConcreteProduct-类" class="headerlink" title="ConcreteProduct 类"></a>ConcreteProduct 类</h2><ul>
-<li>Produce 接口的实现。</li>
+<h2 id="Proxy-类"><a href="#Proxy-类" class="headerlink" title="Proxy 类"></a>Proxy 类</h2><ul>
+<li>代理类。</li>
 </ul>
-<h2 id="Creator-抽象类"><a href="#Creator-抽象类" class="headerlink" title="Creator 抽象类"></a>Creator 抽象类</h2><ul>
-<li>声明一个抽象工厂方法，返回默认的 Product 对象。</li>
-</ul>
-<h2 id="ConcreteCreator-类"><a href="#ConcreteCreator-类" class="headerlink" title="ConcreteCreator 类"></a>ConcreteCreator 类</h2><ul>
-<li>Creator 抽象类的实现，返回自定义 Product 对象。</li>
+<h2 id="RealSubject-类"><a href="#RealSubject-类" class="headerlink" title="RealSubject 类"></a>RealSubject 类</h2><ul>
+<li>被代理类</li>
 </ul>
 <h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
-<li>使用客户端。</li>
+<li>客户端</li>
 </ul>
 <h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 创建一个 Creator；</li>
-<li>client 调用 Creator 提供的方法来返回 ConcreteProduct。</li>
+<li>client 创建一个 Proxy ；</li>
+<li>通过 Proxy 代理类访问原始类；</li>
 </ol>
 <h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂模式（Abstract Factory）经常用工厂方法实现；</li>
-<li>工厂方法通常在模板方法中被调用；</li>
+<li>适配器模式：适配器模式将给对象一个全新的接口，而代理模式使用相同接口；</li>
+<li>装饰模式：装饰模式是给原始类增加功能，而代理关注访问和控制原始类；</li>
 </ul>
 <h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>基本的工厂方法中，一个 ConcreteProduct 对应一个 ConcreteCreator 的具体实现；</li>
-<li>可以通过参数化的方式，来将 ConcreteProduct 分类；</li>
+<li>使用反射可以完成原始类的动态代理。</li>
+<li>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</li>
+<li>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</li>
 </ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/factory/tmpl/factory_tmpl_test.go">golang</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/factory/tmpl/ClientTest.java">java</a></p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/proxy/proxy_test.go">golang</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/proxy/ClientTest.java">java</a></p>
 
     </div>
 
@@ -384,7 +380,7 @@ Creator &lt;-- Client</code></pre>
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/04/24/creational-tmpl-factory/" title="工厂方法模式">http://hanzhang2566.github.io/2023/04/24/creational-tmpl-factory/</a>
+      <a href="http://hanzhang2566.github.io/2023/04/27/structural-proxy/" title="代理模式">http://hanzhang2566.github.io/2023/04/27/structural-proxy/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
@@ -431,13 +427,13 @@ Creator &lt;-- Client</code></pre>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/04/23/design-patterns-readme/" rel="prev" title="设计模式">
-                  <i class="fa fa-chevron-left"></i> 设计模式
+                <a href="/2023/04/26/structural-decorator/" rel="prev" title="装饰模式">
+                  <i class="fa fa-chevron-left"></i> 装饰模式
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/04/25/behavioral-strategy/" rel="next" title="策略模式">
-                  策略模式 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/04/28/creational-prototype/" rel="next" title="原型模式">
+                  原型模式 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -476,7 +472,7 @@ Creator &lt;-- Client</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22 分钟</span>
+    <span title="站点阅读时长">23 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持

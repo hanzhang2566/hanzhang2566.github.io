@@ -22,15 +22,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="模式描述门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。 优点1.  缺点1.  应用场景 解决易用性问题。例如 Linux 系统提供的系统调用函数等； 解决性能问题。 解决分布式事务问题。">
+    <meta name="description" content="模式描述门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。 优点 屏蔽了子系统组件； 拆分用户和子系统；  缺点应用场景 解决易用性问题。例如 Linux 系统提供的系统调用函数等； 解决性能问题。 解决分布式事务问题。 拆分客户端和实现之间的依赖；">
 <meta property="og:type" content="article">
 <meta property="og:title" content="门面模式">
 <meta property="og:url" content="http://hanzhang2566.github.io/2023/04/30/structural-facade/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="模式描述门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。 优点1.  缺点1.  应用场景 解决易用性问题。例如 Linux 系统提供的系统调用函数等； 解决性能问题。 解决分布式事务问题。">
+<meta property="og:description" content="模式描述门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。 优点 屏蔽了子系统组件； 拆分用户和子系统；  缺点应用场景 解决易用性问题。例如 Linux 系统提供的系统调用函数等； 解决性能问题。 解决分布式事务问题。 拆分客户端和实现之间的依赖；">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-30T07:16:16.000Z">
-<meta property="article:modified_time" content="2023-05-01T06:29:26.298Z">
+<meta property="article:modified_time" content="2023-05-01T07:08:58.107Z">
 <meta property="article:author" content="张晗_Jeremy">
 <meta property="article:tag" content="design pattern">
 <meta name="twitter:card" content="summary">
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.1.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Facade-%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.1.</span> <span class="nav-text">Facade 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteFacade-%E7%B1%BB"><span class="nav-number">6.2.</span> <span class="nav-text">ConcreteFacade 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SubSystemX"><span class="nav-number">6.3.</span> <span class="nav-text">SubSystemX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.4.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -158,7 +158,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -247,7 +247,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>258</span>
+      <span>357</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -266,12 +266,15 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1. </p>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>1. </p>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>屏蔽了子系统组件；</li>
+<li>拆分用户和子系统；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
 <li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
 <li>解决性能问题。</li>
 <li>解决分布式事务问题。</li>
+<li>拆分客户端和实现之间的依赖；</li>
 </ol>
 <span id="more"></span>
 
@@ -293,50 +296,42 @@
 </tbody></table>
 <h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
 
-class Statable &#123;
+class Facade &#123;
 	&lt;&lt;interface&gt;&gt;
-	domestic() void
-	foreign() void
+	operator()
 &#125;
 
-class Spokesman &#123;
-	domestic() void
-	foreign() void
+class ConcreteFacade &#123;
+	operator()
 &#125;
 
-Statable &lt;|.. Spokesman
+Facade &lt;|.. ConcreteFacade
 
-class Commerce &#123;
-	state() void
-&#125;
+ConcreteFacade o.. SubSystem1
+ConcreteFacade o.. SubSystem2
 
-class Defense &#123;
-	state() void
-&#125;
+Facade &lt;-- Client</code></pre>
 
-class Education &#123;
-	state() void
-&#125;
-
-class Foreign &#123;
-	state() void
-&#125;
-
-Spokesman o-- Commerce
-Spokesman o-- Defense
-Spokesman o-- Education
-Spokesman o-- Foreign</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Facade-接口"><a href="#Facade-接口" class="headerlink" title="Facade 接口"></a>Facade 接口</h2><ul>
+<li>向 Client 提供处理任务的接口；</li>
+<li>组合 SubSystemX 功能；</li>
+</ul>
+<h2 id="ConcreteFacade-类"><a href="#ConcreteFacade-类" class="headerlink" title="ConcreteFacade 类"></a>ConcreteFacade 类</h2><ul>
+<li>facade 接口的实现；</li>
+</ul>
+<h2 id="SubSystemX"><a href="#SubSystemX" class="headerlink" title="SubSystemX"></a>SubSystemX</h2><ul>
+<li>子系统</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
 <li>客户端</li>
 </ul>
 <h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 创建一个 Component；</li>
-<li>通过 Decorator 层层包装 client；</li>
-<li>调用 Component 提供的方法进行工作；</li>
+<li>Client 调用 Facade 时，Facade 将请求转发到 SubSystem 中；</li>
+<li>Client 不需要访问 SubSystem；</li>
 </ol>
 <h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂：</li>
+<li>抽象工厂：抽象工厂也可以代替 Facade 来隐藏子系统；</li>
+<li>中介者模式：相同点是都抽象了已有类功能。Facade 模式对接口进行抽象，让子系统提供出的接口更加易用，不定义新功能；后者暂不清楚。</li>
 </ul>
 <h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
 <li>门面模式是通过门面接口提供了对封装底层组合功能的封装。</li>
@@ -430,6 +425,9 @@ Spokesman o-- Foreign</code></pre>
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2023/05/01/creational-builder/" rel="next" title="建造者模式">
+                  建造者模式 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -467,7 +465,7 @@ Spokesman o-- Foreign</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22 分钟</span>
+    <span title="站点阅读时长">23 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持

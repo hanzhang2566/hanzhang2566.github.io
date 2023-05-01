@@ -24,13 +24,13 @@
 
     <meta name="description" content="模式描述模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。 优点 实现了反转控制； 给子类提供了扩展的钩子 hook；  缺点应用场景 实现算法不变的部分，将可变行为留给子类来实现； 子类中公共的行为被提取到父类，避免代码重复； 限制子类扩展">
 <meta property="og:type" content="article">
-<meta property="og:title" content="装饰模式">
+<meta property="og:title" content="模板方法模式">
 <meta property="og:url" content="http://hanzhang2566.github.io/2023/04/29/behavioral-template/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
 <meta property="og:description" content="模式描述模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。 优点 实现了反转控制； 给子类提供了扩展的钩子 hook；  缺点应用场景 实现算法不变的部分，将可变行为留给子类来实现； 子类中公共的行为被提取到父类，避免代码重复； 限制子类扩展">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-29T10:57:33.000Z">
-<meta property="article:modified_time" content="2023-05-01T05:13:30.528Z">
+<meta property="article:modified_time" content="2023-05-01T06:44:54.115Z">
 <meta property="article:author" content="张晗_Jeremy">
 <meta property="article:tag" content="design pattern">
 <meta name="twitter:card" content="summary">
@@ -40,10 +40,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/29/behavioral-template/","path":"2023/04/29/behavioral-template/","title":"装饰模式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/29/behavioral-template/","path":"2023/04/29/behavioral-template/","title":"模板方法模式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>装饰模式 | 张晗的个人博客</title>
+<title>模板方法模式 | 张晗的个人博客</title>
   
 
 
@@ -158,7 +158,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -221,12 +221,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="装饰模式 | 张晗的个人博客">
+      <meta itemprop="name" content="模板方法模式 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          装饰模式
+          模板方法模式
         </h1>
 
         <div class="post-meta-container">
@@ -363,7 +363,7 @@ AbstractClass &lt;-- Client</code></pre>
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/04/29/behavioral-template/" title="装饰模式">http://hanzhang2566.github.io/2023/04/29/behavioral-template/</a>
+      <a href="http://hanzhang2566.github.io/2023/04/29/behavioral-template/" title="模板方法模式">http://hanzhang2566.github.io/2023/04/29/behavioral-template/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
@@ -410,8 +410,8 @@ AbstractClass &lt;-- Client</code></pre>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/04/29/creational-prototype/" rel="prev" title="原型模式">
-                  <i class="fa fa-chevron-left"></i> 原型模式
+                <a href="/2023/04/29/typora-and-markdown/" rel="prev" title="Typora 和 Markdown">
+                  <i class="fa fa-chevron-left"></i> Typora 和 Markdown
                 </a>
             </div>
             <div class="post-nav-item">
@@ -455,7 +455,7 @@ AbstractClass &lt;-- Client</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22 分钟</span>
+    <span title="站点阅读时长">23 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持

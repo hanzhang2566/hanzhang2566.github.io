@@ -22,28 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="模式描述策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。 优点 提供了一组 Strategy； 组合代替了继承； 消除分支； client 选择 Strategy 实现；  缺点 client 需要了解 Strategy 实现的不同； 某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；">
+    <meta name="description" content="模式描述工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。 优点 给子类创建对象预留扩展点； client 通过 Creator 间接创建对象；  缺点 Creator 实现变多；  应用场景 一个类希望由它的子类来创建对象时； 一个类不知道创建对象的类时；">
 <meta property="og:type" content="article">
-<meta property="og:title" content="策略模式">
-<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/index.html">
+<meta property="og:title" content="工厂方法模式">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/04/24/creational-factory-tmpl/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="模式描述策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。 优点 提供了一组 Strategy； 组合代替了继承； 消除分支； client 选择 Strategy 实现；  缺点 client 需要了解 Strategy 实现的不同； 某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；">
+<meta property="og:description" content="模式描述工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。 优点 给子类创建对象预留扩展点； client 通过 Creator 间接创建对象；  缺点 Creator 实现变多；  应用场景 一个类希望由它的子类来创建对象时； 一个类不知道创建对象的类时；">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-25T07:16:16.000Z">
-<meta property="article:modified_time" content="2023-05-01T06:59:21.093Z">
+<meta property="article:published_time" content="2023-04-24T10:57:33.000Z">
+<meta property="article:modified_time" content="2023-05-01T06:39:13.502Z">
 <meta property="article:author" content="张晗_Jeremy">
 <meta property="article:tag" content="design pattern">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/04/24/creational-factory-tmpl/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/","path":"2023/04/25/behavioral-strategy/","title":"策略模式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/04/24/creational-factory-tmpl/","path":"2023/04/24/creational-factory-tmpl/","title":"工厂方法模式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>策略模式 | 张晗的个人博客</title>
+<title>工厂方法模式 | 张晗的个人博客</title>
   
 
 
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Context-%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.1.</span> <span class="nav-text">Context 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strategy-%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.2.</span> <span class="nav-text">Strategy 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteStrategyX-%E7%B1%BB"><span class="nav-number">6.3.</span> <span class="nav-text">ConcreteStrategyX 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.4.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Product-%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.1.</span> <span class="nav-text">Product 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteProduct-%E7%B1%BB"><span class="nav-number">6.2.</span> <span class="nav-text">ConcreteProduct 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Creator-%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">6.3.</span> <span class="nav-text">Creator 抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteCreator-%E7%B1%BB"><span class="nav-number">6.4.</span> <span class="nav-text">ConcreteCreator 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.5.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -208,7 +208,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/24/creational-factory-tmpl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -221,12 +221,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="策略模式 | 张晗的个人博客">
+      <meta itemprop="name" content="工厂方法模式 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          策略模式
+          工厂方法模式
         </h1>
 
         <div class="post-meta-container">
@@ -237,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-04-25 15:16:16" itemprop="dateCreated datePublished" datetime="2023-04-25T15:16:16+08:00">2023-04-25</time>
+      <time title="创建时间：2023-04-24 18:57:33" itemprop="dateCreated datePublished" datetime="2023-04-24T18:57:33+08:00">2023-04-24</time>
     </span>
 
   
@@ -247,14 +247,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>469</span>
+      <span>352</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -265,21 +265,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。</p>
+        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>提供了一组 Strategy；</li>
-<li>组合代替了继承；</li>
-<li>消除分支；</li>
-<li>client 选择 Strategy 实现；</li>
+<li>给子类创建对象预留扩展点；</li>
+<li>client 通过 Creator 间接创建对象；</li>
 </ol>
 <h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>client 需要了解 Strategy 实现的不同；</li>
-<li>某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；</li>
-<li>增加了类的数目；</li>
+<li>Creator 实现变多；</li>
 </ol>
 <h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>替换的仅仅是类中的行为；</li>
-<li>行为中的数据对用户是隐藏的；</li>
+<li>一个类希望由它的子类来创建对象时；</li>
+<li>一个类不知道创建对象的类时；</li>
 </ol>
 <span id="more"></span>
 
@@ -291,7 +287,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年4月25日</td>
+<td align="center">2023年4月24日</td>
 <td align="center">初始化</td>
 </tr>
 <tr>
@@ -300,63 +296,59 @@
 </tr>
 </tbody></table>
 <h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Context &#123;
+class Creator &#123;
+	&lt;&lt;abstract&gt;&gt;
+	getProduct() Product
+&#125;
+
+class ConcreteCreator &#123;
+	getProduct() Product
+&#125;
+Creator &lt;|-- ConcreteCreator
+
+class Product &#123;
 	&lt;&lt;interface&gt;&gt;
-	getContext()
-&#125;
-
-class Strategy &#123;
-	&lt;&lt;interface&gt;&gt;
 	handle()
 &#125;
 
-Context o--&gt; Strategy
-
-class ConcreteStrategyA &#123;
+class ConcreteProduct &#123;
 	handle()
 &#125;
 
-class ConcreteStrategyB &#123;
-	handle()
-&#125;
+Product &lt;|.. ConcreteProduct
 
-class ConcreteStrategyC &#123;
-	handle()
-&#125;
+ConcreteCreator &lt;-- Product
+Creator &lt;-- Client</code></pre>
 
-Strategy &lt;|.. ConcreteStrategyA
-Strategy &lt;|.. ConcreteStrategyB
-Strategy &lt;|.. ConcreteStrategyC
-
-Context &lt;-- Client
-Strategy &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Context-接口"><a href="#Context-接口" class="headerlink" title="Context 接口"></a>Context 接口</h2><ul>
-<li><p>提供一个方法来配置自身；</p>
-</li>
-<li><p>维护对 Strategy 的引用；</p>
-</li>
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Product-接口"><a href="#Product-接口" class="headerlink" title="Product 接口"></a>Product 接口</h2><ul>
+<li>定义工厂方法创建对象的接口。</li>
 </ul>
-<h2 id="Strategy-接口"><a href="#Strategy-接口" class="headerlink" title="Strategy 接口"></a>Strategy 接口</h2><p>支持行为的公共接口。Context 使用 Strategy 提供的方法来调用某个 ConcreteStrategyX。</p>
-<h2 id="ConcreteStrategyX-类"><a href="#ConcreteStrategyX-类" class="headerlink" title="ConcreteStrategyX 类"></a>ConcreteStrategyX 类</h2><p>具体实现 Strategy 接口。</p>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h2 id="ConcreteProduct-类"><a href="#ConcreteProduct-类" class="headerlink" title="ConcreteProduct 类"></a>ConcreteProduct 类</h2><ul>
+<li>Produce 接口的实现。</li>
+</ul>
+<h2 id="Creator-抽象类"><a href="#Creator-抽象类" class="headerlink" title="Creator 抽象类"></a>Creator 抽象类</h2><ul>
+<li>声明一个抽象工厂方法，返回默认的 Product 对象。</li>
+</ul>
+<h2 id="ConcreteCreator-类"><a href="#ConcreteCreator-类" class="headerlink" title="ConcreteCreator 类"></a>ConcreteCreator 类</h2><ul>
+<li>Creator 抽象类的实现，返回自定义 Product 对象。</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>使用客户端。</li>
+</ul>
 <h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 通常创建 ConcreteStrategyX 对象交给 Context 接收，这样 client 仅与 Context 进行交互；</li>
-<li>当 client 调用时，Context 将 Strategy 所需的数据传递给 ConcreteStrategyX，处理完成后回调给 Context;</li>
+<li>client 创建一个 Creator；</li>
+<li>client 调用 Creator 提供的方法来返回 ConcreteProduct。</li>
 </ol>
 <h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>享元模式（Flyweight）：Strategy 对象是很好的轻量级对象。</li>
+<li>抽象工厂模式（Abstract Factory）经常用工厂方法实现；</li>
+<li>工厂方法通常在模板方法中被调用；</li>
 </ul>
 <h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li><p>Strategy 可以通过工厂模式来创建。</p>
-</li>
-<li><p>ConcreteStrategy 一般是无状态的，是纯粹的算法实现。可以将 ConcreteStrategy 对象缓存到工厂类中，不需要每次调用时创建；如果是有状态的，则需要新创建对象。</p>
-</li>
-<li><p>配置文件或注解指定 ConcreteStrategy 族，StrategyFactory 加载 ConcreteStrategy 族，使用反射在运行时动态决定 ConcreteStrategy 是最典型的用法。</p>
-</li>
+<li>基本的工厂方法中，一个 ConcreteProduct 对应一个 ConcreteCreator 的具体实现；</li>
+<li>可以通过参数化的方式，来将 ConcreteProduct 分类；</li>
 </ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/strategy/strategy_test.go">golang</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/strategy/ClientTest.java">java</a></p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/factory/tmpl/factory_tmpl_test.go">golang</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/factory/tmpl/ClientTest.java">java</a></p>
 
     </div>
 
@@ -392,7 +384,7 @@ Strategy &lt;-- Client</code></pre>
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/" title="策略模式">http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/</a>
+      <a href="http://hanzhang2566.github.io/2023/04/24/creational-factory-tmpl/" title="工厂方法模式">http://hanzhang2566.github.io/2023/04/24/creational-factory-tmpl/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
@@ -439,13 +431,13 @@ Strategy &lt;-- Client</code></pre>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/04/24/creational-factory-tmpl/" rel="prev" title="工厂方法模式">
-                  <i class="fa fa-chevron-left"></i> 工厂方法模式
+                <a href="/2023/04/23/design-patterns-readme/" rel="prev" title="设计模式">
+                  <i class="fa fa-chevron-left"></i> 设计模式
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/04/26/structural-decorator/" rel="next" title="装饰模式">
-                  装饰模式 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/04/25/behavioral-strategy/" rel="next" title="策略模式">
+                  策略模式 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

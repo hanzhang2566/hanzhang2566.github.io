@@ -12,15 +12,82 @@
 ]]></content>
   </entry>
   <entry>
+    <title>建造者模式</title>
+    <url>/2023/05/01/creational-builder/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个复杂对象的构建和表示分离，使得同样的构建过程可以创建出不同对象。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>避免构造器参数太多，按需构造；</li>
+<li>避免 setter 方法，使对象不可变；</li>
+<li>构造和表示代码分开；</li>
+<li>更精细控制构造过程；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>复杂对象的创建独立于创建对象的组成部分时；</li>
+<li>需要按需构造时；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月1日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Builder &#123;
+	&lt;&lt;static&gt;&gt;
+	setXxx()
+	build() Product
+&#125;
+
+class Product &#123;
+	-Product()
+&#125;
+
+Builder &lt;-- Product
+Builder &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Builder-类"><a href="#Builder-类" class="headerlink" title="Builder 类"></a>Builder 类</h2><ul>
+<li>使用 builder 创建一个 Product</li>
+</ul>
+<h2 id="Product-类"><a href="#Product-类" class="headerlink" title="Product 类"></a>Product 类</h2><ul>
+<li>产品类。</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>抽象工厂：建造者模式是一步一步建造，并通过 build 方法返回；而抽象工厂是立刻返回；</li>
+<li>组合模式：组合模式通常是 Builder 模式生成的。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>Builder 往往是静态的，也可以是一个接口；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/builder/builder_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/builder/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>门面模式</title>
     <url>/2023/04/30/structural-facade/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1. </p>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>1. </p>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>屏蔽了子系统组件；</li>
+<li>拆分用户和子系统；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
 <li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
 <li>解决性能问题。</li>
 <li>解决分布式事务问题。</li>
+<li>拆分客户端和实现之间的依赖；</li>
 </ol>
 <span id="more"></span>
 
@@ -42,50 +109,42 @@
 </tbody></table>
 <h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
 
-class Statable &#123;
+class Facade &#123;
 	&lt;&lt;interface&gt;&gt;
-	domestic() void
-	foreign() void
+	operator()
 &#125;
 
-class Spokesman &#123;
-	domestic() void
-	foreign() void
+class ConcreteFacade &#123;
+	operator()
 &#125;
 
-Statable &lt;|.. Spokesman
+Facade &lt;|.. ConcreteFacade
 
-class Commerce &#123;
-	state() void
-&#125;
+ConcreteFacade o.. SubSystem1
+ConcreteFacade o.. SubSystem2
 
-class Defense &#123;
-	state() void
-&#125;
+Facade &lt;-- Client</code></pre>
 
-class Education &#123;
-	state() void
-&#125;
-
-class Foreign &#123;
-	state() void
-&#125;
-
-Spokesman o-- Commerce
-Spokesman o-- Defense
-Spokesman o-- Education
-Spokesman o-- Foreign</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Facade-接口"><a href="#Facade-接口" class="headerlink" title="Facade 接口"></a>Facade 接口</h2><ul>
+<li>向 Client 提供处理任务的接口；</li>
+<li>组合 SubSystemX 功能；</li>
+</ul>
+<h2 id="ConcreteFacade-类"><a href="#ConcreteFacade-类" class="headerlink" title="ConcreteFacade 类"></a>ConcreteFacade 类</h2><ul>
+<li>facade 接口的实现；</li>
+</ul>
+<h2 id="SubSystemX"><a href="#SubSystemX" class="headerlink" title="SubSystemX"></a>SubSystemX</h2><ul>
+<li>子系统</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
 <li>客户端</li>
 </ul>
 <h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 创建一个 Component；</li>
-<li>通过 Decorator 层层包装 client；</li>
-<li>调用 Component 提供的方法进行工作；</li>
+<li>Client 调用 Facade 时，Facade 将请求转发到 SubSystem 中；</li>
+<li>Client 不需要访问 SubSystem；</li>
 </ol>
 <h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂：</li>
+<li>抽象工厂：抽象工厂也可以代替 Facade 来隐藏子系统；</li>
+<li>中介者模式：相同点是都抽象了已有类功能。Facade 模式对接口进行抽象，让子系统提供出的接口更加易用，不定义新功能；后者暂不清楚。</li>
 </ul>
 <h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
 <li>门面模式是通过门面接口提供了对封装底层组合功能的封装。</li>
@@ -283,7 +342,7 @@ Climate &lt;-- Person</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>装饰模式</title>
+    <title>模板方法模式</title>
     <url>/2023/04/29/behavioral-template/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
@@ -348,77 +407,6 @@ AbstractClass &lt;-- Client</code></pre>
 </ul>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/template/template_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/template/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>原型模式</title>
-    <url>/2023/04/29/creational-prototype/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个原型实例中创建另外一个相同对象，而不用知道创建细节。。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>运行时增加和删除对象；</li>
-<li>通过极少改变，创建新对象；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>要使用深拷贝代替浅拷贝。循环依赖的问题可能使 clone 难以实现；</li>
-<li>Prototype 的每个子类都要实现 clone；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
-<li>对象创建的数据需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取；</li>
-<li>对象创建成本大、不同对象大部分字段都相同。</li>
-</ul>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月26日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年4月30日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Prototype &#123;
-	&lt;&lt;interface&gt;&gt;
-	clone() Object
-&#125;
-
-class ConcretePrototype &#123;
-    clone() ConcretePrototype
-&#125;
-
-Prototype &lt;|.. ConcretePrototype
-
-Prototype &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Prototype-接口"><a href="#Prototype-接口" class="headerlink" title="Prototype 接口"></a>Prototype 接口</h2><ul>
-<li>声明一个克隆自身的接口。</li>
-</ul>
-<h2 id="ConcretePrototype-类"><a href="#ConcretePrototype-类" class="headerlink" title="ConcretePrototype 类"></a>ConcretePrototype 类</h2><ul>
-<li>Prototype 接口的实现。</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
-<li>客户端用来克隆自身</li>
-</ul>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>与抽象工厂（Abstract Factory）亦敌亦友；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ol>
-<li>使用深拷贝，除非有足够的理由才能选择浅拷贝；</li>
-</ol>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/prototype/prototype_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/prototype/ClientTest.java">java</a></p>
 ]]></content>
       <tags>
         <tag>design pattern</tag>
@@ -659,8 +647,79 @@ Prototype &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>原型模式</title>
+    <url>/2023/04/28/creational-prototype/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个原型实例中创建另外一个相同对象，而不用知道创建细节。。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>运行时增加和删除对象；</li>
+<li>通过极少改变，创建新对象；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>要使用深拷贝代替浅拷贝。循环依赖的问题可能使 clone 难以实现；</li>
+<li>Prototype 的每个子类都要实现 clone；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
+<li>对象创建的数据需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取；</li>
+<li>对象创建成本大、不同对象大部分字段都相同。</li>
+</ul>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月28日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年4月30日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Prototype &#123;
+	&lt;&lt;interface&gt;&gt;
+	clone() Object
+&#125;
+
+class ConcretePrototype &#123;
+    clone() ConcretePrototype
+&#125;
+
+Prototype &lt;|.. ConcretePrototype
+
+Prototype &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Prototype-接口"><a href="#Prototype-接口" class="headerlink" title="Prototype 接口"></a>Prototype 接口</h2><ul>
+<li>声明一个克隆自身的接口。</li>
+</ul>
+<h2 id="ConcretePrototype-类"><a href="#ConcretePrototype-类" class="headerlink" title="ConcretePrototype 类"></a>ConcretePrototype 类</h2><ul>
+<li>Prototype 接口的实现。</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>客户端用来克隆自身</li>
+</ul>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>与抽象工厂（Abstract Factory）亦敌亦友；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ol>
+<li>使用深拷贝，除非有足够的理由才能选择浅拷贝；</li>
+</ol>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/prototype/prototype_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/prototype/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>代理模式</title>
-    <url>/2023/04/28/structural-proxy/</url>
+    <url>/2023/04/27/structural-proxy/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来控制这个对象的访问。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
 <li>间接访问原始类；</li>
@@ -686,7 +745,7 @@ Prototype &lt;-- Client</code></pre>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年4月28日</td>
+<td align="center">2023年4月27日</td>
 <td align="center">初始化</td>
 </tr>
 <tr>
@@ -748,7 +807,7 @@ Subject &lt;-- Client</code></pre>
   </entry>
   <entry>
     <title>装饰模式</title>
-    <url>/2023/04/27/structural-decorator/</url>
+    <url>/2023/04/26/structural-decorator/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>装饰模式(Decorator)，动态地给一个对象添加一些额外的职责，装饰模式比生成子类更加灵活。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
 <li>比静态的继承更加灵活；</li>
@@ -772,7 +831,7 @@ Subject &lt;-- Client</code></pre>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年4月27日</td>
+<td align="center">2023年4月26日</td>
 <td align="center">初始化</td>
 </tr>
 <tr>
@@ -925,7 +984,7 @@ Strategy &lt;-- Client</code></pre>
 </li>
 </ul>
 <h2 id="Strategy-接口"><a href="#Strategy-接口" class="headerlink" title="Strategy 接口"></a>Strategy 接口</h2><p>支持行为的公共接口。Context 使用 Strategy 提供的方法来调用某个 ConcreteStrategyX。</p>
-<h2 id="ConcreteStrategyX类"><a href="#ConcreteStrategyX类" class="headerlink" title="ConcreteStrategyX类"></a>ConcreteStrategyX类</h2><p>具体实现 Strategy 接口。</p>
+<h2 id="ConcreteStrategyX-类"><a href="#ConcreteStrategyX-类" class="headerlink" title="ConcreteStrategyX 类"></a>ConcreteStrategyX 类</h2><p>具体实现 Strategy 接口。</p>
 <h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
 <h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
 <li>client 通常创建 ConcreteStrategyX 对象交给 Context 接收，这样 client 仅与 Context 进行交互；</li>
@@ -951,7 +1010,7 @@ Strategy &lt;-- Client</code></pre>
   </entry>
   <entry>
     <title>工厂方法模式</title>
-    <url>/2023/04/24/creational-tmpl-factory/</url>
+    <url>/2023/04/24/creational-factory-tmpl/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
 <li>给子类创建对象预留扩展点；</li>
