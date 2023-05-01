@@ -12,6 +12,248 @@
 ]]></content>
   </entry>
   <entry>
+    <title>UML 类图</title>
+    <url>/2023/04/30/uml-class-diagram/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月30日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
+<pre><code class="highlight mermaid">---
+title: 接口示例
+---
+classDiagram
+class Speaker &#123;
+	&lt;&lt;interface&gt;&gt;
+	speak(String statement) String 
+&#125;</code></pre>
+
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
+title: 类示例
+---
+classDiagram
+class Abstract &#123;
+	&lt;&lt;abstract&gt;&gt;
+&#125;</code></pre>
+
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
+<pre><code class="highlight mermaid">---
+title: 类示例
+---
+classDiagram
+class Speakerman &#123;
+	String name
+    speak(String statement) String 
+&#125;</code></pre>
+
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
+<p>-表示 private</p>
+<p>#表示 protected</p>
+<p>~表示 package 或者 internal</p>
+<pre><code class="highlight mermaid">---
+title: 可见性示例
+---
+classDiagram
+class Visibility &#123;
+	+int n1
+	-int n2
+	#int n3
+	~int n4
+	
+	+m1()
+	-m1()
+	#m3()
+	~m4()
+&#125;</code></pre>
+
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
+<p>$表示 static，下划线</p>
+<pre><code class="highlight mermaid">---
+title: 修饰符示例
+---
+classDiagram
+class Modifier &#123;
+	int n1$
+	
+	+m1()*
+    +m2()$
+&#125;</code></pre>
+
+<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
+<p>Man is a Person</p>
+<pre><code class="highlight mermaid">---
+title: 继承示例
+---
+classDiagram
+class Person &#123;
+	
+&#125;
+
+class Man &#123;
+	
+&#125;
+
+Person &lt;|-- Man</code></pre>
+
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
+<p>Bird has Fly ability</p>
+<pre><code class="highlight mermaid">---
+title: 继承示例
+---
+classDiagram
+class Fly &#123;
+	&lt;&lt;interface&gt;&gt;
+&#125;
+
+class Bird &#123;
+	
+&#125;
+
+Fly &lt;|.. Bird</code></pre>
+
+<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
+<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
+<pre><code class="highlight mermaid">---
+title: 聚合示例
+---
+classDiagram
+class Classroom &#123;
+	Blackboard blackboard
+&#125;
+
+class Blackboard &#123;
+	
+&#125;
+
+Classroom o-- Blackboard</code></pre>
+
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
+<p>Arm is part of Person </p>
+<pre><code class="highlight mermaid">---
+title: 组合示例
+---
+classDiagram
+class Person &#123;
+	Arm arm
+&#125;
+
+class Arm &#123;
+	
+&#125;
+
+Person *-- Arm</code></pre>
+
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
+<p>Person depand on Water</p>
+<pre><code class="highlight mermaid">---
+title: 依赖示例
+---
+classDiagram
+class Person &#123;
+	Water water
+&#125;
+
+class Water &#123;
+	
+&#125;
+
+Water &lt;.. Person</code></pre>
+
+<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
+<p>Person should know Climate</p>
+<pre><code class="highlight mermaid">---
+title: 关联示例
+---
+classDiagram
+class Person &#123;
+	Climate climate
+&#125;
+
+class Climate &#123;
+	
+&#125;
+
+Climate &lt;-- Person</code></pre>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
+<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
+<li>聚合适用范围比组合更广；</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板方法模式</title>
+    <url>/2023/04/30/behaviour-template/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月28日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用模板模式来实现批改试卷。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Examination &#123;
+	&lt;&lt;Abstract&gt;&gt;
+	#question01() void
+    #question02() void
+    #answer01()* int
+    #answer02()* int
+&#125;
+
+class Bar &#123;
+    answer01() int
+    answer02() int
+&#125;
+
+class Foo &#123;
+    answer01() int
+    answer02() int
+&#125;
+
+
+Examination &lt;|-- Bar
+Examination &lt;|-- Foo</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="PrototypeTest"><a href="#PrototypeTest" class="headerlink" title="PrototypeTest"></a>PrototypeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">FooTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">foo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line">        foo.question01();</span><br><span class="line">        foo.question02();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">BarTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">bar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bar</span>();</span><br><span class="line">        bar.question01();</span><br><span class="line">        bar.question02();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Examination"><a href="#Examination" class="headerlink" title="Examination"></a>Examination</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer01();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 1 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer02();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 2 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Bar"><a href="#Bar" class="headerlink" title="Bar"></a>Bar</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bar</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Foo"><a href="#Foo" class="headerlink" title="Foo"></a>Foo</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foo</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>原型模式</title>
     <url>/2023/04/29/creational-prototype/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个原型实例中创建另外一个相同对象，而不用知道创建细节。。</p>
@@ -83,19 +325,339 @@ Prototype &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>工厂方法模式</title>
-    <url>/2023/04/24/creational-tmpl-factory/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
+    <title>Typora 和 Markdown</title>
+    <url>/2023/04/29/typora-and-markdown/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月29日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。</p>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
+<li>平台独立。任何 os 都可以方便的创建和浏览；</li>
+<li>适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写；</li>
+<li>广泛支持。大量论坛、网站、桌面程序和 Web 程序都支持；</li>
+</ol>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ol>
+<li>写文章；</li>
+<li>项目的 README；</li>
+</ol>
+<h1 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h1><p>Typora 类似于 Windows 中的记事本，是一个专门用来创建和编写 Markdown 的软件。</p>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><p>在 Typora 上写 Markdown 如虎添翼，下面会介绍自己在学习工作中使用 Typora 中快捷键编写 Markdown 的最佳实践，基本能够应对 90% 以上的情况。</p>
+<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>不建议使用 3 级以上的标题，这样会让文章编排很乱。</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">一级标题</td>
+<td align="center">Ctrl + 1</td>
+<td align="center">Command + 1</td>
+</tr>
+<tr>
+<td align="center">二级标题</td>
+<td align="center">Ctrl + 2</td>
+<td align="center">Command + 2</td>
+</tr>
+<tr>
+<td align="center">三级标题</td>
+<td align="center">Ctrl + 3</td>
+<td align="center">Command + 3</td>
+</tr>
+<tr>
+<td align="center">段落</td>
+<td align="center">Ctrl + 0</td>
+<td align="center">Command + 4</td>
+</tr>
+</tbody></table>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">插入表格</td>
+<td align="center">Ctrl + T</td>
+<td align="center">Command + T</td>
+</tr>
+<tr>
+<td align="center">行上移</td>
+<td align="center">Alt + 上箭头</td>
+<td align="center">Command + 下箭头</td>
+</tr>
+<tr>
+<td align="center">行下移</td>
+<td align="center">Alt + 下箭头</td>
+<td align="center">Command + 下箭头</td>
+</tr>
+<tr>
+<td align="center">列左移</td>
+<td align="center">Alt + 左箭头</td>
+<td align="center">Command + 左箭头</td>
+</tr>
+<tr>
+<td align="center">列右移</td>
+<td align="center">Alt + 右箭头</td>
+<td align="center">Command + 右箭头</td>
+</tr>
+<tr>
+<td align="center">插入行</td>
+<td align="center">Ctrl + Enter</td>
+<td align="center">Command + Enter</td>
+</tr>
+<tr>
+<td align="center">删除行</td>
+<td align="center">Ctrl + Shift + Delete</td>
+<td align="center">Command + Shift + Delete</td>
+</tr>
+</tbody></table>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">引用</td>
+<td align="center">Ctrl + Shift + Q</td>
+<td align="center">Command + Shift + Q</td>
+</tr>
+</tbody></table>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">有序列表</td>
+<td align="center">Ctrl + Shift + [</td>
+<td align="center">Command + Shift + [</td>
+</tr>
+<tr>
+<td align="center">无序列表</td>
+<td align="center">Ctrl + Shift + ]</td>
+<td align="center">Command + Shift + ]</td>
+</tr>
+<tr>
+<td align="center">任务列表</td>
+<td align="center">Ctrl + Shift + X</td>
+<td align="center">Command + Shift + X</td>
+</tr>
+<tr>
+<td align="center">增加列表缩进</td>
+<td align="center">Tab</td>
+<td align="center">Tab</td>
+</tr>
+<tr>
+<td align="center">减少列表缩进</td>
+<td align="center">Shift + Tab</td>
+<td align="center">Shift + Tab</td>
+</tr>
+</tbody></table>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">链接</td>
+<td align="center">Ctrl + K</td>
+<td align="center">Command + K</td>
+</tr>
+<tr>
+<td align="center">加粗</td>
+<td align="center">Ctrl + B</td>
+<td align="center">Command + B</td>
+</tr>
+<tr>
+<td align="center">斜体</td>
+<td align="center">Ctrl + I</td>
+<td align="center">Command + I</td>
+</tr>
+<tr>
+<td align="center">下划线</td>
+<td align="center">Ctrl + U</td>
+<td align="center">Command + U</td>
+</tr>
+<tr>
+<td align="center">删除线</td>
+<td align="center">Shift + Alt + 5</td>
+<td align="center">Shift + Alt + 5</td>
+</tr>
+</tbody></table>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">代码</td>
+<td align="center">Ctrl + Shift + &#96;</td>
+<td align="center">Command + Shift + &#96;</td>
+</tr>
+<tr>
+<td align="center">代码块</td>
+<td align="center">Ctrl + Shift + K</td>
+<td align="center">Command + Shift + K</td>
+</tr>
+</tbody></table>
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">隐藏 &#x2F; 显示侧边栏</td>
+<td align="center">Ctrl + Shift + L</td>
+<td align="center">Command + Shift + L</td>
+</tr>
+<tr>
+<td align="center">源代码</td>
+<td align="center">Ctrl + &#x2F;</td>
+<td align="center">Command + &#x2F;</td>
+</tr>
+</tbody></table>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.markdownguide.org/">Markdown</a></li>
+<li><a href="https://typora.io/">Typora</a></li>
+<li><a href="https://typora.io/#download">Typora 下载</a></li>
+<li><a href="https://typora.io/#purchase">Typora 购买</a></li>
+<li>typora-段落</li>
+<li>typora-格式</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>门面模式</title>
+    <url>/2023/04/29/structural-facade/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月29日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用。</p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用门面模式来实现新闻发言人。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Statable &#123;
+	&lt;&lt;interface&gt;&gt;
+	domestic() void
+	foreign() void
+&#125;
+
+class Spokesman &#123;
+	domestic() void
+	foreign() void
+&#125;
+
+Statable &lt;|.. Spokesman
+
+class Commerce &#123;
+	state() void
+&#125;
+
+class Defense &#123;
+	state() void
+&#125;
+
+class Education &#123;
+	state() void
+&#125;
+
+class Foreign &#123;
+	state() void
+&#125;
+
+Spokesman o-- Commerce
+Spokesman o-- Defense
+Spokesman o-- Education
+Spokesman o-- Foreign</code></pre>
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="FacadeTest"><a href="#FacadeTest" class="headerlink" title="FacadeTest"></a>FacadeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FacadeTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Statable</span> <span class="variable">statable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Spokesman</span>();</span><br><span class="line">        statable.domestic();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Statable</span> <span class="variable">statable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Spokesman</span>();</span><br><span class="line">        statable.foreign();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Statable"><a href="#Statable" class="headerlink" title="Statable"></a>Statable</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Statable</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对内发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">domestic</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">foreign</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Spokesman"><a href="#Spokesman" class="headerlink" title="Spokesman"></a>Spokesman</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Spokesman</span> <span class="keyword">implements</span> <span class="title class_">Statable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Commerce commerce;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Defense defense;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Education education;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Foreign foreign;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Spokesman</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.commerce = <span class="keyword">new</span> <span class="title class_">Commerce</span>();</span><br><span class="line">        <span class="built_in">this</span>.defense = <span class="keyword">new</span> <span class="title class_">Defense</span>();</span><br><span class="line">        <span class="built_in">this</span>.education = <span class="keyword">new</span> <span class="title class_">Education</span>();</span><br><span class="line">        <span class="built_in">this</span>.foreign = <span class="keyword">new</span> <span class="title class_">Foreign</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对内发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">domestic</span><span class="params">()</span> &#123;</span><br><span class="line">        commerce.state();</span><br><span class="line">        education.state();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">foreign</span><span class="params">()</span> &#123;</span><br><span class="line">        defense.state();</span><br><span class="line">        foreign.state();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Commerce"><a href="#Commerce" class="headerlink" title="Commerce"></a>Commerce</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Commerce</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;欢迎来中国投资&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Defense"><a href="#Defense" class="headerlink" title="Defense"></a>Defense</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Defense</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;犯我德邦者，虽远必诛&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Education</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;之乎者也&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Foreign"><a href="#Foreign" class="headerlink" title="Foreign"></a>Foreign</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foreign</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;坚决维护和平共处五项原则&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
+<li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
+<li>解决性能问题。</li>
+<li>解决分布式事务问题。</li>
+</ul>
+<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>门面模式是通过门面接口提供了对封装底层组合功能的封装。</p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代理模式</title>
+    <url>/2023/04/28/structural-proxy/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来控制这个对象的访问。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>给子类创建对象预留扩展点；</li>
-<li>client 通过 Creator 间接创建对象；</li>
+<li>比静态的继承更加灵活；</li>
+<li>避免高层接口的功能太复杂。</li>
 </ol>
 <h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>Creator 实现变多；</li>
+<li>有很多小对象；</li>
 </ol>
 <h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>一个类希望由它的子类来创建对象时；</li>
-<li>一个类不知道创建对象的类时；</li>
+<li><p>业务系统的非功能性需求开发。监控、统计、鉴权、限流、事务、幂等、日志。</p>
+</li>
+<li><p>RPC</p>
+</li>
+<li><p>缓存</p>
+</li>
 </ol>
 <span id="more"></span>
 
@@ -107,125 +669,67 @@ Prototype &lt;-- Client</code></pre>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年4月24日</td>
+<td align="center">2023年4月28日</td>
 <td align="center">初始化</td>
 </tr>
 <tr>
-<td align="center">2023年4月30日</td>
+<td align="center">2023年5月1日</td>
 <td align="center">添加 Go 语言实现</td>
 </tr>
 </tbody></table>
 <h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Creator &#123;
-	&lt;&lt;abstract&gt;&gt;
-	getProduct() Product
-&#125;
-
-class ConcreteCreator &#123;
-	getProduct() Product
-&#125;
-Creator &lt;|-- ConcreteCreator
-
-class Product &#123;
+class Subject &#123;
 	&lt;&lt;interface&gt;&gt;
-	handle()
+	operator()
 &#125;
 
-class ConcreteProduct &#123;
-	handle()
+class RealSubject &#123;
+	operator()
 &#125;
 
-Product &lt;|.. ConcreteProduct
+class Proxy &#123;
+	operator()
+&#125;
 
-ConcreteCreator &lt;-- Product
-Creator &lt;-- Client</code></pre>
+Subject &lt;|.. Proxy
+Subject &lt;|.. RealSubject
+Proxy o.. RealSubject
 
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Product-接口"><a href="#Product-接口" class="headerlink" title="Product 接口"></a>Product 接口</h2><ul>
-<li>定义工厂方法创建对象的接口。</li>
+Subject &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Subject-接口"><a href="#Subject-接口" class="headerlink" title="Subject 接口"></a>Subject 接口</h2><ul>
+<li>定义 Proxy 和 RealSubject 的方法，使得任何使用 RealSubject 的地方可以被 proxy 代替；</li>
 </ul>
-<h2 id="ConcreteProduct-类"><a href="#ConcreteProduct-类" class="headerlink" title="ConcreteProduct 类"></a>ConcreteProduct 类</h2><ul>
-<li>Produce 接口的实现。</li>
+<h2 id="Proxy-类"><a href="#Proxy-类" class="headerlink" title="Proxy 类"></a>Proxy 类</h2><ul>
+<li>代理类。</li>
 </ul>
-<h2 id="Creator-抽象类"><a href="#Creator-抽象类" class="headerlink" title="Creator 抽象类"></a>Creator 抽象类</h2><ul>
-<li>声明一个抽象工厂方法，返回默认的 Product 对象。</li>
-</ul>
-<h2 id="ConcreteCreator-类"><a href="#ConcreteCreator-类" class="headerlink" title="ConcreteCreator 类"></a>ConcreteCreator 类</h2><ul>
-<li>Creator 抽象类的实现，返回自定义 Product 对象。</li>
+<h2 id="RealSubject-类"><a href="#RealSubject-类" class="headerlink" title="RealSubject 类"></a>RealSubject 类</h2><ul>
+<li>被代理类</li>
 </ul>
 <h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
-<li>使用客户端。</li>
+<li>客户端</li>
 </ul>
 <h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 创建一个 Creator；</li>
-<li>client 调用 Creator 提供的方法来返回 ConcreteProduct。</li>
+<li>client 创建一个 Component；</li>
+<li>通过 Decorator 层层包装 client；</li>
+<li>调用 Component 提供的方法进行工作；</li>
 </ol>
 <h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂模式（Abstract Factory）经常用工厂方法实现；</li>
-<li>工厂方法通常在模板方法中被调用；</li>
+<li>适配器模式：装饰者模式仅改变对象职责，而适配器模式将给对象一个全新的接口；</li>
+<li>组合模式：装饰器模式被认为是退化为只有一个组件的组合；</li>
+<li>策略模式：装饰器模式改变的是对象外表，而策略模式改变对象内核。</li>
 </ul>
 <h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>基本的工厂方法中，一个 ConcreteProduct 对应一个 ConcreteCreator 的具体实现；</li>
-<li>可以通过参数化的方式，来将 ConcreteProduct 分类；</li>
+<li><p>静态代理的缺点：1. 编写的目标代理类太多；2. 当代理类接口改变，所有的代理类都需要进行更新。</p>
+<p>使用反射可以完成原始类的动态代理。</p>
+</li>
+<li><p>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</p>
+</li>
+<li><p>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</p>
+</li>
 </ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/factory/tmpl/factory_tmpl_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/factory/tmpl/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>模板方法模式</title>
-    <url>/2023/04/30/behaviour-template/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月28日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用模板模式来实现批改试卷。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Examination &#123;
-	&lt;&lt;Abstract&gt;&gt;
-	#question01() void
-    #question02() void
-    #answer01()* int
-    #answer02()* int
-&#125;
-
-class Bar &#123;
-    answer01() int
-    answer02() int
-&#125;
-
-class Foo &#123;
-    answer01() int
-    answer02() int
-&#125;
-
-
-Examination &lt;|-- Bar
-Examination &lt;|-- Foo</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="PrototypeTest"><a href="#PrototypeTest" class="headerlink" title="PrototypeTest"></a>PrototypeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">FooTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">foo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br><span class="line">        foo.question01();</span><br><span class="line">        foo.question02();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">BarTest</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Examination</span> <span class="variable">bar</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bar</span>();</span><br><span class="line">        bar.question01();</span><br><span class="line">        bar.question02();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Examination"><a href="#Examination" class="headerlink" title="Examination"></a>Examination</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer01();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 1 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">question02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> answer02();</span><br><span class="line">        System.out.printf(<span class="string">&quot;1 + 2 = %d\n&quot;</span>, answer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Bar"><a href="#Bar" class="headerlink" title="Bar"></a>Bar</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bar</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="Foo"><a href="#Foo" class="headerlink" title="Foo"></a>Foo</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foo</span> <span class="keyword">extends</span> <span class="title class_">Examination</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question01()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> Examination#question02()&#125; 的答案</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 答案</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="type">int</span> <span class="title function_">answer02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/proxy/proxy_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/proxy/ClientTest.java">java</a></p>
 ]]></content>
       <tags>
         <tag>design pattern</tag>
@@ -335,9 +839,27 @@ Component &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>门面模式</title>
-    <url>/2023/04/29/structural-facade/</url>
-    <content><![CDATA[<table>
+    <title>策略模式</title>
+    <url>/2023/04/25/behavioral-strategy/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>提供了一组 Strategy；</li>
+<li>组合代替了继承；</li>
+<li>消除分支；</li>
+<li>client 选择 Strategy 实现；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>client 需要了解 Strategy 实现的不同；</li>
+<li>某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；</li>
+<li>增加了类的数目；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>替换的仅仅是类中的行为；</li>
+<li>行为中的数据对用户是隐藏的；</li>
+</ol>
+<span id="more"></span>
+
+<table>
 <thead>
 <tr>
 <th align="center">DATE</th>
@@ -345,72 +867,164 @@ Component &lt;-- Client</code></pre>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">init</td>
+<td align="center">2023年4月25日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年4月30日</td>
+<td align="center">添加 Go 语言实现</td>
 </tr>
 </tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用。</p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Context &#123;
+	&lt;&lt;interface&gt;&gt;
+	getContext()
+&#125;
+
+class Strategy &#123;
+	&lt;&lt;interface&gt;&gt;
+	handle()
+&#125;
+
+Context o--&gt; Strategy
+
+class ConcreteStrategyA &#123;
+	handle()
+&#125;
+
+class ConcreteStrategyB &#123;
+	handle()
+&#125;
+
+class ConcreteStrategyC &#123;
+	handle()
+&#125;
+
+Strategy &lt;|.. ConcreteStrategyA
+Strategy &lt;|.. ConcreteStrategyB
+Strategy &lt;|.. ConcreteStrategyC
+
+Context &lt;-- Client
+Strategy &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Context-接口"><a href="#Context-接口" class="headerlink" title="Context 接口"></a>Context 接口</h2><ul>
+<li><p>提供一个方法来配置自身；</p>
+</li>
+<li><p>维护对 Strategy 的引用；</p>
+</li>
+</ul>
+<h2 id="Strategy-接口"><a href="#Strategy-接口" class="headerlink" title="Strategy 接口"></a>Strategy 接口</h2><p>支持行为的公共接口。Context 使用 Strategy 提供的方法来调用某个 ConcreteStrategyX。</p>
+<h2 id="ConcreteStrategyX类"><a href="#ConcreteStrategyX类" class="headerlink" title="ConcreteStrategyX类"></a>ConcreteStrategyX类</h2><p>具体实现 Strategy 接口。</p>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 通常创建 ConcreteStrategyX 对象交给 Context 接收，这样 client 仅与 Context 进行交互；</li>
+<li>当 client 调用时，Context 将 Strategy 所需的数据传递给 ConcreteStrategyX，处理完成后回调给 Context;</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>享元模式（Flyweight）：Strategy 对象是很好的轻量级对象。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li><p>Strategy 可以通过工厂模式来创建。</p>
+</li>
+<li><p>ConcreteStrategy 一般是无状态的，是纯粹的算法实现。可以将 ConcreteStrategy 对象缓存到工厂类中，不需要每次调用时创建；如果是有状态的，则需要新创建对象。</p>
+</li>
+<li><p>配置文件或注解指定 ConcreteStrategy 族，StrategyFactory 加载 ConcreteStrategy 族，使用反射在运行时动态决定 ConcreteStrategy 是最典型的用法。</p>
+</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/strategy/strategy_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/strategy/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工厂方法模式</title>
+    <url>/2023/04/24/creational-tmpl-factory/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>给子类创建对象预留扩展点；</li>
+<li>client 通过 Creator 间接创建对象；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>Creator 实现变多；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>一个类希望由它的子类来创建对象时；</li>
+<li>一个类不知道创建对象的类时；</li>
+</ol>
 <span id="more"></span>
 
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>使用门面模式来实现新闻发言人。</p>
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月24日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年4月30日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
 <h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Creator &#123;
+	&lt;&lt;abstract&gt;&gt;
+	getProduct() Product
+&#125;
 
-class Statable &#123;
+class ConcreteCreator &#123;
+	getProduct() Product
+&#125;
+Creator &lt;|-- ConcreteCreator
+
+class Product &#123;
 	&lt;&lt;interface&gt;&gt;
-	domestic() void
-	foreign() void
+	handle()
 &#125;
 
-class Spokesman &#123;
-	domestic() void
-	foreign() void
+class ConcreteProduct &#123;
+	handle()
 &#125;
 
-Statable &lt;|.. Spokesman
+Product &lt;|.. ConcreteProduct
 
-class Commerce &#123;
-	state() void
-&#125;
+ConcreteCreator &lt;-- Product
+Creator &lt;-- Client</code></pre>
 
-class Defense &#123;
-	state() void
-&#125;
-
-class Education &#123;
-	state() void
-&#125;
-
-class Foreign &#123;
-	state() void
-&#125;
-
-Spokesman o-- Commerce
-Spokesman o-- Defense
-Spokesman o-- Education
-Spokesman o-- Foreign</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="FacadeTest"><a href="#FacadeTest" class="headerlink" title="FacadeTest"></a>FacadeTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FacadeTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Statable</span> <span class="variable">statable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Spokesman</span>();</span><br><span class="line">        statable.domestic();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Statable</span> <span class="variable">statable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Spokesman</span>();</span><br><span class="line">        statable.foreign();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Statable"><a href="#Statable" class="headerlink" title="Statable"></a>Statable</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Statable</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对内发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">domestic</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">foreign</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Spokesman"><a href="#Spokesman" class="headerlink" title="Spokesman"></a>Spokesman</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Spokesman</span> <span class="keyword">implements</span> <span class="title class_">Statable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Commerce commerce;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Defense defense;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Education education;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Foreign foreign;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Spokesman</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.commerce = <span class="keyword">new</span> <span class="title class_">Commerce</span>();</span><br><span class="line">        <span class="built_in">this</span>.defense = <span class="keyword">new</span> <span class="title class_">Defense</span>();</span><br><span class="line">        <span class="built_in">this</span>.education = <span class="keyword">new</span> <span class="title class_">Education</span>();</span><br><span class="line">        <span class="built_in">this</span>.foreign = <span class="keyword">new</span> <span class="title class_">Foreign</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对内发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">domestic</span><span class="params">()</span> &#123;</span><br><span class="line">        commerce.state();</span><br><span class="line">        education.state();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对外发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">foreign</span><span class="params">()</span> &#123;</span><br><span class="line">        defense.state();</span><br><span class="line">        foreign.state();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Commerce"><a href="#Commerce" class="headerlink" title="Commerce"></a>Commerce</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Commerce</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;欢迎来中国投资&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Defense"><a href="#Defense" class="headerlink" title="Defense"></a>Defense</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Defense</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;犯我德邦者，虽远必诛&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="Education"><a href="#Education" class="headerlink" title="Education"></a>Education</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Education</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;之乎者也&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Foreign"><a href="#Foreign" class="headerlink" title="Foreign"></a>Foreign</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Foreign</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 发言</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">state</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;坚决维护和平共处五项原则&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
-<li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
-<li>解决性能问题。</li>
-<li>解决分布式事务问题。</li>
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Product-接口"><a href="#Product-接口" class="headerlink" title="Product 接口"></a>Product 接口</h2><ul>
+<li>定义工厂方法创建对象的接口。</li>
 </ul>
-<h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><p>门面模式是通过门面接口提供了对封装底层组合功能的封装。</p>
+<h2 id="ConcreteProduct-类"><a href="#ConcreteProduct-类" class="headerlink" title="ConcreteProduct 类"></a>ConcreteProduct 类</h2><ul>
+<li>Produce 接口的实现。</li>
+</ul>
+<h2 id="Creator-抽象类"><a href="#Creator-抽象类" class="headerlink" title="Creator 抽象类"></a>Creator 抽象类</h2><ul>
+<li>声明一个抽象工厂方法，返回默认的 Product 对象。</li>
+</ul>
+<h2 id="ConcreteCreator-类"><a href="#ConcreteCreator-类" class="headerlink" title="ConcreteCreator 类"></a>ConcreteCreator 类</h2><ul>
+<li>Creator 抽象类的实现，返回自定义 Product 对象。</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>使用客户端。</li>
+</ul>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 创建一个 Creator；</li>
+<li>client 调用 Creator 提供的方法来返回 ConcreteProduct。</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>抽象工厂模式（Abstract Factory）经常用工厂方法实现；</li>
+<li>工厂方法通常在模板方法中被调用；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>基本的工厂方法中，一个 ConcreteProduct 对应一个 ConcreteCreator 的具体实现；</li>
+<li>可以通过参数化的方式，来将 ConcreteProduct 分类；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/factory/tmpl/factory_tmpl_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/factory/tmpl/ClientTest.java">java</a></p>
 ]]></content>
       <tags>
         <tag>design pattern</tag>
@@ -656,604 +1270,6 @@ Spokesman o-- Foreign</code></pre>
 ]]></content>
       <tags>
         <tag>readme</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>策略模式</title>
-    <url>/2023/04/25/behavioral-strategy/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>提供了一组 Strategy；</li>
-<li>组合代替了继承；</li>
-<li>消除分支；</li>
-<li>client 选择 Strategy 实现；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>client 需要了解 Strategy 实现的不同；</li>
-<li>某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；</li>
-<li>增加了类的数目；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>替换的仅仅是类中的行为；</li>
-<li>行为中的数据对用户是隐藏的；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月25日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年4月30日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Context &#123;
-	&lt;&lt;interface&gt;&gt;
-	getContext()
-&#125;
-
-class Strategy &#123;
-	&lt;&lt;interface&gt;&gt;
-	handle()
-&#125;
-
-Context o--&gt; Strategy
-
-class ConcreteStrategyA &#123;
-	handle()
-&#125;
-
-class ConcreteStrategyB &#123;
-	handle()
-&#125;
-
-class ConcreteStrategyC &#123;
-	handle()
-&#125;
-
-Strategy &lt;|.. ConcreteStrategyA
-Strategy &lt;|.. ConcreteStrategyB
-Strategy &lt;|.. ConcreteStrategyC
-
-Context &lt;-- Client
-Strategy &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Context-接口"><a href="#Context-接口" class="headerlink" title="Context 接口"></a>Context 接口</h2><ul>
-<li><p>提供一个方法来配置自身；</p>
-</li>
-<li><p>维护对 Strategy 的引用；</p>
-</li>
-</ul>
-<h2 id="Strategy-接口"><a href="#Strategy-接口" class="headerlink" title="Strategy 接口"></a>Strategy 接口</h2><p>支持行为的公共接口。Context 使用 Strategy 提供的方法来调用某个 ConcreteStrategyX。</p>
-<h2 id="ConcreteStrategyX类"><a href="#ConcreteStrategyX类" class="headerlink" title="ConcreteStrategyX类"></a>ConcreteStrategyX类</h2><p>具体实现 Strategy 接口。</p>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 通常创建 ConcreteStrategyX 对象交给 Context 接收，这样 client 仅与 Context 进行交互；</li>
-<li>当 client 调用时，Context 将 Strategy 所需的数据传递给 ConcreteStrategyX，处理完成后回调给 Context;</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>享元模式（Flyweight）：Strategy 对象是很好的轻量级对象。</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li><p>Strategy 可以通过工厂模式来创建。</p>
-</li>
-<li><p>ConcreteStrategy 一般是无状态的，是纯粹的算法实现。可以将 ConcreteStrategy 对象缓存到工厂类中，不需要每次调用时创建；如果是有状态的，则需要新创建对象。</p>
-</li>
-<li><p>配置文件或注解指定 ConcreteStrategy 族，StrategyFactory 加载 ConcreteStrategy 族，使用反射在运行时动态决定 ConcreteStrategy 是最典型的用法。</p>
-</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/strategy/strategy_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/strategy/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>代理模式</title>
-    <url>/2023/04/28/structural-proxy/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月25日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来给原始类附加功能。</p>
-<span id="more"></span>
-
-<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>通过代理模式来实现追求者给被追求者送礼物。</p>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Gift &#123;
-	&lt;&lt;interface&gt;&gt;
-	giveDoll():void
-	giveFlower():void
-&#125;
-
-class PursuerProxy &#123;
-	Pursuer pursuer
-    giveDoll():void
-	giveFlower():void
-&#125;
-
-class Pursuer &#123;
-	SchoolGril gril
-    giveDoll():void
-	giveFlower():void
-&#125;
-
-class SchoolGril &#123;
-	String name
-&#125;
-
-Gift &lt;|.. Pursuer
-Gift &lt;|.. PursuerProxy
-Pursuer &lt;-- PursuerProxy
-SchoolGril &lt;-- Pursuer</code></pre>
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="Gift"><a href="#Gift" class="headerlink" title="Gift"></a>Gift</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 礼物接口 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:00 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="PursuerProxy"><a href="#PursuerProxy" class="headerlink" title="PursuerProxy"></a>PursuerProxy</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者代理类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 11:03 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PursuerProxy</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 追求者对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> Pursuer pursuer;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PursuerProxy</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        pursuer = <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Pursuer"><a href="#Pursuer" class="headerlink" title="Pursuer"></a>Pursuer</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 追求者类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Pursuer</span> <span class="keyword">implements</span> <span class="title class_">Gift</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 被追求者</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SchoolGril gril;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Pursuer</span><span class="params">(SchoolGril gril)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.gril = gril;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送洋娃娃</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveDoll</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你洋娃娃&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 送花</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">giveFlower</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(gril.getName() + <span class="string">&quot;, 送你鲜花&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="SchoolGril"><a href="#SchoolGril" class="headerlink" title="SchoolGril"></a>SchoolGril</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Usage: 被追求者 &lt;br/&gt;</span><br><span class="line"> * Date: 2023/4/25 10:54 &lt;br/&gt;</span><br><span class="line"> *</span><br><span class="line"> * @author &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span><br><span class="line"> */</span><br><span class="line">public class SchoolGril &#123;</span><br><span class="line">    @Getter</span><br><span class="line">    @Setter</span><br><span class="line">    private String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="ProxyTest"><a href="#ProxyTest" class="headerlink" title="ProxyTest"></a>ProxyTest</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: 代理模式的测试类 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/4/25 10:57 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProxyTest</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy01</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Pursuer</span> <span class="variable">pursuer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Pursuer</span>(gril);</span><br><span class="line">        pursuer.giveDoll();</span><br><span class="line">        pursuer.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testProxy02</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">SchoolGril</span> <span class="variable">gril</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SchoolGril</span>();</span><br><span class="line">        gril.setName(<span class="string">&quot;bar&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">PursuerProxy</span> <span class="variable">pursuerProxy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PursuerProxy</span>(gril);</span><br><span class="line">        pursuerProxy.giveDoll();</span><br><span class="line">        pursuerProxy.giveFlower();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h1><p>静态代理的缺点：1. 编写的目标代理类太多；2. 当代理类接口改变，所有的代理类都需要进行更新。</p>
-<p>使用反射可以完成原始类的动态代理。</p>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</p>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li><p>业务系统的非功能性需求开发</p>
-<p>监控、统计、鉴权、限流、事务、幂等、日志。</p>
-</li>
-<li><p>RPC</p>
-</li>
-<li><p>缓存</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Typora 和 Markdown</title>
-    <url>/2023/04/29/typora-and-markdown/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。</p>
-<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
-<li>平台独立。任何 os 都可以方便的创建和浏览；</li>
-<li>适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写；</li>
-<li>广泛支持。大量论坛、网站、桌面程序和 Web 程序都支持；</li>
-</ol>
-<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ol>
-<li>写文章；</li>
-<li>项目的 README；</li>
-</ol>
-<h1 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h1><p>Typora 类似于 Windows 中的记事本，是一个专门用来创建和编写 Markdown 的软件。</p>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><p>在 Typora 上写 Markdown 如虎添翼，下面会介绍自己在学习工作中使用 Typora 中快捷键编写 Markdown 的最佳实践，基本能够应对 90% 以上的情况。</p>
-<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>不建议使用 3 级以上的标题，这样会让文章编排很乱。</p>
-<table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">一级标题</td>
-<td align="center">Ctrl + 1</td>
-<td align="center">Command + 1</td>
-</tr>
-<tr>
-<td align="center">二级标题</td>
-<td align="center">Ctrl + 2</td>
-<td align="center">Command + 2</td>
-</tr>
-<tr>
-<td align="center">三级标题</td>
-<td align="center">Ctrl + 3</td>
-<td align="center">Command + 3</td>
-</tr>
-<tr>
-<td align="center">段落</td>
-<td align="center">Ctrl + 0</td>
-<td align="center">Command + 4</td>
-</tr>
-</tbody></table>
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">插入表格</td>
-<td align="center">Ctrl + T</td>
-<td align="center">Command + T</td>
-</tr>
-<tr>
-<td align="center">行上移</td>
-<td align="center">Alt + 上箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">行下移</td>
-<td align="center">Alt + 下箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">列左移</td>
-<td align="center">Alt + 左箭头</td>
-<td align="center">Command + 左箭头</td>
-</tr>
-<tr>
-<td align="center">列右移</td>
-<td align="center">Alt + 右箭头</td>
-<td align="center">Command + 右箭头</td>
-</tr>
-<tr>
-<td align="center">插入行</td>
-<td align="center">Ctrl + Enter</td>
-<td align="center">Command + Enter</td>
-</tr>
-<tr>
-<td align="center">删除行</td>
-<td align="center">Ctrl + Shift + Delete</td>
-<td align="center">Command + Shift + Delete</td>
-</tr>
-</tbody></table>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">引用</td>
-<td align="center">Ctrl + Shift + Q</td>
-<td align="center">Command + Shift + Q</td>
-</tr>
-</tbody></table>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">有序列表</td>
-<td align="center">Ctrl + Shift + [</td>
-<td align="center">Command + Shift + [</td>
-</tr>
-<tr>
-<td align="center">无序列表</td>
-<td align="center">Ctrl + Shift + ]</td>
-<td align="center">Command + Shift + ]</td>
-</tr>
-<tr>
-<td align="center">任务列表</td>
-<td align="center">Ctrl + Shift + X</td>
-<td align="center">Command + Shift + X</td>
-</tr>
-<tr>
-<td align="center">增加列表缩进</td>
-<td align="center">Tab</td>
-<td align="center">Tab</td>
-</tr>
-<tr>
-<td align="center">减少列表缩进</td>
-<td align="center">Shift + Tab</td>
-<td align="center">Shift + Tab</td>
-</tr>
-</tbody></table>
-<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">链接</td>
-<td align="center">Ctrl + K</td>
-<td align="center">Command + K</td>
-</tr>
-<tr>
-<td align="center">加粗</td>
-<td align="center">Ctrl + B</td>
-<td align="center">Command + B</td>
-</tr>
-<tr>
-<td align="center">斜体</td>
-<td align="center">Ctrl + I</td>
-<td align="center">Command + I</td>
-</tr>
-<tr>
-<td align="center">下划线</td>
-<td align="center">Ctrl + U</td>
-<td align="center">Command + U</td>
-</tr>
-<tr>
-<td align="center">删除线</td>
-<td align="center">Shift + Alt + 5</td>
-<td align="center">Shift + Alt + 5</td>
-</tr>
-</tbody></table>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">代码</td>
-<td align="center">Ctrl + Shift + &#96;</td>
-<td align="center">Command + Shift + &#96;</td>
-</tr>
-<tr>
-<td align="center">代码块</td>
-<td align="center">Ctrl + Shift + K</td>
-<td align="center">Command + Shift + K</td>
-</tr>
-</tbody></table>
-<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">隐藏 &#x2F; 显示侧边栏</td>
-<td align="center">Ctrl + Shift + L</td>
-<td align="center">Command + Shift + L</td>
-</tr>
-<tr>
-<td align="center">源代码</td>
-<td align="center">Ctrl + &#x2F;</td>
-<td align="center">Command + &#x2F;</td>
-</tr>
-</tbody></table>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://www.markdownguide.org/">Markdown</a></li>
-<li><a href="https://typora.io/">Typora</a></li>
-<li><a href="https://typora.io/#download">Typora 下载</a></li>
-<li><a href="https://typora.io/#purchase">Typora 购买</a></li>
-<li>typora-段落</li>
-<li>typora-格式</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UML 类图</title>
-    <url>/2023/04/30/uml-class-diagram/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月30日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
-<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
-<pre><code class="highlight mermaid">---
-title: 接口示例
----
-classDiagram
-class Speaker &#123;
-	&lt;&lt;interface&gt;&gt;
-	speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Abstract &#123;
-	&lt;&lt;abstract&gt;&gt;
-&#125;</code></pre>
-
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
-<pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Speakerman &#123;
-	String name
-    speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
-<p>-表示 private</p>
-<p>#表示 protected</p>
-<p>~表示 package 或者 internal</p>
-<pre><code class="highlight mermaid">---
-title: 可见性示例
----
-classDiagram
-class Visibility &#123;
-	+int n1
-	-int n2
-	#int n3
-	~int n4
-	
-	+m1()
-	-m1()
-	#m3()
-	~m4()
-&#125;</code></pre>
-
-<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
-<p>$表示 static，下划线</p>
-<pre><code class="highlight mermaid">---
-title: 修饰符示例
----
-classDiagram
-class Modifier &#123;
-	int n1$
-	
-	+m1()*
-    +m2()$
-&#125;</code></pre>
-
-<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
-<p>Man is a Person</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Person &#123;
-	
-&#125;
-
-class Man &#123;
-	
-&#125;
-
-Person &lt;|-- Man</code></pre>
-
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
-<p>Bird has Fly ability</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Fly &#123;
-	&lt;&lt;interface&gt;&gt;
-&#125;
-
-class Bird &#123;
-	
-&#125;
-
-Fly &lt;|.. Bird</code></pre>
-
-<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
-<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
-<pre><code class="highlight mermaid">---
-title: 聚合示例
----
-classDiagram
-class Classroom &#123;
-	Blackboard blackboard
-&#125;
-
-class Blackboard &#123;
-	
-&#125;
-
-Classroom o-- Blackboard</code></pre>
-
-<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
-<p>Arm is part of Person </p>
-<pre><code class="highlight mermaid">---
-title: 组合示例
----
-classDiagram
-class Person &#123;
-	Arm arm
-&#125;
-
-class Arm &#123;
-	
-&#125;
-
-Person *-- Arm</code></pre>
-
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
-<p>Person depand on Water</p>
-<pre><code class="highlight mermaid">---
-title: 依赖示例
----
-classDiagram
-class Person &#123;
-	Water water
-&#125;
-
-class Water &#123;
-	
-&#125;
-
-Water &lt;.. Person</code></pre>
-
-<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
-<p>Person should know Climate</p>
-<pre><code class="highlight mermaid">---
-title: 关联示例
----
-classDiagram
-class Person &#123;
-	Climate climate
-&#125;
-
-class Climate &#123;
-	
-&#125;
-
-Climate &lt;-- Person</code></pre>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
-<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
-<li>聚合适用范围比组合更广；</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>tool</tag>
       </tags>
   </entry>
 </search>
