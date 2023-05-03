@@ -12,116 +12,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>冒泡排序</title>
-    <url>/2023/05/03/bubble-sort/</url>
-    <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>冒泡排序会从头开始依次比较 2 个相邻元素的大小，如果顺序错误就交换，直到没有相邻元素需要交换，即排序完成。每进行一次循环，就会有固定一个排序元素。</p>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>使用 flag 来描述一次循环是否有需要交换的元素，如果没交换，说明已经有序，则不用接下来的循环。</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/bubble_sort_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/SortTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>data-structure-and-algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>抽象工厂模式</title>
-    <url>/2023/05/03/creational-factory-abstract/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>提供一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>分离了具体的产品类；</li>
-<li>有利于产品一致性；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>难以扩展抽象工厂</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>一个系统要独立产品的创建、组合和表示；</li>
-<li>一个系统要由多个产品系列中的一个来配置；</li>
-<li>提供一个产品库，只显示接口而非实现；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-</table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class AbstractFactory &#123;
-	&lt;&lt;interface&gt;&gt;
-	createProductA()
-	createProductB()
-&#125;
-
-class ConcreteFactoryA &#123;
-	createProductA()
-	createProductB()
-&#125;
-
-class ConcreteFactoryB &#123;
-	createProductA()
-	createProductB()
-&#125;
-AbstractFactory &lt;|.. ConcreteFactoryA
-AbstractFactory &lt;|.. ConcreteFactoryB
-
-class AbstractProduct &#123;
-	&lt;&lt;interface&gt;&gt;
-	operator()
-&#125;
-
-class ConcreteProductA &#123;
-	operator()
-&#125;
-
-class ConcreteProductB &#123;
-	operator()
-&#125;
-AbstractProduct &lt;|.. ConcreteProductA
-AbstractProduct &lt;|.. ConcreteProductB
-
-ConcreteFactoryA &lt;-- ConcreteProductA
-ConcreteFactoryB &lt;-- ConcreteProductB
-
-AbstractFactory &lt;-- Client
-AbstractProduct &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="AbstractFactory"><a href="#AbstractFactory" class="headerlink" title="AbstractFactory"></a>AbstractFactory</h2><ul>
-<li>声明创建抽象产品的方法</li>
-</ul>
-<h2 id="ConcreteFactoryX"><a href="#ConcreteFactoryX" class="headerlink" title="ConcreteFactoryX"></a>ConcreteFactoryX</h2><ul>
-<li>AbstractFactory 的实现;</li>
-</ul>
-<h2 id="AbstractProduct"><a href="#AbstractProduct" class="headerlink" title="AbstractProduct"></a>AbstractProduct</h2><ul>
-<li>为一类产品对象声明方法；</li>
-</ul>
-<h2 id="ConcreteProductX"><a href="#ConcreteProductX" class="headerlink" title="ConcreteProductX"></a>ConcreteProductX</h2><ul>
-<li>AbstractProduct 的实现；</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>客户端通常创建一个 ConcreteFactory 对象，用来创建对应的 Product；</li>
-<li>AbstractFactory 将对象创建延迟到 ConcreteFactory 中；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>工厂方法模式：抽象工厂常用工厂方法实现；</li>
-<li>原型模式：抽象工厂也能用原型模式实现；</li>
-<li>单例模式：一个具体的工厂是单例的；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/factory/abs/repository_factory_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/factory/abs/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>观察者模式</title>
     <url>/2023/05/02/behavioral-observer/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>定义对象间的一对多关系，当一个对象的状态发生改变时，所有依赖与它的对象都得到通知并自动被更新。</p>
@@ -253,11 +143,24 @@ Observer &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>我的 Intellij IDEA 设置</title>
-    <url>/2023/05/02/idea/</url>
-    <content><![CDATA[<p>IDEA 是 jetbrains 为 Javaer 打造的 IDE，我基本上 Java、Golang、Python 和 JS 等都用它来编写。</p>
-<p>我使用 <a href="https://www.jetbrains.com.cn/toolbox-app/">Toolbox</a> 来管理 jetbrains 的所有产品。</p>
-<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><p>IntelliJ IDEA 2022.3.3</p>
+    <title>策略模式</title>
+    <url>/2023/04/25/behavioral-strategy/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>提供了一组 Strategy；</li>
+<li>组合代替了继承；</li>
+<li>消除分支；</li>
+<li>client 选择 Strategy 实现；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>client 需要了解 Strategy 实现的不同；</li>
+<li>某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；</li>
+<li>增加了类的数目；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>替换的仅仅是类中的行为；</li>
+<li>行为中的数据对用户是隐藏的；</li>
+</ol>
 <span id="more"></span>
 
 <table>
@@ -268,206 +171,485 @@ Observer &lt;-- Client</code></pre>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年5月2日</td>
+<td align="center">2023年4月25日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年4月30日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Context &#123;
+	&lt;&lt;interface&gt;&gt;
+	getContext()
+&#125;
+
+class Strategy &#123;
+	&lt;&lt;interface&gt;&gt;
+	handle()
+&#125;
+
+Context o--&gt; Strategy
+
+class ConcreteStrategyA &#123;
+	handle()
+&#125;
+
+class ConcreteStrategyB &#123;
+	handle()
+&#125;
+
+class ConcreteStrategyC &#123;
+	handle()
+&#125;
+
+Strategy &lt;|.. ConcreteStrategyA
+Strategy &lt;|.. ConcreteStrategyB
+Strategy &lt;|.. ConcreteStrategyC
+
+Context &lt;-- Client
+Strategy &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Context-接口"><a href="#Context-接口" class="headerlink" title="Context 接口"></a>Context 接口</h2><ul>
+<li><p>提供一个方法来配置自身；</p>
+</li>
+<li><p>维护对 Strategy 的引用；</p>
+</li>
+</ul>
+<h2 id="Strategy-接口"><a href="#Strategy-接口" class="headerlink" title="Strategy 接口"></a>Strategy 接口</h2><p>支持行为的公共接口。Context 使用 Strategy 提供的方法来调用某个 ConcreteStrategyX。</p>
+<h2 id="ConcreteStrategyX-类"><a href="#ConcreteStrategyX-类" class="headerlink" title="ConcreteStrategyX 类"></a>ConcreteStrategyX 类</h2><p>具体实现 Strategy 接口。</p>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 通常创建 ConcreteStrategyX 对象交给 Context 接收，这样 client 仅与 Context 进行交互；</li>
+<li>当 client 调用时，Context 将 Strategy 所需的数据传递给 ConcreteStrategyX，处理完成后回调给 Context;</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>享元模式（Flyweight）：Strategy 对象是很好的轻量级对象。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li><p>Strategy 可以通过工厂模式来创建。</p>
+</li>
+<li><p>ConcreteStrategy 一般是无状态的，是纯粹的算法实现。可以将 ConcreteStrategy 对象缓存到工厂类中，不需要每次调用时创建；如果是有状态的，则需要新创建对象。</p>
+</li>
+<li><p>配置文件或注解指定 ConcreteStrategy 族，StrategyFactory 加载 ConcreteStrategy 族，使用反射在运行时动态决定 ConcreteStrategy 是最典型的用法。</p>
+</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/strategy/strategy_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/strategy/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板方法模式</title>
+    <url>/2023/04/29/behavioral-template/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>实现了反转控制；</li>
+<li>给子类提供了扩展的钩子 hook；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>实现算法不变的部分，将可变行为留给子类来实现；</li>
+<li>子类中公共的行为被提取到父类，避免代码重复；</li>
+<li>限制子类扩展</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月29日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月1日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class AbstractClass &#123;
+	&lt;&lt;Abstract&gt;&gt;
+	template()
+	stepX()*
+&#125;
+
+class ConcreteClass &#123;
+	stepX()
+&#125;
+
+AbstractClass &lt;|-- ConcreteClass
+AbstractClass &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="AbstractClass"><a href="#AbstractClass" class="headerlink" title="AbstractClass"></a>AbstractClass</h2><ul>
+<li>定义算法骨架，将具体步骤留到子类；</li>
+</ul>
+<h2 id="ConcreteClass"><a href="#ConcreteClass" class="headerlink" title="ConcreteClass"></a>ConcreteClass</h2><ul>
+<li>继承 AbstractClass，实现具体步骤；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 通常使用 AbstractClass 引用来创建一个 ConcreteClass 实例；</li>
+<li>client 调用 AbstractClass 中的 template 方法；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>工厂方法：常被模板方法调用；</li>
+<li>策略模式：模板方法使用继承来改变算法的一部分；但策略模式是使用委托来改变整个算法；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/template/template_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/template/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>冒泡排序</title>
+    <url>/2023/05/03/bubble-sort/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>冒泡排序会从头开始依次比较 2 个相邻元素的大小，如果顺序错误就交换，直到没有相邻元素需要交换，即排序完成。每进行一次循环，就会有固定一个排序元素到末尾。</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>由于末尾是目标位置，所以不用放在循环中；</li>
+<li>使用 flag 来描述一次循环是否有需要交换的元素，如果没交换，说明已经有序，则不用接下来的循环。</li>
+</ul>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/bubble_sort_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/main/java/sort/BubbleSort.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>data-structure-and-algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>建造者模式</title>
+    <url>/2023/05/01/creational-builder/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个复杂对象的构建和表示分离，使得同样的构建过程可以创建出不同对象。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>避免构造器参数太多，按需构造；</li>
+<li>避免 setter 方法，使对象不可变；</li>
+<li>构造和表示代码分开；</li>
+<li>更精细控制构造过程；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>复杂对象的创建独立于创建对象的组成部分时；</li>
+<li>需要按需构造时；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月1日</td>
 <td align="center">初始化</td>
 </tr>
 </tbody></table>
-<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><h2 id="强烈推荐"><a href="#强烈推荐" class="headerlink" title="强烈推荐"></a>强烈推荐</h2><p><a href="https://plugins.jetbrains.com/plugin/18824-codeglance-pro">CodeGlance Pro</a>：代码小地图；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>：提供 git commit message 的模板，该模板是符合 angular commit msg 提交规范（被很多项目采用）；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/7499-gittoolbox">GitToolBox</a>：扩展了 idea 继承 git 的功能；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/9568-go">Go</a>：编写 Go 语言的扩展；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/7179-maven-helper">Maven Helper</a>：用来查看 maven 中依赖的插件；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/10119-mybatisx">MyBatisX</a>：提供 mabatis 的支持；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/631-python">Python</a>：编写 Python 语言的扩展；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/10080-rainbow-brackets">Rainbow Barckets</a>：彩虹括号；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/10837-requirements">Requirements</a>：Python 中 pip 依赖的支持；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/14280-restfultool">RestfulTool</a>：快速查看 Spring 中 Restful 接口；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/7973-sonarlint">SonarLint</a>：静态代码检查；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/12798-tabnine-ai-code-completion-js-java-python-ts-rust-go-php--more">Tabnine </a>：Copilot 的替代；</p>
-<h2 id="推荐使用"><a href="#推荐使用" class="headerlink" title="推荐使用"></a>推荐使用</h2><p><a href="https://plugins.jetbrains.com/plugin/17718-github-copilot">GitHub Copilot</a>：我登录不上去，能登录上的推荐；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/7177-file-watchers">File Watchers</a>：文件修改后触发操作；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/7125-grep-console">Grep Console</a>：高亮标准输出；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/13873-json-helper">Json Helper</a>：JSON 类型转换；</p>
-<p><a href="https://plugins.jetbrains.com/plugin/12132-leetcode-editor">LeetCode Editor</a>：一直供着不敢删除；</p>
-<h1 id="高频快捷键"><a href="#高频快捷键" class="headerlink" title="高频快捷键"></a>高频快捷键</h1><table>
-<thead>
-<tr>
-<th align="center">action</th>
-<th align="center">shortcut</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Settings</td>
-<td align="center">Ctrl + Alt + S</td>
-<td align="center">打开设置</td>
-</tr>
-<tr>
-<td align="center">Project Structure</td>
-<td align="center">Ctrl + Shift + Alt + S</td>
-<td align="center">打开项目结构</td>
-</tr>
-<tr>
-<td align="center">Project</td>
-<td align="center">Alt + 1</td>
-<td align="center">查看项目</td>
-</tr>
-<tr>
-<td align="center">Database</td>
-<td align="center">Alt + 2</td>
-<td align="center">查看数据库</td>
-</tr>
-<tr>
-<td align="center">Structure</td>
-<td align="center">Alt + 7</td>
-<td align="center">查看文件结构</td>
-</tr>
-<tr>
-<td align="center">Parameter Info</td>
-<td align="center">Alt + P</td>
-<td align="center">查看方法参数信息</td>
-</tr>
-<tr>
-<td align="center">Terminal</td>
-<td align="center">Alt + F12</td>
-<td align="center">打开终端</td>
-</tr>
-<tr>
-<td align="center">Move Caret to Line Start</td>
-<td align="center">Alt + 向左箭头</td>
-<td align="center">光标到行头</td>
-</tr>
-<tr>
-<td align="center">Move Caret to Line End</td>
-<td align="center">Alt + 向右箭头</td>
-<td align="center">光标到行尾</td>
-</tr>
-<tr>
-<td align="center">Delete Line</td>
-<td align="center">Alt + Backspace</td>
-<td align="center">删除一行</td>
-</tr>
-<tr>
-<td align="center">Split Line</td>
-<td align="center">Ctrl + Enter</td>
-<td align="center">光标到下一行</td>
-</tr>
-<tr>
-<td align="center">Select Tab #1-6</td>
-<td align="center">Ctrl + 1-6</td>
-<td align="center">选择 1-6 编号的 Tab</td>
-</tr>
-<tr>
-<td align="center">Up</td>
-<td align="center">Ctrl + P</td>
-<td align="center">光标向上一行</td>
-</tr>
-<tr>
-<td align="center">Commit</td>
-<td align="center">Ctrl + K</td>
-<td align="center">提交</td>
-</tr>
-<tr>
-<td align="center">Down</td>
-<td align="center">Ctrl + N</td>
-<td align="center">光标向下一行</td>
-</tr>
-<tr>
-<td align="center">Duplicate Line or Selection</td>
-<td align="center">Ctrl + D</td>
-<td align="center">复制一行</td>
-</tr>
-<tr>
-<td align="center">Close Tab</td>
-<td align="center">Ctrl + W</td>
-<td align="center">关闭 Tab</td>
-</tr>
-<tr>
-<td align="center">Split and Move Right</td>
-<td align="center">Ctrl + \</td>
-<td align="center">右分割</td>
-</tr>
-<tr>
-<td align="center">Undo</td>
-<td align="center">Ctrl + Z</td>
-<td align="center">撤销</td>
-</tr>
-<tr>
-<td align="center">Redo</td>
-<td align="center">Ctrl + Shift + Z</td>
-<td align="center">反撤销</td>
-</tr>
-<tr>
-<td align="center">Rollback</td>
-<td align="center">Ctrl + Alt + Z</td>
-<td align="center">回滚改动</td>
-</tr>
-</tbody></table>
-<h1 id="Live-Templates"><a href="#Live-Templates" class="headerlink" title="Live Templates"></a>Live Templates</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><table>
-<thead>
-<tr>
-<th align="center">shortcut</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">fori</td>
-<td align="center">for (int i &#x3D; 0; i &lt; param; i++) {}</td>
-</tr>
-<tr>
-<td align="center">iter</td>
-<td align="center">for range loop</td>
-</tr>
-<tr>
-<td align="center">souf</td>
-<td align="center">System.out.printf();</td>
-</tr>
-<tr>
-<td align="center">sout</td>
-<td align="center">System.out.println();</td>
-</tr>
-<tr>
-<td align="center">souc</td>
-<td align="center">System.out::println</td>
-</tr>
-<tr>
-<td align="center">soutm</td>
-<td align="center">System.out.println(“$CLASS_NAME$.$METHOD_NAME$”);</td>
-</tr>
-<tr>
-<td align="center">soutv</td>
-<td align="center">System.out.println(“$EXPR_COPY$ &#x3D; “ + $EXPR$);</td>
-</tr>
-<tr>
-<td align="center">thr</td>
-<td align="center">throw new</td>
-</tr>
-</tbody></table>
-<h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><table>
-<thead>
-<tr>
-<th align="center">shortcut</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">fori</td>
-<td align="center">for i:&#x3D;0; i &lt; param; i++ {}</td>
-</tr>
-<tr>
-<td align="center">iter</td>
-<td align="center">for range loop</td>
-</tr>
-<tr>
-<td align="center">err</td>
-<td align="center">if err !&#x3D; nil {}</td>
-</tr>
-</tbody></table>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>Help - Keyboard Shortcuts PDF</p>
-<p><a href="https://www.jetbrains.com/idea/">下载</a></p>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Builder &#123;
+	&lt;&lt;static&gt;&gt;
+	setXxx()
+	build() Product
+&#125;
+
+class Product &#123;
+	-Product()
+&#125;
+
+Builder &lt;-- Product
+Builder &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Builder-类"><a href="#Builder-类" class="headerlink" title="Builder 类"></a>Builder 类</h2><ul>
+<li>使用 builder 创建一个 Product</li>
+</ul>
+<h2 id="Product-类"><a href="#Product-类" class="headerlink" title="Product 类"></a>Product 类</h2><ul>
+<li>产品类。</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>抽象工厂：建造者模式是一步一步建造，并通过 build 方法返回；而抽象工厂是立刻返回；</li>
+<li>组合模式：组合模式通常是 Builder 模式生成的。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>Builder 往往是静态的，也可以是一个接口；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/builder/builder_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/builder/ClientTest.java">java</a></p>
 ]]></content>
       <tags>
-        <tag>tool</tag>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>抽象工厂模式</title>
+    <url>/2023/05/03/creational-factory-abstract/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>提供一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>分离了具体的产品类；</li>
+<li>有利于产品一致性；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>难以扩展抽象工厂</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>一个系统要独立产品的创建、组合和表示；</li>
+<li>一个系统要由多个产品系列中的一个来配置；</li>
+<li>提供一个产品库，只显示接口而非实现；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+</table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class AbstractFactory &#123;
+	&lt;&lt;interface&gt;&gt;
+	createProductA()
+	createProductB()
+&#125;
+
+class ConcreteFactoryA &#123;
+	createProductA()
+	createProductB()
+&#125;
+
+class ConcreteFactoryB &#123;
+	createProductA()
+	createProductB()
+&#125;
+AbstractFactory &lt;|.. ConcreteFactoryA
+AbstractFactory &lt;|.. ConcreteFactoryB
+
+class AbstractProduct &#123;
+	&lt;&lt;interface&gt;&gt;
+	operator()
+&#125;
+
+class ConcreteProductA &#123;
+	operator()
+&#125;
+
+class ConcreteProductB &#123;
+	operator()
+&#125;
+AbstractProduct &lt;|.. ConcreteProductA
+AbstractProduct &lt;|.. ConcreteProductB
+
+ConcreteFactoryA &lt;-- ConcreteProductA
+ConcreteFactoryB &lt;-- ConcreteProductB
+
+AbstractFactory &lt;-- Client
+AbstractProduct &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="AbstractFactory"><a href="#AbstractFactory" class="headerlink" title="AbstractFactory"></a>AbstractFactory</h2><ul>
+<li>声明创建抽象产品的方法</li>
+</ul>
+<h2 id="ConcreteFactoryX"><a href="#ConcreteFactoryX" class="headerlink" title="ConcreteFactoryX"></a>ConcreteFactoryX</h2><ul>
+<li>AbstractFactory 的实现;</li>
+</ul>
+<h2 id="AbstractProduct"><a href="#AbstractProduct" class="headerlink" title="AbstractProduct"></a>AbstractProduct</h2><ul>
+<li>为一类产品对象声明方法；</li>
+</ul>
+<h2 id="ConcreteProductX"><a href="#ConcreteProductX" class="headerlink" title="ConcreteProductX"></a>ConcreteProductX</h2><ul>
+<li>AbstractProduct 的实现；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>客户端通常创建一个 ConcreteFactory 对象，用来创建对应的 Product；</li>
+<li>AbstractFactory 将对象创建延迟到 ConcreteFactory 中；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>工厂方法模式：抽象工厂常用工厂方法实现；</li>
+<li>原型模式：抽象工厂也能用原型模式实现；</li>
+<li>单例模式：一个具体的工厂是单例的；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/factory/abs/repository_factory_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/factory/abs/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>工厂方法模式</title>
+    <url>/2023/04/24/creational-factory-tmpl/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>给子类创建对象预留扩展点；</li>
+<li>client 通过 Creator 间接创建对象；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>Creator 实现变多；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>一个类希望由它的子类来创建对象时；</li>
+<li>一个类不知道创建对象的类时；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月24日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年4月30日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Creator &#123;
+	&lt;&lt;abstract&gt;&gt;
+	getProduct() Product
+&#125;
+
+class ConcreteCreator &#123;
+	getProduct() Product
+&#125;
+Creator &lt;|-- ConcreteCreator
+
+class Product &#123;
+	&lt;&lt;interface&gt;&gt;
+	handle()
+&#125;
+
+class ConcreteProduct &#123;
+	handle()
+&#125;
+
+Product &lt;|.. ConcreteProduct
+
+ConcreteCreator &lt;-- Product
+Creator &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Product-接口"><a href="#Product-接口" class="headerlink" title="Product 接口"></a>Product 接口</h2><ul>
+<li>定义工厂方法创建对象的接口。</li>
+</ul>
+<h2 id="ConcreteProduct-类"><a href="#ConcreteProduct-类" class="headerlink" title="ConcreteProduct 类"></a>ConcreteProduct 类</h2><ul>
+<li>Produce 接口的实现。</li>
+</ul>
+<h2 id="Creator-抽象类"><a href="#Creator-抽象类" class="headerlink" title="Creator 抽象类"></a>Creator 抽象类</h2><ul>
+<li>声明一个抽象工厂方法，返回默认的 Product 对象。</li>
+</ul>
+<h2 id="ConcreteCreator-类"><a href="#ConcreteCreator-类" class="headerlink" title="ConcreteCreator 类"></a>ConcreteCreator 类</h2><ul>
+<li>Creator 抽象类的实现，返回自定义 Product 对象。</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>使用客户端。</li>
+</ul>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 创建一个 Creator；</li>
+<li>client 调用 Creator 提供的方法来返回 ConcreteProduct。</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>抽象工厂模式（Abstract Factory）经常用工厂方法实现；</li>
+<li>工厂方法通常在模板方法中被调用；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>基本的工厂方法中，一个 ConcreteProduct 对应一个 ConcreteCreator 的具体实现；</li>
+<li>可以通过参数化的方式，来将 ConcreteProduct 分类；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/factory/tmpl/factory_tmpl_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/factory/tmpl/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>原型模式</title>
+    <url>/2023/04/28/creational-prototype/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个原型实例中创建另外一个相同对象，而不用知道创建细节。。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>运行时增加和删除对象；</li>
+<li>通过极少改变，创建新对象；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>要使用深拷贝代替浅拷贝。循环依赖的问题可能使 clone 难以实现；</li>
+<li>Prototype 的每个子类都要实现 clone；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
+<li>对象创建的数据需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取；</li>
+<li>对象创建成本大、不同对象大部分字段都相同。</li>
+</ul>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月28日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年4月30日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Prototype &#123;
+	&lt;&lt;interface&gt;&gt;
+	clone() Object
+&#125;
+
+class ConcretePrototype &#123;
+    clone() ConcretePrototype
+&#125;
+
+Prototype &lt;|.. ConcretePrototype
+
+Prototype &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Prototype-接口"><a href="#Prototype-接口" class="headerlink" title="Prototype 接口"></a>Prototype 接口</h2><ul>
+<li>声明一个克隆自身的接口。</li>
+</ul>
+<h2 id="ConcretePrototype-类"><a href="#ConcretePrototype-类" class="headerlink" title="ConcretePrototype 类"></a>ConcretePrototype 类</h2><ul>
+<li>Prototype 接口的实现。</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>客户端用来克隆自身</li>
+</ul>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>与抽象工厂（Abstract Factory）亦敌亦友；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ol>
+<li>使用深拷贝，除非有足够的理由才能选择浅拷贝；</li>
+</ol>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/prototype/prototype_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/prototype/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
       </tags>
   </entry>
   <entry>
@@ -580,1095 +762,6 @@ Observer &lt;-- Client</code></pre>
 ]]></content>
       <tags>
         <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>建造者模式</title>
-    <url>/2023/05/01/creational-builder/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个复杂对象的构建和表示分离，使得同样的构建过程可以创建出不同对象。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>避免构造器参数太多，按需构造；</li>
-<li>避免 setter 方法，使对象不可变；</li>
-<li>构造和表示代码分开；</li>
-<li>更精细控制构造过程；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>复杂对象的创建独立于创建对象的组成部分时；</li>
-<li>需要按需构造时；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年5月1日</td>
-<td align="center">初始化</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Builder &#123;
-	&lt;&lt;static&gt;&gt;
-	setXxx()
-	build() Product
-&#125;
-
-class Product &#123;
-	-Product()
-&#125;
-
-Builder &lt;-- Product
-Builder &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Builder-类"><a href="#Builder-类" class="headerlink" title="Builder 类"></a>Builder 类</h2><ul>
-<li>使用 builder 创建一个 Product</li>
-</ul>
-<h2 id="Product-类"><a href="#Product-类" class="headerlink" title="Product 类"></a>Product 类</h2><ul>
-<li>产品类。</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂：建造者模式是一步一步建造，并通过 build 方法返回；而抽象工厂是立刻返回；</li>
-<li>组合模式：组合模式通常是 Builder 模式生成的。</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>Builder 往往是静态的，也可以是一个接口；</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/builder/builder_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/builder/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>门面模式</title>
-    <url>/2023/04/30/structural-facade/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>屏蔽了子系统组件；</li>
-<li>拆分用户和子系统；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
-<li>解决性能问题。</li>
-<li>解决分布式事务问题。</li>
-<li>拆分客户端和实现之间的依赖；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月30日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年5月1日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Facade &#123;
-	&lt;&lt;interface&gt;&gt;
-	operator()
-&#125;
-
-class ConcreteFacade &#123;
-	operator()
-&#125;
-
-Facade &lt;|.. ConcreteFacade
-
-ConcreteFacade o.. SubSystem1
-ConcreteFacade o.. SubSystem2
-
-Facade &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Facade-接口"><a href="#Facade-接口" class="headerlink" title="Facade 接口"></a>Facade 接口</h2><ul>
-<li>向 Client 提供处理任务的接口；</li>
-<li>组合 SubSystemX 功能；</li>
-</ul>
-<h2 id="ConcreteFacade-类"><a href="#ConcreteFacade-类" class="headerlink" title="ConcreteFacade 类"></a>ConcreteFacade 类</h2><ul>
-<li>facade 接口的实现；</li>
-</ul>
-<h2 id="SubSystemX"><a href="#SubSystemX" class="headerlink" title="SubSystemX"></a>SubSystemX</h2><ul>
-<li>子系统</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
-<li>客户端</li>
-</ul>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>Client 调用 Facade 时，Facade 将请求转发到 SubSystem 中；</li>
-<li>Client 不需要访问 SubSystem；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂：抽象工厂也可以代替 Facade 来隐藏子系统；</li>
-<li>中介者模式：相同点是都抽象了已有类功能。Facade 模式对接口进行抽象，让子系统提供出的接口更加易用，不定义新功能；后者暂不清楚。</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>门面模式是通过门面接口提供了对封装底层组合功能的封装。</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/facade/facade_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/facade/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UML 类图</title>
-    <url>/2023/04/30/uml-class-diagram/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月30日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
-<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
-<pre><code class="highlight mermaid">---
-title: 接口示例
----
-classDiagram
-class Speaker &#123;
-	&lt;&lt;interface&gt;&gt;
-	speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Abstract &#123;
-	&lt;&lt;abstract&gt;&gt;
-&#125;</code></pre>
-
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
-<pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Speakerman &#123;
-	String name
-    speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
-<p>-表示 private</p>
-<p>#表示 protected</p>
-<p>~表示 package 或者 internal</p>
-<pre><code class="highlight mermaid">---
-title: 可见性示例
----
-classDiagram
-class Visibility &#123;
-	+int n1
-	-int n2
-	#int n3
-	~int n4
-	
-	+m1()
-	-m1()
-	#m3()
-	~m4()
-&#125;</code></pre>
-
-<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
-<p>$表示 static，下划线</p>
-<pre><code class="highlight mermaid">---
-title: 修饰符示例
----
-classDiagram
-class Modifier &#123;
-	int n1$
-	
-	+m1()*
-    +m2()$
-&#125;</code></pre>
-
-<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
-<p>Man is a Person</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Person &#123;
-	
-&#125;
-
-class Man &#123;
-	
-&#125;
-
-Person &lt;|-- Man</code></pre>
-
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
-<p>Bird has Fly ability</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Fly &#123;
-	&lt;&lt;interface&gt;&gt;
-&#125;
-
-class Bird &#123;
-	
-&#125;
-
-Fly &lt;|.. Bird</code></pre>
-
-<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
-<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
-<pre><code class="highlight mermaid">---
-title: 聚合示例
----
-classDiagram
-class Classroom &#123;
-	Blackboard blackboard
-&#125;
-
-class Blackboard &#123;
-	
-&#125;
-
-Classroom o-- Blackboard</code></pre>
-
-<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
-<p>Arm is part of Person </p>
-<pre><code class="highlight mermaid">---
-title: 组合示例
----
-classDiagram
-class Person &#123;
-	Arm arm
-&#125;
-
-class Arm &#123;
-	
-&#125;
-
-Person *-- Arm</code></pre>
-
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
-<p>Person depand on Water</p>
-<pre><code class="highlight mermaid">---
-title: 依赖示例
----
-classDiagram
-class Person &#123;
-	Water water
-&#125;
-
-class Water &#123;
-	
-&#125;
-
-Water &lt;.. Person</code></pre>
-
-<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
-<p>Person should know Climate</p>
-<pre><code class="highlight mermaid">---
-title: 关联示例
----
-classDiagram
-class Person &#123;
-	Climate climate
-&#125;
-
-class Climate &#123;
-	
-&#125;
-
-Climate &lt;-- Person</code></pre>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
-<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
-<li>聚合适用范围比组合更广；</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>模板方法模式</title>
-    <url>/2023/04/29/behavioral-template/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>实现了反转控制；</li>
-<li>给子类提供了扩展的钩子 hook；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>实现算法不变的部分，将可变行为留给子类来实现；</li>
-<li>子类中公共的行为被提取到父类，避免代码重复；</li>
-<li>限制子类扩展</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年5月1日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class AbstractClass &#123;
-	&lt;&lt;Abstract&gt;&gt;
-	template()
-	stepX()*
-&#125;
-
-class ConcreteClass &#123;
-	stepX()
-&#125;
-
-AbstractClass &lt;|-- ConcreteClass
-AbstractClass &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="AbstractClass"><a href="#AbstractClass" class="headerlink" title="AbstractClass"></a>AbstractClass</h2><ul>
-<li>定义算法骨架，将具体步骤留到子类；</li>
-</ul>
-<h2 id="ConcreteClass"><a href="#ConcreteClass" class="headerlink" title="ConcreteClass"></a>ConcreteClass</h2><ul>
-<li>继承 AbstractClass，实现具体步骤；</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 通常使用 AbstractClass 引用来创建一个 ConcreteClass 实例；</li>
-<li>client 调用 AbstractClass 中的 template 方法；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>工厂方法：常被模板方法调用；</li>
-<li>策略模式：模板方法使用继承来改变算法的一部分；但策略模式是使用委托来改变整个算法；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/template/template_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/template/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Typora 和 Markdown</title>
-    <url>/2023/04/29/typora-and-markdown/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。</p>
-<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
-<li>平台独立。任何 os 都可以方便的创建和浏览；</li>
-<li>适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写；</li>
-<li>广泛支持。大量论坛、网站、桌面程序和 Web 程序都支持；</li>
-</ol>
-<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ol>
-<li>写文章；</li>
-<li>项目的 README；</li>
-</ol>
-<h1 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h1><p>Typora 类似于 Windows 中的记事本，是一个专门用来创建和编写 Markdown 的软件。</p>
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><p>在 Typora 上写 Markdown 如虎添翼，下面会介绍自己在学习工作中使用 Typora 中快捷键编写 Markdown 的最佳实践，基本能够应对 90% 以上的情况。</p>
-<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>不建议使用 3 级以上的标题，这样会让文章编排很乱。</p>
-<table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">一级标题</td>
-<td align="center">Ctrl + 1</td>
-<td align="center">Command + 1</td>
-</tr>
-<tr>
-<td align="center">二级标题</td>
-<td align="center">Ctrl + 2</td>
-<td align="center">Command + 2</td>
-</tr>
-<tr>
-<td align="center">三级标题</td>
-<td align="center">Ctrl + 3</td>
-<td align="center">Command + 3</td>
-</tr>
-<tr>
-<td align="center">段落</td>
-<td align="center">Ctrl + 0</td>
-<td align="center">Command + 4</td>
-</tr>
-</tbody></table>
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">插入表格</td>
-<td align="center">Ctrl + T</td>
-<td align="center">Command + T</td>
-</tr>
-<tr>
-<td align="center">行上移</td>
-<td align="center">Alt + 上箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">行下移</td>
-<td align="center">Alt + 下箭头</td>
-<td align="center">Command + 下箭头</td>
-</tr>
-<tr>
-<td align="center">列左移</td>
-<td align="center">Alt + 左箭头</td>
-<td align="center">Command + 左箭头</td>
-</tr>
-<tr>
-<td align="center">列右移</td>
-<td align="center">Alt + 右箭头</td>
-<td align="center">Command + 右箭头</td>
-</tr>
-<tr>
-<td align="center">插入行</td>
-<td align="center">Ctrl + Enter</td>
-<td align="center">Command + Enter</td>
-</tr>
-<tr>
-<td align="center">删除行</td>
-<td align="center">Ctrl + Shift + Delete</td>
-<td align="center">Command + Shift + Delete</td>
-</tr>
-</tbody></table>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">引用</td>
-<td align="center">Ctrl + Shift + Q</td>
-<td align="center">Command + Shift + Q</td>
-</tr>
-</tbody></table>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">有序列表</td>
-<td align="center">Ctrl + Shift + [</td>
-<td align="center">Command + Shift + [</td>
-</tr>
-<tr>
-<td align="center">无序列表</td>
-<td align="center">Ctrl + Shift + ]</td>
-<td align="center">Command + Shift + ]</td>
-</tr>
-<tr>
-<td align="center">任务列表</td>
-<td align="center">Ctrl + Shift + X</td>
-<td align="center">Command + Shift + X</td>
-</tr>
-<tr>
-<td align="center">增加列表缩进</td>
-<td align="center">Tab</td>
-<td align="center">Tab</td>
-</tr>
-<tr>
-<td align="center">减少列表缩进</td>
-<td align="center">Shift + Tab</td>
-<td align="center">Shift + Tab</td>
-</tr>
-</tbody></table>
-<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">链接</td>
-<td align="center">Ctrl + K</td>
-<td align="center">Command + K</td>
-</tr>
-<tr>
-<td align="center">加粗</td>
-<td align="center">Ctrl + B</td>
-<td align="center">Command + B</td>
-</tr>
-<tr>
-<td align="center">斜体</td>
-<td align="center">Ctrl + I</td>
-<td align="center">Command + I</td>
-</tr>
-<tr>
-<td align="center">下划线</td>
-<td align="center">Ctrl + U</td>
-<td align="center">Command + U</td>
-</tr>
-<tr>
-<td align="center">删除线</td>
-<td align="center">Shift + Alt + 5</td>
-<td align="center">Shift + Alt + 5</td>
-</tr>
-</tbody></table>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">代码</td>
-<td align="center">Ctrl + Shift + &#96;</td>
-<td align="center">Command + Shift + &#96;</td>
-</tr>
-<tr>
-<td align="center">代码块</td>
-<td align="center">Ctrl + Shift + K</td>
-<td align="center">Command + Shift + K</td>
-</tr>
-</tbody></table>
-<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">windows</th>
-<th align="center">macOS</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">隐藏 &#x2F; 显示侧边栏</td>
-<td align="center">Ctrl + Shift + L</td>
-<td align="center">Command + Shift + L</td>
-</tr>
-<tr>
-<td align="center">源代码</td>
-<td align="center">Ctrl + &#x2F;</td>
-<td align="center">Command + &#x2F;</td>
-</tr>
-</tbody></table>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://www.markdownguide.org/">Markdown</a></li>
-<li><a href="https://typora.io/">Typora</a></li>
-<li><a href="https://typora.io/#download">Typora 下载</a></li>
-<li><a href="https://typora.io/#purchase">Typora 购买</a></li>
-<li>typora-段落</li>
-<li>typora-格式</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>原型模式</title>
-    <url>/2023/04/28/creational-prototype/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个原型实例中创建另外一个相同对象，而不用知道创建细节。。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>运行时增加和删除对象；</li>
-<li>通过极少改变，创建新对象；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>要使用深拷贝代替浅拷贝。循环依赖的问题可能使 clone 难以实现；</li>
-<li>Prototype 的每个子类都要实现 clone；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
-<li>对象创建的数据需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取；</li>
-<li>对象创建成本大、不同对象大部分字段都相同。</li>
-</ul>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月28日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年4月30日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Prototype &#123;
-	&lt;&lt;interface&gt;&gt;
-	clone() Object
-&#125;
-
-class ConcretePrototype &#123;
-    clone() ConcretePrototype
-&#125;
-
-Prototype &lt;|.. ConcretePrototype
-
-Prototype &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Prototype-接口"><a href="#Prototype-接口" class="headerlink" title="Prototype 接口"></a>Prototype 接口</h2><ul>
-<li>声明一个克隆自身的接口。</li>
-</ul>
-<h2 id="ConcretePrototype-类"><a href="#ConcretePrototype-类" class="headerlink" title="ConcretePrototype 类"></a>ConcretePrototype 类</h2><ul>
-<li>Prototype 接口的实现。</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
-<li>客户端用来克隆自身</li>
-</ul>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>与抽象工厂（Abstract Factory）亦敌亦友；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ol>
-<li>使用深拷贝，除非有足够的理由才能选择浅拷贝；</li>
-</ol>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/prototype/prototype_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/prototype/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>代理模式</title>
-    <url>/2023/04/27/structural-proxy/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来控制这个对象的访问。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
-<li>间接访问原始类；</li>
-</ul>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ul>
-<li>编写的目标代理类太多，当代理类接口改变，所有的代理类都需要进行更新。</li>
-</ul>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li><p>业务系统的非功能性需求开发。监控、统计、鉴权、限流、事务、幂等、日志。</p>
-</li>
-<li><p>RPC</p>
-</li>
-<li><p>缓存</p>
-</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月27日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年5月1日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Subject &#123;
-	&lt;&lt;interface&gt;&gt;
-	operator()
-&#125;
-
-class RealSubject &#123;
-	operator()
-&#125;
-
-class Proxy &#123;
-	operator()
-&#125;
-
-Subject &lt;|.. Proxy
-Subject &lt;|.. RealSubject
-Proxy o.. RealSubject
-
-Subject &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Subject-接口"><a href="#Subject-接口" class="headerlink" title="Subject 接口"></a>Subject 接口</h2><ul>
-<li>定义 Proxy 和 RealSubject 的方法，使得任何使用 RealSubject 的地方可以被 proxy 代替；</li>
-</ul>
-<h2 id="Proxy-类"><a href="#Proxy-类" class="headerlink" title="Proxy 类"></a>Proxy 类</h2><ul>
-<li>代理类。</li>
-</ul>
-<h2 id="RealSubject-类"><a href="#RealSubject-类" class="headerlink" title="RealSubject 类"></a>RealSubject 类</h2><ul>
-<li>被代理类</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
-<li>客户端</li>
-</ul>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 创建一个 Proxy ；</li>
-<li>通过 Proxy 代理类访问原始类；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>适配器模式：适配器模式将给对象一个全新的接口，而代理模式使用相同接口；</li>
-<li>装饰模式：装饰模式是给原始类增加功能，而代理关注访问和控制原始类；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>使用反射可以完成原始类的动态代理。</li>
-<li>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</li>
-<li>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/proxy/proxy_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/proxy/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>装饰模式</title>
-    <url>/2023/04/26/structural-decorator/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>装饰模式(Decorator)，动态地给一个对象添加一些额外的职责，装饰模式比生成子类更加灵活。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>比静态的继承更加灵活；</li>
-<li>避免高层接口的功能太复杂。</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>有很多小对象；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责；</li>
-<li>不能使用子类扩充功能时；</li>
-<li>撤销对象功能；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月26日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年4月30日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Component &#123;
-	&lt;&lt;interface&gt;&gt;
-	operation()
-&#125;
-
-class Decorator &#123;
-	&lt;&lt;abstract&gt;&gt;
-	-Component Component
-	operation()
-&#125;
-
-class ConcreteComponent &#123;
-	operation()
-&#125;
-
-class ConcreteDecoratorA &#123;
-	operation()
-	-addState
-&#125;
-
-class ConcreteDecoratorB &#123;
-	operation()
-    -addBehavior
-&#125;
-
-Component &lt;|.. ConcreteComponent
-Component &lt;|.. Decorator
-Decorator o.. Component
-Decorator &lt;|-- ConcreteDecoratorA
-Decorator &lt;|-- ConcreteDecoratorB
-
-Component &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Component-接口"><a href="#Component-接口" class="headerlink" title="Component 接口"></a>Component 接口</h2><ul>
-<li>定义方法，能够动态地添加职责。</li>
-</ul>
-<h2 id="ConcreteComponent-类"><a href="#ConcreteComponent-类" class="headerlink" title="ConcreteComponent 类"></a>ConcreteComponent 类</h2><ul>
-<li>Component 接口的实现，有基础的功能。</li>
-</ul>
-<h2 id="Decorator-抽象类"><a href="#Decorator-抽象类" class="headerlink" title="Decorator 抽象类"></a>Decorator 抽象类</h2><ul>
-<li>实现 Component 接口，并组合一个 Component 对象。</li>
-</ul>
-<h2 id="ConcreteDecoratorX-类"><a href="#ConcreteDecoratorX-类" class="headerlink" title="ConcreteDecoratorX 类"></a>ConcreteDecoratorX 类</h2><ul>
-<li>继承 Decorator 抽象类，用来添加职责。</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
-<li>客户端</li>
-</ul>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 创建一个 Component；</li>
-<li>通过 Decorator 层层包装 client；</li>
-<li>调用 Component 提供的方法进行工作；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>适配器模式：装饰者模式仅改变对象职责，而适配器模式将给对象一个全新的接口；</li>
-<li>组合模式：装饰器模式被认为是退化为只有一个组件的组合；</li>
-<li>策略模式：装饰器模式改变的是对象外表，而策略模式改变对象内核。</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>装饰模式使得核心职责和装饰功能区分开，减少重复的装饰逻辑；</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/decorator/decorator_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/decorator/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>策略模式</title>
-    <url>/2023/04/25/behavioral-strategy/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>提供了一组 Strategy；</li>
-<li>组合代替了继承；</li>
-<li>消除分支；</li>
-<li>client 选择 Strategy 实现；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>client 需要了解 Strategy 实现的不同；</li>
-<li>某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；</li>
-<li>增加了类的数目；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>替换的仅仅是类中的行为；</li>
-<li>行为中的数据对用户是隐藏的；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月25日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年4月30日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Context &#123;
-	&lt;&lt;interface&gt;&gt;
-	getContext()
-&#125;
-
-class Strategy &#123;
-	&lt;&lt;interface&gt;&gt;
-	handle()
-&#125;
-
-Context o--&gt; Strategy
-
-class ConcreteStrategyA &#123;
-	handle()
-&#125;
-
-class ConcreteStrategyB &#123;
-	handle()
-&#125;
-
-class ConcreteStrategyC &#123;
-	handle()
-&#125;
-
-Strategy &lt;|.. ConcreteStrategyA
-Strategy &lt;|.. ConcreteStrategyB
-Strategy &lt;|.. ConcreteStrategyC
-
-Context &lt;-- Client
-Strategy &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Context-接口"><a href="#Context-接口" class="headerlink" title="Context 接口"></a>Context 接口</h2><ul>
-<li><p>提供一个方法来配置自身；</p>
-</li>
-<li><p>维护对 Strategy 的引用；</p>
-</li>
-</ul>
-<h2 id="Strategy-接口"><a href="#Strategy-接口" class="headerlink" title="Strategy 接口"></a>Strategy 接口</h2><p>支持行为的公共接口。Context 使用 Strategy 提供的方法来调用某个 ConcreteStrategyX。</p>
-<h2 id="ConcreteStrategyX-类"><a href="#ConcreteStrategyX-类" class="headerlink" title="ConcreteStrategyX 类"></a>ConcreteStrategyX 类</h2><p>具体实现 Strategy 接口。</p>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 通常创建 ConcreteStrategyX 对象交给 Context 接收，这样 client 仅与 Context 进行交互；</li>
-<li>当 client 调用时，Context 将 Strategy 所需的数据传递给 ConcreteStrategyX，处理完成后回调给 Context;</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>享元模式（Flyweight）：Strategy 对象是很好的轻量级对象。</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li><p>Strategy 可以通过工厂模式来创建。</p>
-</li>
-<li><p>ConcreteStrategy 一般是无状态的，是纯粹的算法实现。可以将 ConcreteStrategy 对象缓存到工厂类中，不需要每次调用时创建；如果是有状态的，则需要新创建对象。</p>
-</li>
-<li><p>配置文件或注解指定 ConcreteStrategy 族，StrategyFactory 加载 ConcreteStrategy 族，使用反射在运行时动态决定 ConcreteStrategy 是最典型的用法。</p>
-</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/strategy/strategy_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/strategy/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>工厂方法模式</title>
-    <url>/2023/04/24/creational-factory-tmpl/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>给子类创建对象预留扩展点；</li>
-<li>client 通过 Creator 间接创建对象；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>Creator 实现变多；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>一个类希望由它的子类来创建对象时；</li>
-<li>一个类不知道创建对象的类时；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月24日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年4月30日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Creator &#123;
-	&lt;&lt;abstract&gt;&gt;
-	getProduct() Product
-&#125;
-
-class ConcreteCreator &#123;
-	getProduct() Product
-&#125;
-Creator &lt;|-- ConcreteCreator
-
-class Product &#123;
-	&lt;&lt;interface&gt;&gt;
-	handle()
-&#125;
-
-class ConcreteProduct &#123;
-	handle()
-&#125;
-
-Product &lt;|.. ConcreteProduct
-
-ConcreteCreator &lt;-- Product
-Creator &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Product-接口"><a href="#Product-接口" class="headerlink" title="Product 接口"></a>Product 接口</h2><ul>
-<li>定义工厂方法创建对象的接口。</li>
-</ul>
-<h2 id="ConcreteProduct-类"><a href="#ConcreteProduct-类" class="headerlink" title="ConcreteProduct 类"></a>ConcreteProduct 类</h2><ul>
-<li>Produce 接口的实现。</li>
-</ul>
-<h2 id="Creator-抽象类"><a href="#Creator-抽象类" class="headerlink" title="Creator 抽象类"></a>Creator 抽象类</h2><ul>
-<li>声明一个抽象工厂方法，返回默认的 Product 对象。</li>
-</ul>
-<h2 id="ConcreteCreator-类"><a href="#ConcreteCreator-类" class="headerlink" title="ConcreteCreator 类"></a>ConcreteCreator 类</h2><ul>
-<li>Creator 抽象类的实现，返回自定义 Product 对象。</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
-<li>使用客户端。</li>
-</ul>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 创建一个 Creator；</li>
-<li>client 调用 Creator 提供的方法来返回 ConcreteProduct。</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂模式（Abstract Factory）经常用工厂方法实现；</li>
-<li>工厂方法通常在模板方法中被调用；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>基本的工厂方法中，一个 ConcreteProduct 对应一个 ConcreteCreator 的具体实现；</li>
-<li>可以通过参数化的方式，来将 ConcreteProduct 分类；</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/factory/tmpl/factory_tmpl_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/factory/tmpl/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
       </tags>
   </entry>
   <entry>
@@ -1911,6 +1004,932 @@ Creator &lt;-- Client</code></pre>
 ]]></content>
       <tags>
         <tag>readme</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的 Intellij IDEA 设置</title>
+    <url>/2023/05/02/idea/</url>
+    <content><![CDATA[<p>IDEA 是 jetbrains 为 Javaer 打造的 IDE，我基本上 Java、Golang、Python 和 JS 等都用它来编写。</p>
+<p>我使用 <a href="https://www.jetbrains.com.cn/toolbox-app/">Toolbox</a> 来管理 jetbrains 的所有产品。</p>
+<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><p>IntelliJ IDEA 2022.3.3</p>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月2日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><h2 id="强烈推荐"><a href="#强烈推荐" class="headerlink" title="强烈推荐"></a>强烈推荐</h2><p><a href="https://plugins.jetbrains.com/plugin/18824-codeglance-pro">CodeGlance Pro</a>：代码小地图；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>：提供 git commit message 的模板，该模板是符合 angular commit msg 提交规范（被很多项目采用）；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/7499-gittoolbox">GitToolBox</a>：扩展了 idea 继承 git 的功能；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/9568-go">Go</a>：编写 Go 语言的扩展；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/7179-maven-helper">Maven Helper</a>：用来查看 maven 中依赖的插件；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/10119-mybatisx">MyBatisX</a>：提供 mabatis 的支持；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/631-python">Python</a>：编写 Python 语言的扩展；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/10080-rainbow-brackets">Rainbow Barckets</a>：彩虹括号；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/10837-requirements">Requirements</a>：Python 中 pip 依赖的支持；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/14280-restfultool">RestfulTool</a>：快速查看 Spring 中 Restful 接口；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/7973-sonarlint">SonarLint</a>：静态代码检查；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/12798-tabnine-ai-code-completion-js-java-python-ts-rust-go-php--more">Tabnine </a>：Copilot 的替代；</p>
+<h2 id="推荐使用"><a href="#推荐使用" class="headerlink" title="推荐使用"></a>推荐使用</h2><p><a href="https://plugins.jetbrains.com/plugin/17718-github-copilot">GitHub Copilot</a>：我登录不上去，能登录上的推荐；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/7177-file-watchers">File Watchers</a>：文件修改后触发操作；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/7125-grep-console">Grep Console</a>：高亮标准输出；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/13873-json-helper">Json Helper</a>：JSON 类型转换；</p>
+<p><a href="https://plugins.jetbrains.com/plugin/12132-leetcode-editor">LeetCode Editor</a>：一直供着不敢删除；</p>
+<h1 id="高频快捷键"><a href="#高频快捷键" class="headerlink" title="高频快捷键"></a>高频快捷键</h1><table>
+<thead>
+<tr>
+<th align="center">action</th>
+<th align="center">shortcut</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Settings</td>
+<td align="center">Ctrl + Alt + S</td>
+<td align="center">打开设置</td>
+</tr>
+<tr>
+<td align="center">Project Structure</td>
+<td align="center">Ctrl + Shift + Alt + S</td>
+<td align="center">打开项目结构</td>
+</tr>
+<tr>
+<td align="center">Project</td>
+<td align="center">Alt + 1</td>
+<td align="center">查看项目</td>
+</tr>
+<tr>
+<td align="center">Database</td>
+<td align="center">Alt + 2</td>
+<td align="center">查看数据库</td>
+</tr>
+<tr>
+<td align="center">Structure</td>
+<td align="center">Alt + 7</td>
+<td align="center">查看文件结构</td>
+</tr>
+<tr>
+<td align="center">Parameter Info</td>
+<td align="center">Alt + P</td>
+<td align="center">查看方法参数信息</td>
+</tr>
+<tr>
+<td align="center">Terminal</td>
+<td align="center">Alt + F12</td>
+<td align="center">打开终端</td>
+</tr>
+<tr>
+<td align="center">Move Caret to Line Start</td>
+<td align="center">Alt + 向左箭头</td>
+<td align="center">光标到行头</td>
+</tr>
+<tr>
+<td align="center">Move Caret to Line End</td>
+<td align="center">Alt + 向右箭头</td>
+<td align="center">光标到行尾</td>
+</tr>
+<tr>
+<td align="center">Delete Line</td>
+<td align="center">Alt + Backspace</td>
+<td align="center">删除一行</td>
+</tr>
+<tr>
+<td align="center">Split Line</td>
+<td align="center">Ctrl + Enter</td>
+<td align="center">光标到下一行</td>
+</tr>
+<tr>
+<td align="center">Select Tab #1-6</td>
+<td align="center">Ctrl + 1-6</td>
+<td align="center">选择 1-6 编号的 Tab</td>
+</tr>
+<tr>
+<td align="center">Up</td>
+<td align="center">Ctrl + P</td>
+<td align="center">光标向上一行</td>
+</tr>
+<tr>
+<td align="center">Commit</td>
+<td align="center">Ctrl + K</td>
+<td align="center">提交</td>
+</tr>
+<tr>
+<td align="center">Down</td>
+<td align="center">Ctrl + N</td>
+<td align="center">光标向下一行</td>
+</tr>
+<tr>
+<td align="center">Duplicate Line or Selection</td>
+<td align="center">Ctrl + D</td>
+<td align="center">复制一行</td>
+</tr>
+<tr>
+<td align="center">Close Tab</td>
+<td align="center">Ctrl + W</td>
+<td align="center">关闭 Tab</td>
+</tr>
+<tr>
+<td align="center">Split and Move Right</td>
+<td align="center">Ctrl + \</td>
+<td align="center">右分割</td>
+</tr>
+<tr>
+<td align="center">Undo</td>
+<td align="center">Ctrl + Z</td>
+<td align="center">撤销</td>
+</tr>
+<tr>
+<td align="center">Redo</td>
+<td align="center">Ctrl + Shift + Z</td>
+<td align="center">反撤销</td>
+</tr>
+<tr>
+<td align="center">Rollback</td>
+<td align="center">Ctrl + Alt + Z</td>
+<td align="center">回滚改动</td>
+</tr>
+</tbody></table>
+<h1 id="Live-Templates"><a href="#Live-Templates" class="headerlink" title="Live Templates"></a>Live Templates</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><table>
+<thead>
+<tr>
+<th align="center">shortcut</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">fori</td>
+<td align="center">for (int i &#x3D; 0; i &lt; param; i++) {}</td>
+</tr>
+<tr>
+<td align="center">iter</td>
+<td align="center">for range loop</td>
+</tr>
+<tr>
+<td align="center">souf</td>
+<td align="center">System.out.printf();</td>
+</tr>
+<tr>
+<td align="center">sout</td>
+<td align="center">System.out.println();</td>
+</tr>
+<tr>
+<td align="center">souc</td>
+<td align="center">System.out::println</td>
+</tr>
+<tr>
+<td align="center">soutm</td>
+<td align="center">System.out.println(“$CLASS_NAME$.$METHOD_NAME$”);</td>
+</tr>
+<tr>
+<td align="center">soutv</td>
+<td align="center">System.out.println(“$EXPR_COPY$ &#x3D; “ + $EXPR$);</td>
+</tr>
+<tr>
+<td align="center">thr</td>
+<td align="center">throw new</td>
+</tr>
+</tbody></table>
+<h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><table>
+<thead>
+<tr>
+<th align="center">shortcut</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">fori</td>
+<td align="center">for i:&#x3D;0; i &lt; param; i++ {}</td>
+</tr>
+<tr>
+<td align="center">iter</td>
+<td align="center">for range loop</td>
+</tr>
+<tr>
+<td align="center">err</td>
+<td align="center">if err !&#x3D; nil {}</td>
+</tr>
+</tbody></table>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>Help - Keyboard Shortcuts PDF</p>
+<p><a href="https://www.jetbrains.com/idea/">下载</a></p>
+]]></content>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>选择排序</title>
+    <url>/2023/05/03/selection-sort/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>选择排序首先会找到数组中最小的元素；其次，交换它和第一个元素；再其次，在剩下的元素中找到最小的元素，将它与数组的第二个元素交换。</p>
+<p>如此往复，直到将整个数组排序。</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>由于需要寻找最小的，所以每个元素都需要比较；</li>
+<li>冒泡排序是比较后，满足要求就交换；而选择排序是先比较一轮，最后只交换一次。所以选择排序的步数大概只有冒泡排序的一般，即选择排序比冒泡排序快一倍。</li>
+</ul>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/selection_sort_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/SelectionSortTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>data-structure-and-algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>装饰模式</title>
+    <url>/2023/04/26/structural-decorator/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>装饰模式(Decorator)，动态地给一个对象添加一些额外的职责，装饰模式比生成子类更加灵活。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>比静态的继承更加灵活；</li>
+<li>避免高层接口的功能太复杂。</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>有很多小对象；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责；</li>
+<li>不能使用子类扩充功能时；</li>
+<li>撤销对象功能；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月26日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年4月30日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Component &#123;
+	&lt;&lt;interface&gt;&gt;
+	operation()
+&#125;
+
+class Decorator &#123;
+	&lt;&lt;abstract&gt;&gt;
+	-Component Component
+	operation()
+&#125;
+
+class ConcreteComponent &#123;
+	operation()
+&#125;
+
+class ConcreteDecoratorA &#123;
+	operation()
+	-addState
+&#125;
+
+class ConcreteDecoratorB &#123;
+	operation()
+    -addBehavior
+&#125;
+
+Component &lt;|.. ConcreteComponent
+Component &lt;|.. Decorator
+Decorator o.. Component
+Decorator &lt;|-- ConcreteDecoratorA
+Decorator &lt;|-- ConcreteDecoratorB
+
+Component &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Component-接口"><a href="#Component-接口" class="headerlink" title="Component 接口"></a>Component 接口</h2><ul>
+<li>定义方法，能够动态地添加职责。</li>
+</ul>
+<h2 id="ConcreteComponent-类"><a href="#ConcreteComponent-类" class="headerlink" title="ConcreteComponent 类"></a>ConcreteComponent 类</h2><ul>
+<li>Component 接口的实现，有基础的功能。</li>
+</ul>
+<h2 id="Decorator-抽象类"><a href="#Decorator-抽象类" class="headerlink" title="Decorator 抽象类"></a>Decorator 抽象类</h2><ul>
+<li>实现 Component 接口，并组合一个 Component 对象。</li>
+</ul>
+<h2 id="ConcreteDecoratorX-类"><a href="#ConcreteDecoratorX-类" class="headerlink" title="ConcreteDecoratorX 类"></a>ConcreteDecoratorX 类</h2><ul>
+<li>继承 Decorator 抽象类，用来添加职责。</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>客户端</li>
+</ul>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 创建一个 Component；</li>
+<li>通过 Decorator 层层包装 client；</li>
+<li>调用 Component 提供的方法进行工作；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>适配器模式：装饰者模式仅改变对象职责，而适配器模式将给对象一个全新的接口；</li>
+<li>组合模式：装饰器模式被认为是退化为只有一个组件的组合；</li>
+<li>策略模式：装饰器模式改变的是对象外表，而策略模式改变对象内核。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>装饰模式使得核心职责和装饰功能区分开，减少重复的装饰逻辑；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/decorator/decorator_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/decorator/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>门面模式</title>
+    <url>/2023/04/30/structural-facade/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>屏蔽了子系统组件；</li>
+<li>拆分用户和子系统；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
+<li>解决性能问题。</li>
+<li>解决分布式事务问题。</li>
+<li>拆分客户端和实现之间的依赖；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月30日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月1日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Facade &#123;
+	&lt;&lt;interface&gt;&gt;
+	operator()
+&#125;
+
+class ConcreteFacade &#123;
+	operator()
+&#125;
+
+Facade &lt;|.. ConcreteFacade
+
+ConcreteFacade o.. SubSystem1
+ConcreteFacade o.. SubSystem2
+
+Facade &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Facade-接口"><a href="#Facade-接口" class="headerlink" title="Facade 接口"></a>Facade 接口</h2><ul>
+<li>向 Client 提供处理任务的接口；</li>
+<li>组合 SubSystemX 功能；</li>
+</ul>
+<h2 id="ConcreteFacade-类"><a href="#ConcreteFacade-类" class="headerlink" title="ConcreteFacade 类"></a>ConcreteFacade 类</h2><ul>
+<li>facade 接口的实现；</li>
+</ul>
+<h2 id="SubSystemX"><a href="#SubSystemX" class="headerlink" title="SubSystemX"></a>SubSystemX</h2><ul>
+<li>子系统</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>客户端</li>
+</ul>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 调用 Facade 时，Facade 将请求转发到 SubSystem 中；</li>
+<li>Client 不需要访问 SubSystem；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>抽象工厂：抽象工厂也可以代替 Facade 来隐藏子系统；</li>
+<li>中介者模式：相同点是都抽象了已有类功能。Facade 模式对接口进行抽象，让子系统提供出的接口更加易用，不定义新功能；后者暂不清楚。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>门面模式是通过门面接口提供了对封装底层组合功能的封装。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/facade/facade_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/facade/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代理模式</title>
+    <url>/2023/04/27/structural-proxy/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>不改变原始类（或叫被代理类）代码的情况下，通过引入代理类来控制这个对象的访问。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
+<li>间接访问原始类；</li>
+</ul>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ul>
+<li>编写的目标代理类太多，当代理类接口改变，所有的代理类都需要进行更新。</li>
+</ul>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li><p>业务系统的非功能性需求开发。监控、统计、鉴权、限流、事务、幂等、日志。</p>
+</li>
+<li><p>RPC</p>
+</li>
+<li><p>缓存</p>
+</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月27日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月1日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Subject &#123;
+	&lt;&lt;interface&gt;&gt;
+	operator()
+&#125;
+
+class RealSubject &#123;
+	operator()
+&#125;
+
+class Proxy &#123;
+	operator()
+&#125;
+
+Subject &lt;|.. Proxy
+Subject &lt;|.. RealSubject
+Proxy o.. RealSubject
+
+Subject &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Subject-接口"><a href="#Subject-接口" class="headerlink" title="Subject 接口"></a>Subject 接口</h2><ul>
+<li>定义 Proxy 和 RealSubject 的方法，使得任何使用 RealSubject 的地方可以被 proxy 代替；</li>
+</ul>
+<h2 id="Proxy-类"><a href="#Proxy-类" class="headerlink" title="Proxy 类"></a>Proxy 类</h2><ul>
+<li>代理类。</li>
+</ul>
+<h2 id="RealSubject-类"><a href="#RealSubject-类" class="headerlink" title="RealSubject 类"></a>RealSubject 类</h2><ul>
+<li>被代理类</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>客户端</li>
+</ul>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>client 创建一个 Proxy ；</li>
+<li>通过 Proxy 代理类访问原始类；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>适配器模式：适配器模式将给对象一个全新的接口，而代理模式使用相同接口；</li>
+<li>装饰模式：装饰模式是给原始类增加功能，而代理关注访问和控制原始类；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>使用反射可以完成原始类的动态代理。</li>
+<li>原始类能够定义接口，一般都是采用实现接口的方式。例如，Spring AOP。</li>
+<li>原始类没有定义接口，也没办法给原始类重新定义接口，一般都是采用继承的方式实现代理。例如，cglib。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/proxy/proxy_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/proxy/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>UML 类图</title>
+    <url>/2023/04/30/uml-class-diagram/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月30日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
+<pre><code class="highlight mermaid">---
+title: 接口示例
+---
+classDiagram
+class Speaker &#123;
+	&lt;&lt;interface&gt;&gt;
+	speak(String statement) String 
+&#125;</code></pre>
+
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
+title: 类示例
+---
+classDiagram
+class Abstract &#123;
+	&lt;&lt;abstract&gt;&gt;
+&#125;</code></pre>
+
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
+<pre><code class="highlight mermaid">---
+title: 类示例
+---
+classDiagram
+class Speakerman &#123;
+	String name
+    speak(String statement) String 
+&#125;</code></pre>
+
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
+<p>-表示 private</p>
+<p>#表示 protected</p>
+<p>~表示 package 或者 internal</p>
+<pre><code class="highlight mermaid">---
+title: 可见性示例
+---
+classDiagram
+class Visibility &#123;
+	+int n1
+	-int n2
+	#int n3
+	~int n4
+	
+	+m1()
+	-m1()
+	#m3()
+	~m4()
+&#125;</code></pre>
+
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
+<p>$表示 static，下划线</p>
+<pre><code class="highlight mermaid">---
+title: 修饰符示例
+---
+classDiagram
+class Modifier &#123;
+	int n1$
+	
+	+m1()*
+    +m2()$
+&#125;</code></pre>
+
+<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
+<p>Man is a Person</p>
+<pre><code class="highlight mermaid">---
+title: 继承示例
+---
+classDiagram
+class Person &#123;
+	
+&#125;
+
+class Man &#123;
+	
+&#125;
+
+Person &lt;|-- Man</code></pre>
+
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
+<p>Bird has Fly ability</p>
+<pre><code class="highlight mermaid">---
+title: 继承示例
+---
+classDiagram
+class Fly &#123;
+	&lt;&lt;interface&gt;&gt;
+&#125;
+
+class Bird &#123;
+	
+&#125;
+
+Fly &lt;|.. Bird</code></pre>
+
+<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
+<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
+<pre><code class="highlight mermaid">---
+title: 聚合示例
+---
+classDiagram
+class Classroom &#123;
+	Blackboard blackboard
+&#125;
+
+class Blackboard &#123;
+	
+&#125;
+
+Classroom o-- Blackboard</code></pre>
+
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
+<p>Arm is part of Person </p>
+<pre><code class="highlight mermaid">---
+title: 组合示例
+---
+classDiagram
+class Person &#123;
+	Arm arm
+&#125;
+
+class Arm &#123;
+	
+&#125;
+
+Person *-- Arm</code></pre>
+
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
+<p>Person depand on Water</p>
+<pre><code class="highlight mermaid">---
+title: 依赖示例
+---
+classDiagram
+class Person &#123;
+	Water water
+&#125;
+
+class Water &#123;
+	
+&#125;
+
+Water &lt;.. Person</code></pre>
+
+<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
+<p>Person should know Climate</p>
+<pre><code class="highlight mermaid">---
+title: 关联示例
+---
+classDiagram
+class Person &#123;
+	Climate climate
+&#125;
+
+class Climate &#123;
+	
+&#125;
+
+Climate &lt;-- Person</code></pre>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
+<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
+<li>聚合适用范围比组合更广；</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Typora 和 Markdown</title>
+    <url>/2023/04/29/typora-and-markdown/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月29日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。</p>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ol>
+<li>平台独立。任何 os 都可以方便的创建和浏览；</li>
+<li>适用一切。创建网站、书籍、email 和技术文档都可以使用 Marddown 编写；</li>
+<li>广泛支持。大量论坛、网站、桌面程序和 Web 程序都支持；</li>
+</ol>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ol>
+<li>写文章；</li>
+<li>项目的 README；</li>
+</ol>
+<h1 id="Typora"><a href="#Typora" class="headerlink" title="Typora"></a>Typora</h1><p>Typora 类似于 Windows 中的记事本，是一个专门用来创建和编写 Markdown 的软件。</p>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><p>在 Typora 上写 Markdown 如虎添翼，下面会介绍自己在学习工作中使用 Typora 中快捷键编写 Markdown 的最佳实践，基本能够应对 90% 以上的情况。</p>
+<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><p>不建议使用 3 级以上的标题，这样会让文章编排很乱。</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">一级标题</td>
+<td align="center">Ctrl + 1</td>
+<td align="center">Command + 1</td>
+</tr>
+<tr>
+<td align="center">二级标题</td>
+<td align="center">Ctrl + 2</td>
+<td align="center">Command + 2</td>
+</tr>
+<tr>
+<td align="center">三级标题</td>
+<td align="center">Ctrl + 3</td>
+<td align="center">Command + 3</td>
+</tr>
+<tr>
+<td align="center">段落</td>
+<td align="center">Ctrl + 0</td>
+<td align="center">Command + 4</td>
+</tr>
+</tbody></table>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">插入表格</td>
+<td align="center">Ctrl + T</td>
+<td align="center">Command + T</td>
+</tr>
+<tr>
+<td align="center">行上移</td>
+<td align="center">Alt + 上箭头</td>
+<td align="center">Command + 下箭头</td>
+</tr>
+<tr>
+<td align="center">行下移</td>
+<td align="center">Alt + 下箭头</td>
+<td align="center">Command + 下箭头</td>
+</tr>
+<tr>
+<td align="center">列左移</td>
+<td align="center">Alt + 左箭头</td>
+<td align="center">Command + 左箭头</td>
+</tr>
+<tr>
+<td align="center">列右移</td>
+<td align="center">Alt + 右箭头</td>
+<td align="center">Command + 右箭头</td>
+</tr>
+<tr>
+<td align="center">插入行</td>
+<td align="center">Ctrl + Enter</td>
+<td align="center">Command + Enter</td>
+</tr>
+<tr>
+<td align="center">删除行</td>
+<td align="center">Ctrl + Shift + Delete</td>
+<td align="center">Command + Shift + Delete</td>
+</tr>
+</tbody></table>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">引用</td>
+<td align="center">Ctrl + Shift + Q</td>
+<td align="center">Command + Shift + Q</td>
+</tr>
+</tbody></table>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">有序列表</td>
+<td align="center">Ctrl + Shift + [</td>
+<td align="center">Command + Shift + [</td>
+</tr>
+<tr>
+<td align="center">无序列表</td>
+<td align="center">Ctrl + Shift + ]</td>
+<td align="center">Command + Shift + ]</td>
+</tr>
+<tr>
+<td align="center">任务列表</td>
+<td align="center">Ctrl + Shift + X</td>
+<td align="center">Command + Shift + X</td>
+</tr>
+<tr>
+<td align="center">增加列表缩进</td>
+<td align="center">Tab</td>
+<td align="center">Tab</td>
+</tr>
+<tr>
+<td align="center">减少列表缩进</td>
+<td align="center">Shift + Tab</td>
+<td align="center">Shift + Tab</td>
+</tr>
+</tbody></table>
+<h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">链接</td>
+<td align="center">Ctrl + K</td>
+<td align="center">Command + K</td>
+</tr>
+<tr>
+<td align="center">加粗</td>
+<td align="center">Ctrl + B</td>
+<td align="center">Command + B</td>
+</tr>
+<tr>
+<td align="center">斜体</td>
+<td align="center">Ctrl + I</td>
+<td align="center">Command + I</td>
+</tr>
+<tr>
+<td align="center">下划线</td>
+<td align="center">Ctrl + U</td>
+<td align="center">Command + U</td>
+</tr>
+<tr>
+<td align="center">删除线</td>
+<td align="center">Shift + Alt + 5</td>
+<td align="center">Shift + Alt + 5</td>
+</tr>
+</tbody></table>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">代码</td>
+<td align="center">Ctrl + Shift + &#96;</td>
+<td align="center">Command + Shift + &#96;</td>
+</tr>
+<tr>
+<td align="center">代码块</td>
+<td align="center">Ctrl + Shift + K</td>
+<td align="center">Command + Shift + K</td>
+</tr>
+</tbody></table>
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">windows</th>
+<th align="center">macOS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">隐藏 &#x2F; 显示侧边栏</td>
+<td align="center">Ctrl + Shift + L</td>
+<td align="center">Command + Shift + L</td>
+</tr>
+<tr>
+<td align="center">源代码</td>
+<td align="center">Ctrl + &#x2F;</td>
+<td align="center">Command + &#x2F;</td>
+</tr>
+</tbody></table>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.markdownguide.org/">Markdown</a></li>
+<li><a href="https://typora.io/">Typora</a></li>
+<li><a href="https://typora.io/#download">Typora 下载</a></li>
+<li><a href="https://typora.io/#purchase">Typora 购买</a></li>
+<li>typora-段落</li>
+<li>typora-格式</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
 </search>

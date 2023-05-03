@@ -155,7 +155,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -204,7 +204,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/24/creational-factory-tmpl/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/25/behavioral-strategy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/24/creational-factory-tmpl/" class="post-title-link" itemprop="url">工厂方法模式</a>
+          <a href="/2023/04/25/behavioral-strategy/" class="post-title-link" itemprop="url">策略模式</a>
         </h2>
 
         <div class="post-meta-container">
@@ -233,7 +233,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-04-24 18:57:33" itemprop="dateCreated datePublished" datetime="2023-04-24T18:57:33+08:00">2023-04-24</time>
+      <time title="创建时间：2023-04-25 15:16:16" itemprop="dateCreated datePublished" datetime="2023-04-25T15:16:16+08:00">2023-04-25</time>
     </span>
 
   
@@ -243,14 +243,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>352</span>
+      <span>469</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -261,21 +261,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
+          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>策略模式（Strategy）定义了一系列行为，将每个行为分别封装起来，让它们可以互相替换，使得行为的变化可以独立于使用它们的客户端。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>给子类创建对象预留扩展点；</li>
-<li>client 通过 Creator 间接创建对象；</li>
+<li>提供了一组 Strategy；</li>
+<li>组合代替了继承；</li>
+<li>消除分支；</li>
+<li>client 选择 Strategy 实现；</li>
 </ol>
 <h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>Creator 实现变多；</li>
+<li>client 需要了解 Strategy 实现的不同；</li>
+<li>某些 Strategy 用不到所有 Context 传来的数据，增加通信成本；</li>
+<li>增加了类的数目；</li>
 </ol>
 <h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>一个类希望由它的子类来创建对象时；</li>
-<li>一个类不知道创建对象的类时；</li>
+<li>替换的仅仅是类中的行为；</li>
+<li>行为中的数据对用户是隐藏的；</li>
 </ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/04/24/creational-factory-tmpl/#more" rel="contents">
+              <a class="btn" href="/2023/04/25/behavioral-strategy/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -299,7 +303,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/17/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/17/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -328,7 +332,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">29 分钟</span>
+    <span title="站点阅读时长">30 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
