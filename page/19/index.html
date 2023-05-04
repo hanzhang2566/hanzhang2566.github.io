@@ -25,7 +25,7 @@
     <meta name="description" content="Javaer | Gopher | Nerd | Engineer">
 <meta property="og:type" content="website">
 <meta property="og:title" content="张晗的个人博客">
-<meta property="og:url" content="http://hanzhang2566.github.io/page/13/index.html">
+<meta property="og:url" content="http://hanzhang2566.github.io/page/19/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
 <meta property="og:description" content="Javaer | Gopher | Nerd | Engineer">
 <meta property="og:locale" content="zh_CN">
@@ -34,11 +34,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/page/13/">
+<link rel="canonical" href="http://hanzhang2566.github.io/page/19/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/13/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/19/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>张晗的个人博客</title>
@@ -204,7 +204,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/29/behavioral-template/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/24/creational-factory-tmpl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/29/behavioral-template/" class="post-title-link" itemprop="url">模板方法模式</a>
+          <a href="/2023/04/24/creational-factory-tmpl/" class="post-title-link" itemprop="url">工厂方法模式</a>
         </h2>
 
         <div class="post-meta-container">
@@ -233,7 +233,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-04-29 18:57:33" itemprop="dateCreated datePublished" datetime="2023-04-29T18:57:33+08:00">2023-04-29</time>
+      <time title="创建时间：2023-04-24 18:57:33" itemprop="dateCreated datePublished" datetime="2023-04-24T18:57:33+08:00">2023-04-24</time>
     </span>
 
   
@@ -243,7 +243,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>356</span>
+      <span>352</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -261,19 +261,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
+          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>工厂方法模式(Factory Method)，定义一个用于创建对象的接口，让子类决定实例化哪一个类，使得一个类的实例化延迟到其子类。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>实现了反转控制；</li>
-<li>给子类提供了扩展的钩子 hook；</li>
+<li>给子类创建对象预留扩展点；</li>
+<li>client 通过 Creator 间接创建对象；</li>
 </ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>实现算法不变的部分，将可变行为留给子类来实现；</li>
-<li>子类中公共的行为被提取到父类，避免代码重复；</li>
-<li>限制子类扩展</li>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>Creator 实现变多；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>一个类希望由它的子类来创建对象时；</li>
+<li>一个类不知道创建对象的类时；</li>
 </ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/04/29/behavioral-template/#more" rel="contents">
+              <a class="btn" href="/2023/04/24/creational-factory-tmpl/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -297,7 +299,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/12/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/14/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/18/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/20/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>

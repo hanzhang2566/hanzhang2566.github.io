@@ -90,7 +90,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">5</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -155,13 +155,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -204,7 +204,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/03/selection-sort/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/04/redis-string/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/03/selection-sort/" class="post-title-link" itemprop="url">选择排序</a>
+          <a href="/2023/05/04/redis-string/" class="post-title-link" itemprop="url">字符串</a>
         </h2>
 
         <div class="post-meta-container">
@@ -233,7 +233,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-03 21:27:36" itemprop="dateCreated datePublished" datetime="2023-05-03T21:27:36+08:00">2023-05-03</time>
+      <time title="创建时间：2023-05-04 18:49:09" itemprop="dateCreated datePublished" datetime="2023-05-04T18:49:09+08:00">2023-05-04</time>
     </span>
 
   
@@ -243,7 +243,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>175</span>
+      <span>81</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -261,15 +261,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>选择排序首先会找到数组中最小的元素；其次，交换它和第一个元素；再其次，在剩下的元素中找到最小的元素，将它与数组的第二个元素交换。</p>
-<p>如此往复，直到将整个数组排序。</p>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>由于需要寻找最小的，所以每个元素都需要比较；</li>
-<li>冒泡排序是比较后，满足要求就交换；而选择排序是先比较一轮，最后只交换一次。所以选择排序的步数大概只有冒泡排序的一般，即选择排序比冒泡排序快一倍。</li>
-</ul>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/selection_sort_test.go">golang</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/SelectionSortTest.java">java</a></p>
+          <h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-- 有引号</span><br><span class="line">SET message &quot;hello world&quot;</span><br><span class="line">SET homepage &quot;hanzhang2566.github.io&quot;</span><br><span class="line">SET price &quot;2.56&quot;</span><br><span class="line"></span><br><span class="line">-- 无引号</span><br><span class="line">SET name hanzhang</span><br><span class="line"></span><br><span class="line">-- 覆盖 name</span><br><span class="line">SET name Jeremy</span><br><span class="line"></span><br><span class="line">-- 参数</span><br><span class="line">-- 1. NX：当 key 不存在的情况下生效；否则返回 nil</span><br><span class="line">SET name hanzhang NX</span><br><span class="line">-- 2. XX：当 key 存在的情况下生效；否则返回 nil</span><br><span class="line">SET name hanzhang XX</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
 
       
     </div>
@@ -289,7 +283,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -312,13 +306,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">8k</span>
+    <span title="站点总字数">9k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">30 分钟</span>
+    <span title="站点阅读时长">32 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
