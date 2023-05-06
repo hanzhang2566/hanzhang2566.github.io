@@ -12,6 +12,110 @@
 ]]></content>
   </entry>
   <entry>
+    <title>列表</title>
+    <url>/2023/05/06/redis-list/</url>
+    <content><![CDATA[<p>Redis 的列表是一种线性的有序结构，可以按照元素被推入列表中的顺序来存储元素。这些元素既可以是文字数据，又可以是二进制数据，并且列表中的元素可以重复出现。</p>
+<span id="more"></span>
+
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="LPUSH"><a href="#LPUSH" class="headerlink" title="LPUSH"></a>LPUSH</h2><p>将一个或多个元素依次推入列表左端，返回当前列表包含的元素数量。</p>
+<p>当列表不存在，会创建一个新列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回 1。hanzhang</span><br><span class="line">LPUSH name &quot;hanzhang&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 3。hanhan hanzuo hanzhang</span><br><span class="line">LPUSH name &quot;hanzuo&quot; &quot;hanhan&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="RPUSH"><a href="#RPUSH" class="headerlink" title="RPUSH"></a>RPUSH</h2><p>将一个或多个元素依次推入列表右端，返回当前列表包含的元素数量。</p>
+<p>当列表不存在，会创建一个新列表。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回 4.hanhan hanzuo hanzhang hanyang</span><br><span class="line">RPUSH name &quot;hanyang&quot;</span><br><span class="line">-- 返回 6.hanhan hanzuo hanzhang hanyang hantang hanshen</span><br><span class="line">RPUSH name &quot;hantang&quot; &quot;hanshen&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="LPUSHX"><a href="#LPUSHX" class="headerlink" title="LPUSHX"></a>LPUSHX</h2><p>当列表存在的情况下，将一个或多个元素依次推入列表左端，返回当前列表包含的元素数量。</p>
+<p>当列表不存在的情况下，不会创建新列表，并返回 0.</p>
+<p>时间复杂度：O(n)</p>
+<h2 id="RPUSHX"><a href="#RPUSHX" class="headerlink" title="RPUSHX"></a>RPUSHX</h2><p>当列表存在的情况下，将一个或多个元素依次推入列表右端，返回当前列表包含的元素数量。</p>
+<p>当列表不存在的情况下，不会创建新列表，并返回 0.</p>
+<p>时间复杂度：O(n)</p>
+<h2 id="LPOP"><a href="#LPOP" class="headerlink" title="LPOP"></a>LPOP</h2><p>移除左边第一个元素，并返回。</p>
+<p>列表不存在，则返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- hanhan</span><br><span class="line">LPOP name</span><br><span class="line"></span><br><span class="line">-- hanzuo</span><br><span class="line">LPOP name</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="RPOP"><a href="#RPOP" class="headerlink" title="RPOP"></a>RPOP</h2><p>移除右边第一个元素，并返回。</p>
+<p>列表不存在，则返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- hanshen</span><br><span class="line">RPOP name</span><br><span class="line"></span><br><span class="line">-- hantang</span><br><span class="line">RPOP name</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="RPOPLPUSH"><a href="#RPOPLPUSH" class="headerlink" title="RPOPLPUSH"></a>RPOPLPUSH</h2><p>移除右边第一个元素，并从左边推入 target 列表。</p>
+<p>源列表不存在，则返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 同源。hanyang hanzhang</span><br><span class="line">RPOPLPUSH name name</span><br><span class="line"></span><br><span class="line">-- 不同源</span><br><span class="line">-- name hanyang</span><br><span class="line">-- new::name hanzhang</span><br><span class="line">RPOPLPUSH name new::name</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="LLEN"><a href="#LLEN" class="headerlink" title="LLEN"></a>LLEN</h2><p>获取列表长度。</p>
+<p>不存在则返回 0。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回 school 的长度</span><br><span class="line">LLEN school</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="LINDEX"><a href="#LINDEX" class="headerlink" title="LINDEX"></a>LINDEX</h2><p>返回列表指定下标的元素。</p>
+<ul>
+<li>正索引从左端 0 开始；</li>
+<li>负索引从右端 -1 开始；</li>
+</ul>
+<p>列表不存在或下标不合法则返回 nil.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- hanzhang hantang hanshen</span><br><span class="line">RPUSH name &quot;hanzhang&quot; &quot;hantang&quot; &quot;hanshen&quot;</span><br><span class="line"></span><br><span class="line">-- nil</span><br><span class="line">LINDEX name 100</span><br><span class="line">-- nil</span><br><span class="line">LINDEX nama 0</span><br><span class="line"></span><br><span class="line">-- hantang</span><br><span class="line">LINDEX name 1</span><br><span class="line">-- hanzhang</span><br><span class="line">LINDEX name -3</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="LRANGE"><a href="#LRANGE" class="headerlink" title="LRANGE"></a>LRANGE</h2><p>获取列表指定闭区间范围的所有元素。</p>
+<ol>
+<li>起止索引都超过，返回 nil；</li>
+<li>其中一个超过，则修正为实际范围（左端为 0，右端为 -1）；</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 列表的所有元素</span><br><span class="line">LRANGE name 0 -1</span><br><span class="line">-- 列表 0-1 之间的元素</span><br><span class="line">LRANGE name 0 1</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="LSET"><a href="#LSET" class="headerlink" title="LSET"></a>LSET</h2><p>设置列表指定下标的元素。</p>
+<p>下标不合法会抛出错误。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 设置 ok</span><br><span class="line">LSET name 0 &quot;hanhan&quot;</span><br><span class="line">-- error</span><br><span class="line">LSET name 110 &quot;hanhan&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="LINSERT"><a href="#LINSERT" class="headerlink" title="LINSERT"></a>LINSERT</h2><p>将新元素插入到指定列表元素的前或后。</p>
+<p>指定元素不存在，返回 -1。</p>
+<p>只操作满足条件的第一个指定元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 将 hanzhang 插入到 hanhan 前面</span><br><span class="line">LINSERT name BEFORE &quot;hanhan&quot; &quot;hanzhang&quot;</span><br><span class="line"></span><br><span class="line">-- 将 hanzhang 插入到 hanhan 后面</span><br><span class="line">LINSERT name AFTER &quot;hantang&quot; &quot;hanzhang&quot;</span><br><span class="line"></span><br><span class="line">-- hhah 不存在，返回 -1</span><br><span class="line">LINSERT name BEFORE &quot;hhah&quot; &quot;hanyang&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="LTRIM"><a href="#LTRIM" class="headerlink" title="LTRIM"></a>LTRIM</h2><p>保留指定下标闭区间元素。</p>
+<p>正负索引都可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 保留 0-3 闭区间元素</span><br><span class="line">LTRIM name 0 3</span><br><span class="line"></span><br><span class="line">-- 保留 -3 - -1 闭区间元素</span><br><span class="line">LTRIM name -3 -1</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="LREM"><a href="#LREM" class="headerlink" title="LREM"></a>LREM</h2><p>移除列表元素，返回移除的个数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">RPUSH name &quot;hanzhang&quot; &quot;hantang&quot; &quot;hanshen&quot; &quot;hanzhang&quot; &quot;hantang&quot; &quot;hanshen&quot;</span><br><span class="line"></span><br><span class="line">-- 从左边移除 2 个 hanzhang: hantang hanshen hantang hanshen</span><br><span class="line">LREM name 2 &quot;hanzhang&quot;</span><br><span class="line">-- 从右边移除 2 个 hantang: hanshen hanshen</span><br><span class="line">LREM name -2 &quot;hanzhang&quot;</span><br><span class="line">-- 移除所有 hanshen</span><br><span class="line">LREM name 0 &quot;hanshen&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="BLPOP"><a href="#BLPOP" class="headerlink" title="BLPOP"></a>BLPOP</h2><p>带有阻塞的左端弹出操作，单位是 s。</p>
+<p>timeout 为 0 时，表示一直等待，知道有消息。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 左端弹出 school 元素，阻塞最多 10s</span><br><span class="line">BLPOP school 10</span><br></pre></td></tr></table></figure>
+
+<p>同时很多线程阻塞时，先阻塞，先服务。</p>
+<p>时间复杂度：O(n)</p>
+<h2 id="BRPOP"><a href="#BRPOP" class="headerlink" title="BRPOP"></a>BRPOP</h2><p>作用同 BLPOP，只是从右端弹出。</p>
+<h2 id="BRPOPLPUSH"><a href="#BRPOPLPUSH" class="headerlink" title="BRPOPLPUSH"></a>BRPOPLPUSH</h2><p>作用同 RPOPLPUSH，只是带有阻塞功能。</p>
+<p>时间复杂度：O(1)</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><h2 id="使用-BLPOP-实现异步处理消息"><a href="#使用-BLPOP-实现异步处理消息" class="headerlink" title="使用 BLPOP 实现异步处理消息"></a>使用 BLPOP 实现异步处理消息</h2><p>Producer 只需要将消息 PUSH 到 redis 中，然后处理自己的业务。而 redis 中监听该消息的程序 Consumer 会后续处理，实现了消息生产者与消费者的解耦。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Producer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MsgProducer</span><span class="params">(key, value <span class="type">string</span>)</span></span> (<span class="type">int64</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">		Addr:     <span class="string">&quot;43.142.129.110:6379&quot;</span>,</span><br><span class="line">		Password: <span class="string">&quot;&quot;</span>, <span class="comment">// no password set</span></span><br><span class="line">		DB:       <span class="number">0</span>,  <span class="comment">// use default DB</span></span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> rdb.RPush(context.Background(), key, value).Result()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Consumer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MsgConsumer</span><span class="params">(key <span class="type">string</span>)</span></span> ([]<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">		Addr:     <span class="string">&quot;43.142.129.110:6379&quot;</span>,</span><br><span class="line">		Password: <span class="string">&quot;&quot;</span>, <span class="comment">// no password set</span></span><br><span class="line">		DB:       <span class="number">0</span>,  <span class="comment">// use default DB</span></span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">return</span> rdb.BLPop(context.Background(), <span class="number">0</span>, key).Result()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Test</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestMsgProducer</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	result, err := MsgProducer(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;zhanghan&quot;</span>)</span><br><span class="line">	assert.Nil(t, err)</span><br><span class="line">	assert.Equal(t, <span class="number">1</span>, <span class="type">int</span>(result))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestMsgConsumer</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	result, err := MsgConsumer(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">	assert.Nil(t, err)</span><br><span class="line">	fmt.Println(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>异步阻塞方式，使得 Consumer 程序更为简单，不需要 while true 进行处理，减少了 CPU 消耗；</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>列表是线性有序结构，元素可重复；</li>
+<li>POP 和 PUSH 都可以进行双端操作，LINSERT 可以插入元素；</li>
+<li>LREM 可以删除元素，LTRIM 对列表进行截取；</li>
+<li>LRANGE 会对下标进行修正，左端为 0，右端为 -1；</li>
+<li>BLPOP、BRPOP 和 BRPOPLPUSH 当列表为空时，带有阻塞；</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>散列表</title>
     <url>/2023/05/05/redis-hash/</url>
     <content><![CDATA[<p>Redis 散列键是将一个 k 与一个 map 在数据库关联起来，和 string 类型一样，k-v 可以是文本，也能是二进制。</p>

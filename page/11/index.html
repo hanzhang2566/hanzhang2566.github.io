@@ -155,7 +155,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -204,7 +204,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/01/creational-builder/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/01/mermaid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/01/creational-builder/" class="post-title-link" itemprop="url">建造者模式</a>
+          <a href="/2023/05/01/mermaid/" class="post-title-link" itemprop="url">Markdown 中 mermaid 的使用</a>
         </h2>
 
         <div class="post-meta-container">
@@ -233,7 +233,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-01 15:09:28" itemprop="dateCreated datePublished" datetime="2023-05-01T15:09:28+08:00">2023-05-01</time>
+      <time title="创建时间：2023-05-01 18:01:51" itemprop="dateCreated datePublished" datetime="2023-05-01T18:01:51+08:00">2023-05-01</time>
     </span>
 
   
@@ -243,14 +243,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>254</span>
+      <span>415</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -261,20 +261,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个复杂对象的构建和表示分离，使得同样的构建过程可以创建出不同对象。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>避免构造器参数太多，按需构造；</li>
-<li>避免 setter 方法，使对象不可变；</li>
-<li>构造和表示代码分开；</li>
-<li>更精细控制构造过程；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>复杂对象的创建独立于创建对象的组成部分时；</li>
-<li>需要按需构造时；</li>
+          <h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>Mermaid 让在 Markdown 中用文本和代码的方式创建可视化图表。包括但不限于：流程图（Flowchart）、时序图（Sequence Diagram）、类图（Class Diagram）、ER 图（Entity-Relationship Diagram）等。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
+<li>使用文本和代码的方式绘图，无需关心元素排布，JS 引擎会自动渲染；</li>
+<li>极客属性；</li>
+<li>广泛。有 md 文件就可以绘图；</li>
+</ul>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ul>
+<li>写图需要配合文档，曲线高；</li>
+<li>不能自定义元素排布；</li>
+</ul>
+<h1 id="如何开始"><a href="#如何开始" class="headerlink" title="如何开始"></a>如何开始</h1><ol>
+<li>明确是否使用 mermaid 写图；</li>
+<li>决定图表类型，打开 <a target="_blank" rel="noopener" href="https://mermaid.js.org/config/Tutorials.html">mermaid tutorials</a> 对应图表文档；</li>
+<li>复制一份官方图表模板；</li>
+<li>查看官网的语法样式，选择自己需要的进行绘制；</li>
 </ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/05/01/creational-builder/#more" rel="contents">
+              <a class="btn" href="/2023/05/01/mermaid/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -298,7 +303,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -321,13 +326,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">12k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">39 分钟</span>
+    <span title="站点阅读时长">43 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
