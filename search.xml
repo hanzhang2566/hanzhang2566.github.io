@@ -12,6 +12,111 @@
 ]]></content>
   </entry>
   <entry>
+    <title>集合</title>
+    <url>/2023/05/07/redis-set/</url>
+    <content><![CDATA[<p>Redis 集合允许用户将任意个不相同的元素存储到集合中，这些元素既可以是文本数据，也可以是二进制数据。</p>
+<span id="more"></span>
+
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h2><p>添加一个或多个元素到集合，返回添加元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1</span><br><span class="line">SADD databases &quot;redis&quot;</span><br><span class="line"></span><br><span class="line">-- 2</span><br><span class="line">SADD databases &quot;mongodb&quot; &quot;couchdb&quot;</span><br><span class="line"></span><br><span class="line">-- 3</span><br><span class="line">SADD databases &quot;mysql&quot; &quot;postgresql&quot; &quot;oracle&quot;</span><br><span class="line"></span><br><span class="line">-- 1，因为只有 influxdb 被插入了</span><br><span class="line">SADD databases &quot;influxdb&quot; &quot;mysql&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h2><p>从集合中删除一个或多个元素，返回移除元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">SREM databases &quot;mysql&quot; &quot;redis&quot;</span><br><span class="line"></span><br><span class="line">-- 0</span><br><span class="line">SREM databases &quot;mysql&quot; &quot;redis&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="SMOVE"><a href="#SMOVE" class="headerlink" title="SMOVE"></a>SMOVE</h2><p>将指定元素从 source 集合移动到 target 集合，返回操作结果 bool。</p>
+<p>如果 source 或者指定元素不存在，返回 false。</p>
+<p>如果 target 中已经有指定元素，则只会移除 source 中的元素，返回 true。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 将 mongodb 从 databases 移动到 doc::databases 集合中， true</span><br><span class="line">SMOVE databases doc::databases &quot;mongodb&quot;</span><br><span class="line"></span><br><span class="line">-- false</span><br><span class="line">SMOVE databases doc::databases &quot;mongodb&quot;</span><br><span class="line"></span><br><span class="line">SADD databases &quot;mongodb&quot;</span><br><span class="line">-- doc::databases 已经存在 mongodb，则会删除 databases 中的 mongodb，返回 true</span><br><span class="line">SMOVE databases doc::databases &quot;mongodb&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h2><p>获取集合中所有元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mysql postgresql oracle</span><br><span class="line">SMEMBERS databases</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h2><p>获取集合中元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 3</span><br><span class="line">SCARD databases</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h2><p>检查指定元素是否在集合中，返回 bool。</p>
+<p>如果集合不存在，返回 false。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- true</span><br><span class="line">SISMEMBER databases &quot;mysql&quot;</span><br><span class="line"></span><br><span class="line">-- false</span><br><span class="line">SISMEMBER databases &quot;mongodb&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h2><p>随机获取集合中的指定个数元素，默认为 1。</p>
+<p>当指定个数 &gt; SCARD 时，返回所有。</p>
+<p>如果指定个数 &lt; 0 时，返回指定个数绝对值。</p>
+<p>若集合不存在，返回 nil</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 随机返回 1 个</span><br><span class="line">SRANDMEMBER databases</span><br><span class="line"></span><br><span class="line">-- 随机返回 2 个</span><br><span class="line">SRANDMEMBER databases 2</span><br><span class="line">SRANDMEMBER databases -2</span><br><span class="line"></span><br><span class="line">-- 返回 3 个</span><br><span class="line">SCARD databases</span><br><span class="line">-- 5 &gt; 3，则返回所有</span><br><span class="line">SRANDMEMBER databases 5</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h2><p>同 SRANDMEMBER，区别在于：</p>
+<ol>
+<li>会将返回的元素从集合中移除；</li>
+<li>指定元素不能为 &lt; 0;</li>
+</ol>
+<p>时间复杂度：O(n)</p>
+<h2 id="SINSER"><a href="#SINSER" class="headerlink" title="SINSER"></a>SINSER</h2><p>返回指定集合的交集，若集合不存在，返回空。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 s1 和 s2 的交集</span><br><span class="line">SINTER s1 s2</span><br><span class="line">-- 返回 s1、s2 和 s3 的交集</span><br><span class="line">SINTER s1 s2 s3</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n*m)</p>
+<h2 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h2><p>同 SINTER，有以下区别：</p>
+<ol>
+<li>会将指定集合的交集插入到新的集合中；</li>
+<li>指定集合不存在或没有交集，则返回空，否则返回集合中元素数量；</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line">SADD s3 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 将 s1 s2 s3 的交集插入到 insert 集合中</span><br><span class="line">SINTERSTORE insert s1 s2 s3</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n*m)</p>
+<h2 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h2><p>返回指定集合的并集。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 s1 和 s2 的并集</span><br><span class="line">SUNION s1 s2</span><br><span class="line">-- 返回 s1 和 s22 的并集，s22 不存在，则返回 s1 的集合</span><br><span class="line">SUNION s1 s22</span><br><span class="line">-- 返回 s1、s2 和 s3 的并集</span><br><span class="line">SINTER s1 s2 s3</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(max(n, m))</p>
+<h2 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h2><p>同 SUNION，有以下区别：</p>
+<ol>
+<li>会将指定集合的交集插入到新的集合中；</li>
+<li>指定集合不存在或没有交集，则返回空，否则返回集合中元素数量；</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line">SADD s3 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 将 s1 s2 s3 的并集插入到 union 集合中</span><br><span class="line">SUNIONSTORE union s1 s2 s3</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(max(n, m))</p>
+<h1 id="对比列表"><a href="#对比列表" class="headerlink" title="对比列表"></a>对比列表</h1><ol start="2">
+<li>列表是有序，集合无序；</li>
+<li>列表可以存储重复元素，集合不行；</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>集合只允许添加任意个各不相同的元素；</li>
+<li>所有针对单个元素的集合操作，复杂度都为O(1)；</li>
+<li>集合的存储是无序的；</li>
+<li>SRANDMEMBER 命令 peek 一个随机选中的元素，而 SPOP 命令 pop一个随机选中的元素；</li>
+<li>应该使用集合的 store 操作；</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>程序员必读之软件架构</title>
+    <url>/2023/05/06/reading-note-of-software-architecture-for-developers/</url>
+    <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li><p>软件架构不是预先设计；</p>
+</li>
+<li><p>每个团队都需要考虑软件架构；</p>
+</li>
+<li><p>架构师参与编码；</p>
+</li>
+<li><p>UML 不是必须的；</p>
+</li>
+</ul>
+<h1 id="软件架构的本质"><a href="#软件架构的本质" class="headerlink" title="软件架构的本质"></a>软件架构的本质</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作"><a href="#为什么软件架构角色应当包含编码、指导与合作" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作-1"><a href="#为什么软件架构角色应当包含编码、指导与合作-1" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="如何用简单的草图让你的软件架构可视化"><a href="#如何用简单的草图让你的软件架构可视化" class="headerlink" title="如何用简单的草图让你的软件架构可视化"></a>如何用简单的草图让你的软件架构可视化</h1><h1 id="为软件生成文档的轻量方法"><a href="#为软件生成文档的轻量方法" class="headerlink" title="为软件生成文档的轻量方法"></a>为软件生成文档的轻量方法</h1><h1 id="为什么敏捷和架构并不冲突"><a href="#为什么敏捷和架构并不冲突" class="headerlink" title="为什么敏捷和架构并不冲突"></a>为什么敏捷和架构并不冲突</h1><h1 id="“恰如其分”的预先设计是什么意思"><a href="#“恰如其分”的预先设计是什么意思" class="headerlink" title="“恰如其分”的预先设计是什么意思"></a>“恰如其分”的预先设计是什么意思</h1><h1 id="如何通过风险风暴来识别风险。"><a href="#如何通过风险风暴来识别风险。" class="headerlink" title="如何通过风险风暴来识别风险。"></a>如何通过风险风暴来识别风险。</h1><h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p><a href="https://book.douban.com/subject/26248182/">程序员必读之软件架构</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>列表</title>
     <url>/2023/05/06/redis-list/</url>
     <content><![CDATA[<p>Redis 的列表是一种线性的有序结构，可以按照元素被推入列表中的顺序来存储元素。这些元素既可以是文字数据，又可以是二进制数据，并且列表中的元素可以重复出现。</p>
