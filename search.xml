@@ -12,6 +12,176 @@
 ]]></content>
   </entry>
   <entry>
+    <title>迭代器模式</title>
+    <url>/2023/05/07/behavioral-iterator/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>提供一种方法顺序访问容器中的各个元素，又不需要暴漏对象的内部表示。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>支持以不同方式遍历容器；</li>
+<li>对一个容器可以创建多个迭代器，互不影响；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>遍历的同时，不能对容器进行 add 或者 remove；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>遍历</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+</table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Iterator &#123;
+	hasNext() bool
+	next() Object
+&#125;
+
+class ConcreteIterator &#123;
+	hasNext() bool
+	next() Object
+&#125;
+Iterator &lt;|.. ConcreteIterator
+
+class Aggregate &#123;
+	iterator() Iterator
+&#125;
+
+class ConcreteAggregate &#123;
+	iterator() Iterator
+&#125;
+Aggregate &lt;|.. ConcreteAggregate
+
+ConcreteAggregate o.. ConcreteIterator
+ConcreteIterator &lt;-- ConcreteAggregate
+Aggregate &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><ul>
+<li>定义迭代器访问和遍历的接口；</li>
+</ul>
+<h2 id="ConcreteIterator"><a href="#ConcreteIterator" class="headerlink" title="ConcreteIterator"></a>ConcreteIterator</h2><ul>
+<li>Iterator 的实现；</li>
+</ul>
+<h2 id="Aggregate"><a href="#Aggregate" class="headerlink" title="Aggregate"></a>Aggregate</h2><ul>
+<li>聚合相应迭代器的接口；</li>
+</ul>
+<h2 id="ConcreteAggregate"><a href="#ConcreteAggregate" class="headerlink" title="ConcreteAggregate"></a>ConcreteAggregate</h2><ul>
+<li>Aggregate 的实现；</li>
+<li>返回具体的 ConcreteAggregate 的实例；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>ConcreteIterator 跟踪容器对象，并能够算出遍历的后继对象；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>组合模式：迭代器常被应用到组合的递归结构上；</li>
+<li>工厂方法：多迭代器使用工厂方法来实例化；</li>
+<li>备忘录模式：迭代器可使用备忘录来捕获一个迭代的状态。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>在进行迭代器遍历时，如果容器进行了 add 或者 remove，则可以使用报错的方式；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/iterator/iterator_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/iterator/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>组合模式</title>
+    <url>/2023/05/07/structural-composite/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将对象组合成树形结构，以表示成”部分-整体“的层次结构。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>简化 Client 代码；</li>
+<li>使得设计更一般化；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>使用比较局限；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>表示”部分-整体“的层次结构；</li>
+<li>统一使用组合结构中的所有对象</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月7日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Component &#123;
+	&lt;&lt;interface&gt;&gt;
+	operation()
+	add(Component c)
+	remove(Component c)
+	getChild(int)
+&#125;
+
+class Composite &#123;
+    operation()
+	add(Component c)
+	remove(Component c)
+	getChild(int)
+&#125;
+Component &lt;|.. Composite
+Composite o.. Composite
+
+class Leaf &#123;
+    operation()
+&#125;
+
+Component &lt;|.. Leaf
+Component &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Component"><a href="#Component" class="headerlink" title="Component"></a>Component</h2><ul>
+<li>定义 Client 需要的方法；</li>
+<li>适当情况下，提供默认实现；</li>
+<li>声明访问和管理 Component 操作；</li>
+</ul>
+<h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><ul>
+<li>Component 的实现；</li>
+<li>存储子 Component；</li>
+<li>实现 Component 中与子 Component 有关的操作；</li>
+</ul>
+<h2 id="Leaf"><a href="#Leaf" class="headerlink" title="Leaf"></a>Leaf</h2><ul>
+<li>叶子节点，没有子 Component；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 仅仅与 Component 进行交互；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>职责链模式：通常”部分-整体“的连接使用职责链模式；</li>
+<li>装饰模式：通常与组合模式一起使用，它们有公共的父类。</li>
+<li>享元模式：共享组件；</li>
+<li>迭代器模式：通常用来遍历组合模式；</li>
+<li>访问者模式：将分布在 Composite 和 Leaf 类中的操作和行为局部化；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>数据可以使用组合模式来表示，业务需求可以通过在树上的递归遍历算法来实现。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/composite/composite_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/composite/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>集合</title>
     <url>/2023/05/07/redis-set/</url>
     <content><![CDATA[<p>Redis 集合允许用户将任意个不相同的元素存储到集合中，这些元素既可以是文本数据，也可以是二进制数据。</p>
@@ -98,6 +268,105 @@
       </tags>
   </entry>
   <entry>
+    <title>适配器模式</title>
+    <url>/2023/05/06/structural-adapter/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个类的接口转换为客户希望的另外一个接口。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>封装有缺陷的接口设计；</li>
+<li>统一多个类的接口设计；</li>
+<li>替换依赖的外部系统；</li>
+<li>兼容老版本接口；</li>
+<li>适配不同格式的数据；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月6日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">---
+title: 继承实现
+---
+classDiagram
+class Target &#123;
+	request()
+&#125;
+
+class Adaptee &#123;
+	specificReqest()
+&#125;
+
+class Adapter &#123;
+	request()
+&#125;
+
+Target &lt;|.. Adapter
+Adaptee &lt;|-- Adapter
+Target &lt;-- Client</code></pre>
+
+<pre><code class="highlight mermaid">---
+title: 组合实现
+---
+classDiagram
+class Target &#123;
+	request()
+&#125;
+
+class Adaptee &#123;
+	specificReqest()
+&#125;
+
+class Adapter &#123;
+	request()
+&#125;
+
+Target &lt;|.. Adapter
+Adaptee o-- Adapter
+Target &lt;-- Client</code></pre>
+
+
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h2><ul>
+<li>定义 Client 使用的接口；</li>
+</ul>
+<h2 id="Adaptee"><a href="#Adaptee" class="headerlink" title="Adaptee"></a>Adaptee</h2><ul>
+<li>已经存在的接口；</li>
+</ul>
+<h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><ul>
+<li>将 Adaptee 适配到 Target 的接口；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 在 Adapter 实例上调用一些操作；</li>
+<li>Adaptee 来实现 Adapter 的操作；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>桥接模式：桥接模式的出发点是将接口和实现分离，使两者可以独立地改变；而适配器模式需要改变一个已有对象的接口；</li>
+<li>装饰器模式：装饰器模式在不改变接口的前提下，增强功能，它对应用程序的透明性比适配器好；</li>
+<li>代理模式：代理模式不改变原有接口。主要目的是控制访问，而非加强功能；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>如果 Adaptee 接口并不多，组合和继承都可以选择；</li>
+<li>如果 Adaptee 接口很多，而且 Adaptee 和 ITarget 接口定义大部分都相同，继承适配器的代码量少，推荐使用;</li>
+<li>如果 Adaptee 接口很多，而且 Adaptee 和 ITarget 接口定义大部分都不相同，组合适配器更加灵活;</li>
+<li>适配器模式是”补偿“模式，用来补救设计上的缺陷；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/adapter/adapter_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/adapter/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>程序员必读之软件架构</title>
     <url>/2023/05/06/reading-note-of-software-architecture-for-developers/</url>
     <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
@@ -113,7 +382,7 @@
 <h1 id="软件架构的本质"><a href="#软件架构的本质" class="headerlink" title="软件架构的本质"></a>软件架构的本质</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作"><a href="#为什么软件架构角色应当包含编码、指导与合作" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作-1"><a href="#为什么软件架构角色应当包含编码、指导与合作-1" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="如何用简单的草图让你的软件架构可视化"><a href="#如何用简单的草图让你的软件架构可视化" class="headerlink" title="如何用简单的草图让你的软件架构可视化"></a>如何用简单的草图让你的软件架构可视化</h1><h1 id="为软件生成文档的轻量方法"><a href="#为软件生成文档的轻量方法" class="headerlink" title="为软件生成文档的轻量方法"></a>为软件生成文档的轻量方法</h1><h1 id="为什么敏捷和架构并不冲突"><a href="#为什么敏捷和架构并不冲突" class="headerlink" title="为什么敏捷和架构并不冲突"></a>为什么敏捷和架构并不冲突</h1><h1 id="“恰如其分”的预先设计是什么意思"><a href="#“恰如其分”的预先设计是什么意思" class="headerlink" title="“恰如其分”的预先设计是什么意思"></a>“恰如其分”的预先设计是什么意思</h1><h1 id="如何通过风险风暴来识别风险。"><a href="#如何通过风险风暴来识别风险。" class="headerlink" title="如何通过风险风暴来识别风险。"></a>如何通过风险风暴来识别风险。</h1><h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p><a href="https://book.douban.com/subject/26248182/">程序员必读之软件架构</a></p>
 ]]></content>
       <tags>
-        <tag>design pattern</tag>
+        <tag>reading notes</tag>
       </tags>
   </entry>
   <entry>
@@ -218,6 +487,90 @@
 ]]></content>
       <tags>
         <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>备忘录模式</title>
+    <url>/2023/05/05/behavioral-memento/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，以便于恢复到原先保存的状态。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>备忘录只能由 Originator 来创建，保护封装边界；</li>
+<li>简化了 Originator；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>使用备忘录代价可能很高；</li>
+<li>一些语言难以保证只有 Originator 访问 Memento；</li>
+<li>维护 Memento 有潜在代价；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>需要保存一个对象的状态，便于恢复到原先保存的状态；</li>
+<li>放丢失、撤销和恢复；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月7日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Originator &#123;
+	State state
+	setMemento(Memento memento)
+	createMemento() Memento
+&#125;
+
+class Memento &#123;
+	State state
+	getState()
+	setState()
+&#125;
+
+Originator &lt;-- Memento
+
+class Caretaker &#123;
+	
+&#125;
+Caretaker o-- Memento
+
+Originator &lt;-- Client
+Caretaker &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Memento"><a href="#Memento" class="headerlink" title="Memento"></a>Memento</h2><ul>
+<li>保存 Originator 中的内部状态；</li>
+<li>防止 Originator 意外的其他对象访问；</li>
+</ul>
+<h2 id="Originator"><a href="#Originator" class="headerlink" title="Originator"></a>Originator</h2><ul>
+<li>用来创建一个 Memento；</li>
+<li>用来恢复内部状态；</li>
+</ul>
+<h2 id="Caretaker"><a href="#Caretaker" class="headerlink" title="Caretaker"></a>Caretaker</h2><ul>
+<li>负责保存 Memento；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 创建一个 Memento，并使用 Originator 保存到 Caretaker 中；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>命令模式：可以使用备忘录来为可撤销的操作维护状态；</li>
+<li>迭代模式：备忘录模式可用于迭代；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>备忘录模式更侧重于代码的设计和实现，备份更侧重架构设计或产品设计；</li>
+<li>大对象的备份可能只备份必要的恢复信息，结合最新的数据来恢复；或者，使用全量备份和增量备份相结合，低频全量备份，高频增量备份，两者结合来做恢复；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/memento/memento_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/main/java/behavioral/memento/Client.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
       </tags>
   </entry>
   <entry>
@@ -1477,7 +1830,11 @@ AbstractClass &lt;-- Client</code></pre>
 </thead>
 <tbody><tr>
 <td align="center">2023年4月29日</td>
-<td align="center">init</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月7日</td>
+<td align="center">增加换行快捷键</td>
 </tr>
 </tbody></table>
 <h1 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h1><p>Markdown 和 HTML 类似，是一种标记语言。它使用少量的标签和语法来修饰纯文本内容，使得文本更具可读性。</p>
@@ -1684,6 +2041,11 @@ AbstractClass &lt;-- Client</code></pre>
 <td align="center">源代码</td>
 <td align="center">Ctrl + &#x2F;</td>
 <td align="center">Command + &#x2F;</td>
+</tr>
+<tr>
+<td align="center">换行</td>
+<td align="center">Ctrl + Shift + Enter</td>
+<td align="center">Command + Shift + Enter</td>
 </tr>
 </tbody></table>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>

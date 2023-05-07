@@ -22,26 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Javaer | Gopher | Nerd | Engineer">
-<meta property="og:type" content="website">
-<meta property="og:title" content="张晗的个人博客">
-<meta property="og:url" content="http://hanzhang2566.github.io/page/15/index.html">
+    <meta name="description" content="模式描述将对象组合成树形结构，以表示成”部分-整体“的层次结构。 优点 简化 Client 代码； 使得设计更一般化；  缺点 使用比较局限；  应用场景 表示”部分-整体“的层次结构； 统一使用组合结构中的所有对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="组合模式">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/07/structural-composite/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="Javaer | Gopher | Nerd | Engineer">
+<meta property="og:description" content="模式描述将对象组合成树形结构，以表示成”部分-整体“的层次结构。 优点 简化 Client 代码； 使得设计更一般化；  缺点 使用比较局限；  应用场景 表示”部分-整体“的层次结构； 统一使用组合结构中的所有对象">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-07T12:01:17.000Z">
+<meta property="article:modified_time" content="2023-05-07T14:14:15.862Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="张晗 hanzhang zhanghan">
+<meta property="article:tag" content="design pattern">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/page/15/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/07/structural-composite/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/15/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/07/structural-composite/","path":"2023/05/07/structural-composite/","title":"组合模式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>张晗的个人博客</title>
+<title>组合模式 | 张晗的个人博客</title>
   
 
 
@@ -74,7 +76,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">张晗的个人博客</h1>
+      <p class="site-title">张晗的个人博客</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">技术的价值是业务</p>
@@ -90,7 +92,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">5</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -128,7 +130,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -141,6 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Component"><span class="nav-number">6.1.</span> <span class="nav-text">Component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Composite"><span class="nav-number">6.2.</span> <span class="nav-text">Composite</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Leaf"><span class="nav-number">6.3.</span> <span class="nav-text">Leaf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.4.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -155,13 +158,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -194,17 +197,18 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/30/structural-facade/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/07/structural-composite/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -217,13 +221,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
+      <meta itemprop="name" content="组合模式 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/30/structural-facade/" class="post-title-link" itemprop="url">门面模式</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          组合模式
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -233,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-04-30 15:16:16" itemprop="dateCreated datePublished" datetime="2023-04-30T15:16:16+08:00">2023-04-30</time>
+      <time title="创建时间：2023-05-07 20:01:17" itemprop="dateCreated datePublished" datetime="2023-05-07T20:01:17+08:00">2023-05-07</time>
     </span>
 
   
@@ -243,7 +247,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>357</span>
+      <span>353</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -261,26 +265,87 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。</p>
+        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将对象组合成树形结构，以表示成”部分-整体“的层次结构。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>屏蔽了子系统组件；</li>
-<li>拆分用户和子系统；</li>
+<li>简化 Client 代码；</li>
+<li>使得设计更一般化；</li>
 </ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
-<li>解决性能问题。</li>
-<li>解决分布式事务问题。</li>
-<li>拆分客户端和实现之间的依赖；</li>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>使用比较局限；</li>
 </ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/30/structural-facade/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>表示”部分-整体“的层次结构；</li>
+<li>统一使用组合结构中的所有对象</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月7日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Component &#123;
+	&lt;&lt;interface&gt;&gt;
+	operation()
+	add(Component c)
+	remove(Component c)
+	getChild(int)
+&#125;
+
+class Composite &#123;
+    operation()
+	add(Component c)
+	remove(Component c)
+	getChild(int)
+&#125;
+Component &lt;|.. Composite
+Composite o.. Composite
+
+class Leaf &#123;
+    operation()
+&#125;
+
+Component &lt;|.. Leaf
+Component &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Component"><a href="#Component" class="headerlink" title="Component"></a>Component</h2><ul>
+<li>定义 Client 需要的方法；</li>
+<li>适当情况下，提供默认实现；</li>
+<li>声明访问和管理 Component 操作；</li>
+</ul>
+<h2 id="Composite"><a href="#Composite" class="headerlink" title="Composite"></a>Composite</h2><ul>
+<li>Component 的实现；</li>
+<li>存储子 Component；</li>
+<li>实现 Component 中与子 Component 有关的操作；</li>
+</ul>
+<h2 id="Leaf"><a href="#Leaf" class="headerlink" title="Leaf"></a>Leaf</h2><ul>
+<li>叶子节点，没有子 Component；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 仅仅与 Component 进行交互；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>职责链模式：通常”部分-整体“的连接使用职责链模式；</li>
+<li>装饰模式：通常与组合模式一起使用，它们有公共的父类。</li>
+<li>享元模式：共享组件；</li>
+<li>迭代器模式：通常用来遍历组合模式；</li>
+<li>访问者模式：将分布在 Composite 和 Leaf 类中的操作和行为局部化；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>数据可以使用组合模式来表示，业务需求可以通过在树上的递归遍历算法来实现。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/composite/composite_test.go">golang</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/composite/ClientTest.java">java</a></p>
+
     </div>
 
     
@@ -288,8 +353,90 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="张晗_Jeremy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="张晗_Jeremy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>张晗_Jeremy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://hanzhang2566.github.io/2023/05/07/structural-composite/" title="组合模式">http://hanzhang2566.github.io/2023/05/07/structural-composite/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/images/wechat_channel.png">
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">BiliBili</span>
+          </span>
+
+          <img class="social-item-img" src="/images/bilibili_channel.png">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/design-pattern/" rel="tag"># design pattern</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/05/07/redis-set/" rel="prev" title="集合">
+                  <i class="fa fa-chevron-left"></i> 集合
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/05/07/behavioral-iterator/" rel="next" title="迭代器模式">
+                  迭代器模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -297,9 +444,7 @@
 
 
 
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/16/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+
 
 </div>
   </main>
@@ -321,13 +466,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">13k</span>
+    <span title="站点总字数">15k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">47 分钟</span>
+    <span title="站点阅读时长">53 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
