@@ -12,6 +12,229 @@
 ]]></content>
   </entry>
   <entry>
+    <title>桥接模式</title>
+    <url>/2023/05/09/structural-bridge/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将抽象部分与实现部分分离，使之可以独立变化。换句话说，当一个类存在两个（或多个）独立变化的维度，通过组合的方式让这两个（或多个）维度可以独立进行扩展。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>分离抽象和实现；</li>
+<li>提高扩展性；</li>
+<li>实现细节对 Client 透明</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>不希望抽象和实现有绑定关系；</li>
+<li>类的抽象以及实现可以通过生成子类的方式进行扩充；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月9日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Abstraction &#123;
+	&lt;&lt;interface&gt;&gt;
+	operation()
+&#125;
+
+class RefinedAbstraction &#123;
+	operation()
+&#125;
+Abstraction &lt;|.. RefinedAbstraction
+
+class Implementor &#123;
+	&lt;&lt;interface&gt;&gt;
+	operationImp()
+&#125;
+
+class ConcreteImplementorA &#123;
+	operationImp()
+&#125;
+
+class ConcreteImplementorA &#123;
+	operationImp()
+&#125;
+Implementor &lt;|.. ConcreteImplementorA
+Implementor &lt;|.. ConcreteImplementorB
+
+Abstraction o.. Implementor
+Abstraction &lt;-- Client</code></pre>
+
+
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Abstraction"><a href="#Abstraction" class="headerlink" title="Abstraction"></a>Abstraction</h2><ul>
+<li>定义抽象类的接口；</li>
+<li>维护一个指向 Implementor 的指针；</li>
+</ul>
+<h2 id="RefinedAbstraction"><a href="#RefinedAbstraction" class="headerlink" title="RefinedAbstraction"></a>RefinedAbstraction</h2><ul>
+<li>扩展 Abstraction 的接口；</li>
+</ul>
+<h2 id="Implementor"><a href="#Implementor" class="headerlink" title="Implementor"></a>Implementor</h2><ul>
+<li>定义实现类的接口。该接口不一定与 Abstraction 完全一致；</li>
+<li>Implementor 接口仅提供基本操作，而 Abstraction 则定义了基于这些基本操作较高层次的操作；</li>
+</ul>
+<h2 id="ConcreteImplementor"><a href="#ConcreteImplementor" class="headerlink" title="ConcreteImplementor"></a>ConcreteImplementor</h2><ul>
+<li>Implementor 的实现；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 通过调用 Abstraction 中的接口来操作；</li>
+<li>Abstraction 的实现委托给 ConcreteImplementor 来进行；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>抽象工厂：用来创建和配置一个特定的桥接模式；</li>
+<li>适配器模式：通常在系统设计完成后使用，桥接模式则在系统开始时就被使用。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>”抽象“并非是抽象类或接口，而是一组行为，真正的业务实现委托给”实现“来完成；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/bridge/bridge_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/bridge/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>有序集合</title>
+    <url>/2023/05/08/redis-zset/</url>
+    <content><![CDATA[<p>有序集合同时具有“有序”和“集合” 2 种性质。</p>
+<span id="more"></span>
+
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h2><p>添加一个或多个元素到有序集合，返回添加元素的数量。</p>
+<p>NX 参数：只会操作不存在的元素；</p>
+<p>XX 参数：只会操作存在的元素；</p>
+<p>CH 参数：返回更新元素的个数；</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 4</span><br><span class="line">ZADD salary 3500 &quot;peter&quot; 4000 &quot;jack&quot; 2000 &quot;tom&quot; 5500 &quot;mary&quot;</span><br><span class="line"></span><br><span class="line">-- 更新 member 的 score，没有成员添加，返回 0</span><br><span class="line">ZADD salary 3501 &quot;peter&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 1，增加 hanzhang，并且 peter 不会改变</span><br><span class="line">ZADD salary NX 6000 &quot;hanzhang&quot; 3500 &quot;peter&quot;</span><br><span class="line">-- 返回 0，将 hanzhang 更新为 6000，peter 更新为 3500</span><br><span class="line">ZADD salary XX 6000 &quot;hanzhang&quot; 3500 &quot;peter&quot;</span><br><span class="line">-- 返回 2，将 hanzhang 更新为 6001，peter 更新为 3501</span><br><span class="line">ZADD salary CH XX 6001 &quot;hanzhang&quot; 3501 &quot;peter&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(m * logn)。m 为 member 的数量，n 为成员数量。</p>
+<h2 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h2><p>从集合中删除一个或多个元素，返回移除元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回 1</span><br><span class="line">ZREM salary &quot;peter&quot;</span><br><span class="line">-- 返回 2 </span><br><span class="line">ZREM salary &quot;hanzhang&quot; &quot;tom&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(m * logn)。m 为 member 的数量，n 为成员数量。</p>
+<h2 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h2><p>获取给定 member 的 score。</p>
+<p>不存在的有序集合或 member 返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 4000</span><br><span class="line">ZSCORE salary &quot;jack&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h2><p>将给定 member 的 score 进行增加或减少，返回更新后的 score。</p>
+<p>不存在的有序集合会进行创建。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1000</span><br><span class="line">ZINCRBY salary 1000 &quot;jack&quot;</span><br><span class="line"></span><br><span class="line">-- 2000</span><br><span class="line">ZINCRBY salary 1000 &quot;jack&quot;</span><br><span class="line"></span><br><span class="line">-- 1000</span><br><span class="line">ZINCRBY salary -1000 &quot;jack&quot;</span><br><span class="line"></span><br><span class="line">-- 0</span><br><span class="line">ZINCRBY salary -1000 &quot;jack&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h2><p>返回有序集合中元素个数，有序集合不存在则返回 0.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回元素个数</span><br><span class="line">ZCARD salary</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="ZRANK"><a href="#ZRANK" class="headerlink" title="ZRANK"></a>ZRANK</h2><p>返回元素在有序集合的升序下标，集合或元素不存在，返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1</span><br><span class="line">ZRANK salary &quot;peter&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn)</p>
+<h2 id="ZREVRANK"><a href="#ZREVRANK" class="headerlink" title="ZREVRANK"></a>ZREVRANK</h2><p>返回元素在有序集合的降序下标，集合或元素不存在，返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">ZREVRANK salary &quot;peter&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn)</p>
+<h2 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h2><p>获取升序中指定闭区间内的所有 member。</p>
+<p>可以接受负索引，负索引从 -1 开始。</p>
+<p>不存在时，返回空。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- tom peter jack mary</span><br><span class="line"></span><br><span class="line">-- tom peter jack</span><br><span class="line">ZRANGE salary 0 2</span><br><span class="line">-- jack mary</span><br><span class="line">ZRANGE salary  -2 -1</span><br><span class="line">-- tom peter jack</span><br><span class="line">ZRANGE salary  0 -2</span><br><span class="line">-- 以升序获取全部</span><br><span class="line">ZRANGE salary  0 -1</span><br><span class="line">-- 返回 member 的同时，返回 score</span><br><span class="line">ZRANGE salary  0 -1 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn + m)</p>
+<h2 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h2><p>获取降序中指定闭区间内的所有 member。</p>
+<p>可以接受负索引，负索引从 -1 开始。</p>
+<p>不存在时，返回空。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mary jack peter</span><br><span class="line">ZREVRANGE salary 0 2</span><br><span class="line">-- peter tom</span><br><span class="line">ZREVRANGE salary  -2 -1</span><br><span class="line">-- mary jack peter</span><br><span class="line">ZREVRANGE salary  0 -2</span><br><span class="line">-- 以降序获取全部</span><br><span class="line">ZREVRANGE salary  0 -1</span><br><span class="line">-- 返回 member 的同时，返回 score</span><br><span class="line">ZREVRANGE salary  0 -1 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn + m)</p>
+<h2 id="ZCOUNT"><a href="#ZCOUNT" class="headerlink" title="ZCOUNT"></a>ZCOUNT</h2><p>返回指定闭区间内成员数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ZADD salary 3500 &quot;peter&quot; 4000 &quot;jack&quot; 2000 &quot;tom&quot; 5500 &quot;mary&quot;</span><br><span class="line"></span><br><span class="line">-- 3，[2000, 4000]</span><br><span class="line">ZCOUNT salary 2000 4000</span><br><span class="line">-- 2, (2000, 4000]</span><br><span class="line">ZCOUNT salary （2000 4000</span><br><span class="line">-- 2, [2000, 4000)</span><br><span class="line">ZCOUNT salary 2000 (4000</span><br><span class="line">-- 1, (2000, 4000)</span><br><span class="line">ZCOUNT salary (2000 (4000</span><br><span class="line">-- 3, [3500, +∞)</span><br><span class="line">ZCOUNT salary 3500 +inf</span><br><span class="line">-- 3, （-∞, 3500]</span><br><span class="line">ZCOUNT salary -inf 3500</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn)</p>
+<h2 id="ZREMRANGEBYRANK"><a href="#ZREMRANGEBYRANK" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h2><p>从升序排列中移除闭区间排名的元素，返回被移除元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">ZREMRANGEBYRANK salary 1 2</span><br><span class="line">-- 2 </span><br><span class="line">ZREMRANGEBYRANK salary -2 -1</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn + m)</p>
+<h2 id="ZREMRANGEBYRANK-1"><a href="#ZREMRANGEBYRANK-1" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h2><p>从升序排列中移除间分值的元素，返回被移除元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">ZREMRANGEBYSCORE salary 4000 5500</span><br><span class="line"></span><br><span class="line">-- 1</span><br><span class="line">ZREMRANGEBYSCORE salary （4000 5500</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn + m)</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>有序集合同时拥有“有序”和“集合” 2 种性质；</li>
+<li>一般情况下，有序集合的顺序由分值 score 决定，而分值相同的成员排序由 member 的字典序决定；</li>
+<li>member 的分数除了可以是数字之外，还能为 -inf 和 +inf；</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单例模式</title>
+    <url>/2023/05/08/creational-singleton/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>对唯一实例的受控访问；</li>
+<li>缩小名字空间；</li>
+<li>允许对操作和表示的精华；</li>
+<li>比类操作更灵活；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>处理资源访问冲突；</li>
+<li>表示全局唯一类；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月8日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Singleton &#123;
+	getInstance() Singleton
+&#125;
+
+Singleton &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Singleton"><a href="#Singleton" class="headerlink" title="Singleton"></a>Singleton</h2><ul>
+<li>定义一个 getInstance 操作；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 只能通过 getInstance 操作获取实例对象。</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>很多模式可以用单例模式来实现；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>构造函数需要是 private 访问权限的，这样才能避免外部通过 new 创建实例；</li>
+<li>考虑对象创建时的线程安全问题；</li>
+<li>考虑是否支持延迟加载；</li>
+<li>考虑 getInstance() 性能是否高（是否加锁）。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/singleton/singleton_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/singleton/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>迭代器模式</title>
     <url>/2023/05/07/behavioral-iterator/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>提供一种方法顺序访问容器中的各个元素，又不需要暴漏对象的内部表示。</p>
@@ -369,7 +592,7 @@ Target &lt;-- Client</code></pre>
   <entry>
     <title>程序员必读之软件架构</title>
     <url>/2023/05/06/reading-note-of-software-architecture-for-developers/</url>
-    <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+    <content><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
 <li><p>软件架构不是预先设计；</p>
 </li>
 <li><p>每个团队都需要考虑软件架构；</p>
@@ -379,7 +602,51 @@ Target &lt;-- Client</code></pre>
 <li><p>UML 不是必须的；</p>
 </li>
 </ul>
-<h1 id="软件架构的本质"><a href="#软件架构的本质" class="headerlink" title="软件架构的本质"></a>软件架构的本质</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作"><a href="#为什么软件架构角色应当包含编码、指导与合作" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作-1"><a href="#为什么软件架构角色应当包含编码、指导与合作-1" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="如何用简单的草图让你的软件架构可视化"><a href="#如何用简单的草图让你的软件架构可视化" class="headerlink" title="如何用简单的草图让你的软件架构可视化"></a>如何用简单的草图让你的软件架构可视化</h1><h1 id="为软件生成文档的轻量方法"><a href="#为软件生成文档的轻量方法" class="headerlink" title="为软件生成文档的轻量方法"></a>为软件生成文档的轻量方法</h1><h1 id="为什么敏捷和架构并不冲突"><a href="#为什么敏捷和架构并不冲突" class="headerlink" title="为什么敏捷和架构并不冲突"></a>为什么敏捷和架构并不冲突</h1><h1 id="“恰如其分”的预先设计是什么意思"><a href="#“恰如其分”的预先设计是什么意思" class="headerlink" title="“恰如其分”的预先设计是什么意思"></a>“恰如其分”的预先设计是什么意思</h1><h1 id="如何通过风险风暴来识别风险。"><a href="#如何通过风险风暴来识别风险。" class="headerlink" title="如何通过风险风暴来识别风险。"></a>如何通过风险风暴来识别风险。</h1><h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p><a href="https://book.douban.com/subject/26248182/">程序员必读之软件架构</a></p>
+<h1 id="软件架构的本质"><a href="#软件架构的本质" class="headerlink" title="软件架构的本质"></a>软件架构的本质</h1><p>包含一个软件产品从端到端的完整的、与之相关的、重要的完整元素的综合考虑。</p>
+<h1 id="软件架构的好处"><a href="#软件架构的好处" class="headerlink" title="软件架构的好处"></a>软件架构的好处</h1><ol>
+<li>让团队跟随一个清晰的愿景和路线图，无论这个愿景是一人所有还是整个团队共有；</li>
+<li>形成技术领导力，能够更好的协调；</li>
+<li>与人交流的刺激因素，以便回答与重要决策、非功能需求、限制和其他横切关注点相关的问题；</li>
+<li>识别和减轻风险的框架；</li>
+<li>方法和标准的一致性，随之而来的结构良好的代码库；</li>
+<li>正在构建的产品的坚实基础；</li>
+<li>对不同的听众，以不同层次的抽象来交流解决方案的结构</li>
+</ol>
+<h1 id="软件架构的职责"><a href="#软件架构的职责" class="headerlink" title="软件架构的职责"></a>软件架构的职责</h1><h2 id="理解业务目标"><a href="#理解业务目标" class="headerlink" title="理解业务目标"></a>理解业务目标</h2><ol>
+<li>需求。包括功能性需求和非功能性需求等；</li>
+<li>限制。包括环境、人员水平和预算等；</li>
+</ol>
+<h2 id="设计软件"><a href="#设计软件" class="headerlink" title="设计软件"></a>设计软件</h2><ol>
+<li>技术选型；</li>
+<li>架构设计；</li>
+<li>模块拆分；</li>
+</ol>
+<h2 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h2><p>技术选择其实就是风险管理。</p>
+<ol>
+<li>当复杂度或不确定性高的时候降低风险，有利可图时再冒点险；</li>
+<li>主动发现、减轻和承担高优先级的技术风险；</li>
+</ol>
+<h2 id="架构演化"><a href="#架构演化" class="headerlink" title="架构演化"></a>架构演化</h2><p>贯穿软件交付整个过程，持续关注架构演进。</p>
+<h2 id="参与开发"><a href="#参与开发" class="headerlink" title="参与开发"></a>参与开发</h2><ol>
+<li>从开发角度看架构；</li>
+<li>不一定完成日常的编码任务，但要持续地参与到交付中;</li>
+</ol>
+<h2 id="保证软件质量"><a href="#保证软件质量" class="headerlink" title="保证软件质量"></a>保证软件质量</h2><p>保证一条基线，它可以是引入一些标准和工作实践，如编码标准、设计原则和工具。</p>
+<h1 id="软技能"><a href="#软技能" class="headerlink" title="软技能"></a>软技能</h1><h2 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h2><p>创造共有愿景，并带领同事向其前进的能力。</p>
+<h2 id="沟通"><a href="#沟通" class="headerlink" title="沟通"></a>沟通</h2><p>不解释。</p>
+<h2 id="影响力"><a href="#影响力" class="headerlink" title="影响力"></a>影响力</h2><p>说服他人、倾听他人的能力。</p>
+<h2 id="信心"><a href="#信心" class="headerlink" title="信心"></a>信心</h2><p>信心不是傲慢，是领导力、影响力和沟通的基础。</p>
+<h2 id="合作"><a href="#合作" class="headerlink" title="合作"></a>合作</h2><p>倾听、谦虚和响应反馈。</p>
+<h2 id="导师"><a href="#导师" class="headerlink" title="导师"></a>导师</h2><p>辅导、引导和指导下属。</p>
+<h2 id="动力"><a href="#动力" class="headerlink" title="动力"></a>动力</h2><p>不解释。</p>
+<h2 id="润滑剂"><a href="#润滑剂" class="headerlink" title="润滑剂"></a>润滑剂</h2><p>凝聚团队，达成共识。</p>
+<h2 id="政治"><a href="#政治" class="headerlink" title="政治"></a>政治</h2><p>远离但要了解。</p>
+<h2 id="责任感"><a href="#责任感" class="headerlink" title="责任感"></a>责任感</h2><p>不解释。</p>
+<h2 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h2><p>适当授权。</p>
+<h1 id="软件架构的经验"><a href="#软件架构的经验" class="headerlink" title="软件架构的经验"></a>软件架构的经验</h1><h2 id="引入约束"><a href="#引入约束" class="headerlink" title="引入约束"></a>引入约束</h2><p>先从部分控制开始，倾听反馈，以便随着项目的推进再微调。</p>
+<h2 id="包容"><a href="#包容" class="headerlink" title="包容"></a>包容</h2><p>让组内成员参与到软件架构的过程中。</p>
+<h2 id="参与编码"><a href="#参与编码" class="headerlink" title="参与编码"></a>参与编码</h2><p>不解释。</p>
+<h1 id="软件架构的考虑"><a href="#软件架构的考虑" class="headerlink" title="软件架构的考虑"></a>软件架构的考虑</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作"><a href="#为什么软件架构角色应当包含编码、指导与合作" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作-1"><a href="#为什么软件架构角色应当包含编码、指导与合作-1" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="如何用简单的草图让你的软件架构可视化"><a href="#如何用简单的草图让你的软件架构可视化" class="headerlink" title="如何用简单的草图让你的软件架构可视化"></a>如何用简单的草图让你的软件架构可视化</h1><h1 id="为软件生成文档的轻量方法"><a href="#为软件生成文档的轻量方法" class="headerlink" title="为软件生成文档的轻量方法"></a>为软件生成文档的轻量方法</h1><h1 id="为什么敏捷和架构并不冲突"><a href="#为什么敏捷和架构并不冲突" class="headerlink" title="为什么敏捷和架构并不冲突"></a>为什么敏捷和架构并不冲突</h1><h1 id="“恰如其分”的预先设计是什么意思"><a href="#“恰如其分”的预先设计是什么意思" class="headerlink" title="“恰如其分”的预先设计是什么意思"></a>“恰如其分”的预先设计是什么意思</h1><h1 id="如何通过风险风暴来识别风险。"><a href="#如何通过风险风暴来识别风险。" class="headerlink" title="如何通过风险风暴来识别风险。"></a>如何通过风险风暴来识别风险。</h1><h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p><a href="https://book.douban.com/subject/26248182/">程序员必读之软件架构</a></p>
 ]]></content>
       <tags>
         <tag>reading notes</tag>
@@ -2533,6 +2800,10 @@ Creator &lt;-- Client</code></pre>
 <td align="center">2023年4月30日</td>
 <td align="center">添加代码库</td>
 </tr>
+<tr>
+<td align="center">2023年5月9日</td>
+<td align="center">添加参考书</td>
+</tr>
 </tbody></table>
 <p>设计模式是记录 OOP 中重要和重复出现的设计，用来对抗未来的需求和变化，帮助设计者更快、更好地完成系统设计的模板或者说套路。</p>
 <h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><table>
@@ -2751,6 +3022,7 @@ Creator &lt;-- Client</code></pre>
 <li><a href="https://book.douban.com/subject/35919931/">设计模式之美</a></li>
 <li><a href="https://book.douban.com/subject/36116620/">大话设计模式：Java 溢彩加强版</a></li>
 <li><a href="https://book.douban.com/subject/36262489/">Go语言设计模式（双色版）</a></li>
+<li><a href="https://refactoringguru.cn/">refactoringguru</a></li>
 </ul>
 ]]></content>
       <tags>
