@@ -12,6 +12,81 @@
 ]]></content>
   </entry>
   <entry>
+    <title>地理坐标</title>
+    <url>/2023/05/10/redis-geo/</url>
+    <content><![CDATA[<p>Redis 地理坐标可以存储经纬度格式的地理坐标，并对这些坐标执行距离计算、范围查找等操作。</p>
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="GEOADD"><a href="#GEOADD" class="headerlink" title="GEOADD"></a>GEOADD</h2><p>将一个或多个地理坐标添加或更新到有序集合中，返回插入元素个数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回 1.添加 qingyuan 到 Guangdong-cities 中</span><br><span class="line">GEOADD Guangdong-cities 113.2099647 23.593675 Qingyuan</span><br><span class="line">-- 返回 4.添加 guangzhou fuoshan dongguan 和 shenzhen 到 Guangdong-cities 中</span><br><span class="line">GEOADD Guangdong-cities 113.2278442 23.1255978 Guangzhou 113.106308 23.0088312 Foshan 113.7943267 22.9761989 Dongguan 114.0538788 22.5551603 Shenzhen</span><br><span class="line"></span><br><span class="line">-- 返回 1.添加 Zhongshan 到 Guangdong-cities 中</span><br><span class="line">GEOADD Guangdong-cities 113 22 Zhongshan</span><br><span class="line">-- 返回 0. 由于 Guangdong-cities 已有 Zhongshan 所以更新 Zhongshan 信息</span><br><span class="line">GEOADD Guangdong-cities 113.4060288 22.5111574 Zhongshan</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn * m). n 为集合中已有元素的个数，m 是需要添加地理坐标的个数。</p>
+<h2 id="GEOPOS"><a href="#GEOPOS" class="headerlink" title="GEOPOS"></a>GEOPOS</h2><p>获取给定位置的坐标，包含经度和纬度，集合中不存在返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 113.40603142976761 22.511156445825442</span><br><span class="line">GEOPOS Guangdong-cities Zhongshan</span><br><span class="line">-- 按顺序返回</span><br><span class="line">-- 114.0538814663887 22.555159205151575  Shenzhen</span><br><span class="line">-- 113.22784155607224 23.125598202060807 Guangzhou</span><br><span class="line">GEOPOS Guangdong-cities Shenzhen Guangzhou</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn * m). n 为集合中已有元素的个数，m 是需要查询地理坐标的个数。</p>
+<h2 id="GEODIST"><a href="#GEODIST" class="headerlink" title="GEODIST"></a>GEODIST</h2><p>计算两个位置之间的直线距离，单位默认是米，集合中元素不存在返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 127364.5547 米</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou</span><br><span class="line"></span><br><span class="line">-- 使用指定单位。 M KM MI FT</span><br><span class="line">-- 127364.5547 米</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou M</span><br><span class="line">-- 127.3646 千米</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou KM</span><br><span class="line">-- 79.1409 英里</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou MI</span><br><span class="line">-- 417862.7122 英尺</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou FT</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn)</p>
+<h2 id="GEORADIUS"><a href="#GEORADIUS" class="headerlink" title="GEORADIUS"></a>GEORADIUS</h2><p>返回以经纬度为中心，指定半径内的地理坐标。</p>
+<p>默认情况下，返回结果是无序的，ASC 或 DESC 可以使结果有序返回。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200km 的地理元素</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM</span><br><span class="line"></span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 MI</span><br><span class="line"></span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时返回距离</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHDIST</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时返回坐标</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHCOORD</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时返回 GEOHASH（数字 HASH）</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHHASH</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时升序返回距离</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHDIST ASC</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，返回 2 个的同时升序返回距离</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHDIST ASC COUNT 2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="GEORADIUSBYMEMBER"><a href="#GEORADIUSBYMEMBER" class="headerlink" title="GEORADIUSBYMEMBER"></a>GEORADIUSBYMEMBER</h2><p>同 GEORADIUS，只是中心为地理坐标中的一个元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 以 Guangzhou 为中心，查询半径为 150km 的地理元素，返回 2 个的同时升序返回距离</span><br><span class="line">GEORADIUSBYMEMBER Guangdong-cities Guangzhou 150 KM WITHDIST ASC COUNT 2</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="GEOHASH"><a href="#GEOHASH" class="headerlink" title="GEOHASH"></a>GEOHASH</h2><p>传入一个或多个位置，返回这些位置的字符串 GEOHASH 值。</p>
+<p>不存在则返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- ws0w0phgp70</span><br><span class="line">GEOHASH Guangdong-cities Qingyuan</span><br><span class="line"></span><br><span class="line">-- ws0w0phgp70 ws0e89curg0</span><br><span class="line">GEOHASH Guangdong-cities Qingyuan Guangzhou</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>Redis的GEO特性允许用户将经纬度格式的地理位置存储到Redis中，并对这些位置执行距离计算、范围查找等操作；</li>
+<li>GEORADIUSBYMEMBER 和 GEORADIUS 命令的作用一样，但前者使用位置，后者使用经纬度；</li>
+<li>Geohash 将用户给经度和纬度转换成单个Geohash值；</li>
+<li>可以使用有序集合来操作地理坐标；</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>享元模式</title>
+    <url>/2023/05/10/structural-flyweight/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>享元模式通过共享多个对象所共有的相同状态或是不可变对象，用来复用对象、节省内存。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1. </p>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>1. </p>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>仅在程序必须支持大量对象且没有足够的内存容量时使用享元模式;</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+</table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><p>1. </p>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><p>- </p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>不可变对象只能由构造函数的参数进行一次性初始化， 它不能对其他对象公开其设置器或公有成员变量。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/flyweight/flyweight_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/flyweight/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>插入排序</title>
     <url>/2023/05/09/insert-sort/</url>
     <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>将一个元素插入到已经有序的列表中，从而完成排序。</p>
@@ -23,6 +98,130 @@
 ]]></content>
       <tags>
         <tag>data-structure-and-algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>产品第一课</title>
+    <url>/2023/05/09/product-first/</url>
+    <content><![CDATA[<h1 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h1><h2 id="产品本质"><a href="#产品本质" class="headerlink" title="产品本质"></a>产品本质</h2><p>产品本质（也说产品存在价值）是能够解决”目标用户”的”问题“。</p>
+<p>To C 的产品解决自然人的需求，满足“人”欲，而 To B 的产品满足组织需求，自然人的间接需求，满足“组织”欲。</p>
+<h2 id="To-C-和-To-B-的差异"><a href="#To-C-和-To-B-的差异" class="headerlink" title="To C 和 To B 的差异"></a>To C 和 To B 的差异</h2><h3 id="目标用户"><a href="#目标用户" class="headerlink" title="目标用户"></a>目标用户</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">感性</td>
+<td align="center">理性</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ol>
+<li>使用场景</li>
+<li>产品思维</li>
+<li>业务功能</li>
+<li>使用复杂度；</li>
+<li>切换成本</li>
+<li>运营程度</li>
+<li>商业模式</li>
+</ol>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ol>
+<li><p>企业内部协同（财务系统等）</p>
+<p>内部专业人员使用；</p>
+<p>定制功能多；</p>
+<p>部署成本高；</p>
+</li>
+<li><p>对外标准产品（钉钉等）</p>
+<p>行业使用广泛；</p>
+<p>定制功能少；</p>
+<p>类似于 C 端；</p>
+</li>
+<li><p>中后台产品（阿里云等）</p>
+<p>没有真正意义的使用者；</p>
+<p>业务 + 技术 + 现状 + 规划</p>
+</li>
+</ol>
+<h1 id="依据"><a href="#依据" class="headerlink" title="依据"></a>依据</h1><h1 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h1><h1 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h1>]]></content>
+      <tags>
+        <tag>product</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>位图</title>
+    <url>/2023/05/09/redis-bit/</url>
+    <content><![CDATA[<p>位图是由多个二进制位组成的数组，数组中的每个二进制位都有与之对应的偏移量（也称索引），用户通过这些偏移量可以对位图中指定的一个或多个二进制位进行操作。</p>
+<span id="more"></span>
+
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="SETBIT"><a href="#SETBIT" class="headerlink" title="SETBIT"></a>SETBIT</h2><p>根据偏移值设置对应下标，返回修改前的值。</p>
+<p>位图按照字节进行扩展，将未设置的二进制位设置为 0。</p>
+<p>偏移量只能为正数，值只能是 [0 | 1]</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 设置 bitmap 中下标为 0、2、4、6 的值设置为 1</span><br><span class="line">-- 1010101</span><br><span class="line">SETBIT bitmap 0 1</span><br><span class="line">SETBIT bitmap 2 1</span><br><span class="line">SETBIT bitmap 4 1</span><br><span class="line">SETBIT bitmap 6 1</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="GETBIT"><a href="#GETBIT" class="headerlink" title="GETBIT"></a>GETBIT</h2><p>获取偏移的值，偏移在范围外返回 0.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1</span><br><span class="line">GETBIT bitmap 6</span><br><span class="line">-- 0</span><br><span class="line">GETBIT bitmap 5</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="BITCOUNT"><a href="#BITCOUNT" class="headerlink" title="BITCOUNT"></a>BITCOUNT</h2><p>统计位图值为 1 的二进制数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 4</span><br><span class="line">BITCOUNT bitmap</span><br><span class="line">-- 返回第一字节-第二字节中值为 1 的元素个数</span><br><span class="line">BITCOUNT bitmap 0 1</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="BITPOS"><a href="#BITPOS" class="headerlink" title="BITPOS"></a>BITPOS</h2><p>查找位图中第一个指定值的元素下标</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SETBIT bitmap 0 0</span><br><span class="line">SETBIT bitmap 2 1</span><br><span class="line">SETBIT bitmap 4 1</span><br><span class="line">SETBIT bitmap 6 1</span><br><span class="line">BITCOUNT bitmap 0 0</span><br><span class="line">-- 0</span><br><span class="line">BITPOS bitmap 0</span><br><span class="line">-- 2</span><br><span class="line">BITPOS bitmap 1</span><br><span class="line">-- 返回第二字节中值为 1 的元素个数</span><br><span class="line">BITCOUNT bitmap 1 1</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="BITOP"><a href="#BITOP" class="headerlink" title="BITOP"></a>BITOP</h2><p>对位图进行与、或、非和异或的计算。</p>
+<p>对于长度不同的位图，会用 0 补全。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- bm1 01</span><br><span class="line">SETBIT bm1 0 0</span><br><span class="line">SETBIT bm1 1 1</span><br><span class="line">-- bm2 10</span><br><span class="line">SETBIT bm2 0 1</span><br><span class="line">SETBIT bm2 1 0</span><br><span class="line"></span><br><span class="line">-- 00</span><br><span class="line">BITOP AND and bm1 bm2</span><br><span class="line">-- 0</span><br><span class="line">BITCOUNT and</span><br><span class="line">-- 00</span><br><span class="line">BITOP OR or bm1 bm2</span><br><span class="line">-- 2</span><br><span class="line">BITCOUNT or</span><br><span class="line">-- 10</span><br><span class="line">BITOP NOT not bm1</span><br><span class="line">-- 7。这里由于是对字节进行操作的</span><br><span class="line">BITCOUNT not</span><br><span class="line">-- 11</span><br><span class="line">BITOP XOR xor bm1 bm2</span><br><span class="line">-- 2</span><br><span class="line">BITCOUNT xor</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="BITFIELD"><a href="#BITFIELD" class="headerlink" title="BITFIELD"></a>BITFIELD</h2><p>用来对位图中的任意区域存储整数值，并进行计算。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 设置 uint8-bitmap 位图的第一个元素为 u8 类型值为 123</span><br><span class="line">BITFIELD uint8-bitmap SET u8 0 123</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>Redis 的位图是由多个二进制位组成的数组，通过偏移量对位图中一位或多位进行操作；</li>
+<li>BITCOUNT 命令接受的是字节索引范围，而不是二进制位索引范围；</li>
+<li>因为位图是使用字符串实现的，所以字符串命令也可以用于处理位图命令。但必须先转换；</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基数计数</title>
+    <url>/2023/05/09/redis-hyperloglog/</url>
+    <content><![CDATA[<p>HyperLogLog 用于估计候选集概率的数据结构。它使得用较小的空间获得近似的准确度。无论集合包含的多少个元素，HyperLogLog 总是使用非常少的内存。</p>
+<span id="more"></span>
+
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="PFADD"><a href="#PFADD" class="headerlink" title="PFADD"></a>PFADD</h2><p>对给定的元素进行计数，如果计数成功，返回 true；否则，返回 false。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- true</span><br><span class="line">PFADD alphabets &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;</span><br><span class="line">-- false</span><br><span class="line">PFADD alphabets &quot;a&quot;</span><br><span class="line">-- true</span><br><span class="line">PFADD alphabets &quot;f&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="PFCOUNT"><a href="#PFCOUNT" class="headerlink" title="PFCOUNT"></a>PFCOUNT</h2><p>返回 hyper 中元素的近似个数。</p>
+<p>hyper 不存在则返回 0.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 6</span><br><span class="line">PFCOUNT alphabets</span><br><span class="line">-- 0</span><br><span class="line">PFCOUNT alphabets1</span><br><span class="line"></span><br><span class="line">PFADD alphabets1 &quot;a&quot; &quot;b&quot; &quot;c&quot;</span><br><span class="line">PFADD alphabets2  &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot;</span><br><span class="line">-- 6 返回 alphabets1 和 alphabets2 并集的个数</span><br><span class="line">PFCOUNT alphabets1 alphabets2</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="PFMERGE"><a href="#PFMERGE" class="headerlink" title="PFMERGE"></a>PFMERGE</h2><p>将指定 hypers 计算出并集，并保存到 target hyper 中。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PFADD alphabets1 &quot;a&quot; &quot;b&quot; &quot;c&quot;</span><br><span class="line">PFADD alphabets2  &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot;</span><br><span class="line"></span><br><span class="line">-- 将 alphabets1 和 alphabets2 求并集，保存到 alphabets::merge 中</span><br><span class="line">PFMERGE alphabets::merge alphabets1 alphabets2</span><br><span class="line">- 6</span><br><span class="line">PFCOUNT alphabets::merge</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>HyperLogLog 是一个基于基数的近似计算；</li>
+<li>HyperLogLog 无论保存多少个元素，只使用固定内存；</li>
+<li>PFMERGE 代替 PFCOUNT，因为 PFCOUNT 内部调用 PFMERGE 命令；</li>
+<li>HyperLogLog 用于计数和去重；</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
       </tags>
   </entry>
   <entry>

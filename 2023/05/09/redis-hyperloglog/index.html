@@ -22,28 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="模式描述将抽象部分与实现部分分离，使之可以独立变化。换句话说，当一个类存在两个（或多个）独立变化的维度，通过组合的方式让这两个（或多个）维度可以独立进行扩展。 优点 分离抽象和实现； 提高扩展性； 实现细节对 Client 透明  缺点应用场景 不希望抽象和实现有绑定关系； 类的抽象以及实现可以通过生成子类的方式进行扩充；">
+    <meta name="description" content="HyperLogLog 用于估计候选集概率的数据结构。它使得用较小的空间获得近似的准确度。无论集合包含的多少个元素，HyperLogLog 总是使用非常少的内存。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="桥接模式">
-<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/09/structural-bridge/index.html">
+<meta property="og:title" content="基数计数">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/09/redis-hyperloglog/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="模式描述将抽象部分与实现部分分离，使之可以独立变化。换句话说，当一个类存在两个（或多个）独立变化的维度，通过组合的方式让这两个（或多个）维度可以独立进行扩展。 优点 分离抽象和实现； 提高扩展性； 实现细节对 Client 透明  缺点应用场景 不希望抽象和实现有绑定关系； 类的抽象以及实现可以通过生成子类的方式进行扩充；">
+<meta property="og:description" content="HyperLogLog 用于估计候选集概率的数据结构。它使得用较小的空间获得近似的准确度。无论集合包含的多少个元素，HyperLogLog 总是使用非常少的内存。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-09T00:04:56.000Z">
-<meta property="article:modified_time" content="2023-05-09T02:08:59.392Z">
+<meta property="article:published_time" content="2023-05-09T03:42:29.000Z">
+<meta property="article:modified_time" content="2023-05-09T04:51:41.934Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="design pattern">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/09/structural-bridge/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/09/redis-hyperloglog/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/09/structural-bridge/","path":"2023/05/09/structural-bridge/","title":"桥接模式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/09/redis-hyperloglog/","path":"2023/05/09/redis-hyperloglog/","title":"基数计数"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>桥接模式 | 张晗的个人博客</title>
+<title>基数计数 | 张晗的个人博客</title>
   
 
 
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstraction"><span class="nav-number">6.1.</span> <span class="nav-text">Abstraction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RefinedAbstraction"><span class="nav-number">6.2.</span> <span class="nav-text">RefinedAbstraction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementor"><span class="nav-number">6.3.</span> <span class="nav-text">Implementor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteImplementor"><span class="nav-number">6.4.</span> <span class="nav-text">ConcreteImplementor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.5.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PFADD"><span class="nav-number">1.1.</span> <span class="nav-text">PFADD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PFCOUNT"><span class="nav-number">1.2.</span> <span class="nav-text">PFCOUNT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PFMERGE"><span class="nav-number">1.3.</span> <span class="nav-text">PFMERGE</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -208,7 +208,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/09/structural-bridge/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/09/redis-hyperloglog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -221,12 +221,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="桥接模式 | 张晗的个人博客">
+      <meta itemprop="name" content="基数计数 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          桥接模式
+          基数计数
         </h1>
 
         <div class="post-meta-container">
@@ -237,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-09 08:04:56" itemprop="dateCreated datePublished" datetime="2023-05-09T08:04:56+08:00">2023-05-09</time>
+      <time title="创建时间：2023-05-09 11:42:29" itemprop="dateCreated datePublished" datetime="2023-05-09T11:42:29+08:00">2023-05-09</time>
     </span>
 
   
@@ -247,7 +247,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>400</span>
+      <span>277</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -265,90 +265,28 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将抽象部分与实现部分分离，使之可以独立变化。换句话说，当一个类存在两个（或多个）独立变化的维度，通过组合的方式让这两个（或多个）维度可以独立进行扩展。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>分离抽象和实现；</li>
-<li>提高扩展性；</li>
-<li>实现细节对 Client 透明</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>不希望抽象和实现有绑定关系；</li>
-<li>类的抽象以及实现可以通过生成子类的方式进行扩充；</li>
-</ol>
+        <p>HyperLogLog 用于估计候选集概率的数据结构。它使得用较小的空间获得近似的准确度。无论集合包含的多少个元素，HyperLogLog 总是使用非常少的内存。</p>
 <span id="more"></span>
 
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年5月9日</td>
-<td align="center">初始化</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="PFADD"><a href="#PFADD" class="headerlink" title="PFADD"></a>PFADD</h2><p>对给定的元素进行计数，如果计数成功，返回 true；否则，返回 false。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- true</span><br><span class="line">PFADD alphabets &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;</span><br><span class="line">-- false</span><br><span class="line">PFADD alphabets &quot;a&quot;</span><br><span class="line">-- true</span><br><span class="line">PFADD alphabets &quot;f&quot;</span><br></pre></td></tr></table></figure>
 
-class Abstraction &#123;
-	&lt;&lt;interface&gt;&gt;
-	operation()
-&#125;
+<p>时间复杂度：O(n)</p>
+<h2 id="PFCOUNT"><a href="#PFCOUNT" class="headerlink" title="PFCOUNT"></a>PFCOUNT</h2><p>返回 hyper 中元素的近似个数。</p>
+<p>hyper 不存在则返回 0.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-- 6</span><br><span class="line">PFCOUNT alphabets</span><br><span class="line">-- 0</span><br><span class="line">PFCOUNT alphabets1</span><br><span class="line"></span><br><span class="line">PFADD alphabets1 &quot;a&quot; &quot;b&quot; &quot;c&quot;</span><br><span class="line">PFADD alphabets2  &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot;</span><br><span class="line">-- 6 返回 alphabets1 和 alphabets2 并集的个数</span><br><span class="line">PFCOUNT alphabets1 alphabets2</span><br></pre></td></tr></table></figure>
 
-class RefinedAbstraction &#123;
-	operation()
-&#125;
-Abstraction &lt;|.. RefinedAbstraction
+<p>时间复杂度：O(n)</p>
+<h2 id="PFMERGE"><a href="#PFMERGE" class="headerlink" title="PFMERGE"></a>PFMERGE</h2><p>将指定 hypers 计算出并集，并保存到 target hyper 中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PFADD alphabets1 &quot;a&quot; &quot;b&quot; &quot;c&quot;</span><br><span class="line">PFADD alphabets2  &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot;</span><br><span class="line"></span><br><span class="line">-- 将 alphabets1 和 alphabets2 求并集，保存到 alphabets::merge 中</span><br><span class="line">PFMERGE alphabets::merge alphabets1 alphabets2</span><br><span class="line">- 6</span><br><span class="line">PFCOUNT alphabets::merge</span><br></pre></td></tr></table></figure>
 
-class Implementor &#123;
-	&lt;&lt;interface&gt;&gt;
-	operationImp()
-&#125;
-
-class ConcreteImplementorA &#123;
-	operationImp()
-&#125;
-
-class ConcreteImplementorA &#123;
-	operationImp()
-&#125;
-Implementor &lt;|.. ConcreteImplementorA
-Implementor &lt;|.. ConcreteImplementorB
-
-Abstraction o.. Implementor
-Abstraction &lt;-- Client</code></pre>
-
-
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Abstraction"><a href="#Abstraction" class="headerlink" title="Abstraction"></a>Abstraction</h2><ul>
-<li>定义抽象类的接口；</li>
-<li>维护一个指向 Implementor 的指针；</li>
+<p>时间复杂度：O(n)</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>HyperLogLog 是一个基于基数的近似计算；</li>
+<li>HyperLogLog 无论保存多少个元素，只使用固定内存；</li>
+<li>PFMERGE 代替 PFCOUNT，因为 PFCOUNT 内部调用 PFMERGE 命令；</li>
+<li>HyperLogLog 用于计数和去重；</li>
 </ul>
-<h2 id="RefinedAbstraction"><a href="#RefinedAbstraction" class="headerlink" title="RefinedAbstraction"></a>RefinedAbstraction</h2><ul>
-<li>扩展 Abstraction 的接口；</li>
-</ul>
-<h2 id="Implementor"><a href="#Implementor" class="headerlink" title="Implementor"></a>Implementor</h2><ul>
-<li>定义实现类的接口。该接口不一定与 Abstraction 完全一致；</li>
-<li>Implementor 接口仅提供基本操作，而 Abstraction 则定义了基于这些基本操作较高层次的操作；</li>
-</ul>
-<h2 id="ConcreteImplementor"><a href="#ConcreteImplementor" class="headerlink" title="ConcreteImplementor"></a>ConcreteImplementor</h2><ul>
-<li>Implementor 的实现；</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>Client 通过调用 Abstraction 中的接口来操作；</li>
-<li>Abstraction 的实现委托给 ConcreteImplementor 来进行；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂：用来创建和配置一个特定的桥接模式；</li>
-<li>适配器模式：通常在系统设计完成后使用，桥接模式则在系统开始时就被使用。</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>”抽象“并非是抽象类或接口，而是一组行为，真正的业务实现委托给”实现“来完成；</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/bridge/bridge_test.go">golang</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/bridge/ClientTest.java">java</a></p>
 
     </div>
 
@@ -384,7 +322,7 @@ Abstraction &lt;-- Client</code></pre>
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/05/09/structural-bridge/" title="桥接模式">http://hanzhang2566.github.io/2023/05/09/structural-bridge/</a>
+      <a href="http://hanzhang2566.github.io/2023/05/09/redis-hyperloglog/" title="基数计数">http://hanzhang2566.github.io/2023/05/09/redis-hyperloglog/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
@@ -424,20 +362,20 @@ Abstraction &lt;-- Client</code></pre>
 </div>
 
           <div class="post-tags">
-              <a href="/tags/design-pattern/" rel="tag"># design pattern</a>
+              <a href="/tags/redis/" rel="tag"># redis</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/05/08/redis-zset/" rel="prev" title="有序集合">
-                  <i class="fa fa-chevron-left"></i> 有序集合
+                <a href="/2023/05/09/structural-bridge/" rel="prev" title="桥接模式">
+                  <i class="fa fa-chevron-left"></i> 桥接模式
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/05/09/redis-hyperloglog/" rel="next" title="基数计数">
-                  基数计数 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/05/09/redis-bit/" rel="next" title="位图">
+                  位图 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

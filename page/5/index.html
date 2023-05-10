@@ -90,7 +90,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -155,13 +155,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -204,7 +204,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/01/mermaid/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/03/bubble-sort/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -222,7 +222,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/01/mermaid/" class="post-title-link" itemprop="url">Markdown 中 mermaid 的使用</a>
+          <a href="/2023/05/03/bubble-sort/" class="post-title-link" itemprop="url">冒泡排序</a>
         </h2>
 
         <div class="post-meta-container">
@@ -233,7 +233,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-01 18:01:51" itemprop="dateCreated datePublished" datetime="2023-05-01T18:01:51+08:00">2023-05-01</time>
+      <time title="创建时间：2023-05-03 21:27:36" itemprop="dateCreated datePublished" datetime="2023-05-03T21:27:36+08:00">2023-05-03</time>
     </span>
 
   
@@ -243,7 +243,293 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>415</span>
+      <span>145</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>冒泡排序会从头开始依次比较 2 个相邻元素的大小，如果顺序错误就交换，直到没有相邻元素需要交换，即排序完成。每进行一次循环，就会有固定一个排序元素到末尾。</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>由于末尾是目标位置，所以不用放在循环中；</li>
+<li>使用 flag 来描述一次循环是否有需要交换的元素，如果没交换，说明已经有序，则不用接下来的循环。</li>
+</ul>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/bubble_sort_test.go">golang</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/main/java/sort/BubbleSort.java">java</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/03/selection-sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="张晗_Jeremy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张晗的个人博客">
+      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 张晗的个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/05/03/selection-sort/" class="post-title-link" itemprop="url">选择排序</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-03 21:27:36" itemprop="dateCreated datePublished" datetime="2023-05-03T21:27:36+08:00">2023-05-03</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>175</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>选择排序首先会找到数组中最小的元素；其次，交换它和第一个元素；再其次，在剩下的元素中找到最小的元素，将它与数组的第二个元素交换。</p>
+<p>如此往复，直到将整个数组排序。</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>由于需要寻找最小的，所以每个元素都需要比较；</li>
+<li>冒泡排序是比较后，满足要求就交换；而选择排序是先比较一轮，最后只交换一次。所以选择排序的步数大概只有冒泡排序的一般，即选择排序比冒泡排序快一倍。</li>
+</ul>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/selection_sort_test.go">golang</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/SelectionSortTest.java">java</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/03/creational-factory-abstract/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="张晗_Jeremy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张晗的个人博客">
+      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 张晗的个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/05/03/creational-factory-abstract/" class="post-title-link" itemprop="url">抽象工厂模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-03 14:53:49" itemprop="dateCreated datePublished" datetime="2023-05-03T14:53:49+08:00">2023-05-03</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>313</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>提供一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>分离了具体的产品类；</li>
+<li>有利于产品一致性；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>难以扩展抽象工厂</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>一个系统要独立产品的创建、组合和表示；</li>
+<li>一个系统要由多个产品系列中的一个来配置；</li>
+<li>提供一个产品库，只显示接口而非实现；</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/05/03/creational-factory-abstract/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/02/behavioral-observer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="张晗_Jeremy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张晗的个人博客">
+      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 张晗的个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/05/02/behavioral-observer/" class="post-title-link" itemprop="url">观察者模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-02 22:32:17" itemprop="dateCreated datePublished" datetime="2023-05-02T22:32:17+08:00">2023-05-02</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>437</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -261,126 +547,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>Mermaid 让在 Markdown 中用文本和代码的方式创建可视化图表。包括但不限于：流程图（Flowchart）、时序图（Sequence Diagram）、类图（Class Diagram）、ER 图（Entity-Relationship Diagram）等。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
-<li>使用文本和代码的方式绘图，无需关心元素排布，JS 引擎会自动渲染；</li>
-<li>极客属性；</li>
-<li>广泛。有 md 文件就可以绘图；</li>
-</ul>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ul>
-<li>写图需要配合文档，曲线高；</li>
-<li>不能自定义元素排布；</li>
-</ul>
-<h1 id="如何开始"><a href="#如何开始" class="headerlink" title="如何开始"></a>如何开始</h1><ol>
-<li>明确是否使用 mermaid 写图；</li>
-<li>决定图表类型，打开 <a target="_blank" rel="noopener" href="https://mermaid.js.org/config/Tutorials.html">mermaid tutorials</a> 对应图表文档；</li>
-<li>复制一份官方图表模板；</li>
-<li>查看官网的语法样式，选择自己需要的进行绘制；</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/05/01/mermaid/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/01/creational-builder/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/01/creational-builder/" class="post-title-link" itemprop="url">建造者模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-05-01 15:09:28" itemprop="dateCreated datePublished" datetime="2023-05-01T15:09:28+08:00">2023-05-01</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>254</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个复杂对象的构建和表示分离，使得同样的构建过程可以创建出不同对象。</p>
+          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>定义对象间的一对多关系，当一个对象的状态发生改变时，所有依赖与它的对象都得到通知并自动被更新。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>避免构造器参数太多，按需构造；</li>
-<li>避免 setter 方法，使对象不可变；</li>
-<li>构造和表示代码分开；</li>
-<li>更精细控制构造过程；</li>
+<li>目标和观察者解耦；</li>
+<li>支持对观察者的广播通讯；</li>
 </ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>复杂对象的创建独立于创建对象的组成部分时；</li>
-<li>需要按需构造时；</li>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>依赖准则的定义和维护不当，会引起错误更新，而且很难排查；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>一个对象改变，其他待定的对象同时需要改变；</li>
+<li>解耦 1 个模型中，相互依赖的 2 个方面；</li>
+<li></li>
 </ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/05/01/creational-builder/#more" rel="contents">
+              <a class="btn" href="/2023/05/02/behavioral-observer/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -411,7 +593,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/30/structural-facade/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/02/idea/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -429,7 +611,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/30/structural-facade/" class="post-title-link" itemprop="url">门面模式</a>
+          <a href="/2023/05/02/idea/" class="post-title-link" itemprop="url">我的 Intellij IDEA 设置</a>
         </h2>
 
         <div class="post-meta-container">
@@ -440,7 +622,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-04-30 15:16:16" itemprop="dateCreated datePublished" datetime="2023-04-30T15:16:16+08:00">2023-04-30</time>
+      <time title="创建时间：2023-05-02 18:01:51" itemprop="dateCreated datePublished" datetime="2023-05-02T18:01:51+08:00">2023-05-02</time>
     </span>
 
   
@@ -450,108 +632,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>357</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>门面模式(Facade)模式，为子系统提供一组统一的接口，定义一组高层接口让子系统更易用，这个接口使得子系统更容易使用。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>屏蔽了子系统组件；</li>
-<li>拆分用户和子系统；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>解决易用性问题。例如 Linux 系统提供的系统调用函数等；</li>
-<li>解决性能问题。</li>
-<li>解决分布式事务问题。</li>
-<li>拆分客户端和实现之间的依赖；</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/04/30/structural-facade/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/30/uml-class-diagram/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/30/uml-class-diagram/" class="post-title-link" itemprop="url">UML 类图</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-30 13:44:18" itemprop="dateCreated datePublished" datetime="2023-04-30T13:44:18+08:00">2023-04-30</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>496</span>
+      <span>506</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -569,279 +650,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月30日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
-<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
-<pre><code class="highlight mermaid">---
-title: 接口示例
----
-classDiagram
-class Speaker &#123;
-	&lt;&lt;interface&gt;&gt;
-	speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Abstract &#123;
-	&lt;&lt;abstract&gt;&gt;
-&#125;</code></pre>
-
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
-<pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Speakerman &#123;
-	String name
-    speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
-<p>-表示 private</p>
-<p>#表示 protected</p>
-<p>~表示 package 或者 internal</p>
-<pre><code class="highlight mermaid">---
-title: 可见性示例
----
-classDiagram
-class Visibility &#123;
-	+int n1
-	-int n2
-	#int n3
-	~int n4
-	
-	+m1()
-	-m1()
-	#m3()
-	~m4()
-&#125;</code></pre>
-
-<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
-<p>$表示 static，下划线</p>
-<pre><code class="highlight mermaid">---
-title: 修饰符示例
----
-classDiagram
-class Modifier &#123;
-	int n1$
-	
-	+m1()*
-    +m2()$
-&#125;</code></pre>
-
-<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
-<p>Man is a Person</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Person &#123;
-	
-&#125;
-
-class Man &#123;
-	
-&#125;
-
-Person &lt;|-- Man</code></pre>
-
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
-<p>Bird has Fly ability</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Fly &#123;
-	&lt;&lt;interface&gt;&gt;
-&#125;
-
-class Bird &#123;
-	
-&#125;
-
-Fly &lt;|.. Bird</code></pre>
-
-<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
-<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
-<pre><code class="highlight mermaid">---
-title: 聚合示例
----
-classDiagram
-class Classroom &#123;
-	Blackboard blackboard
-&#125;
-
-class Blackboard &#123;
-	
-&#125;
-
-Classroom o-- Blackboard</code></pre>
-
-<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
-<p>Arm is part of Person </p>
-<pre><code class="highlight mermaid">---
-title: 组合示例
----
-classDiagram
-class Person &#123;
-	Arm arm
-&#125;
-
-class Arm &#123;
-	
-&#125;
-
-Person *-- Arm</code></pre>
-
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
-<p>Person depand on Water</p>
-<pre><code class="highlight mermaid">---
-title: 依赖示例
----
-classDiagram
-class Person &#123;
-	Water water
-&#125;
-
-class Water &#123;
-	
-&#125;
-
-Water &lt;.. Person</code></pre>
-
-<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
-<p>Person should know Climate</p>
-<pre><code class="highlight mermaid">---
-title: 关联示例
----
-classDiagram
-class Person &#123;
-	Climate climate
-&#125;
-
-class Climate &#123;
-	
-&#125;
-
-Climate &lt;-- Person</code></pre>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
-<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
-<li>聚合适用范围比组合更广；</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/04/29/behavioral-template/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/29/behavioral-template/" class="post-title-link" itemprop="url">模板方法模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-29 18:57:33" itemprop="dateCreated datePublished" datetime="2023-04-29T18:57:33+08:00">2023-04-29</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>356</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>实现了反转控制；</li>
-<li>给子类提供了扩展的钩子 hook；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>实现算法不变的部分，将可变行为留给子类来实现；</li>
-<li>子类中公共的行为被提取到父类，避免代码重复；</li>
-<li>限制子类扩展</li>
-</ol>
+          <p>IDEA 是 jetbrains 为 Javaer 打造的 IDE，我基本上 Java、Golang、Python 和 JS 等都用它来编写。</p>
+<p>我使用 <a target="_blank" rel="noopener" href="https://www.jetbrains.com.cn/toolbox-app/">Toolbox</a> 来管理 jetbrains 的所有产品。</p>
+<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><p>IntelliJ IDEA 2022.3.3</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/04/29/behavioral-template/#more" rel="contents">
+              <a class="btn" href="/2023/05/02/idea/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -865,7 +679,7 @@ Climate &lt;-- Person</code></pre>
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -888,13 +702,13 @@ Climate &lt;-- Person</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">17k</span>
+    <span title="站点总字数">19k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:01</span>
+    <span title="站点阅读时长">1:09</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
