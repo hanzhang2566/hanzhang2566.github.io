@@ -105,6 +105,8 @@
     <url>/2023/05/09/product-first/</url>
     <content><![CDATA[<h1 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h1><h2 id="产品本质"><a href="#产品本质" class="headerlink" title="产品本质"></a>产品本质</h2><p>产品本质（也说产品存在价值）是能够解决”目标用户”的”问题“。</p>
 <p>To C 的产品解决自然人的需求，满足“人”欲，而 To B 的产品满足组织需求，自然人的间接需求，满足“组织”欲。</p>
+<p>”人“欲：</p>
+<p>”组织“欲：节省成本、提升效率、资源整合 </p>
 <h2 id="To-C-和-To-B-的差异"><a href="#To-C-和-To-B-的差异" class="headerlink" title="To C 和 To B 的差异"></a>To C 和 To B 的差异</h2><h3 id="目标用户"><a href="#目标用户" class="headerlink" title="目标用户"></a>目标用户</h3><table>
 <thead>
 <tr>
@@ -117,19 +119,126 @@
 <td align="center">理性</td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">注重体验<br />简单易用，学习成本低</td>
+<td align="center">注重效率<br />效率 &gt; 体验</td>
+</tr>
+<tr>
+<td align="center">角色单一</td>
+<td align="center">决策者：关注效率和成本<br />管理者：关注管理职责和工作产出<br />员工：关注能否减轻工作负担</td>
 </tr>
 </tbody></table>
-<ol>
-<li>使用场景</li>
-<li>产品思维</li>
-<li>业务功能</li>
-<li>使用复杂度；</li>
-<li>切换成本</li>
-<li>运营程度</li>
-<li>商业模式</li>
-</ol>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">碎片化<br />时间不固定、随机性强</td>
+<td align="center">固定时间<br />根据工作流程、职责来使用</td>
+</tr>
+<tr>
+<td align="center">生活使用</td>
+<td align="center">工作使用</td>
+</tr>
+</tbody></table>
+<h3 id="产品思维"><a href="#产品思维" class="headerlink" title="产品思维"></a>产品思维</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">追求流量<br />流量优先，提供变现基础</td>
+<td align="center">追求效率<br />目的是简化工作，提高效率</td>
+</tr>
+</tbody></table>
+<h3 id="业务功能"><a href="#业务功能" class="headerlink" title="业务功能"></a>业务功能</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">核心功能为主<br />围绕核心功能建立</td>
+<td align="center">多功能同等重要<br />工作流程没有主次</td>
+</tr>
+</tbody></table>
+<h3 id="使用复杂度"><a href="#使用复杂度" class="headerlink" title="使用复杂度"></a>使用复杂度</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">业务简单</td>
+<td align="center">业务复杂场景多</td>
+</tr>
+<tr>
+<td align="center">简单易用</td>
+<td align="center">需要学习</td>
+</tr>
+<tr>
+<td align="center">生命周期短</td>
+<td align="center">生命周期长</td>
+</tr>
+</tbody></table>
+<h3 id="切换成本"><a href="#切换成本" class="headerlink" title="切换成本"></a>切换成本</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">同质化、忠诚度低</td>
+<td align="center">定制化、上手难度高</td>
+</tr>
+<tr>
+<td align="center">切换成本低</td>
+<td align="center">切换成本高</td>
+</tr>
+</tbody></table>
+<h3 id="运营程度"><a href="#运营程度" class="headerlink" title="运营程度"></a>运营程度</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">重运营</td>
+<td align="center">重运维</td>
+</tr>
+<tr>
+<td align="center">重视拉新、促活</td>
+<td align="center">重视系统稳定、可靠</td>
+</tr>
+<tr>
+<td align="center">用户体验</td>
+<td align="center">功能全面</td>
+</tr>
+</tbody></table>
+<h3 id="商业模式"><a href="#商业模式" class="headerlink" title="商业模式"></a>商业模式</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">羊毛出在狗身上</td>
+<td align="center">一手交钱一手交货</td>
+</tr>
+<tr>
+<td align="center">内容付费<br />广告付费<br />平台抽佣<br />增值服务</td>
+<td align="center">功能付费<br />人数付费<br />需求付费<br />维护付费</td>
+</tr>
+</tbody></table>
 <h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ol>
 <li><p>企业内部协同（财务系统等）</p>
 <p>内部专业人员使用；</p>
