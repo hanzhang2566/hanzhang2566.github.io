@@ -22,28 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="模式描述提供一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。 优点 分离了具体的产品类； 有利于产品一致性；  缺点 难以扩展抽象工厂  应用场景 一个系统要独立产品的创建、组合和表示； 一个系统要由多个产品系列中的一个来配置； 提供一个产品库，只显示接口而非实现；">
+    <meta name="description" content="Redis 中的流是包含零个或任意多个流元素的有序队列，队列中的每个元素都包含一个 id 和任意多个键值对，这些元素会根据 id 的大小在流中有序地进行排列。 流中元素 id 基本命令XADD将一个带有指定 id 和键值对的元素追加到 stream 中，并返回插入的 id。 123456-- 将 id &#x3D; 1100000000000-12345，k1 v1 的键值对添加到 s1 中-- id 由毫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="抽象工厂模式">
-<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/03/creational-factory-abstract/index.html">
+<meta property="og:title" content="消息队列">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/12/redis-stream/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="模式描述提供一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。 优点 分离了具体的产品类； 有利于产品一致性；  缺点 难以扩展抽象工厂  应用场景 一个系统要独立产品的创建、组合和表示； 一个系统要由多个产品系列中的一个来配置； 提供一个产品库，只显示接口而非实现；">
+<meta property="og:description" content="Redis 中的流是包含零个或任意多个流元素的有序队列，队列中的每个元素都包含一个 id 和任意多个键值对，这些元素会根据 id 的大小在流中有序地进行排列。 流中元素 id 基本命令XADD将一个带有指定 id 和键值对的元素追加到 stream 中，并返回插入的 id。 123456-- 将 id &#x3D; 1100000000000-12345，k1 v1 的键值对添加到 s1 中-- id 由毫">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-03T06:53:49.000Z">
-<meta property="article:modified_time" content="2023-05-03T08:56:30.110Z">
+<meta property="article:published_time" content="2023-05-12T09:43:28.000Z">
+<meta property="article:modified_time" content="2023-05-12T10:38:13.652Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="design pattern">
+<meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/03/creational-factory-abstract/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/12/redis-stream/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/03/creational-factory-abstract/","path":"2023/05/03/creational-factory-abstract/","title":"抽象工厂模式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/12/redis-stream/","path":"2023/05/12/redis-stream/","title":"消息队列"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>抽象工厂模式 | 张晗的个人博客</title>
+<title>消息队列 | 张晗的个人博客</title>
   
 
 
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AbstractFactory"><span class="nav-number">6.1.</span> <span class="nav-text">AbstractFactory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteFactoryX"><span class="nav-number">6.2.</span> <span class="nav-text">ConcreteFactoryX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AbstractProduct"><span class="nav-number">6.3.</span> <span class="nav-text">AbstractProduct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcreteProductX"><span class="nav-number">6.4.</span> <span class="nav-text">ConcreteProductX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.5.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XADD"><span class="nav-number">1.1.</span> <span class="nav-text">XADD</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -208,7 +208,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/03/creational-factory-abstract/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/12/redis-stream/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -221,12 +221,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="抽象工厂模式 | 张晗的个人博客">
+      <meta itemprop="name" content="消息队列 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          抽象工厂模式
+          消息队列
         </h1>
 
         <div class="post-meta-container">
@@ -237,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-03 14:53:49" itemprop="dateCreated datePublished" datetime="2023-05-03T14:53:49+08:00">2023-05-03</time>
+      <time title="创建时间：2023-05-12 17:43:28" itemprop="dateCreated datePublished" datetime="2023-05-12T17:43:28+08:00">2023-05-12</time>
     </span>
 
   
@@ -247,7 +247,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>313</span>
+      <span>166</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -265,95 +265,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>提供一个创建一系列相关或相互依赖对象的接口，无需指定他们具体的类。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>分离了具体的产品类；</li>
-<li>有利于产品一致性；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>难以扩展抽象工厂</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>一个系统要独立产品的创建、组合和表示；</li>
-<li>一个系统要由多个产品系列中的一个来配置；</li>
-<li>提供一个产品库，只显示接口而非实现；</li>
-</ol>
-<span id="more"></span>
+        <p>Redis 中的流是包含零个或任意多个流元素的有序队列，队列中的每个元素都包含一个 id 和任意多个键值对，这些元素会根据 id 的大小在流中有序地进行排列。</p>
+<p>流中元素 id</p>
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="XADD"><a href="#XADD" class="headerlink" title="XADD"></a>XADD</h2><p>将一个带有指定 id 和键值对的元素追加到 stream 中，并返回插入的 id。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 将 id = 1100000000000-12345，k1 v1 的键值对添加到 s1 中</span><br><span class="line">-- id 由毫秒事件 millisecond 和顺序编号 sequcen number 组成</span><br><span class="line">XADD s1 1100000000000-12345 k1 v1</span><br><span class="line"></span><br><span class="line">-- 1000000000000-0. 只包含毫秒时间，没有编号。将编号设置为 0</span><br><span class="line">XADD s1 1000000000000 k1 v1</span><br></pre></td></tr></table></figure>
 
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-</table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class AbstractFactory &#123;
-	&lt;&lt;interface&gt;&gt;
-	createProductA()
-	createProductB()
-&#125;
-
-class ConcreteFactoryA &#123;
-	createProductA()
-	createProductB()
-&#125;
-
-class ConcreteFactoryB &#123;
-	createProductA()
-	createProductB()
-&#125;
-AbstractFactory &lt;|.. ConcreteFactoryA
-AbstractFactory &lt;|.. ConcreteFactoryB
-
-class AbstractProduct &#123;
-	&lt;&lt;interface&gt;&gt;
-	operator()
-&#125;
-
-class ConcreteProductA &#123;
-	operator()
-&#125;
-
-class ConcreteProductB &#123;
-	operator()
-&#125;
-AbstractProduct &lt;|.. ConcreteProductA
-AbstractProduct &lt;|.. ConcreteProductB
-
-ConcreteFactoryA &lt;-- ConcreteProductA
-ConcreteFactoryB &lt;-- ConcreteProductB
-
-AbstractFactory &lt;-- Client
-AbstractProduct &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="AbstractFactory"><a href="#AbstractFactory" class="headerlink" title="AbstractFactory"></a>AbstractFactory</h2><ul>
-<li>声明创建抽象产品的方法</li>
-</ul>
-<h2 id="ConcreteFactoryX"><a href="#ConcreteFactoryX" class="headerlink" title="ConcreteFactoryX"></a>ConcreteFactoryX</h2><ul>
-<li>AbstractFactory 的实现;</li>
-</ul>
-<h2 id="AbstractProduct"><a href="#AbstractProduct" class="headerlink" title="AbstractProduct"></a>AbstractProduct</h2><ul>
-<li>为一类产品对象声明方法；</li>
-</ul>
-<h2 id="ConcreteProductX"><a href="#ConcreteProductX" class="headerlink" title="ConcreteProductX"></a>ConcreteProductX</h2><ul>
-<li>AbstractProduct 的实现；</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>客户端通常创建一个 ConcreteFactory 对象，用来创建对应的 Product；</li>
-<li>AbstractFactory 将对象创建延迟到 ConcreteFactory 中；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>工厂方法模式：抽象工厂常用工厂方法实现；</li>
-<li>原型模式：抽象工厂也能用原型模式实现；</li>
-<li>单例模式：一个具体的工厂是单例的；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/factory/abs/repository_factory_test.go">golang</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/factory/abs/ClientTest.java">java</a></p>
-
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>
     </div>
 
     
@@ -388,7 +305,7 @@ AbstractProduct &lt;-- Client</code></pre>
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/05/03/creational-factory-abstract/" title="抽象工厂模式">http://hanzhang2566.github.io/2023/05/03/creational-factory-abstract/</a>
+      <a href="http://hanzhang2566.github.io/2023/05/12/redis-stream/" title="消息队列">http://hanzhang2566.github.io/2023/05/12/redis-stream/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
@@ -428,21 +345,18 @@ AbstractProduct &lt;-- Client</code></pre>
 </div>
 
           <div class="post-tags">
-              <a href="/tags/design-pattern/" rel="tag"># design pattern</a>
+              <a href="/tags/redis/" rel="tag"># redis</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/05/02/behavioral-observer/" rel="prev" title="观察者模式">
-                  <i class="fa fa-chevron-left"></i> 观察者模式
+                <a href="/2023/05/12/queue/" rel="prev" title="队列">
+                  <i class="fa fa-chevron-left"></i> 队列
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/05/03/selection-sort/" rel="next" title="选择排序">
-                  选择排序 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

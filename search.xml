@@ -12,6 +12,19 @@
 ]]></content>
   </entry>
   <entry>
+    <title>消息队列</title>
+    <url>/2023/05/12/redis-stream/</url>
+    <content><![CDATA[<p>Redis 中的流是包含零个或任意多个流元素的有序队列，队列中的每个元素都包含一个 id 和任意多个键值对，这些元素会根据 id 的大小在流中有序地进行排列。</p>
+<p>流中元素 id</p>
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="XADD"><a href="#XADD" class="headerlink" title="XADD"></a>XADD</h2><p>将一个带有指定 id 和键值对的元素追加到 stream 中，并返回插入的 id。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 将 id = 1100000000000-12345，k1 v1 的键值对添加到 s1 中</span><br><span class="line">-- id 由毫秒事件 millisecond 和顺序编号 sequcen number 组成</span><br><span class="line">XADD s1 1100000000000-12345 k1 v1</span><br><span class="line"></span><br><span class="line">-- 1000000000000-0. 只包含毫秒时间，没有编号。将编号设置为 0</span><br><span class="line">XADD s1 1000000000000 k1 v1</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>队列</title>
     <url>/2023/05/12/queue/</url>
     <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><ul>
