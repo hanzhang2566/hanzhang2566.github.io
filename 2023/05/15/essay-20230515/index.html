@@ -22,28 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Redis 中的流是包含零个或任意多个流元素的有序队列，队列中的每个元素都包含一个 id 和任意多个键值对，这些元素会根据 id 的大小在流中有序地进行排列。 流中元素 id 基本命令XADD将一个带有指定 id 和键值对的元素追加到 stream 中，并返回插入的 id。 id 的限制：  同一个流中的不同元素是不允许使用相同ID的;  新元素的ID必须比流中所有已有元素的ID都要大;   12">
+    <meta name="description" content="R.I.P @haoel  来到上海的第 1000 天，是我在这座城市最难过的一天。 如引言所见，”左耳朵耗子“陈皓老师突然去世，MegaEase 变成灰色，池大大也发微博确认，看来是真事，惊讶程度直逼科比。技术大佬不缺钱，当然要把革命的本钱照顾好，没想到是心梗，没认真对待身体实锤。 正经说话的人有，阴阳怪气的也大有人在。我一直不理解，为什么互联网总充斥着各色各样的人和各种各样的奇怪言论。逝者安">
 <meta property="og:type" content="article">
-<meta property="og:title" content="消息队列">
-<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/12/redis-stream/index.html">
+<meta property="og:title" content="20230515">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/15/essay-20230515/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="Redis 中的流是包含零个或任意多个流元素的有序队列，队列中的每个元素都包含一个 id 和任意多个键值对，这些元素会根据 id 的大小在流中有序地进行排列。 流中元素 id 基本命令XADD将一个带有指定 id 和键值对的元素追加到 stream 中，并返回插入的 id。 id 的限制：  同一个流中的不同元素是不允许使用相同ID的;  新元素的ID必须比流中所有已有元素的ID都要大;   12">
+<meta property="og:description" content="R.I.P @haoel  来到上海的第 1000 天，是我在这座城市最难过的一天。 如引言所见，”左耳朵耗子“陈皓老师突然去世，MegaEase 变成灰色，池大大也发微博确认，看来是真事，惊讶程度直逼科比。技术大佬不缺钱，当然要把革命的本钱照顾好，没想到是心梗，没认真对待身体实锤。 正经说话的人有，阴阳怪气的也大有人在。我一直不理解，为什么互联网总充斥着各色各样的人和各种各样的奇怪言论。逝者安">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-12T09:43:28.000Z">
-<meta property="article:modified_time" content="2023-05-13T04:12:57.510Z">
+<meta property="article:published_time" content="2023-05-15T13:29:07.000Z">
+<meta property="article:modified_time" content="2023-05-15T15:04:58.966Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="redis">
+<meta property="article:tag" content="essay">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/12/redis-stream/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/15/essay-20230515/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/12/redis-stream/","path":"2023/05/12/redis-stream/","title":"消息队列"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/15/essay-20230515/","path":"2023/05/15/essay-20230515/","title":"20230515"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>消息队列 | 张晗的个人博客</title>
+<title>20230515 | 张晗的个人博客</title>
   
 
 
@@ -130,7 +130,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -143,7 +143,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XADD"><span class="nav-number">1.1.</span> <span class="nav-text">XADD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XTRIM"><span class="nav-number">1.2.</span> <span class="nav-text">XTRIM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XDEL"><span class="nav-number">1.3.</span> <span class="nav-text">XDEL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XLEN"><span class="nav-number">1.4.</span> <span class="nav-text">XLEN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XRANGE"><span class="nav-number">1.5.</span> <span class="nav-text">XRANGE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XREVRANGE"><span class="nav-number">1.6.</span> <span class="nav-text">XREVRANGE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XREAD"><span class="nav-number">1.7.</span> <span class="nav-text">XREAD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XGROUP"><span class="nav-number">1.8.</span> <span class="nav-text">XGROUP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -208,7 +207,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/12/redis-stream/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/15/essay-20230515/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -221,12 +220,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="消息队列 | 张晗的个人博客">
+      <meta itemprop="name" content="20230515 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          消息队列
+          20230515
         </h1>
 
         <div class="post-meta-container">
@@ -237,7 +236,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-12 17:43:28" itemprop="dateCreated datePublished" datetime="2023-05-12T17:43:28+08:00">2023-05-12</time>
+      <time title="创建时间：2023-05-15 21:29:07" itemprop="dateCreated datePublished" datetime="2023-05-15T21:29:07+08:00">2023-05-15</time>
     </span>
 
   
@@ -247,7 +246,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>917</span>
+      <span>814</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -265,53 +264,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>Redis 中的流是包含零个或任意多个流元素的有序队列，队列中的每个元素都包含一个 id 和任意多个键值对，这些元素会根据 id 的大小在流中有序地进行排列。</p>
-<p>流中元素 id</p>
-<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="XADD"><a href="#XADD" class="headerlink" title="XADD"></a>XADD</h2><p>将一个带有指定 id 和键值对的元素追加到 stream 中，并返回插入的 id。</p>
-<p>id 的限制：</p>
-<ol>
-<li><p>同一个流中的不同元素是不允许使用相同ID的;</p>
-</li>
-<li><p>新元素的ID必须比流中所有已有元素的ID都要大;</p>
-</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-- 将 id = 1100000000000-12345，k1 v1 的键值对添加到 s1 中</span><br><span class="line">-- id 由毫秒事件 millisecond 和顺序编号 sequcen number 组成</span><br><span class="line">XADD s1 1100000000000-12345 k1 v1</span><br><span class="line"></span><br><span class="line">-- 1000000000000-0. 只包含毫秒时间，没有编号。将编号设置为 0</span><br><span class="line">XADD s1 1000000000000 k1 v1</span><br><span class="line"></span><br><span class="line">-- 使用 * 来自动生成元素 id</span><br><span class="line">XADD s1 * k2 v2</span><br><span class="line"></span><br><span class="line">-- 使用先进先出的方式限制 s1 的长度为 2</span><br><span class="line">XADD s1 MAXLEN 2 * k1 v1</span><br><span class="line">XADD s1 MAXLEN 2 * k2 v2</span><br><span class="line">-- 此时 s1 中保存 k2 和 k3</span><br><span class="line">XADD s1 MAXLEN 2 * k3 v3</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn)</p>
-<h2 id="XTRIM"><a href="#XTRIM" class="headerlink" title="XTRIM"></a>XTRIM</h2><p>将 streamn 修剪为最大长度，也是采用先进先出的方式，返回移除的个数。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 1</span><br><span class="line">XTRIM s1 MAXLEN 1</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn + m)</p>
-<h2 id="XDEL"><a href="#XDEL" class="headerlink" title="XDEL"></a>XDEL</h2><p>根据 id 删除一个或多个元素，返回删除元素数量。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">XDEL s1 1683948051401-0</span><br><span class="line"></span><br><span class="line">XDEL s1 1683948051401-1 1683948051401-2</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn * m)</p>
-<h2 id="XLEN"><a href="#XLEN" class="headerlink" title="XLEN"></a>XLEN</h2><p>返回 stream 中元素个数，不合法就返回 0.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">XADD s1 * k1 v1</span><br><span class="line">XADD s1 * k2 v2</span><br><span class="line">XADD s1 * k3 v3</span><br><span class="line"></span><br><span class="line">-- 3. 返回 s1 中元素个数</span><br><span class="line">XLEN s1</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(1)</p>
-<h2 id="XRANGE"><a href="#XRANGE" class="headerlink" title="XRANGE"></a>XRANGE</h2><p>提供获取 stream 中元素的各种方式，如果不合法返回 nil。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">XADD s1 * k1 v1</span><br><span class="line">XADD s1 * k2 v2</span><br><span class="line">XADD s1 * k3 v3</span><br><span class="line">XADD s1 * k4 v4</span><br><span class="line">XADD s1 * k5 v5</span><br><span class="line">XADD s1 * k6 v6</span><br><span class="line">XADD s1 * k7 v7</span><br><span class="line"></span><br><span class="line">-- 根据 id 获取指定元素</span><br><span class="line">XRANGE s1 1683948592439-0 1683948592439-0</span><br><span class="line">-- 获取 id 闭区间内的所有元素</span><br><span class="line">XRANGE s1 1683948592251-0 1683948592773-0</span><br><span class="line">-- 获取 stream 中所有元素</span><br><span class="line">XRANGE s1 - +</span><br><span class="line">-- 对返回元素数量做限制，根据 id 升序返回</span><br><span class="line">XRANGE s1 - + COUNT 2</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn + m)</p>
-<h2 id="XREVRANGE"><a href="#XREVRANGE" class="headerlink" title="XREVRANGE"></a>XREVRANGE</h2><p>同 XRANGE，唯一不同的是 id 的逆序版本。</p>
-<h2 id="XREAD"><a href="#XREAD" class="headerlink" title="XREAD"></a>XREAD</h2><p>提供获取 stream 中元素的各种方式，如果不合法返回 nil。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">XADD s1 * k1 v1</span><br><span class="line">XADD s1 * k2 v2</span><br><span class="line">XADD s1 * k3 v3</span><br><span class="line">XADD s1 * k4 v4</span><br><span class="line">XADD s1 * k5 v5</span><br><span class="line">XADD s1 * k6 v6</span><br><span class="line">XADD s1 * k7 v7</span><br><span class="line"></span><br><span class="line">XADD s2 * k1 v1</span><br><span class="line">XADD s2 * k2 v2</span><br><span class="line">XADD s2 * k3 v3</span><br><span class="line">XADD s2 * k4 v4</span><br><span class="line">XADD s2 * k5 v5</span><br><span class="line">XADD s2 * k6 v6</span><br><span class="line">XADD s2 * k7 v7</span><br><span class="line"></span><br><span class="line">-- 返回 s1 中 id &gt; 1683948592043-0 的前 3 个元素</span><br><span class="line">XREAD COUNT 3 STREAMS  s1 1683948592043-0</span><br><span class="line">-- 同时返回 s1 中 id &gt; 1683948592043-0 的前 3 个元素，s2 中 id &gt; 1683949330708-0 的前 3 个元素</span><br><span class="line">XREAD COUNT 3 STREAMS  s1 s2 1683948592043-0 1683949330708-0</span><br><span class="line">-- 阻塞式读取 s2 中 id &gt; 1683949809119-0 的前 2 个元素，时间单位 ms， 0 表示一直等待</span><br><span class="line">XREAD BLOCK 0 COUNT 2 STREAMS s2 1683949809119-0</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn + m)</p>
-<h2 id="XGROUP"><a href="#XGROUP" class="headerlink" title="XGROUP"></a>XGROUP</h2><p>管理消费者组，增删改。</p>
-<p>id 用来限定消费者能够接收到消息范围。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-- 在 s1 上创建一个名为 all-msg 的消费者组，可以接收 &gt; 0-0 的消费者 时间复杂度：O(1)</span><br><span class="line">XGROUP CREATE s1 all-msg 0-0</span><br><span class="line">-- 修改消费者组的 id 时间复杂度：O(1)</span><br><span class="line">XGROUP SETID s1 all-msg 10086</span><br><span class="line">-- 删除消费者组 时间复杂度：O(n + m)</span><br><span class="line">XGROUP DESTROY s1 all-msg</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>stream 用来支持消息队列；</li>
-<li>stream 中包含零个到多个元素的有序队列；</li>
-<li>stream 的 id 由“毫秒时间”和“顺序编号“组成；</li>
-<li>消费者组允许将一个 stream 从逻辑上划分为多个不同的 stream，让 group 所属的 comsumer 消费；</li>
-<li>消息的生命周期：不存在 -&gt; 未递送 -&gt; 待处理 -&gt; 已确认</li>
-</ul>
+        <blockquote>
+<p>R.I.P @haoel</p>
+</blockquote>
+<p>来到上海的第 1000 天，是我在这座城市最难过的一天。</p>
+<p>如引言所见，”左耳朵耗子“陈皓老师突然去世，<a target="_blank" rel="noopener" href="https://www.megaease.com/">MegaEase</a> 变成灰色，池大大也发微博确认，看来是真事，惊讶程度直逼科比。技术大佬不缺钱，当然要把革命的本钱照顾好，没想到是心梗，没认真对待身体实锤。</p>
+<p>正经说话的人有，阴阳怪气的也大有人在。我一直不理解，为什么互联网总充斥着各色各样的人和各种各样的奇怪言论。逝者安息和死者为大是基本常识吧！还有人用这件事开玩笑，也不知道居心何在。Peace &amp; Love</p>
+<p>16 年我在库尔勒，看了吴军老师的《AA 之 B》系列丛书，特别是《浪潮之巅》，下定决心今后投身互联网，遂回到石河子转入计科系。如果吴军老师是我的灯塔，那陈皓老师就是我的路标。《左耳听风之程序员练级攻略》是对我职业生涯影响最大的系列文章，我知道合格程序员要有自己的技术修养、技术积累到底到何种程度、软件设计究竟如何取舍等等。感谢他吧，我还是会加油的，同时要照顾好自己的身体。</p>
+<p>组内今天有同事晋升，也让我非常苦恼。被晋升的同事比我优秀，也更值得被晋升。如果让我来想和他差在哪里？1. 为人和善，和每一位同事都能相处融洽；2. 处理问题能力强。针对与同事相处融洽这点，我好像只欣赏自己看上的人，对一些普通同事，太苛责。还有就是自己爱骂人，虽然不是恶意。针对处理问题能力强这点，倒不是说我不行，而是我能寻迅速解决一些完全是自己掌控下出现的问题，非自己掌握的情况下，就非常便秘。进一步来说，自己或许擅长从流程和软件完整生命周期内，思考和解决问题，而不擅长投入到细碎和具体的业务中。我总是希望用一些方式，预防问题发生，减少问题的发生，而不是修复问题。在我看来，这是“战术上的勤奋”掩盖“战略上的懒惰”。难道公司需要有战斗力的员工，而非我这种从研发效率方面解决问题的人？</p>
+<p>刚和父亲打了电话，聊了我的想法。父亲说了一些不痛不痒的话后，转头又给生哥拨过去，他的事说完到我这儿，就要做饭了。匆匆挂了电话，我认真思考起来：商业才能让技术产生价值。我想用自己掌握的技术，为社会创造出一丁点儿的贡献也好。努力地成长为 T 型的人，学习软件工程，实践软件架构，接触 React、Vue 和 Flutter，都是为了让自己能一个人承担起完整商业产品。这都是沉没成本。</p>
+<p>可惜，不能说给某人听了。</p>
 
     </div>
 
@@ -347,7 +309,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/05/12/redis-stream/" title="消息队列">http://hanzhang2566.github.io/2023/05/12/redis-stream/</a>
+      <a href="http://hanzhang2566.github.io/2023/05/15/essay-20230515/" title="20230515">http://hanzhang2566.github.io/2023/05/15/essay-20230515/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
@@ -387,21 +349,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/redis/" rel="tag"># redis</a>
+              <a href="/tags/essay/" rel="tag"># essay</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/05/12/queue/" rel="prev" title="队列">
-                  <i class="fa fa-chevron-left"></i> 队列
+                <a href="/2023/05/15/recursion/" rel="prev" title="递归">
+                  <i class="fa fa-chevron-left"></i> 递归
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/05/15/recursion/" rel="next" title="递归">
-                  递归 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
