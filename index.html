@@ -155,7 +155,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -293,7 +293,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/24/best-practice-mvc/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/26/reading-note-hello-startup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -311,7 +311,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/24/best-practice-mvc/" class="post-title-link" itemprop="url">SpringMVC 接口设计</a>
+          <a href="/2023/05/26/reading-note-hello-startup/" class="post-title-link" itemprop="url">奔跑吧，程序员</a>
         </h2>
 
         <div class="post-meta-container">
@@ -322,7 +322,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-24 13:01:05" itemprop="dateCreated datePublished" datetime="2023-05-24T13:01:05+08:00">2023-05-24</time>
+      <time title="创建时间：2023-05-26 11:06:15" itemprop="dateCreated datePublished" datetime="2023-05-26T11:06:15+08:00">2023-05-26</time>
     </span>
 
   
@@ -332,7 +332,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>160</span>
+      <span>211</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -350,25 +350,30 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>请求方式和参数注解可以自由组合。</p>
-<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>获取 query 参数。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 query 参数的 key 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/get&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">queryParam</span><span class="params">(<span class="meta">@RequestParam(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h1><p>获取 path 参数。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 path 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/path/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">pathParam</span><span class="params">(<span class="meta">@PathVariable(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>获取 body 参数。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求体携带的参数和 req 属性匹配</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/body&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">body</span><span class="params">(<span class="meta">@RequestBody</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><ol>
-<li>不要使用 @RequestBody 来接收 String 类型的参数；</li>
+          <h1 id="产品"><a href="#产品" class="headerlink" title="产品"></a>产品</h1><h2 id="何为创业"><a href="#何为创业" class="headerlink" title="何为创业"></a>何为创业</h2><p>创立公司最合适的原因就是你对某个想法充满热情，非要把它带给全世界。</p>
+<h3 id="何为科技创业公司"><a href="#何为科技创业公司" class="headerlink" title="何为科技创业公司"></a>何为科技创业公司</h3><p>从事技术研发、环境总在变化、目标为了增长、商业模式还在探索的公司。</p>
+<h3 id="入职创业公司"><a href="#入职创业公司" class="headerlink" title="入职创业公司"></a>入职创业公司</h3><ol>
+<li><p>更多机会</p>
+<p>在创业公司中编写代码，有更多机会影响别人。</p>
+</li>
+<li><p>高灵活度</p>
+<p>自主权、掌控力和使命感。</p>
+</li>
+<li><p>更多乐趣</p>
+<p>痛并快乐着。</p>
+</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/wrong&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">wrong</span><span class="params">(<span class="meta">@RequestBody</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
+<h3 id="创业公司真相"><a href="#创业公司真相" class="headerlink" title="创业公司真相"></a>创业公司真相</h3><ol>
+<li><p>并不光鲜亮丽</p>
+<p>创办公司和解决有趣的技术问题之间存在巨大的差异。</p>
+</li>
+<li><p>做出牺牲</p>
+<p>只有你愿意把生命的下一个十年都花在开创一家公司上，你才能去做这件事。</p>
+</li>
+<li><p>不一定发家致富</p>
+</li>
+<li></li>
 </ol>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
 
       
     </div>
@@ -580,7 +585,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/22/best-practice-resp/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/24/best-practice-mvc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -598,7 +603,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/22/best-practice-resp/" class="post-title-link" itemprop="url">REST API 响应设计</a>
+          <a href="/2023/05/24/best-practice-mvc/" class="post-title-link" itemprop="url">SpringMVC 接口设计</a>
         </h2>
 
         <div class="post-meta-container">
@@ -609,7 +614,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-22 13:23:58" itemprop="dateCreated datePublished" datetime="2023-05-22T13:23:58+08:00">2023-05-22</time>
+      <time title="创建时间：2023-05-24 13:01:05" itemprop="dateCreated datePublished" datetime="2023-05-24T13:01:05+08:00">2023-05-24</time>
     </span>
 
   
@@ -619,7 +624,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>365</span>
+      <span>160</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -637,22 +642,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="模型设计"><a href="#模型设计" class="headerlink" title="模型设计"></a>模型设计</h1><p>使用统一的 REST 方式定义响应模型。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// code 后端状态码</span></span><br><span class="line"><span class="comment">// message 简短消息</span></span><br><span class="line"><span class="comment">// data 后端数据</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">R</span> <span class="keyword">extends</span> <span class="title class_">HashMap</span>&lt;String, Object&gt; &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">R</span><span class="params">(ErrorCode errorCode)</span> &#123;</span><br><span class="line">        put(<span class="string">&quot;code&quot;</span>, errorCode.getCode());</span><br><span class="line">        put(<span class="string">&quot;message&quot;</span>, errorCode.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> R <span class="title function_">ok</span><span class="params">(Object data)</span> &#123;</span><br><span class="line">        <span class="type">R</span> <span class="variable">r</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">R</span>(OK);</span><br><span class="line">        r.put(<span class="string">&quot;data&quot;</span>, data);</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> R <span class="title function_">error</span><span class="params">(ErrorCode errorCode)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">R</span>(errorCode);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">R</span><span class="params">(String message)</span> &#123;</span><br><span class="line">        put(<span class="string">&quot;code&quot;</span>, HttpStatus.INTERNAL_SERVER_ERROR.value());</span><br><span class="line">        put(<span class="string">&quot;message&quot;</span>, message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> R <span class="title function_">error</span><span class="params">(String message)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">R</span>(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>请求方式和参数注解可以自由组合。</p>
+<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>获取 query 参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 query 参数的 key 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/get&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">queryParam</span><span class="params">(<span class="meta">@RequestParam(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h1><p>获取 path 参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 path 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/path/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">pathParam</span><span class="params">(<span class="meta">@PathVariable(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>获取 body 参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求体携带的参数和 req 属性匹配</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/body&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">body</span><span class="params">(<span class="meta">@RequestBody</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="包装响应"><a href="#包装响应" class="headerlink" title="包装响应"></a>包装响应</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 隐式将返回值包装成 R 对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyHandlerMethodReturnValueHandler</span> <span class="keyword">implements</span> <span class="title class_">HandlerMethodReturnValueHandler</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> HandlerMethodReturnValueHandler handler;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyHandlerMethodReturnValueHandler</span><span class="params">(HandlerMethodReturnValueHandler handler)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.handler = handler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回值不是 &#123;<span class="doctag">@link</span> R&#125;，并且使用 Rest 方式返回 true</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> returnType returnType</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> boolean ? 处理 : 不处理</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">supportsReturnType</span><span class="params">(MethodParameter returnType)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> handler.supportsReturnType(returnType) &amp;&amp; !returnType.getParameterType().equals(R.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleReturnValue</span><span class="params">(Object returnValue,</span></span><br><span class="line"><span class="params">                                  MethodParameter returnType,</span></span><br><span class="line"><span class="params">                                  ModelAndViewContainer mavContainer,</span></span><br><span class="line"><span class="params">                                  NativeWebRequest webRequest)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">R</span> <span class="variable">ok</span> <span class="operator">=</span> R.ok(returnValue);</span><br><span class="line">        handler.handleReturnValue(ok, returnType, mavContainer, webRequest);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><ol>
+<li>不要使用 @RequestBody 来接收 String 类型的参数；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/wrong&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">wrong</span><span class="params">(<span class="meta">@RequestBody</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebMvcConfiguration</span> &#123;</span><br><span class="line">    <span class="comment">// 调整 RequestMappingHandlerAdapter#getReturnValueHandlers</span></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">resetRequestMappingHandlerAdapter</span><span class="params">(RequestMappingHandlerAdapter adapter)</span> &#123;</span><br><span class="line">        List&lt;HandlerMethodReturnValueHandler&gt; originHandlers = adapter.getReturnValueHandlers();</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(originHandlers)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;HandlerMethodReturnValueHandler&gt; newHandlers = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(originHandlers.size());</span><br><span class="line">        <span class="keyword">for</span> (HandlerMethodReturnValueHandler originHandler : originHandlers) &#123;</span><br><span class="line">            <span class="keyword">if</span> (originHandler <span class="keyword">instanceof</span> RequestResponseBodyMethodProcessor) &#123;</span><br><span class="line">                <span class="comment">// 未使用 R 包装返回值，隐式包装</span></span><br><span class="line">                newHandlers.add(<span class="keyword">new</span> <span class="title class_">MyHandlerMethodReturnValueHandler</span>(originHandler));</span><br><span class="line">                <span class="comment">// 使用 R 包装返回值，跳过包装</span></span><br><span class="line">                newHandlers.add(originHandler);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                newHandlers.add(originHandler);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        adapter.setReturnValueHandlers(newHandlers);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="统一异常处理"><a href="#统一异常处理" class="headerlink" title="统一异常处理"></a>统一异常处理</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExceptionAdvice</span> &#123;</span><br><span class="line">    <span class="comment">// 业务定义的非运行时异常</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(value = AppNonRuntimeException.class)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;R&gt; <span class="title function_">appException</span><span class="params">(AppNonRuntimeException e)</span> &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="type">R</span> <span class="variable">error</span> <span class="operator">=</span> R.error(e.getErrorCode());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ResponseEntity</span>&lt;&gt;(error, HttpStatus.OK);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 业务定义的运行时异常</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(value = AppRuntimeException.class)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;R&gt; <span class="title function_">appRuntimeException</span><span class="params">(AppRuntimeException e)</span> &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="type">R</span> <span class="variable">error</span> <span class="operator">=</span> R.error(e.getErrorCode());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ResponseEntity</span>&lt;&gt;(error, HttpStatus.OK);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 非业务定义的异常</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(value = Exception.class)</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;R&gt; <span class="title function_">exception</span><span class="params">(Exception e)</span> &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">        <span class="type">R</span> <span class="variable">error</span> <span class="operator">=</span> R.error(e.getMessage());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ResponseEntity</span>&lt;&gt;(error, HttpStatus.INTERNAL_SERVER_ERROR);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/best-practice/tree/main/java-resp">here</a></p>
+<ol start="2">
+<li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
 
       
     </div>
@@ -701,7 +709,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:21</span>
+    <span title="站点阅读时长">1:22</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
