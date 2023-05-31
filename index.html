@@ -332,14 +332,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span>7 分钟</span>
     </span>
 </div>
 
@@ -476,7 +476,39 @@
 <li>外部销售：需要去客户现场演示；</li>
 </ul>
 <h4 id="品牌化"><a href="#品牌化" class="headerlink" title="品牌化"></a>品牌化</h4><p>不是最出色的产品胜出，而是客户认为最出色的产品胜出，这就是品牌的力量。品牌的建立与具体的产品关系不大，它关乎的是情感和信念，关乎公司为何存在而不是公司是做什么的。</p>
+<h1 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h1><h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p>熟悉什么就用什么。不要因为某项技术听起来很酷 &#x2F; 有趣就选择它，而是因为它易于扩展，便于维护，以达到支持更多用户、更多流量、更多数据和更多代码。</p>
+<p>要关注用户需要什么，其他任何花时间的事情都是浪费。初期，产品的用户和代码都不多，所以可扩展性并不是太大的挑战，要做的就是尽可能快地进行迭代。</p>
+<h3 id="自研、商业产品还是开源"><a href="#自研、商业产品还是开源" class="headerlink" title="自研、商业产品还是开源"></a>自研、商业产品还是开源</h3><pre><code class="highlight mermaid">flowchart TB
 
+Start[需要满足业务\n需要新技术]
+r1&#123;是否是商业上的\n竞争优势或秘密武器&#125;
+	Start --&gt; r1
+n1[内部实现]
+	r1 --&gt; |是|n1
+r2&#123;是否有开源项目\n可以实现大部分需求&#125;
+	r1 --&gt; |否|r2
+r3&#123;是否有开源项目\n可以实现部分需求&#125;
+	r2 --&gt; |否|r3
+r4&#123;是否有商业产品\n可以实现满足需求&#125;
+	r3 --&gt; |否|r4
+n2[购买]
+	r4 --&gt; |是|n2
+n3[使用开源产品]
+	r2 --&gt; |是|n3
+n4&#123;&#123;贡献补丁或插件&#125;&#125;
+	r3 --&gt; |是|n4
+	n4 --&gt; n3
+n5&#123;&#123;实现并将其开源&#125;&#125;
+	r4 --&gt; |否|n5
+	n5 --&gt; n3</code></pre>
+
+<h3 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h3><p>走起来的公司，可能需要从熟悉的技术栈切换到更适合的编程语言中。</p>
+<ul>
+<li>适用问题；</li>
+<li>编程范式；</li>
+<li>性能需求；</li>
+</ul>
+<h2 id="代码整洁"><a href="#代码整洁" class="headerlink" title="代码整洁"></a>代码整洁</h2><h2 id="扩展性"><a href="#扩展性" class="headerlink" title="扩展性"></a>扩展性</h2><h2 id="软件交付"><a href="#软件交付" class="headerlink" title="软件交付"></a>软件交付</h2>
       
     </div>
 
@@ -811,7 +843,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:27</span>
+    <span title="站点阅读时长">1:28</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
