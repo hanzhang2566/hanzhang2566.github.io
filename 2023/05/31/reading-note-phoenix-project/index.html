@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="技术架构者的第一职责就是做决策权衡，有利有弊才需要决策，有取有舍才需要权衡，如果架构者本身的知识面不足以覆盖所需要决策的内容，不清楚其中利弊，恐怕也就无可避免地陷入选择困难的困境之中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="凤凰架构">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/index.html">
+<meta property="og:site_name" content="张晗的个人博客">
+<meta property="og:description" content="技术架构者的第一职责就是做决策权衡，有利有弊才需要决策，有取有舍才需要权衡，如果架构者本身的知识面不足以覆盖所需要决策的内容，不清楚其中利弊，恐怕也就无可避免地陷入选择困难的困境之中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-31T03:06:15.000Z">
+<meta property="article:modified_time" content="2023-05-31T09:20:07.292Z">
+<meta property="article:author" content="张晗_Jeremy">
+<meta property="article:tag" content="reading notes">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/","path":"2023/05/31/reading-note-phoenix-project/","title":"凤凰架构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>凤凰架构 | 张晗的个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">张晗的个人博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">技术的价值是业务</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">9</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于我</a></li><li class="menu-item menu-item-resume"><a href="/resume/" rel="section"><i class="fa-solid fa-user-secret fa-fw"></i>resume</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%94%E8%BF%9B%E4%B8%AD%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">演进中的架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%88%86%E5%B8%83%E5%BC%8F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.1.</span> <span class="nav-text">原始分布式时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIX-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.1.1.</span> <span class="nav-text">UNIX 的分布式设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%99%E8%AE%AD"><span class="nav-number">1.1.2.</span> <span class="nav-text">教训</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.1.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BD%93%E7%B3%BB%E7%BB%9F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.2.</span> <span class="nav-text">单体系统时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SOA-%E6%97%B6%E4%BB%A3"><span class="nav-number">1.3.</span> <span class="nav-text">SOA 时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%9F%E5%9B%B1%E5%BC%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">烟囱式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">1.3.2.</span> <span class="nav-text">微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOA"><span class="nav-number">1.3.4.</span> <span class="nav-text">SOA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="nav-number">1.3.5.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.4.</span> <span class="nav-text">微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.5.</span> <span class="nav-text">后微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.6.</span> <span class="nav-text">无服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张晗_Jeremy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">张晗_Jeremy</p>
+  <div class="site-description" itemprop="description">Javaer | Gopher | Nerd | Engineer</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/504736668" title="BiliBili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;504736668" rel="noopener me" target="_blank"><i class="fab fa-bilibili fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/hanzhang2566" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hanzhang2566" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hanzhang2566@foxmail.com" title="E-Mail → mailto:hanzhang2566@foxmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.xiaoyuzhoufm.com/podcast/63f5b8656b1dd4904d7c6f89?s=eyJ1IjogIjYxZmVhZjE3MmNiZDdjMDE3NjdmMmYxMSJ9" title="xiaoyuzhouFM → https:&#x2F;&#x2F;www.xiaoyuzhoufm.com&#x2F;podcast&#x2F;63f5b8656b1dd4904d7c6f89?s&#x3D;eyJ1IjogIjYxZmVhZjE3MmNiZDdjMDE3NjdmMmYxMSJ9" rel="noopener me" target="_blank"><i class="fa-solid fa-radio fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="张晗_Jeremy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张晗的个人博客">
+      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="凤凰架构 | 张晗的个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          凤凰架构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-31 11:06:15" itemprop="dateCreated datePublished" datetime="2023-05-31T11:06:15+08:00">2023-05-31</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>技术架构者的第一职责就是做决策权衡，有利有弊才需要决策，有取有舍才需要权衡，如果架构者本身的知识面不足以覆盖所需要决策的内容，不清楚其中利弊，恐怕也就无可避免地陷入选择困难的困境之中。</p>
+<span id="more"></span>
+
+<h1 id="演进中的架构"><a href="#演进中的架构" class="headerlink" title="演进中的架构"></a>演进中的架构</h1><p>架构不是被发明出来的，而是持续演进的。</p>
+<h2 id="原始分布式时代"><a href="#原始分布式时代" class="headerlink" title="原始分布式时代"></a>原始分布式时代</h2><h3 id="UNIX-的分布式设计"><a href="#UNIX-的分布式设计" class="headerlink" title="UNIX 的分布式设计"></a>UNIX 的分布式设计</h3><p>保持接口与实现的简单性，比系统的任何其他属性，包括准确性、一致性和完整性，都来得更加重要。</p>
+<h3 id="教训"><a href="#教训" class="headerlink" title="教训"></a>教训</h3><p>某个功能能够进行分布式，不意味着它就应该进行分布式，强行追求透明的分布式操作，只会自寻苦果。</p>
+<p>原因在于：将一个系统拆分到不同的机器中运行，解决服务发现、跟踪、通信、容错、隔离、配置、传输、数据一致性和编码复杂度等带来的问题，所付出的代价远远超过了分布式所取得的收益。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>现实情况下，有两条通往更大规模软件系统的道路。</p>
+<ol>
+<li>尽快提升单机的处理能力，以避免分布式带来的种种问题；</li>
+<li>找到更完美的解决如何构筑分布式系统的解决方案。</li>
+</ol>
+<h2 id="单体系统时代"><a href="#单体系统时代" class="headerlink" title="单体系统时代"></a>单体系统时代</h2><p>“单体”仅仅表明系统中主要的过程调用都是进程内调用，不会发生进程间通信而已。</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><p>对于小型系统，单台机器就足以支撑其良好运行的系统，单体不仅易于开发、易于测试、易于部署，且由于系统中各个功能、模块、方法的调用过程都是进程内调用，不会发生进程间通信因此也是运行效率最高的一种架构风格。</p>
+<h3 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h3><p>劣势必须是基于软件性能需求超过单机，开发人员规模超过 “2 Pizza”范畴的前提下才有价值。</p>
+<p>单体系统的缺陷不是系统如何拆分，而是拆分之后的隔离与自治能力上的欠缺。</p>
+<ol>
+<li>获得了进程内调用的简单、高效等好处的同时，也意味着如果任何一部分代码出现了缺陷，过度消耗了进程空间内的资源，所造成的影响也是全局性的、难以隔离的；</li>
+<li>无法做到单独停止、更新、升级某一部分代码；</li>
+<li>程序升级、修改缺陷往往需要制定专门的停机更新计划，做灰度发布、A&#x2F;B 测试也相对更复杂；</li>
+<li>技术异构困难；</li>
+<li>最重要的一点：单体系统潜在的希望每个组件和代码都尽量可靠，用减少缺陷来搭建可靠系统。由于墨菲定律的存在，观念的转变才是微服务替代单体的底气；</li>
+</ol>
+<h3 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h3><p>摩尔定律减速的同时，为了允许程序出错，为了获得隔离、自治的能力，为了技术异构等目标，程序选择分布式再次成为焦点。</p>
+<p>分布式除了适用微服务架构外，将一个大的单体系统拆分为若干个更小的、不运行在同一个进程的独立服务，衍生出了面向服务架构，也就是 SOA。</p>
+<h2 id="SOA-时代"><a href="#SOA-时代" class="headerlink" title="SOA 时代"></a>SOA 时代</h2><p>为了解决单体服务拆分的问题，面向服务的架构是一次具体地、系统性地成功解决分布式服务主要问题的架构模式。</p>
+<h3 id="烟囱式"><a href="#烟囱式" class="headerlink" title="烟囱式"></a>烟囱式</h3><p>被拆分的服务完全不与其他系统进行互操作和协调。</p>
+<h3 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h3><p>将各个子系统使用到的公共服务、资源和数据集中到一起，形成一个核心系统，具体业务系统以插件模块形式存在。缺点是：插件模块只能和核心系统交互，相互之间无法通信。</p>
+<h3 id="事件驱动"><a href="#事件驱动" class="headerlink" title="事件驱动"></a>事件驱动</h3><p>在子系统之间建立一套事件队列管道（Event Queues），来自系统外部的消息以事件的形式发送至管道中，各个子系统从管道里获取自己感兴趣、能够处理的事件消息，同时能发送事件到管道中。</p>
+<h3 id="SOA"><a href="#SOA" class="headerlink" title="SOA"></a>SOA</h3><p>是一套软件设计的基础平台。</p>
+<h3 id="结论-2"><a href="#结论-2" class="headerlink" title="结论"></a>结论</h3><p>由于 SOA 过于严格的规范定义，带来过度的复杂性，注定了它只能是少数系统阳春白雪式的精致奢侈品，很难作为一种具有广泛普适性的软件架构风格来推广。</p>
+<h2 id="微服务时代"><a href="#微服务时代" class="headerlink" title="微服务时代"></a>微服务时代</h2><p>微服务是一种通过多个小型服务组合来构建单个应用的架构风格，这些服务围绕业务能力而非特定的技术标准来构建。各个服务可以采用不同的编程语言，不同的数据存储技术，运行在不同的进程之中。服务采取轻量级的通信机制和自动化的部署机制实现通信与运维。</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li><p>围绕业务能力构建——康威定律</p>
+<p>有怎样结构、规模、能力的团队，就会产生出对应结构、规模、能力的产品。这个结论不是某个团队、某个公司遇到的巧合，而是必然的演化结果。</p>
+</li>
+<li><p>分散治理</p>
+<p>服务对应的开发团队有直接对服务运行质量负责的责任，并且有选择性掌控服务各个方面的权力。</p>
+</li>
+<li><p>通过服务来实现组件</p>
+<p>类库是在编译器期静态链接到程序中，而服务是进程外组件。虽然远程服务有更高昂的调用成本，但这是需要隔离与自治能力的必要代价。</p>
+</li>
+<li><p>产品化思维</p>
+<p>开发者不仅应该知道软件如何开发，还应该知道它如何运作，用户如何反馈，乃至售后支持工作是怎样进行的。</p>
+</li>
+<li><p>数据去中心化</p>
+<p>数据应该按领域分散管理、更新、维护、存储。</p>
+</li>
+<li><p>强终端弱管道</p>
+<p>终端是 Endpoint，对应于 RESTful 风格的接口。管道是 SOAP 协议中的概念。</p>
+</li>
+<li><p>容错性设计</p>
+<p>承认服务中总会出错的现实，有机制进行快速的故障检测、服务隔离和恢复重连。</p>
+</li>
+<li><p>演进式设计</p>
+<p>承认服务会被报废淘汰。假如系统中出现不可更改、无可替代的服务，这并不能说明这个服务是多么的优秀、多么的重要，反而是一种系统设计上脆弱的表现。</p>
+</li>
+<li><p>基础设施自动化</p>
+<p>人工难以支持很多服务。</p>
+</li>
+</ol>
+<h3 id="结论-3"><a href="#结论-3" class="headerlink" title="结论"></a>结论</h3><p>微服务所带来的自由是一把双刃开锋的宝剑，当架构者拿起这把宝剑，一刃指向 SOA 定下的复杂技术标准，将选择的权力夺回的同一时刻，另外一刃也正朝向着自己映出冷冷的寒光。</p>
+<h2 id="后微服务时代"><a href="#后微服务时代" class="headerlink" title="后微服务时代"></a>后微服务时代</h2><p>软、硬一体，合力应对微服务架构的问题。</p>
+<p>微服务使用容器作为载体，管理载体的平台则是 k8s。</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">Kubernetes</th>
+<th align="center">Spring Cloud</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">弹性伸缩</td>
+<td align="center">Autoscaling</td>
+<td align="center">N&#x2F;A</td>
+</tr>
+<tr>
+<td align="center">服务发现</td>
+<td align="center">KubeDNS &#x2F; CoreDNS</td>
+<td align="center">Spring Cloud Eureka</td>
+</tr>
+<tr>
+<td align="center">配置中心</td>
+<td align="center">ConfigMap &#x2F; Secret</td>
+<td align="center">Spring Cloud Config</td>
+</tr>
+<tr>
+<td align="center">服务网关</td>
+<td align="center">Ingress Controller</td>
+<td align="center">Spring Cloud Gateway</td>
+</tr>
+<tr>
+<td align="center">负载均衡</td>
+<td align="center">Load Balancer</td>
+<td align="center">Spring Cloud Ribbon</td>
+</tr>
+<tr>
+<td align="center">服务安全</td>
+<td align="center">RBAC API</td>
+<td align="center">Spring Cloud Security</td>
+</tr>
+<tr>
+<td align="center">跟踪监控</td>
+<td align="center">Metrics API &#x2F; Dashboard</td>
+<td align="center">Spring Cloud Turbine</td>
+</tr>
+<tr>
+<td align="center">降级熔断</td>
+<td align="center">N&#x2F;A</td>
+<td align="center">Spring Cloud Hystrix</td>
+</tr>
+</tbody></table>
+<p>k8s 是针对整个容器来管理的，粒度相对粗旷，只能到容器层面，对单个远程服务就很难有效管控。</p>
+<p>为了解决这个问题，虚拟化的基础设施进化到“服务网格”。具体含义是由系统自动在服务容器中注入一个通信代理服务器，在应用毫无感知的情况下，悄然接管应用所有对外通信。这个代理除了实现正常的服务间通信外（称为数据平面通信），还接收来自控制器的指令（称为控制平面通信），根据控制平面中的配置，对数据平面通信的内容进行分析处理，以实现熔断、认证、度量、监控、负载均衡等各种附加功能。这样便实现了既不需要在应用层面加入额外的处理代码，也提供了几乎不亚于程序代码的精细管理能力。</p>
+<h3 id="结论-4"><a href="#结论-4" class="headerlink" title="结论"></a>结论</h3><p>未来 Kubernetes 将会成为服务器端标准的运行环境，如同现在 Linux 系统；服务网格将会成为微服务之间通信交互的主流模式，把“选择什么通信协议”、“怎样调度流量”、“如何认证授权”之类的技术问题隔离于程序代码之外。</p>
+<h2 id="无服务时代"><a href="#无服务时代" class="headerlink" title="无服务时代"></a>无服务时代</h2><p>开发者只需要纯粹地关注业务，不需要考虑技术组件，后端的技术组件是现成的，可以直接取用，没有采购、版权和选型的烦恼；不需要考虑如何部署，部署过程完全是托管到云端的，工作由云端自动完成；不需要考虑算力，有整个数据中心支撑，算力可以认为是无限的；也不需要操心运维，维护系统持续平稳运行是云计算服务商的责任而不再是开发者的责任。</p>
+<h3 id="结论-5"><a href="#结论-5" class="headerlink" title="结论"></a>结论</h3><p>微服务架构是分布式系统这条路当前所能做到的极致，而无服务架构也许是“不分布式”的云端系统这条路的起点。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="张晗_Jeremy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="张晗_Jeremy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>张晗_Jeremy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/" title="凤凰架构">http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/images/wechat_channel.png">
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">BiliBili</span>
+          </span>
+
+          <img class="social-item-img" src="/images/bilibili_channel.png">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/reading-notes/" rel="tag"># reading notes</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/05/26/reading-note-hello-startup/" rel="prev" title="奔跑吧，程序员">
+                  <i class="fa fa-chevron-left"></i> 奔跑吧，程序员
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张晗_Jeremy</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">27k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:37</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"forest","dark":"neutral"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.4.3/mermaid.min.js","integrity":"sha256-e0o3JYsdjqKajf9eOe22FhioYSz9WofRY4dLKo3F6do="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+
+</body>
+</html>
