@@ -30,7 +30,7 @@
 <meta property="og:description" content="技术架构者的第一职责就是做决策权衡，有利有弊才需要决策，有取有舍才需要权衡，如果架构者本身的知识面不足以覆盖所需要决策的内容，不清楚其中利弊，恐怕也就无可避免地陷入选择困难的困境之中。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-31T03:06:15.000Z">
-<meta property="article:modified_time" content="2023-05-31T09:20:07.292Z">
+<meta property="article:modified_time" content="2023-06-01T05:45:31.742Z">
 <meta property="article:author" content="张晗_Jeremy">
 <meta property="article:tag" content="reading notes">
 <meta name="twitter:card" content="summary">
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%94%E8%BF%9B%E4%B8%AD%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">演进中的架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%88%86%E5%B8%83%E5%BC%8F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.1.</span> <span class="nav-text">原始分布式时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIX-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.1.1.</span> <span class="nav-text">UNIX 的分布式设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%99%E8%AE%AD"><span class="nav-number">1.1.2.</span> <span class="nav-text">教训</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.1.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BD%93%E7%B3%BB%E7%BB%9F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.2.</span> <span class="nav-text">单体系统时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SOA-%E6%97%B6%E4%BB%A3"><span class="nav-number">1.3.</span> <span class="nav-text">SOA 时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%9F%E5%9B%B1%E5%BC%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">烟囱式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">1.3.2.</span> <span class="nav-text">微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOA"><span class="nav-number">1.3.4.</span> <span class="nav-text">SOA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="nav-number">1.3.5.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.4.</span> <span class="nav-text">微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.5.</span> <span class="nav-text">后微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.6.</span> <span class="nav-text">无服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%94%E8%BF%9B%E4%B8%AD%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">演进中的架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%88%86%E5%B8%83%E5%BC%8F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.1.</span> <span class="nav-text">原始分布式时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIX-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.1.1.</span> <span class="nav-text">UNIX 的分布式设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%99%E8%AE%AD"><span class="nav-number">1.1.2.</span> <span class="nav-text">教训</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.1.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BD%93%E7%B3%BB%E7%BB%9F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.2.</span> <span class="nav-text">单体系统时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SOA-%E6%97%B6%E4%BB%A3"><span class="nav-number">1.3.</span> <span class="nav-text">SOA 时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%9F%E5%9B%B1%E5%BC%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">烟囱式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">1.3.2.</span> <span class="nav-text">微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOA"><span class="nav-number">1.3.4.</span> <span class="nav-text">SOA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="nav-number">1.3.5.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.4.</span> <span class="nav-text">微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.5.</span> <span class="nav-text">后微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.6.</span> <span class="nav-text">无服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E8%A7%86%E8%A7%92"><span class="nav-number">2.</span> <span class="nav-text">架构师的视角</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.1.</span> <span class="nav-text">远程服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8-RPC"><span class="nav-number">2.1.1.</span> <span class="nav-text">远程服务调用 RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%86%85%E8%B0%83%E7%94%A8"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">进程内调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E8%B0%83%E7%94%A8-IPC"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">进程间调用 IPC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPC-%E7%9A%84%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">RPC 的三个基本问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful-%E9%A3%8E%E6%A0%BC"><span class="nav-number">2.1.2.</span> <span class="nav-text">RESTful 风格</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%90%86%E8%A7%A3-REST"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">理解 REST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RESTful-%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">RESTful 系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">不足</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.3.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">事务处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E6%98%8E%E5%A4%9A%E7%BA%A7%E5%88%86%E6%B5%81%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">透明多级分流系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%AE%89%E5%85%A8"><span class="nav-number">2.4.</span> <span class="nav-text">架构安全</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -247,14 +247,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>4.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>9 分钟</span>
+      <span>15 分钟</span>
     </span>
 </div>
 
@@ -383,7 +383,77 @@
 <h3 id="结论-4"><a href="#结论-4" class="headerlink" title="结论"></a>结论</h3><p>未来 Kubernetes 将会成为服务器端标准的运行环境，如同现在 Linux 系统；服务网格将会成为微服务之间通信交互的主流模式，把“选择什么通信协议”、“怎样调度流量”、“如何认证授权”之类的技术问题隔离于程序代码之外。</p>
 <h2 id="无服务时代"><a href="#无服务时代" class="headerlink" title="无服务时代"></a>无服务时代</h2><p>开发者只需要纯粹地关注业务，不需要考虑技术组件，后端的技术组件是现成的，可以直接取用，没有采购、版权和选型的烦恼；不需要考虑如何部署，部署过程完全是托管到云端的，工作由云端自动完成；不需要考虑算力，有整个数据中心支撑，算力可以认为是无限的；也不需要操心运维，维护系统持续平稳运行是云计算服务商的责任而不再是开发者的责任。</p>
 <h3 id="结论-5"><a href="#结论-5" class="headerlink" title="结论"></a>结论</h3><p>微服务架构是分布式系统这条路当前所能做到的极致，而无服务架构也许是“不分布式”的云端系统这条路的起点。</p>
+<h1 id="架构师的视角"><a href="#架构师的视角" class="headerlink" title="架构师的视角"></a>架构师的视角</h1><h2 id="远程服务"><a href="#远程服务" class="headerlink" title="远程服务"></a>远程服务</h2><p>远程服务将计算机程序的工作范围从单机扩展到网络，从本地延伸至远程，是构建分布式系统的首要基础。</p>
+<h3 id="远程服务调用-RPC"><a href="#远程服务调用-RPC" class="headerlink" title="远程服务调用 RPC"></a>远程服务调用 RPC</h3><h4 id="进程内调用"><a href="#进程内调用" class="headerlink" title="进程内调用"></a>进程内调用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Caller    :  调用者，代码里的 main()</span></span><br><span class="line"><span class="comment">// Callee    ： 被调用者，代码里的 println()</span></span><br><span class="line"><span class="comment">// Call Site ： 调用点，即发生方法调用的指令流位置</span></span><br><span class="line"><span class="comment">// Parameter ： 参数，由 Caller 传递给 Callee 的数据，即 “hello world”</span></span><br><span class="line"><span class="comment">// Retval    ： 返回值，由 Callee 传递给 Caller 的数据。以下代码中如果方法能够正常结束，它是 void，如果方法异常完成，它是对应的异常</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	System.out.println(“hello world”);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>计算机执行步骤：</p>
+<ol>
+<li>传递方法参数：将字符串<code>helloworld</code>的引用地址压栈；</li>
+<li>确定方法版本：根据<code>println()</code>方法的签名，确定其执行版本‘</li>
+<li>执行被调方法：从栈中弹出<code>Parameter</code>的值或引用，以此为输入，执行<code>Callee</code>内部的逻辑；</li>
+<li>返回执行结果：将<code>Callee</code>的执行结果压栈，并将程序的指令流恢复到<code>Call Site</code>的下一条指令，继续向下执行；</li>
+</ol>
+<p>当 <code>main</code> 和 <code>println</code> 分属不同进程中，则：</p>
+<ol>
+<li>压栈执行毫无意义；</li>
+<li>不同语言实现 2 个方法的情况下，版本选择是不可知行为；</li>
+</ol>
+<h4 id="进程间调用-IPC"><a href="#进程间调用-IPC" class="headerlink" title="进程间调用 IPC"></a>进程间调用 IPC</h4><ul>
+<li>管道 | 具名管道：类似于 2 个进程之间的桥梁，通过管道在进程间传递少量字符流或字节流；</li>
+<li>信号：通知目标进程产生某种行为；</li>
+<li>信号量： OS 提供的特殊变量，用于 2 进程之间同步；</li>
+<li>消息队列：可以传递更多消息的管道；</li>
+<li>共享内存：多个进程共享公共内存空间，效率最高；</li>
+<li>套接字接口：消息队列和共享内存只适合于单机多进程通讯，Socket 更加普适；</li>
+</ul>
+<p>RPC 最初是作为 IPC 的一种特例来处理的。但忽略了 8 个问题：</p>
+<ol>
+<li>The network is reliable —— 网络是可靠的。</li>
+<li>Latency is zero —— 延迟是不存在的。</li>
+<li>Bandwidth is infinite —— 带宽是无限的。</li>
+<li>The network is secure —— 网络是安全的。</li>
+<li>Topology doesn’t change —— 拓扑结构是一成不变的。</li>
+<li>There is one administrator —— 总会有一个管理员。</li>
+<li>Transport cost is zero —— 不必考虑传输成本。</li>
+<li>The network is homogeneous —— 网络是同质化的。</li>
+</ol>
+<p>基于以上 8 大问题，证明了 RPC 应该是一种高层次的或者说语言层次的特征，而非 IPC 这样低层次的或者说系统层次的特征，同时否定了 RPC 最初是作为 IPC 的一种特例来处理的可能。</p>
+<h4 id="RPC-的三个基本问题"><a href="#RPC-的三个基本问题" class="headerlink" title="RPC 的三个基本问题"></a>RPC 的三个基本问题</h4><ol>
+<li><p>如何表示数据</p>
+<p>包括了传递给方法的参数，以及方法执行后的返回值。。有效的做法是将交互双方所涉及的数据转换为某种事先约定好的中立数据流格式来进行传输，将数据流转换回不同语言中对应的数据类型来进行使用。也就是说，每种 RPC 协议都要对应各自的<code>序列化协议</code>。例如，gRPC 的 <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers">Protocol Buffers</a>。</p>
+</li>
+<li><p>如何传递数据</p>
+<p>两个服务交互不仅仅使用序列化数据流来表示参数和结果就行，还有譬如异常、超时、安全、认证、授权、事务，等等，都可能产生双方需要交换信息的需求。例如，JSON-RPC 直接使用 HTTP 协议。</p>
+</li>
+<li><p>如何确定方法</p>
+<p>对于不同语言实现的方法，需要根据方法签名转换为进程空间中子过程入口位置的指针。</p>
+</li>
+</ol>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>不同的 RPC 框架所提供的特性或多或少是有矛盾的，很难有某一种 RPC 框架既有面向对象特性、又有高性能，还有简化的大一统框架。</p>
+<h3 id="RESTful-风格"><a href="#RESTful-风格" class="headerlink" title="RESTful 风格"></a>RESTful 风格</h3><h4 id="理解-REST"><a href="#理解-REST" class="headerlink" title="理解 REST"></a>理解 REST</h4><p>REST 即”表征状态转移“。</p>
+<ul>
+<li>资源：信息、数据本身就称为资源；</li>
+<li>表征：服务端向客户端返回资源的特征称为表征。例如，服务端可以返回 HTML、JSON、MD、PDF 等等；</li>
+<li>状态：在特定语境中才能产生的上下文信息称为“状态”。客户端记住状态，请求时告诉服务器称为无状态；服务端保持客户端状态则成为有状态；</li>
+<li>转移：服务端通过某种方式，将资源转换，就是称为转移；</li>
+</ul>
+<h4 id="RESTful-系统"><a href="#RESTful-系统" class="headerlink" title="RESTful 系统"></a>RESTful 系统</h4><ul>
+<li>客户端与服务端分离：服务端提供数据，客户端进行渲染。有利于提高用户界面的跨平台的移植性；</li>
+<li>无状态：服务端无状态在分布式计算中价值很大。但实际上服务端持有内存、会话、数据库或者缓存等已经事实存在，并将长期存在、被广泛使用的主流的方案；</li>
+<li>可缓存：无状态服务虽然提升了系统的可见性、可靠性和可伸缩性，但降低了系统的网络性。因为有状态的设计只需要一次或者少量请求，但无状态设计就要多次请求，为了缓解多次请求的压力，就要增加缓存设计；</li>
+<li>分层系统：客户端不需要知道是否连接到最终的服务器。因为 CDN 可以加速访问过程；</li>
+<li>统一接口：HTTP 协议中提前约定好的 GET、POST 等 7 种动作；</li>
+</ul>
+<h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h4><ol>
+<li>面向资源的编程思想只适合做 CRUD，面向过程、面向对象编程才能处理真正复杂的业务逻辑。因为复杂的场景，很难用 HTTP 的统一接口去描述;</li>
+<li>REST 与 HTTP 完全绑定，不适合应用于要求高性能传输的场景中；</li>
+<li>不利于事务；</li>
+<li>REST 没有传输可靠性支持;</li>
+<li>REST 缺乏对资源进行“部分”和“批量”的处理能力。由于 HTTP 协议完全没有对请求资源的结构化描述能力，所以返回资源的哪些内容、以什么数据类型返回等等，都不可能得到协议层面的支持；</li>
+</ol>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>RPC 是将本地的方法调用思路迁移到远程方法调用上，开发者是围绕着“远程方法”去设计两个系统间交互的。这样做的坏处不仅是“如何在异构系统间表示一个方法”、“如何获得接口能够提供的方法清单”，更在于服务的每个方法都是完全独立的，服务使用者必须逐个学习才能正确地使用它们。</p>
+<p>REST 中因为有统一接口的存在，降低服务接口的学习成本；方法是动词，逻辑上每个接口都相互独立，而资源是名词，天生具有集合与层次结构；REST 绑定于 HTTP 协议；</p>
+<h2 id="事务处理"><a href="#事务处理" class="headerlink" title="事务处理"></a>事务处理</h2><h2 id="透明多级分流系统"><a href="#透明多级分流系统" class="headerlink" title="透明多级分流系统"></a>透明多级分流系统</h2><h2 id="架构安全"><a href="#架构安全" class="headerlink" title="架构安全"></a>架构安全</h2>
     </div>
 
     
@@ -501,13 +571,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">27k</span>
+    <span title="站点总字数">28k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:37</span>
+    <span title="站点阅读时长">1:44</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
