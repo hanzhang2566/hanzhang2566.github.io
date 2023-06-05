@@ -423,14 +423,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.4k</span>
+      <span>3.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>12 分钟</span>
+      <span>14 分钟</span>
     </span>
 </div>
 
@@ -651,7 +651,24 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 <p>考虑性能或软件开发的基本过程就是让它工作，让它正确、让它快速。</p>
 <p>性能调优的第一个步骤永远都是测量。</p>
 <p>优化方式：分治、缓存、懒加载、近似正确、异步、限流、冗余、抖动与随机化、更快的硬件和算法</p>
-<h2 id="软件交付"><a href="#软件交付" class="headerlink" title="软件交付"></a>软件交付</h2>
+<h2 id="软件交付"><a href="#软件交付" class="headerlink" title="软件交付"></a>软件交付</h2><p>如果你觉得痛苦，就多去做。</p>
+<h3 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h3><h4 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h4><p>编写良好的提交信息：<a target="_blank" rel="noopener" href="https://www.conventionalcommits.org/en/v1.0.0/#summary">Commit Message Specification</a></p>
+<p>经常小步的提交：每一次提交都是完全实现了某一个单一目的、大小合理的单元。完全实现意味着不应该提交会给构建过程带来问题的代码，或者让用户看到未完成功能的代码。大小合理的单元意味着我们应该把工作分解成较小的、增量式的步骤。</p>
+<h4 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h4><h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><h4 id="托管"><a href="#托管" class="headerlink" title="托管"></a>托管</h4><p>部署在哪里？</p>
+<p>使用云托管而不是搭建自己的数据中心。</p>
+<h4 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h4><p>部署什么？</p>
+<p>docker</p>
+<h4 id="自动化部署"><a href="#自动化部署" class="headerlink" title="自动化部署"></a>自动化部署</h4><p>如何部署？</p>
+<p>流水线</p>
+<h4 id="持续交付"><a href="#持续交付" class="headerlink" title="持续交付"></a>持续交付</h4><p>何时部署？</p>
+<p>持续集成让开发人员编写可以频繁合并的代码，相互之间保持同步；持续交付让开发人员编写可以频繁部署的代码，保持和生产环境的同步。</p>
+<p>金丝雀发布</p>
+<h3 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h3><p>监控和单元测试是一体两面。测试是对少数情况下正确性的强假设进行检验，而监控则是对实际生产负载下正确性的弱假设进行检验。引入监控的原因是确认代码在部署后能持续工作。</p>
+<h4 id="日志记录"><a href="#日志记录" class="headerlink" title="日志记录"></a>日志记录</h4><h4 id="指标"><a href="#指标" class="headerlink" title="指标"></a>指标</h4><p>可用性：最基本的指标，服务时候可用；</p>
+<p>业务：</p>
+<p>应用程序、进程、代码和服务器。</p>
+<h4 id="报警"><a href="#报警" class="headerlink" title="报警"></a>报警</h4><p>报警的关键点是要能够识别出问题产生的原因。</p>
+
       
     </div>
 
@@ -880,13 +897,13 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">33k</span>
+    <span title="站点总字数">34k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:02</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
