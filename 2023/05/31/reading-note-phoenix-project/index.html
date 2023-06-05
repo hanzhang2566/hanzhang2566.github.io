@@ -30,7 +30,7 @@
 <meta property="og:description" content="技术架构者的第一职责就是做决策权衡，有利有弊才需要决策，有取有舍才需要权衡，如果架构者本身的知识面不足以覆盖所需要决策的内容，不清楚其中利弊，恐怕也就无可避免地陷入选择困难的困境之中。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-31T03:06:15.000Z">
-<meta property="article:modified_time" content="2023-06-02T04:13:21.792Z">
+<meta property="article:modified_time" content="2023-06-05T03:27:43.835Z">
 <meta property="article:author" content="张晗_Jeremy">
 <meta property="article:tag" content="reading notes">
 <meta name="twitter:card" content="summary">
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%94%E8%BF%9B%E4%B8%AD%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">演进中的架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%88%86%E5%B8%83%E5%BC%8F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.1.</span> <span class="nav-text">原始分布式时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIX-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.1.1.</span> <span class="nav-text">UNIX 的分布式设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%99%E8%AE%AD"><span class="nav-number">1.1.2.</span> <span class="nav-text">教训</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.1.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BD%93%E7%B3%BB%E7%BB%9F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.2.</span> <span class="nav-text">单体系统时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SOA-%E6%97%B6%E4%BB%A3"><span class="nav-number">1.3.</span> <span class="nav-text">SOA 时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%9F%E5%9B%B1%E5%BC%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">烟囱式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">1.3.2.</span> <span class="nav-text">微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOA"><span class="nav-number">1.3.4.</span> <span class="nav-text">SOA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="nav-number">1.3.5.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.4.</span> <span class="nav-text">微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.5.</span> <span class="nav-text">后微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.6.</span> <span class="nav-text">无服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E8%A7%86%E8%A7%92"><span class="nav-number">2.</span> <span class="nav-text">架构师的视角</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.1.</span> <span class="nav-text">远程服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8-RPC"><span class="nav-number">2.1.1.</span> <span class="nav-text">远程服务调用 RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%86%85%E8%B0%83%E7%94%A8"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">进程内调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E8%B0%83%E7%94%A8-IPC"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">进程间调用 IPC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPC-%E7%9A%84%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">RPC 的三个基本问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful-%E9%A3%8E%E6%A0%BC"><span class="nav-number">2.1.2.</span> <span class="nav-text">RESTful 风格</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%90%86%E8%A7%A3-REST"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">理解 REST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RESTful-%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">RESTful 系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">不足</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.3.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">事务处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.2.1.</span> <span class="nav-text">本地事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%80%A7%E5%92%8C%E6%8C%81%E4%B9%85%E6%80%A7"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">原子性和持久性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E6%80%A7"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">隔离性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-6"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.2.2.</span> <span class="nav-text">全局事务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E6%98%8E%E5%A4%9A%E7%BA%A7%E5%88%86%E6%B5%81%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">透明多级分流系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%AE%89%E5%85%A8"><span class="nav-number">2.4.</span> <span class="nav-text">架构安全</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%94%E8%BF%9B%E4%B8%AD%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">演进中的架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%88%86%E5%B8%83%E5%BC%8F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.1.</span> <span class="nav-text">原始分布式时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIX-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.1.1.</span> <span class="nav-text">UNIX 的分布式设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%99%E8%AE%AD"><span class="nav-number">1.1.2.</span> <span class="nav-text">教训</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.1.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BD%93%E7%B3%BB%E7%BB%9F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.2.</span> <span class="nav-text">单体系统时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SOA-%E6%97%B6%E4%BB%A3"><span class="nav-number">1.3.</span> <span class="nav-text">SOA 时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%9F%E5%9B%B1%E5%BC%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">烟囱式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">1.3.2.</span> <span class="nav-text">微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOA"><span class="nav-number">1.3.4.</span> <span class="nav-text">SOA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="nav-number">1.3.5.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.4.</span> <span class="nav-text">微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.5.</span> <span class="nav-text">后微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.6.</span> <span class="nav-text">无服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E8%A7%86%E8%A7%92"><span class="nav-number">2.</span> <span class="nav-text">架构师的视角</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.1.</span> <span class="nav-text">远程服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8-RPC"><span class="nav-number">2.1.1.</span> <span class="nav-text">远程服务调用 RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%86%85%E8%B0%83%E7%94%A8"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">进程内调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E8%B0%83%E7%94%A8-IPC"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">进程间调用 IPC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPC-%E7%9A%84%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">RPC 的三个基本问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful-%E9%A3%8E%E6%A0%BC"><span class="nav-number">2.1.2.</span> <span class="nav-text">RESTful 风格</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%90%86%E8%A7%A3-REST"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">理解 REST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RESTful-%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">RESTful 系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">不足</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.3.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">事务处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%9C%8D%E5%8A%A1%E5%8D%95%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">2.2.1.</span> <span class="nav-text">单服务单数据源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%80%A7%E5%92%8C%E6%8C%81%E4%B9%85%E6%80%A7"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">原子性和持久性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E6%80%A7"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">隔离性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-6"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%9C%8D%E5%8A%A1%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">2.2.2.</span> <span class="nav-text">单服务多数据源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">二阶段提交</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%8D%E6%8F%90"><span class="nav-number">2.2.2.1.1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.2.2.1.2.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">2.2.2.1.3.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.2.1.4.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E6%AE%B5%E5%BC%8F%E6%8F%90%E4%BA%A4"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">三段式提交</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E6%98%8E%E5%A4%9A%E7%BA%A7%E5%88%86%E6%B5%81%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">透明多级分流系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%AE%89%E5%85%A8"><span class="nav-number">2.4.</span> <span class="nav-text">架构安全</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -247,14 +247,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.5k</span>
+      <span>7.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>24 分钟</span>
+      <span>28 分钟</span>
     </span>
 </div>
 
@@ -454,7 +454,7 @@
 <h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>RPC 是将本地的方法调用思路迁移到远程方法调用上，开发者是围绕着“远程方法”去设计两个系统间交互的。这样做的坏处不仅是“如何在异构系统间表示一个方法”、“如何获得接口能够提供的方法清单”，更在于服务的每个方法都是完全独立的，服务使用者必须逐个学习才能正确地使用它们。</p>
 <p>REST 中因为有统一接口的存在，降低服务接口的学习成本；方法是动词，逻辑上每个接口都相互独立，而资源是名词，天生具有集合与层次结构；REST 绑定于 HTTP 协议；</p>
 <h2 id="事务处理"><a href="#事务处理" class="headerlink" title="事务处理"></a>事务处理</h2><p>事务处理的意义是为了保证系统中所有的数据都是符合期望的，且相互关联的数据之间不会产生矛盾，即数据状态的<strong>一致性（Consistency）</strong>。</p>
-<h3 id="本地事务"><a href="#本地事务" class="headerlink" title="本地事务"></a>本地事务</h3><p>本地事务是最基础的一种事务解决方案，只适用于单个服务使用单个数据源的场景。</p>
+<h3 id="单服务单数据源"><a href="#单服务单数据源" class="headerlink" title="单服务单数据源"></a>单服务单数据源</h3><p>这是最基础的事务解决方案。</p>
 <p><a target="_blank" rel="noopener" href="https://icyfenix.cn/architect-perspective/general-architecture/transaction/local.html">基于语义的恢复与隔离算法</a>是数据库关系系统实现 ACID 事务的理论依据。</p>
 <blockquote>
 <p>每当一本书被成功售出时，需要确保以下三件事情被正确地处理：</p>
@@ -507,7 +507,78 @@
 <h4 id="结论-6"><a href="#结论-6" class="headerlink" title="结论"></a>结论</h4><p>四种隔离级别是各种锁在不同加锁时间上组合应用所产生的结果，以锁为手段来实现隔离性才是数据库表现出不同隔离级别的根本原因。</p>
 <p>四种隔离级别产生的问题都是由于一个事务在读数据过程中，受另外一个写数据的事务影响而破坏了隔离性。也就是“读 + 写”的模式。多版本并发控制 MVCC 是优化该模式的主流方案。</p>
 <p>如果是两个事务同时修改数据，即“写+写”的情况，加锁几乎是唯一可行的解决方案，就要选择是“乐观加锁”还是“悲观加锁”。</p>
-<h3 id="全局事务"><a href="#全局事务" class="headerlink" title="全局事务"></a>全局事务</h3><p>全局事务被限定为一种适用于单个服务使用多个数据源场景的事务解决方案。</p>
+<h3 id="单服务多数据源"><a href="#单服务多数据源" class="headerlink" title="单服务多数据源"></a>单服务多数据源</h3><p>X&#x2F;Open 组织提出了一套处理事务架构 X&#x2F;Open XA，它定义了全局的事务管理器和局部的资源管理器之间的通信接口。</p>
+<p>事务处理器负责协调全局事务，资源管理器用于驱动本地事务。XA 接口是双向的，能在一个事务管理器和多个资源管理器之间形成通信桥梁，通过协调多个数据源的一致动作，实现全局事务的统一提交或者统一回滚。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设：书店的用户、商家、仓库分别处于不同的数据库中</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buyBook</span><span class="params">(PaymentBill bill)</span> &#123;</span><br><span class="line">    userTransaction.begin();</span><br><span class="line">    warehouseTransaction.begin();</span><br><span class="line">    businessTransaction.begin();</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">        userAccountService.pay(bill.getMoney());</span><br><span class="line">        warehouseService.deliver(bill.getItems());</span><br><span class="line">        businessAccountService.receipt(bill.getMoney());</span><br><span class="line">        userTransaction.commit();</span><br><span class="line">        warehouseTransaction.commit();</span><br><span class="line">        <span class="comment">// 此时出现错误，userTransaction 和 warehouseTransaction 已经提交，catch 中 rollback 无济于事</span></span><br><span class="line">        <span class="comment">// 导致一部分数据被提交（user、warehouse），一部分被回滚（business），一致性无法保证</span></span><br><span class="line">        businessTransaction.commit();</span><br><span class="line">	&#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">        userTransaction.rollback();</span><br><span class="line">        warehouseTransaction.rollback();</span><br><span class="line">        businessTransaction.rollback();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="二阶段提交"><a href="#二阶段提交" class="headerlink" title="二阶段提交"></a>二阶段提交</h4><h5 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h5><ol>
+<li>提交阶段的网络短时间内可靠。</li>
+<li>节点失联可恢复。</li>
+</ol>
+<h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><p><strong>准备阶段（投票阶段）</strong>：协调者询问事务的所有参与者是否准备好提交，参与者如果已经准备好提交则回复 Prepared，否则回复 Non-Prepared；</p>
+<p><strong>提交阶段（执行阶段）</strong>：协调者如果在上一阶段收到所有事务参与者回复的 Prepared 消息，则先自己在本地持久化事务状态为 Commit，在此操作完成后向所有参与者发送 Commit 指令，所有参与者立即执行提交操作；否则，任意一个参与者回复了 Non-Prepared 消息，或任意一个参与者超时未回复，协调者将自己的事务状态持久化为 Abort 之后，向所有参与者发送 Abort 指令，参与者立即执行回滚操作；</p>
+<h5 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h5><pre><code class="highlight mermaid">sequenceDiagram
+participant coordinators as 协调者
+participant participants as 参与者
+    coordinators -&gt;&gt; participants: 要求所有参与者进入准备阶段
+    activate participants
+    participants --&gt;&gt; coordinators: 已进入准备阶段
+    deactivate participants
+    
+    coordinators -&gt;&gt; participants: 要求所有参与者进入提交阶段
+    activate participants
+    participants --&gt;&gt; coordinators: 已进入提交阶段
+    deactivate participants
+
+    opt 失败或超时
+ 	   coordinators -&gt;&gt; participants: 要求所有参与者回滚
+ 	   activate participants
+ 	   participants --&gt;&gt; coordinators: 已回滚事务
+ 	   deactivate participants
+    end</code></pre>
+
+
+
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><ol>
+<li>单点问题。协调者很重要；</li>
+<li>性能问题：参与者进行 2 次 RPC，3 次持久化（准备阶段写重做日志，协调者做状态持久化，提交阶段在日志写入 Commit Record）；</li>
+<li>一致性风向：前提会导致一致性风险；</li>
+</ol>
+<h4 id="三段式提交"><a href="#三段式提交" class="headerlink" title="三段式提交"></a>三段式提交</h4><p>三段式提交把原本的两段式提交的<strong>准备阶段</strong>再细分为1. CanCommit、2. PreCommit，把<strong>提交阶段</strong>改称为 DoCommit 阶段。</p>
+<p>CanCommit 是一个询问阶段，协调者让每个参与的数据库根据自身状态，评估该事务是否有可能顺利完成。增加一轮询问阶段，意味着因某个参与者提交时发生崩溃而导致大家全部回滚的风险相对变小。因此，在事务需要回滚的场景中，三段式的性能通常是要比两段式好很多的，但在事务能够正常提交的场景中，两者的性能都依然很差，甚至三段式因为多了一次询问，还要稍微更差一些。</p>
+<p>同样也是由于事务失败回滚概率变小的原因，在三段式提交中，如果在 PreCommit 阶段之后发生了协调者宕机，即参与者没有能等到 DoCommit 的消息的话，默认的操作策略将是提交事务而不是回滚事务或者持续等待，这就相当于避免了协调者单点问题的风险。</p>
+<p>由于事务失败回滚概率变小的原因，PreCommit 阶段之后发生了协调者宕机（即参与者没有能等到 DoCommit），默认策略是提交事务相当于避免了协调者单点问题的风险。</p>
+<p>从以上过程可以看出，三段式提交对单点问题和回滚时的性能问题有所改善，但是它对一致性风险问题并未有任何改进，在这方面它面临的风险甚至反而是略有增加了的。</p>
+<pre><code class="highlight mermaid">sequenceDiagram
+participant coordinators as 协调者
+participant participants as 参与者
+    coordinators -&gt;&gt; participants: 询问阶段：是否有把握完成事务
+    activate participants
+    participants --&gt;&gt; coordinators: 是
+    deactivate participants
+    
+    coordinators -&gt;&gt; participants: 准备阶段：写入日志，锁定资源
+    activate participants
+    participants --&gt;&gt; coordinators: ACK
+    deactivate participants
+    
+    coordinators -&gt;&gt; participants: 提交阶段：提交事务
+    activate participants
+    participants --&gt;&gt; coordinators: 已提交
+    deactivate participants
+    opt 失败
+ 	   coordinators -&gt;&gt; participants: 要求回滚
+ 	   activate participants
+ 	   participants --&gt;&gt; coordinators: 已回滚
+ 	   deactivate participants
+    end
+    
+    opt 超时
+ 	   participants -&gt;&gt; participants: 提交事务
+    end</code></pre>
+
+
+
 <h2 id="透明多级分流系统"><a href="#透明多级分流系统" class="headerlink" title="透明多级分流系统"></a>透明多级分流系统</h2><h2 id="架构安全"><a href="#架构安全" class="headerlink" title="架构安全"></a>架构安全</h2>
     </div>
 
@@ -626,13 +697,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">31k</span>
+    <span title="站点总字数">33k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:01</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
