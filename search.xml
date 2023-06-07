@@ -717,36 +717,37 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 <p>第一是如何设计、营销和推广你的产品；第二是如何通过博客、开源软件和展示去宣传自己的公司；第三是如何和客户沟通。</p>
 <h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>有些类型的 bug 不常出现或者解决成本非常低，所以在这些 bug 出现的时候再做反应会比试图防止它们出现效率更高。</p>
 <p>项目成功重要的是人，而不是挑选的方法论。</p>
-<h2 id="求职之路"><a href="#求职之路" class="headerlink" title="求职之路"></a>求职之路</h2><h2 id="招兵买马"><a href="#招兵买马" class="headerlink" title="招兵买马"></a>招兵买马</h2><h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2>]]></content>
+<h2 id="求职之路"><a href="#求职之路" class="headerlink" title="求职之路"></a>求职之路</h2><h2 id="招兵买马"><a href="#招兵买马" class="headerlink" title="招兵买马"></a>招兵买马</h2><p>选择正确的人比选择正确的产品、市场推广策略、技术栈或者编程方法论更加重要。招聘更多的人意味着资金消耗更快，企业经营更复杂，决策更缓慢，要花更多的时间去搜索、面试和培训。最好的创业公司就是用较少的资源做较多的事。</p>
+<h3 id="何时招人"><a href="#何时招人" class="headerlink" title="何时招人"></a>何时招人</h3><p>招人的关键问题不是“如果我们招了人可以做什么”，而是“我们不招人的话无法做什么”。</p>
+<p>要么写代码，要么找用户。尽量发股权，而不是薪水。</p>
+<p>如果对业务至关重要的事在没有新员工的情况下无法完成，不管你们多么有创造性，都是时候开始招聘了。</p>
+<h3 id="招什么人"><a href="#招什么人" class="headerlink" title="招什么人"></a>招什么人</h3><h4 id="合伙人"><a href="#合伙人" class="headerlink" title="合伙人"></a>合伙人</h4><p>两个创始人通常是通往成功的最好途径。你可以平均分配工作和股权，也没有政治操作的空间。三个创始人也没有问题：只是在职责划分上会更困难一些，但总可以通过投票决定，超过 3 个人就够呛。</p>
+<p>信任的人远好于完全陌生的人。</p>
+<ol>
+<li>“敏思笃行”的人，要寻找你认识的那些不管有什么障碍都能克服的人；</li>
+<li>要寻找具有互补技能的人，例如，如果你是程序员并善于开发产品，就要寻找能够处理好销售和市场推广，并善于发现客户的创业伙伴；</li>
+<li>创业伙伴通常在年龄、经济状况和动机上应该是类似的。如果一个创始人寄希望于赚快钱，而另一个则对改变世界有长期的愿景，这是很难成功的；</li>
+<li>能够信任的人。要建立信任，你必须了解合伙人的经历，所以也再次说明了为什么同事、同学和朋友是最合适的创业伙伴；</li>
+</ol>
+<h4 id="早期员工"><a href="#早期员工" class="headerlink" title="早期员工"></a>早期员工</h4><p>做了错误的产品或使用了错误的技术，可以从头再来，但如果没有招对最开始的 5～10 个员工，却可能将公司置于死地。</p>
+<p>多面手，态度胜过才能。</p>
+<h4 id="后期员工"><a href="#后期员工" class="headerlink" title="后期员工"></a>后期员工</h4><p>开发人员对手艺的热情是最重要的；招聘到 T 型人才，举办技术访谈、报销课程和会议费用、鼓励撰写博客和开发开源软件、组织黑客马拉松、建立导师制，培养 10x 工程师，而不是招聘 10x。</p>
+<p>不要关注是否能招聘到一个超级明星，而是要关注如何形成起一种可持续的招聘策略，如何形成一种组织结构，让每一个人都能高效地在一起工作。</p>
+<h4 id="品质"><a href="#品质" class="headerlink" title="品质"></a>品质</h4><ul>
+<li><p>聪明并能把事情做好</p>
+<p>对于背景，了解的是一个人完成了什么，无论是工作内还是外，而不是参与了什么；关注深入了解的领域，如果解释不清楚，要么非主要贡献者（没做好事），要么没有足够理解（不聪明）；要引导他们进入未知领域。</p>
+</li>
+<li><p>文化契合</p>
+<p>核心价值观契合。</p>
+</li>
+<li><p>出色的沟通技能</p>
+</li>
+<li><p>相信直觉</p>
+</li>
+</ul>
+<h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2>]]></content>
       <tags>
         <tag>reading notes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringMVC 接口设计</title>
-    <url>/2023/05/24/best-practice-mvc/</url>
-    <content><![CDATA[<p>请求方式和参数注解可以自由组合。</p>
-<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>获取 query 参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 query 参数的 key 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/get&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">queryParam</span><span class="params">(<span class="meta">@RequestParam(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h1><p>获取 path 参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 path 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/path/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">pathParam</span><span class="params">(<span class="meta">@PathVariable(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>获取 body 参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 请求体携带的参数和 req 属性匹配</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/body&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">body</span><span class="params">(<span class="meta">@RequestBody</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><ol>
-<li>不要使用 @RequestBody 来接收 String 类型的参数；</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/wrong&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">wrong</span><span class="params">(<span class="meta">@RequestBody</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
-</ol>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
-]]></content>
-      <tags>
-        <tag>best practice</tag>
       </tags>
   </entry>
   <entry>
@@ -785,6 +786,33 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
+    <title>SpringMVC 接口设计</title>
+    <url>/2023/05/24/best-practice-mvc/</url>
+    <content><![CDATA[<p>请求方式和参数注解可以自由组合。</p>
+<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>获取 query 参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 query 参数的 key 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/get&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">queryParam</span><span class="params">(<span class="meta">@RequestParam(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h1><p>获取 path 参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 path 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/path/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">pathParam</span><span class="params">(<span class="meta">@PathVariable(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>获取 body 参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 请求体携带的参数和 req 属性匹配</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/body&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">body</span><span class="params">(<span class="meta">@RequestBody</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><ol>
+<li>不要使用 @RequestBody 来接收 String 类型的参数；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/wrong&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">wrong</span><span class="params">(<span class="meta">@RequestBody</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
+]]></content>
+      <tags>
+        <tag>best practice</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>REST API 响应设计</title>
     <url>/2023/05/22/best-practice-resp/</url>
     <content><![CDATA[<h1 id="模型设计"><a href="#模型设计" class="headerlink" title="模型设计"></a>模型设计</h1><p>使用统一的 REST 方式定义响应模型。</p>
@@ -809,11 +837,11 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>快速查找</title>
-    <url>/2023/05/17/quick-select/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(n)</p>
-<p>最坏情况：O(nlogn)</p>
+    <title>快速排序</title>
+    <url>/2023/05/17/quick-sort/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
+<p>最坏情况：O(n^2)</p>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
 ]]></content>
@@ -822,11 +850,11 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>快速排序</title>
-    <url>/2023/05/17/quick-sort/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
-<p>最坏情况：O(n^2)</p>
+    <title>快速查找</title>
+    <url>/2023/05/17/quick-select/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(n)</p>
+<p>最坏情况：O(nlogn)</p>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
 ]]></content>
