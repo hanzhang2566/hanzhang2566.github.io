@@ -745,9 +745,55 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 <li><p>相信直觉</p>
 </li>
 </ul>
-<h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2>]]></content>
+<h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h3 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h3><ol>
+<li>聪明的选择学习内容；</li>
+<li>投入时间；</li>
+<li>成为习惯；</li>
+</ol>
+<h3 id="技巧"><a href="#技巧" class="headerlink" title="技巧"></a>技巧</h3><h4 id="途径"><a href="#途径" class="headerlink" title="途径"></a>途径</h4><ol>
+<li>读书看报；</li>
+<li>读论文；</li>
+<li>参加课程；</li>
+<li>演讲、小组和会议；</li>
+<li>阅读代码</li>
+</ol>
+<p>目标 + 笔记 + 探讨。</p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>发展 side project、贡献开源、参加竞赛。</p>
+<h4 id="分享"><a href="#分享" class="headerlink" title="分享"></a>分享</h4><p>分享所得到的东西要超过你所投入的。</p>
+<p>专业性：具有“资深”标记的工程师都是那些使周围的人更加出色的人，要达到这一目的唯一的方法就是教；</p>
+<p>质量高</p>
+<p>共同维护</p>
+<p>个人IP</p>
+]]></content>
       <tags>
         <tag>reading notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringMVC 接口设计</title>
+    <url>/2023/05/24/best-practice-mvc/</url>
+    <content><![CDATA[<p>请求方式和参数注解可以自由组合。</p>
+<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>获取 query 参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 query 参数的 key 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/get&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">queryParam</span><span class="params">(<span class="meta">@RequestParam(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h1><p>获取 path 参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 path 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/path/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">pathParam</span><span class="params">(<span class="meta">@PathVariable(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>获取 body 参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 请求体携带的参数和 req 属性匹配</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/body&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">body</span><span class="params">(<span class="meta">@RequestBody</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><ol>
+<li>不要使用 @RequestBody 来接收 String 类型的参数；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/wrong&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">wrong</span><span class="params">(<span class="meta">@RequestBody</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
+]]></content>
+      <tags>
+        <tag>best practice</tag>
       </tags>
   </entry>
   <entry>
@@ -786,33 +832,6 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>SpringMVC 接口设计</title>
-    <url>/2023/05/24/best-practice-mvc/</url>
-    <content><![CDATA[<p>请求方式和参数注解可以自由组合。</p>
-<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>获取 query 参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 query 参数的 key 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/get&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">queryParam</span><span class="params">(<span class="meta">@RequestParam(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h1><p>获取 path 参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 path 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/path/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">pathParam</span><span class="params">(<span class="meta">@PathVariable(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>获取 body 参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 请求体携带的参数和 req 属性匹配</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/body&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">body</span><span class="params">(<span class="meta">@RequestBody</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><ol>
-<li>不要使用 @RequestBody 来接收 String 类型的参数；</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/wrong&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">wrong</span><span class="params">(<span class="meta">@RequestBody</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
-</ol>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
-]]></content>
-      <tags>
-        <tag>best practice</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>REST API 响应设计</title>
     <url>/2023/05/22/best-practice-resp/</url>
     <content><![CDATA[<h1 id="模型设计"><a href="#模型设计" class="headerlink" title="模型设计"></a>模型设计</h1><p>使用统一的 REST 方式定义响应模型。</p>
@@ -837,11 +856,11 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>快速排序</title>
-    <url>/2023/05/17/quick-sort/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
-<p>最坏情况：O(n^2)</p>
+    <title>快速查找</title>
+    <url>/2023/05/17/quick-select/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(n)</p>
+<p>最坏情况：O(nlogn)</p>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
 ]]></content>
@@ -850,11 +869,11 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>快速查找</title>
-    <url>/2023/05/17/quick-select/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(n)</p>
-<p>最坏情况：O(nlogn)</p>
+    <title>快速排序</title>
+    <url>/2023/05/17/quick-sort/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
+<p>最坏情况：O(n^2)</p>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
 ]]></content>
