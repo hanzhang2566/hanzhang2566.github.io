@@ -800,6 +800,16 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
+    <title>单体架构的目录设计</title>
+    <url>/2023/05/24/best-practice-dir/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">├─api							# 前后端交互</span><br><span class="line">│  ├─advice							# 全局异常处理</span><br><span class="line">│  ├─controller						# 控制器</span><br><span class="line">│  ├─handler						# 自定义返回值处理</span><br><span class="line">│  └─rest							# 请求与响应</span><br><span class="line">│      ├─group							# 分组验证</span><br><span class="line">│      ├─req							# 请求</span><br><span class="line">│      └─vo								# 响应</span><br><span class="line">│          └─convert						# vo 转换器</span><br><span class="line">├─config						# 配置</span><br><span class="line">├─enums							# 枚举</span><br><span class="line">├─exception						# 异常</span><br><span class="line">├─model							# 数据模型</span><br><span class="line">│  └─handler						# 与 db 有关的处理器</span><br><span class="line">├─repository					# 存储接口</span><br><span class="line">│  ├─impl							# 存储实现</span><br><span class="line">│  └─mapper							# 存储 mapper</span><br><span class="line">├─service						# 实现接口</span><br><span class="line">│  ├─helper							# 实现 helper</span><br><span class="line">│  └─impl							# 具体实现</span><br><span class="line">└─util							# 工具类</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>best practice</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringMVC 接口设计</title>
     <url>/2023/05/24/best-practice-mvc/</url>
     <content><![CDATA[<p>请求方式和参数注解可以自由组合。</p>
@@ -821,16 +831,6 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 <li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
 </ol>
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
-]]></content>
-      <tags>
-        <tag>best practice</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>单体架构的目录设计</title>
-    <url>/2023/05/24/best-practice-dir/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">├─api							# 前后端交互</span><br><span class="line">│  ├─advice							# 全局异常处理</span><br><span class="line">│  ├─controller						# 控制器</span><br><span class="line">│  ├─handler						# 自定义返回值处理</span><br><span class="line">│  └─rest							# 请求与响应</span><br><span class="line">│      ├─group							# 分组验证</span><br><span class="line">│      ├─req							# 请求</span><br><span class="line">│      └─vo								# 响应</span><br><span class="line">│          └─convert						# vo 转换器</span><br><span class="line">├─config						# 配置</span><br><span class="line">├─enums							# 枚举</span><br><span class="line">├─exception						# 异常</span><br><span class="line">├─model							# 数据模型</span><br><span class="line">│  └─handler						# 与 db 有关的处理器</span><br><span class="line">├─repository					# 存储接口</span><br><span class="line">│  ├─impl							# 存储实现</span><br><span class="line">│  └─mapper							# 存储 mapper</span><br><span class="line">├─service						# 实现接口</span><br><span class="line">│  ├─helper							# 实现 helper</span><br><span class="line">│  └─impl							# 具体实现</span><br><span class="line">└─util							# 工具类</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <tags>
         <tag>best practice</tag>
@@ -4379,11 +4379,20 @@ Creator &lt;-- Client</code></pre>
 <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>设计模式不可以随意使用。通常情况下，引入设计模式在获得灵活性和可变性的同时，会使设计变得更复杂和难以理解。</p>
 <h1 id="代码库"><a href="#代码库" class="headerlink" title="代码库"></a>代码库</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples">design-patterns-examples</a></p>
 <h1 id="参考书"><a href="#参考书" class="headerlink" title="参考书"></a>参考书</h1><ul>
-<li><a href="https://book.douban.com/subject/34262305/">设计模式：可复用面向对象软件的基础</a></li>
-<li><a href="https://book.douban.com/subject/35919931/">设计模式之美</a></li>
-<li><a href="https://book.douban.com/subject/36116620/">大话设计模式：Java 溢彩加强版</a></li>
-<li><a href="https://book.douban.com/subject/36262489/">Go语言设计模式（双色版）</a></li>
-<li><a href="https://refactoringguru.cn/">refactoringguru</a></li>
+<li><p><a href="https://book.douban.com/subject/34262305/">设计模式：可复用面向对象软件的基础</a></p>
+</li>
+<li><p><a href="https://book.douban.com/subject/35919931/">设计模式之美</a></p>
+</li>
+<li><p><a href="https://book.douban.com/subject/36116620/">大话设计模式：Java 溢彩加强版</a></p>
+</li>
+<li><p><a href="https://book.douban.com/subject/36262489/">Go语言设计模式（双色版）</a></p>
+<p>⭐</p>
+<p>设计模式中，主要关注 UML 类图，可作者却用第一张 70% 第一章的篇幅来介绍 UML 基础，对重点的类图并没有着墨太多。最后一章也用了 8% 的内容来介绍软件架构，有些凑字数。</p>
+<p>我认为本书是对《设计模式:可复用面型对象软件的基础》中内容的转译，没有看到作者的独到见解。此外，书籍源代码竟然没有 POST 到扉页，而是要关注公众号获取，体验很差。</p>
+<p>对于没有编程经验的人来说，设计模式来入门挑战比较大，不推荐作为前几部来阅读。对于有其他语言经验的人，本书不是一个好的选择。建议看 《设计模式:可复用面型对象软件的基础》和 《大话设计模式》。</p>
+</li>
+<li><p><a href="https://refactoringguru.cn/">refactoringguru</a></p>
+</li>
 </ul>
 ]]></content>
       <tags>
