@@ -717,11 +717,29 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 <p>第一是如何设计、营销和推广你的产品；第二是如何通过博客、开源软件和展示去宣传自己的公司；第三是如何和客户沟通。</p>
 <h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>有些类型的 bug 不常出现或者解决成本非常低，所以在这些 bug 出现的时候再做反应会比试图防止它们出现效率更高。</p>
 <p>项目成功重要的是人，而不是挑选的方法论。</p>
-<h2 id="求职之路"><a href="#求职之路" class="headerlink" title="求职之路"></a>求职之路</h2><h2 id="招兵买马"><a href="#招兵买马" class="headerlink" title="招兵买马"></a>招兵买马</h2><p>选择正确的人比选择正确的产品、市场推广策略、技术栈或者编程方法论更加重要。招聘更多的人意味着资金消耗更快，企业经营更复杂，决策更缓慢，要花更多的时间去搜索、面试和培训。最好的创业公司就是用较少的资源做较多的事。</p>
+<h2 id="求职之路"><a href="#求职之路" class="headerlink" title="求职之路"></a>求职之路</h2><p>找到好工作的第一个步骤就是让自己变得出色。</p>
+<h3 id="寻找机会"><a href="#寻找机会" class="headerlink" title="寻找机会"></a>寻找机会</h3><p>利用人脉</p>
+<p>聚会小组与会议</p>
+<p>黑客马拉松和比赛</p>
+<p>演讲、博客和开源</p>
+<p>创建个人 IP</p>
+<p>关注 VC 和程序员网站</p>
+<h3 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h3><p>面对面编程、讲述思考过程、</p>
+<p>了解自己：</p>
+<p>·谈谈你自己。·你以前做过什么项目？·你为什么要找一份新的工作？·你为什么想来这里工作？·你理想的工作是什么样的？·你想在5年内做什么，10年内呢？·你最大的优势是什么，最大的劣势呢？·你最大的成就是什么？·你曾经解决的最难处理的bug是什么？·我应该再问些别的什么问题吗？</p>
+<p>了解公司：</p>
+<p>·该角色的期望是什么？·该职位能够取得什么样的成功？·谁是我的经理？·我将从事什么项目？·技术栈是什么？·工作时间怎么样？他们花多少时间在编程上，又花多少时间来开会？·如何构建和发布代码？·公司的使命和价值是什么？·办公室怎么样？·在这里工作，你最喜欢和最不喜欢什么？</p>
+<p>《程序员面试金典》和《程序员面试攻略》。</p>
+<h3 id="评估机会"><a href="#评估机会" class="headerlink" title="评估机会"></a>评估机会</h3><p>工作机会最重要的就是其背后的人，这件事只能靠直觉。</p>
+<p>薪水、股权、福利、谈判</p>
+<h2 id="招兵买马"><a href="#招兵买马" class="headerlink" title="招兵买马"></a>招兵买马</h2><p>选择正确的人比选择正确的产品、市场推广策略、技术栈或者编程方法论更加重要。招聘更多的人意味着资金消耗更快，企业经营更复杂，决策更缓慢，要花更多的时间去搜索、面试和培训。最好的创业公司就是用较少的资源做较多的事。</p>
 <h3 id="何时招人"><a href="#何时招人" class="headerlink" title="何时招人"></a>何时招人</h3><p>招人的关键问题不是“如果我们招了人可以做什么”，而是“我们不招人的话无法做什么”。</p>
 <p>要么写代码，要么找用户。尽量发股权，而不是薪水。</p>
 <p>如果对业务至关重要的事在没有新员工的情况下无法完成，不管你们多么有创造性，都是时候开始招聘了。</p>
-<h3 id="招什么人"><a href="#招什么人" class="headerlink" title="招什么人"></a>招什么人</h3><h4 id="合伙人"><a href="#合伙人" class="headerlink" title="合伙人"></a>合伙人</h4><p>两个创始人通常是通往成功的最好途径。你可以平均分配工作和股权，也没有政治操作的空间。三个创始人也没有问题：只是在职责划分上会更困难一些，但总可以通过投票决定，超过 3 个人就够呛。</p>
+<h3 id="招什么人"><a href="#招什么人" class="headerlink" title="招什么人"></a>招什么人</h3><p>要评估某人是否聪明，你需要知道他们是如何执行现实中的任务的；</p>
+<p>要评估某人是否能够把事情做好，你需要了解他们在过去完成了哪些工作；</p>
+<p>要评估某人是否能够很好地适应文化，你需要知道他是否与你们有共同的价值；</p>
+<h4 id="合伙人"><a href="#合伙人" class="headerlink" title="合伙人"></a>合伙人</h4><p>两个创始人通常是通往成功的最好途径。你可以平均分配工作和股权，也没有政治操作的空间。三个创始人也没有问题：只是在职责划分上会更困难一些，但总可以通过投票决定，超过 3 个人就够呛。</p>
 <p>信任的人远好于完全陌生的人。</p>
 <ol>
 <li>“敏思笃行”的人，要寻找你认识的那些不管有什么障碍都能克服的人；</li>
@@ -745,6 +763,12 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 <li><p>相信直觉</p>
 </li>
 </ul>
+<h3 id="如何寻找"><a href="#如何寻找" class="headerlink" title="如何寻找"></a>如何寻找</h3><p>推荐、公司品牌化、在线搜索、HR</p>
+<h3 id="面试-1"><a href="#面试-1" class="headerlink" title="面试"></a>面试</h3><ol>
+<li>让面试者教你东西；</li>
+<li>面试者能学习到什么东西；</li>
+<li>让应聘者展示他们的技术能力</li>
+</ol>
 <h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h3 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h3><ol>
 <li>聪明的选择学习内容；</li>
 <li>投入时间；</li>
@@ -767,33 +791,6 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 ]]></content>
       <tags>
         <tag>reading notes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringMVC 接口设计</title>
-    <url>/2023/05/24/best-practice-mvc/</url>
-    <content><![CDATA[<p>请求方式和参数注解可以自由组合。</p>
-<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>获取 query 参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 query 参数的 key 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/get&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">queryParam</span><span class="params">(<span class="meta">@RequestParam(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h1><p>获取 path 参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 path 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/path/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">pathParam</span><span class="params">(<span class="meta">@PathVariable(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>获取 body 参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 请求体携带的参数和 req 属性匹配</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/body&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">body</span><span class="params">(<span class="meta">@RequestBody</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><ol>
-<li>不要使用 @RequestBody 来接收 String 类型的参数；</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/wrong&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">wrong</span><span class="params">(<span class="meta">@RequestBody</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
-</ol>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
-]]></content>
-      <tags>
-        <tag>best practice</tag>
       </tags>
   </entry>
   <entry>
@@ -826,6 +823,33 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 <h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 邮箱</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Email(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/ValidationController.java">here</a></p>
+]]></content>
+      <tags>
+        <tag>best practice</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringMVC 接口设计</title>
+    <url>/2023/05/24/best-practice-mvc/</url>
+    <content><![CDATA[<p>请求方式和参数注解可以自由组合。</p>
+<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>获取 query 参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 query 参数的 key 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/get&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">queryParam</span><span class="params">(<span class="meta">@RequestParam(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a>@PathVariable</h1><p>获取 path 参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name 参数需要和 GET 请求中 path 匹配</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/path/&#123;name&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">pathParam</span><span class="params">(<span class="meta">@PathVariable(&quot;name&quot;)</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>获取 body 参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 请求体携带的参数和 req 属性匹配</span></span><br><span class="line"><span class="meta">@PostMapping(&quot;/body&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">body</span><span class="params">(<span class="meta">@RequestBody</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><ol>
+<li>不要使用 @RequestBody 来接收 String 类型的参数；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/wrong&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">wrong</span><span class="params">(<span class="meta">@RequestBody</span> String name)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
 ]]></content>
       <tags>
         <tag>best practice</tag>
