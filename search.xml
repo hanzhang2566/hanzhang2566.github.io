@@ -94,6 +94,177 @@ Aggregate &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>状态模式</title>
+    <url>/2023/05/04/behavioral-state/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>当一个对象的内在状态改变时，允许改变其行为。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>状态转换是显示的；</li>
+<li>特定状态的行为是耦合的；</li>
+<li>State 变量可以被共享；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>会造成子类变多；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li><p>状态不多，状态转移也简单，但触发状态后执行逻辑复杂；</p>
+</li>
+<li><p>一个对象的行为取决于它的状态，并且必须在运行时根据状态改变行为；</p>
+</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月4日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Context &#123;
+	request()
+&#125;
+
+class State &#123;
+	&lt;&lt;interface&gt;&gt;
+	handle()
+&#125;
+
+class ConcreteStateA &#123;
+	handle()
+&#125;
+
+class ConcreteStateB &#123;
+	handle()
+&#125;
+
+Context o.. State
+State &lt;|.. ConcreteStateA
+State &lt;|.. ConcreteStateB
+
+Context &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><ul>
+<li>维护一个 ConcreteState 对象实例，定义为当前状态；</li>
+<li>定义一个方法，用来对状态进行转移；</li>
+</ul>
+<h2 id="State"><a href="#State" class="headerlink" title="State"></a>State</h2><ul>
+<li>定义封装一个与特定状态有关的行为；</li>
+</ul>
+<h2 id="ConcreteState"><a href="#ConcreteState" class="headerlink" title="ConcreteState"></a>ConcreteState</h2><ul>
+<li>State 接口的实现；</li>
+</ul>
+<h2 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ul>
+<li>Client 只需要配置一个 Context，剩下的由 Context 中的方法驱动；</li>
+<li>Context 和 ConcreteState 都可以决定状态的后继者，以及转换条件；</li>
+</ul>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>享元模式：解释了何时以及怎样共享状态对象</li>
+<li>单例模式：状态对象通常是单例的；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>分支逻辑法用于实现简单状态机；</li>
+<li>查表法用于处理状态多，但业务简单的场景；通过二维数组来表示状态转移图，能极大地提高代码的可读性和可维护性；</li>
+<li>像游戏这种比较复杂的状态机，包含的状态比较多，我优先推荐使用查表法，而状态模式会引入非常多的状态类，会导致代码比较难维护。相反，像电商下单、外卖下单这种类型的状态机，它们的状态并不多，状态转移也比较简单，但事件触发执行的动作包含的业务逻辑可能会比较复杂，所以，更加推荐使用状态模式来实现。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/state/state_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/state/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>备忘录模式</title>
+    <url>/2023/05/05/behavioral-memento/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，以便于恢复到原先保存的状态。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>备忘录只能由 Originator 来创建，保护封装边界；</li>
+<li>简化了 Originator；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>使用备忘录代价可能很高；</li>
+<li>一些语言难以保证只有 Originator 访问 Memento；</li>
+<li>维护 Memento 有潜在代价；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>需要保存一个对象的状态，便于恢复到原先保存的状态；</li>
+<li>放丢失、撤销和恢复；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月7日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+class Originator &#123;
+	State state
+	setMemento(Memento memento)
+	createMemento() Memento
+&#125;
+
+class Memento &#123;
+	State state
+	getState()
+	setState()
+&#125;
+
+Originator &lt;-- Memento
+
+class Caretaker &#123;
+	
+&#125;
+Caretaker o-- Memento
+
+Originator &lt;-- Client
+Caretaker &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Memento"><a href="#Memento" class="headerlink" title="Memento"></a>Memento</h2><ul>
+<li>保存 Originator 中的内部状态；</li>
+<li>防止 Originator 意外的其他对象访问；</li>
+</ul>
+<h2 id="Originator"><a href="#Originator" class="headerlink" title="Originator"></a>Originator</h2><ul>
+<li>用来创建一个 Memento；</li>
+<li>用来恢复内部状态；</li>
+</ul>
+<h2 id="Caretaker"><a href="#Caretaker" class="headerlink" title="Caretaker"></a>Caretaker</h2><ul>
+<li>负责保存 Memento；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 创建一个 Memento，并使用 Originator 保存到 Caretaker 中；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>命令模式：可以使用备忘录来为可撤销的操作维护状态；</li>
+<li>迭代模式：备忘录模式可用于迭代；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>备忘录模式更侧重于代码的设计和实现，备份更侧重架构设计或产品设计；</li>
+<li>大对象的备份可能只备份必要的恢复信息，结合最新的数据来恢复；或者，使用全量备份和增量备份相结合，低频全量备份，高频增量备份，两者结合来做恢复；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/memento/memento_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/main/java/behavioral/memento/Client.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>观察者模式</title>
     <url>/2023/05/02/behavioral-observer/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>定义对象间的一对多关系，当一个对象的状态发生改变时，所有依赖与它的对象都得到通知并自动被更新。</p>
@@ -225,21 +396,17 @@ Observer &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>备忘录模式</title>
-    <url>/2023/05/05/behavioral-memento/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，以便于恢复到原先保存的状态。</p>
+    <title>模板方法模式</title>
+    <url>/2023/04/29/behavioral-template/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>备忘录只能由 Originator 来创建，保护封装边界；</li>
-<li>简化了 Originator；</li>
+<li>实现了反转控制；</li>
+<li>给子类提供了扩展的钩子 hook；</li>
 </ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>使用备忘录代价可能很高；</li>
-<li>一些语言难以保证只有 Originator 访问 Memento；</li>
-<li>维护 Memento 有潜在代价；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>需要保存一个对象的状态，便于恢复到原先保存的状态；</li>
-<li>放丢失、撤销和恢复；</li>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>实现算法不变的部分，将可变行为留给子类来实现；</li>
+<li>子类中公共的行为被提取到父类，避免代码重复；</li>
+<li>限制子类扩展</li>
 </ol>
 <span id="more"></span>
 
@@ -251,145 +418,49 @@ Observer &lt;-- Client</code></pre>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">2023年5月7日</td>
+<td align="center">2023年4月29日</td>
 <td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月1日</td>
+<td align="center">添加 Go 语言实现</td>
 </tr>
 </tbody></table>
 <h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Originator &#123;
-	State state
-	setMemento(Memento memento)
-	createMemento() Memento
+
+class AbstractClass &#123;
+	&lt;&lt;Abstract&gt;&gt;
+	template()
+	stepX()*
 &#125;
 
-class Memento &#123;
-	State state
-	getState()
-	setState()
+class ConcreteClass &#123;
+	stepX()
 &#125;
 
-Originator &lt;-- Memento
+AbstractClass &lt;|-- ConcreteClass
+AbstractClass &lt;-- Client</code></pre>
 
-class Caretaker &#123;
-	
-&#125;
-Caretaker o-- Memento
-
-Originator &lt;-- Client
-Caretaker &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Memento"><a href="#Memento" class="headerlink" title="Memento"></a>Memento</h2><ul>
-<li>保存 Originator 中的内部状态；</li>
-<li>防止 Originator 意外的其他对象访问；</li>
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="AbstractClass"><a href="#AbstractClass" class="headerlink" title="AbstractClass"></a>AbstractClass</h2><ul>
+<li>定义算法骨架，将具体步骤留到子类；</li>
 </ul>
-<h2 id="Originator"><a href="#Originator" class="headerlink" title="Originator"></a>Originator</h2><ul>
-<li>用来创建一个 Memento；</li>
-<li>用来恢复内部状态；</li>
-</ul>
-<h2 id="Caretaker"><a href="#Caretaker" class="headerlink" title="Caretaker"></a>Caretaker</h2><ul>
-<li>负责保存 Memento；</li>
+<h2 id="ConcreteClass"><a href="#ConcreteClass" class="headerlink" title="ConcreteClass"></a>ConcreteClass</h2><ul>
+<li>继承 AbstractClass，实现具体步骤；</li>
 </ul>
 <h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
 <h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>Client 创建一个 Memento，并使用 Originator 保存到 Caretaker 中；</li>
+<li>client 通常使用 AbstractClass 引用来创建一个 ConcreteClass 实例；</li>
+<li>client 调用 AbstractClass 中的 template 方法；</li>
 </ol>
 <h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>命令模式：可以使用备忘录来为可撤销的操作维护状态；</li>
-<li>迭代模式：备忘录模式可用于迭代；</li>
+<li>工厂方法：常被模板方法调用；</li>
+<li>策略模式：模板方法使用继承来改变算法的一部分；但策略模式是使用委托来改变整个算法；</li>
 </ul>
 <h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>备忘录模式更侧重于代码的设计和实现，备份更侧重架构设计或产品设计；</li>
-<li>大对象的备份可能只备份必要的恢复信息，结合最新的数据来恢复；或者，使用全量备份和增量备份相结合，低频全量备份，高频增量备份，两者结合来做恢复；</li>
+<li>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</li>
 </ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/memento/memento_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/main/java/behavioral/memento/Client.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>状态模式</title>
-    <url>/2023/05/04/behavioral-state/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>当一个对象的内在状态改变时，允许改变其行为。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>状态转换是显示的；</li>
-<li>特定状态的行为是耦合的；</li>
-<li>State 变量可以被共享；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>会造成子类变多；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li><p>状态不多，状态转移也简单，但触发状态后执行逻辑复杂；</p>
-</li>
-<li><p>一个对象的行为取决于它的状态，并且必须在运行时根据状态改变行为；</p>
-</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年5月4日</td>
-<td align="center">初始化</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-class Context &#123;
-	request()
-&#125;
-
-class State &#123;
-	&lt;&lt;interface&gt;&gt;
-	handle()
-&#125;
-
-class ConcreteStateA &#123;
-	handle()
-&#125;
-
-class ConcreteStateB &#123;
-	handle()
-&#125;
-
-Context o.. State
-State &lt;|.. ConcreteStateA
-State &lt;|.. ConcreteStateB
-
-Context &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><ul>
-<li>维护一个 ConcreteState 对象实例，定义为当前状态；</li>
-<li>定义一个方法，用来对状态进行转移；</li>
-</ul>
-<h2 id="State"><a href="#State" class="headerlink" title="State"></a>State</h2><ul>
-<li>定义封装一个与特定状态有关的行为；</li>
-</ul>
-<h2 id="ConcreteState"><a href="#ConcreteState" class="headerlink" title="ConcreteState"></a>ConcreteState</h2><ul>
-<li>State 接口的实现；</li>
-</ul>
-<h2 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ul>
-<li>Client 只需要配置一个 Context，剩下的由 Context 中的方法驱动；</li>
-<li>Context 和 ConcreteState 都可以决定状态的后继者，以及转换条件；</li>
-</ul>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>享元模式：解释了何时以及怎样共享状态对象</li>
-<li>单例模式：状态对象通常是单例的；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>分支逻辑法用于实现简单状态机；</li>
-<li>查表法用于处理状态多，但业务简单的场景；通过二维数组来表示状态转移图，能极大地提高代码的可读性和可维护性；</li>
-<li>像游戏这种比较复杂的状态机，包含的状态比较多，我优先推荐使用查表法，而状态模式会引入非常多的状态类，会导致代码比较难维护。相反，像电商下单、外卖下单这种类型的状态机，它们的状态并不多，状态转移也比较简单，但事件触发执行的动作包含的业务逻辑可能会比较复杂，所以，更加推荐使用状态模式来实现。</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/state/state_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/state/ClientTest.java">java</a></p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/template/template_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/template/ClientTest.java">java</a></p>
 ]]></content>
       <tags>
         <tag>design pattern</tag>
@@ -496,77 +567,6 @@ Strategy &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>模板方法模式</title>
-    <url>/2023/04/29/behavioral-template/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>模板方法(Template Method)模式，定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重新定义该算法的某些特定步骤。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>实现了反转控制；</li>
-<li>给子类提供了扩展的钩子 hook；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>实现算法不变的部分，将可变行为留给子类来实现；</li>
-<li>子类中公共的行为被提取到父类，避免代码重复；</li>
-<li>限制子类扩展</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月29日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年5月1日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class AbstractClass &#123;
-	&lt;&lt;Abstract&gt;&gt;
-	template()
-	stepX()*
-&#125;
-
-class ConcreteClass &#123;
-	stepX()
-&#125;
-
-AbstractClass &lt;|-- ConcreteClass
-AbstractClass &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="AbstractClass"><a href="#AbstractClass" class="headerlink" title="AbstractClass"></a>AbstractClass</h2><ul>
-<li>定义算法骨架，将具体步骤留到子类；</li>
-</ul>
-<h2 id="ConcreteClass"><a href="#ConcreteClass" class="headerlink" title="ConcreteClass"></a>ConcreteClass</h2><ul>
-<li>继承 AbstractClass，实现具体步骤；</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>client 通常使用 AbstractClass 引用来创建一个 ConcreteClass 实例；</li>
-<li>client 调用 AbstractClass 中的 template 方法；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>工厂方法：常被模板方法调用；</li>
-<li>策略模式：模板方法使用继承来改变算法的一部分；但策略模式是使用委托来改变整个算法；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>模板方法模式通过把不变行为搬移到超类，子类只用实现自己的逻辑来达到代码复用。</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/behavioral/template/template_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/behavioral/template/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>单体架构的目录设计</title>
     <url>/2023/05/24/best-practice-dir/</url>
     <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">├─api							# 前后端交互</span><br><span class="line">│  ├─advice							# 全局异常处理</span><br><span class="line">│  ├─controller						# 控制器</span><br><span class="line">│  ├─handler						# 自定义返回值处理</span><br><span class="line">│  └─rest							# 请求与响应</span><br><span class="line">│      ├─group							# 分组验证</span><br><span class="line">│      ├─req							# 请求</span><br><span class="line">│      └─vo								# 响应</span><br><span class="line">│          └─convert						# vo 转换器</span><br><span class="line">├─config						# 配置</span><br><span class="line">├─enums							# 枚举</span><br><span class="line">├─exception						# 异常</span><br><span class="line">├─model							# 数据模型</span><br><span class="line">│  └─handler						# 与 db 有关的处理器</span><br><span class="line">├─repository					# 存储接口</span><br><span class="line">│  ├─impl							# 存储实现</span><br><span class="line">│  └─mapper							# 存储 mapper</span><br><span class="line">├─service						# 实现接口</span><br><span class="line">│  ├─helper							# 实现 helper</span><br><span class="line">│  └─impl							# 具体实现</span><br><span class="line">└─util							# 工具类</span><br></pre></td></tr></table></figure>
@@ -653,22 +653,6 @@ AbstractClass &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>冒泡排序</title>
-    <url>/2023/05/03/bubble-sort/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>冒泡排序会从头开始依次比较 2 个相邻元素的大小，如果顺序错误就交换，直到没有相邻元素需要交换，即排序完成。每进行一次循环，就会有固定一个排序元素到末尾。</p>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>由于末尾是目标位置，所以不用放在循环中；</li>
-<li>使用 flag 来描述一次循环是否有需要交换的元素，如果没交换，说明已经有序，则不用接下来的循环。</li>
-</ul>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/bubble_sort_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/main/java/sort/BubbleSort.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>data structure and algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>建造者模式</title>
     <url>/2023/05/01/creational-builder/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个复杂对象的构建和表示分离，使得同样的构建过程可以创建出不同对象。</p>
@@ -730,6 +714,111 @@ Builder &lt;-- Client</code></pre>
 ]]></content>
       <tags>
         <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>冒泡排序</title>
+    <url>/2023/05/03/bubble-sort/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>冒泡排序会从头开始依次比较 2 个相邻元素的大小，如果顺序错误就交换，直到没有相邻元素需要交换，即排序完成。每进行一次循环，就会有固定一个排序元素到末尾。</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>由于末尾是目标位置，所以不用放在循环中；</li>
+<li>使用 flag 来描述一次循环是否有需要交换的元素，如果没交换，说明已经有序，则不用接下来的循环。</li>
+</ul>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/bubble_sort_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/main/java/sort/BubbleSort.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>data structure and algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>原型模式</title>
+    <url>/2023/04/28/creational-prototype/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个原型实例中创建另外一个相同对象，而不用知道创建细节。。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>运行时增加和删除对象；</li>
+<li>通过极少改变，创建新对象；</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
+<li>要使用深拷贝代替浅拷贝。循环依赖的问题可能使 clone 难以实现；</li>
+<li>Prototype 的每个子类都要实现 clone；</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
+<li>对象创建的数据需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取；</li>
+<li>对象创建成本大、不同对象大部分字段都相同。</li>
+</ul>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年4月28日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年4月30日</td>
+<td align="center">添加 Go 语言实现</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Prototype &#123;
+	&lt;&lt;interface&gt;&gt;
+	clone() Object
+&#125;
+
+class ConcretePrototype &#123;
+    clone() ConcretePrototype
+&#125;
+
+Prototype &lt;|.. ConcretePrototype
+
+Prototype &lt;-- Client</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Prototype-接口"><a href="#Prototype-接口" class="headerlink" title="Prototype 接口"></a>Prototype 接口</h2><ul>
+<li>声明一个克隆自身的接口。</li>
+</ul>
+<h2 id="ConcretePrototype-类"><a href="#ConcretePrototype-类" class="headerlink" title="ConcretePrototype 类"></a>ConcretePrototype 类</h2><ul>
+<li>Prototype 接口的实现。</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
+<li>客户端用来克隆自身</li>
+</ul>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>与抽象工厂（Abstract Factory）亦敌亦友；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ol>
+<li>使用深拷贝，除非有足够的理由才能选择浅拷贝；</li>
+</ol>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/prototype/prototype_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/prototype/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>20230515</title>
+    <url>/2023/05/15/essay-20230515/</url>
+    <content><![CDATA[<blockquote>
+<p>R.I.P @haoel</p>
+</blockquote>
+<p>来到上海的第 1000 天，是我在这座城市最难过的一天。</p>
+<p>如引言所见，”左耳朵耗子“陈皓老师突然去世，<a href="https://www.megaease.com/">MegaEase</a> 变成灰色，池大大也发微博确认，看来是真事，惊讶程度直逼科比。技术大佬不缺钱，当然要把革命的本钱照顾好，没想到是心梗，没认真对待身体实锤。</p>
+<p>正经说话的人有，阴阳怪气的也大有人在。我一直不理解，为什么互联网总充斥着各色各样的人和各种各样的奇怪言论。逝者安息和死者为大是基本常识吧！还有人用这件事开玩笑，也不知道居心何在。Peace &amp; Love</p>
+<p>16 年我在库尔勒，看了吴军老师的《AA 之 B》系列丛书，特别是《浪潮之巅》，下定决心今后投身互联网，遂回到石河子转入计科系。如果吴军老师是我的灯塔，那陈皓老师就是我的路标。《左耳听风之程序员练级攻略》是对我职业生涯影响最大的系列文章，我知道合格程序员要有自己的技术修养、技术积累到底到何种程度、软件设计究竟如何取舍等等。感谢他吧，我还是会加油的，同时要照顾好自己的身体。</p>
+<p>组内今天有同事晋升，也让我非常苦恼。被晋升的同事比我优秀，也更值得被晋升。如果让我来想和他差在哪里？1. 为人和善，和每一位同事都能相处融洽；2. 处理问题能力强。针对与同事相处融洽这点，我好像只欣赏自己看上的人，对一些普通同事，太苛责。还有就是自己爱骂人，虽然不是恶意。针对处理问题能力强这点，倒不是说我不行，而是我能寻迅速解决一些完全是自己掌控下出现的问题，非自己掌握的情况下，就非常便秘。进一步来说，自己或许擅长从流程和软件完整生命周期内，思考和解决问题，而不擅长投入到细碎和具体的业务中。我总是希望用一些方式，预防问题发生，减少问题的发生，而不是修复问题。在我看来，这是“战术上的勤奋”掩盖“战略上的懒惰”。难道公司需要有战斗力的员工，而非我这种从研发效率方面解决问题的人？</p>
+<p>刚和父亲打了电话，聊了我的想法。父亲说了一些不痛不痒的话后，转头又给生哥拨过去，他的事说完到我这儿，就要做饭了。匆匆挂了电话，我认真思考起来：商业才能让技术产生价值。我想用自己掌握的技术，为社会创造出一丁点儿的贡献也好。努力地成长为 T 型的人，学习软件工程，实践软件架构，接触 React、Vue 和 Flutter，都是为了让自己能一个人承担起完整商业产品。这都是沉没成本。</p>
+<p>可惜，不能说给某人听了。</p>
+]]></content>
+      <tags>
+        <tag>essay</tag>
       </tags>
   </entry>
   <entry>
@@ -921,77 +1010,6 @@ Creator &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>原型模式</title>
-    <url>/2023/04/28/creational-prototype/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>原型模式是从一个原型实例中创建另外一个相同对象，而不用知道创建细节。。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>运行时增加和删除对象；</li>
-<li>通过极少改变，创建新对象；</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ol>
-<li>要使用深拷贝代替浅拷贝。循环依赖的问题可能使 clone 难以实现；</li>
-<li>Prototype 的每个子类都要实现 clone；</li>
-</ol>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ul>
-<li>对象创建的数据需要从 RPC、网络、数据库、文件系统等非常慢速的 IO 中读取；</li>
-<li>对象创建成本大、不同对象大部分字段都相同。</li>
-</ul>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月28日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年4月30日</td>
-<td align="center">添加 Go 语言实现</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Prototype &#123;
-	&lt;&lt;interface&gt;&gt;
-	clone() Object
-&#125;
-
-class ConcretePrototype &#123;
-    clone() ConcretePrototype
-&#125;
-
-Prototype &lt;|.. ConcretePrototype
-
-Prototype &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Prototype-接口"><a href="#Prototype-接口" class="headerlink" title="Prototype 接口"></a>Prototype 接口</h2><ul>
-<li>声明一个克隆自身的接口。</li>
-</ul>
-<h2 id="ConcretePrototype-类"><a href="#ConcretePrototype-类" class="headerlink" title="ConcretePrototype 类"></a>ConcretePrototype 类</h2><ul>
-<li>Prototype 接口的实现。</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><ul>
-<li>客户端用来克隆自身</li>
-</ul>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>与抽象工厂（Abstract Factory）亦敌亦友；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ol>
-<li>使用深拷贝，除非有足够的理由才能选择浅拷贝；</li>
-</ol>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/prototype/prototype_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/prototype/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>单例模式</title>
     <url>/2023/05/08/creational-singleton/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
@@ -1047,6 +1065,122 @@ Singleton &lt;-- Client</code></pre>
 ]]></content>
       <tags>
         <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Typora 中 Mermaid 的使用</title>
+    <url>/2023/05/01/mermaid/</url>
+    <content><![CDATA[<p>Mermaid 可以在 Markdown 中用文本和代码的方式创建可视化图表。包括但不限于：流程图（Flowchart）、时序图（Sequence Diagram）、类图（Class Diagram）、ER 图（Entity-Relationship Diagram）等。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
+<li>使用文本和代码的方式绘图，无需关心元素排布，JS 引擎会自动渲染；</li>
+<li>极客属性；</li>
+<li>广泛。有 md 文件就可以绘图；</li>
+</ul>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ul>
+<li>写图需要配合文档，曲线高；</li>
+<li>不能自定义元素排布；</li>
+</ul>
+<h1 id="如何开始"><a href="#如何开始" class="headerlink" title="如何开始"></a>如何开始</h1><ol>
+<li>明确是否使用 mermaid 写图；</li>
+<li>决定图表类型，打开 <a href="https://mermaid.js.org/config/Tutorials.html">mermaid tutorials</a> 对应图表文档；</li>
+<li>复制一份官方图表模板；</li>
+<li>查看官网的语法样式，选择自己需要的进行绘制；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月1日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月16日</td>
+<td align="center">修改标题</td>
+</tr>
+</tbody></table>
+<h1 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h1><h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p><a href="https://mermaid.js.org/syntax/flowchart.html">here</a></p>
+<h2 id="声明和方向"><a href="#声明和方向" class="headerlink" title="声明和方向"></a>声明和方向</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">flowchart LR</span><br></pre></td></tr></table></figure>
+
+<h2 id="节点形状"><a href="#节点形状" class="headerlink" title="节点形状"></a>节点形状</h2><p><a href="https://mermaid.js.org/syntax/flowchart.html#node-shapes">here</a></p>
+<h2 id="节点连接"><a href="#节点连接" class="headerlink" title="节点连接"></a>节点连接</h2><p><a href="https://mermaid.js.org/syntax/flowchart.html#links-between-nodes">here</a></p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><pre><code class="highlight mermaid">flowchart TD
+    A[Christmas] --&gt;|Get money| B(Go shopping)
+    B --&gt; C&#123;Let me think&#125;
+    C --&gt;|One| D[Laptop]
+    C --&gt;|Two| E[iPhone]
+    C --&gt;|Three| F[fa:fa-car Car]</code></pre>
+
+<h1 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h1><h2 id="文档-1"><a href="#文档-1" class="headerlink" title="文档"></a>文档</h2><p><a href="https://mermaid.js.org/syntax/sequenceDiagram.html">here</a></p>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br></pre></td></tr></table></figure>
+
+<h2 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">participant</span><br></pre></td></tr></table></figure>
+
+<h2 id="消息连接"><a href="#消息连接" class="headerlink" title="消息连接"></a>消息连接</h2><p><a href="https://mermaid.js.org/syntax/sequenceDiagram.html#messages">here</a></p>
+<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><pre><code class="highlight mermaid">sequenceDiagram
+    Alice-&gt;&gt;+John: Hello John, how are you?
+    Alice-&gt;&gt;+John: John, can you hear me?
+    John--&gt;&gt;-Alice: Hi Alice, I can hear you!
+    John--&gt;&gt;-Alice: I feel great!</code></pre>
+
+
+
+
+
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><h2 id="文档-2"><a href="#文档-2" class="headerlink" title="文档"></a>文档</h2><p><a href="https://mermaid.js.org/syntax/classDiagram.html">here</a></p>
+<h2 id="声明-1"><a href="#声明-1" class="headerlink" title="声明"></a>声明</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br></pre></td></tr></table></figure>
+
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">    +int age</span><br><span class="line">    +String gender</span><br><span class="line">    +isMammal()</span><br><span class="line">    +mate()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="接口和抽象类"><a href="#接口和抽象类" class="headerlink" title="接口和抽象类"></a>接口和抽象类</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">class Runnable &#123;</span><br><span class="line">	&lt;&lt;interface&gt;&gt;</span><br><span class="line">	run() void</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class BaseEntity &#123;</span><br><span class="line">	&lt;&lt;abstract&gt;&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h2><p><a href="https://mermaid.js.org/syntax/classDiagram.html#defining-relationship">here</a></p>
+<h2 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h2><pre><code class="highlight mermaid">classDiagram
+	class Animal &#123;
+		+int age
+		+String gender
+		+isMammal()
+		+mate()
+	&#125;
+    class Duck&#123;
+      +String beakColor
+      +swim()
+      +quack()
+    &#125;
+    class Fish&#123;
+      -int sizeInFeet
+      -canEat()
+    &#125;
+    class Zebra&#123;
+      +bool is_wild
+      +run()
+    &#125;
+    Animal &lt;|-- Duck
+    Animal &lt;|-- Fish
+    Animal &lt;|-- Zebra</code></pre>
+
+<h1 id="ER-图"><a href="#ER-图" class="headerlink" title="ER 图"></a>ER 图</h1><h2 id="文档-3"><a href="#文档-3" class="headerlink" title="文档"></a>文档</h2><p><a href="https://mermaid.js.org/syntax/entityRelationshipDiagram.html">here</a></p>
+<h2 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h2><pre><code class="highlight mermaid">erDiagram
+    CUSTOMER &#125;|..|&#123; DELIVERY-ADDRESS : has
+    CUSTOMER ||--o&#123; ORDER : places
+    CUSTOMER ||--o&#123; INVOICE : &quot;liable for&quot;
+    DELIVERY-ADDRESS ||--o&#123; ORDER : receives
+    INVOICE ||--|&#123; ORDER : covers
+    ORDER ||--|&#123; ORDER-ITEM : includes
+    PRODUCT-CATEGORY ||--|&#123; PRODUCT : contains
+    PRODUCT ||--o&#123; ORDER-ITEM : &quot;ordered in&quot;</code></pre>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://mermaid.js.org/">mermaid</a></p>
+<p><a href="https://mermaid.js.org/config/Tutorials.html">tutorials</a></p>
+<p><a href="https://mermaid.live/edit">live editor</a></p>
+]]></content>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -1533,24 +1667,6 @@ Singleton &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>20230515</title>
-    <url>/2023/05/15/essay-20230515/</url>
-    <content><![CDATA[<blockquote>
-<p>R.I.P @haoel</p>
-</blockquote>
-<p>来到上海的第 1000 天，是我在这座城市最难过的一天。</p>
-<p>如引言所见，”左耳朵耗子“陈皓老师突然去世，<a href="https://www.megaease.com/">MegaEase</a> 变成灰色，池大大也发微博确认，看来是真事，惊讶程度直逼科比。技术大佬不缺钱，当然要把革命的本钱照顾好，没想到是心梗，没认真对待身体实锤。</p>
-<p>正经说话的人有，阴阳怪气的也大有人在。我一直不理解，为什么互联网总充斥着各色各样的人和各种各样的奇怪言论。逝者安息和死者为大是基本常识吧！还有人用这件事开玩笑，也不知道居心何在。Peace &amp; Love</p>
-<p>16 年我在库尔勒，看了吴军老师的《AA 之 B》系列丛书，特别是《浪潮之巅》，下定决心今后投身互联网，遂回到石河子转入计科系。如果吴军老师是我的灯塔，那陈皓老师就是我的路标。《左耳听风之程序员练级攻略》是对我职业生涯影响最大的系列文章，我知道合格程序员要有自己的技术修养、技术积累到底到何种程度、软件设计究竟如何取舍等等。感谢他吧，我还是会加油的，同时要照顾好自己的身体。</p>
-<p>组内今天有同事晋升，也让我非常苦恼。被晋升的同事比我优秀，也更值得被晋升。如果让我来想和他差在哪里？1. 为人和善，和每一位同事都能相处融洽；2. 处理问题能力强。针对与同事相处融洽这点，我好像只欣赏自己看上的人，对一些普通同事，太苛责。还有就是自己爱骂人，虽然不是恶意。针对处理问题能力强这点，倒不是说我不行，而是我能寻迅速解决一些完全是自己掌控下出现的问题，非自己掌握的情况下，就非常便秘。进一步来说，自己或许擅长从流程和软件完整生命周期内，思考和解决问题，而不擅长投入到细碎和具体的业务中。我总是希望用一些方式，预防问题发生，减少问题的发生，而不是修复问题。在我看来，这是“战术上的勤奋”掩盖“战略上的懒惰”。难道公司需要有战斗力的员工，而非我这种从研发效率方面解决问题的人？</p>
-<p>刚和父亲打了电话，聊了我的想法。父亲说了一些不痛不痒的话后，转头又给生哥拨过去，他的事说完到我这儿，就要做饭了。匆匆挂了电话，我认真思考起来：商业才能让技术产生价值。我想用自己掌握的技术，为社会创造出一丁点儿的贡献也好。努力地成长为 T 型的人，学习软件工程，实践软件架构，接触 React、Vue 和 Flutter，都是为了让自己能一个人承担起完整商业产品。这都是沉没成本。</p>
-<p>可惜，不能说给某人听了。</p>
-]]></content>
-      <tags>
-        <tag>essay</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>插入排序</title>
     <url>/2023/05/09/insert-sort/</url>
     <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>将一个元素插入到已经有序的列表中，从而完成排序。</p>
@@ -1559,299 +1675,6 @@ Singleton &lt;-- Client</code></pre>
 <h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/insert_sort_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/InsertSortTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>data structure and algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Typora 中 Mermaid 的使用</title>
-    <url>/2023/05/01/mermaid/</url>
-    <content><![CDATA[<p>Mermaid 可以在 Markdown 中用文本和代码的方式创建可视化图表。包括但不限于：流程图（Flowchart）、时序图（Sequence Diagram）、类图（Class Diagram）、ER 图（Entity-Relationship Diagram）等。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ul>
-<li>使用文本和代码的方式绘图，无需关心元素排布，JS 引擎会自动渲染；</li>
-<li>极客属性；</li>
-<li>广泛。有 md 文件就可以绘图；</li>
-</ul>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><ul>
-<li>写图需要配合文档，曲线高；</li>
-<li>不能自定义元素排布；</li>
-</ul>
-<h1 id="如何开始"><a href="#如何开始" class="headerlink" title="如何开始"></a>如何开始</h1><ol>
-<li>明确是否使用 mermaid 写图；</li>
-<li>决定图表类型，打开 <a href="https://mermaid.js.org/config/Tutorials.html">mermaid tutorials</a> 对应图表文档；</li>
-<li>复制一份官方图表模板；</li>
-<li>查看官网的语法样式，选择自己需要的进行绘制；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年5月1日</td>
-<td align="center">初始化</td>
-</tr>
-<tr>
-<td align="center">2023年5月16日</td>
-<td align="center">修改标题</td>
-</tr>
-</tbody></table>
-<h1 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h1><h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p><a href="https://mermaid.js.org/syntax/flowchart.html">here</a></p>
-<h2 id="声明和方向"><a href="#声明和方向" class="headerlink" title="声明和方向"></a>声明和方向</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">flowchart LR</span><br></pre></td></tr></table></figure>
-
-<h2 id="节点形状"><a href="#节点形状" class="headerlink" title="节点形状"></a>节点形状</h2><p><a href="https://mermaid.js.org/syntax/flowchart.html#node-shapes">here</a></p>
-<h2 id="节点连接"><a href="#节点连接" class="headerlink" title="节点连接"></a>节点连接</h2><p><a href="https://mermaid.js.org/syntax/flowchart.html#links-between-nodes">here</a></p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><pre><code class="highlight mermaid">flowchart TD
-    A[Christmas] --&gt;|Get money| B(Go shopping)
-    B --&gt; C&#123;Let me think&#125;
-    C --&gt;|One| D[Laptop]
-    C --&gt;|Two| E[iPhone]
-    C --&gt;|Three| F[fa:fa-car Car]</code></pre>
-
-<h1 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h1><h2 id="文档-1"><a href="#文档-1" class="headerlink" title="文档"></a>文档</h2><p><a href="https://mermaid.js.org/syntax/sequenceDiagram.html">here</a></p>
-<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">sequenceDiagram</span><br></pre></td></tr></table></figure>
-
-<h2 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">participant</span><br></pre></td></tr></table></figure>
-
-<h2 id="消息连接"><a href="#消息连接" class="headerlink" title="消息连接"></a>消息连接</h2><p><a href="https://mermaid.js.org/syntax/sequenceDiagram.html#messages">here</a></p>
-<h2 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h2><pre><code class="highlight mermaid">sequenceDiagram
-    Alice-&gt;&gt;+John: Hello John, how are you?
-    Alice-&gt;&gt;+John: John, can you hear me?
-    John--&gt;&gt;-Alice: Hi Alice, I can hear you!
-    John--&gt;&gt;-Alice: I feel great!</code></pre>
-
-
-
-
-
-<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><h2 id="文档-2"><a href="#文档-2" class="headerlink" title="文档"></a>文档</h2><p><a href="https://mermaid.js.org/syntax/classDiagram.html">here</a></p>
-<h2 id="声明-1"><a href="#声明-1" class="headerlink" title="声明"></a>声明</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br></pre></td></tr></table></figure>
-
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">class Animal &#123;</span><br><span class="line">    +int age</span><br><span class="line">    +String gender</span><br><span class="line">    +isMammal()</span><br><span class="line">    +mate()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="接口和抽象类"><a href="#接口和抽象类" class="headerlink" title="接口和抽象类"></a>接口和抽象类</h2><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">class Runnable &#123;</span><br><span class="line">	&lt;&lt;interface&gt;&gt;</span><br><span class="line">	run() void</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class BaseEntity &#123;</span><br><span class="line">	&lt;&lt;abstract&gt;&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h2><p><a href="https://mermaid.js.org/syntax/classDiagram.html#defining-relationship">here</a></p>
-<h2 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h2><pre><code class="highlight mermaid">classDiagram
-	class Animal &#123;
-		+int age
-		+String gender
-		+isMammal()
-		+mate()
-	&#125;
-    class Duck&#123;
-      +String beakColor
-      +swim()
-      +quack()
-    &#125;
-    class Fish&#123;
-      -int sizeInFeet
-      -canEat()
-    &#125;
-    class Zebra&#123;
-      +bool is_wild
-      +run()
-    &#125;
-    Animal &lt;|-- Duck
-    Animal &lt;|-- Fish
-    Animal &lt;|-- Zebra</code></pre>
-
-<h1 id="ER-图"><a href="#ER-图" class="headerlink" title="ER 图"></a>ER 图</h1><h2 id="文档-3"><a href="#文档-3" class="headerlink" title="文档"></a>文档</h2><p><a href="https://mermaid.js.org/syntax/entityRelationshipDiagram.html">here</a></p>
-<h2 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h2><pre><code class="highlight mermaid">erDiagram
-    CUSTOMER &#125;|..|&#123; DELIVERY-ADDRESS : has
-    CUSTOMER ||--o&#123; ORDER : places
-    CUSTOMER ||--o&#123; INVOICE : &quot;liable for&quot;
-    DELIVERY-ADDRESS ||--o&#123; ORDER : receives
-    INVOICE ||--|&#123; ORDER : covers
-    ORDER ||--|&#123; ORDER-ITEM : includes
-    PRODUCT-CATEGORY ||--|&#123; PRODUCT : contains
-    PRODUCT ||--o&#123; ORDER-ITEM : &quot;ordered in&quot;</code></pre>
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://mermaid.js.org/">mermaid</a></p>
-<p><a href="https://mermaid.js.org/config/Tutorials.html">tutorials</a></p>
-<p><a href="https://mermaid.live/edit">live editor</a></p>
-]]></content>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>产品第一课</title>
-    <url>/2023/05/09/product-first/</url>
-    <content><![CDATA[<h1 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h1><h2 id="产品本质"><a href="#产品本质" class="headerlink" title="产品本质"></a>产品本质</h2><p>产品本质（也说产品存在价值）是能够解决”目标用户”的”问题“。</p>
-<p>To C 的产品解决自然人的需求，满足“人”欲，而 To B 的产品满足组织需求，自然人的间接需求，满足“组织”欲。</p>
-<p>”人“欲：</p>
-<p>”组织“欲：节省成本、提升效率、资源整合 </p>
-<h2 id="To-C-和-To-B-的差异"><a href="#To-C-和-To-B-的差异" class="headerlink" title="To C 和 To B 的差异"></a>To C 和 To B 的差异</h2><h3 id="目标用户"><a href="#目标用户" class="headerlink" title="目标用户"></a>目标用户</h3><table>
-<thead>
-<tr>
-<th align="center">To C</th>
-<th align="center">To B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">感性</td>
-<td align="center">理性</td>
-</tr>
-<tr>
-<td align="center">注重体验<br />简单易用，学习成本低</td>
-<td align="center">注重效率<br />效率 &gt; 体验</td>
-</tr>
-<tr>
-<td align="center">角色单一</td>
-<td align="center">决策者：关注效率和成本<br />管理者：关注管理职责和工作产出<br />员工：关注能否减轻工作负担</td>
-</tr>
-</tbody></table>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><table>
-<thead>
-<tr>
-<th align="center">To C</th>
-<th align="center">To B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">碎片化<br />时间不固定、随机性强</td>
-<td align="center">固定时间<br />根据工作流程、职责来使用</td>
-</tr>
-<tr>
-<td align="center">生活使用</td>
-<td align="center">工作使用</td>
-</tr>
-</tbody></table>
-<h3 id="产品思维"><a href="#产品思维" class="headerlink" title="产品思维"></a>产品思维</h3><table>
-<thead>
-<tr>
-<th align="center">To C</th>
-<th align="center">To B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">追求流量<br />流量优先，提供变现基础</td>
-<td align="center">追求效率<br />目的是简化工作，提高效率</td>
-</tr>
-</tbody></table>
-<h3 id="业务功能"><a href="#业务功能" class="headerlink" title="业务功能"></a>业务功能</h3><table>
-<thead>
-<tr>
-<th align="center">To C</th>
-<th align="center">To B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">核心功能为主<br />围绕核心功能建立</td>
-<td align="center">多功能同等重要<br />工作流程没有主次</td>
-</tr>
-</tbody></table>
-<h3 id="使用复杂度"><a href="#使用复杂度" class="headerlink" title="使用复杂度"></a>使用复杂度</h3><table>
-<thead>
-<tr>
-<th align="center">To C</th>
-<th align="center">To B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">业务简单</td>
-<td align="center">业务复杂场景多</td>
-</tr>
-<tr>
-<td align="center">简单易用</td>
-<td align="center">需要学习</td>
-</tr>
-<tr>
-<td align="center">生命周期短</td>
-<td align="center">生命周期长</td>
-</tr>
-</tbody></table>
-<h3 id="切换成本"><a href="#切换成本" class="headerlink" title="切换成本"></a>切换成本</h3><table>
-<thead>
-<tr>
-<th align="center">To C</th>
-<th align="center">To B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">同质化、忠诚度低</td>
-<td align="center">定制化、上手难度高</td>
-</tr>
-<tr>
-<td align="center">切换成本低</td>
-<td align="center">切换成本高</td>
-</tr>
-</tbody></table>
-<h3 id="运营程度"><a href="#运营程度" class="headerlink" title="运营程度"></a>运营程度</h3><table>
-<thead>
-<tr>
-<th align="center">To C</th>
-<th align="center">To B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">重运营</td>
-<td align="center">重运维</td>
-</tr>
-<tr>
-<td align="center">重视拉新、促活</td>
-<td align="center">重视系统稳定、可靠</td>
-</tr>
-<tr>
-<td align="center">用户体验</td>
-<td align="center">功能全面</td>
-</tr>
-</tbody></table>
-<h3 id="商业模式"><a href="#商业模式" class="headerlink" title="商业模式"></a>商业模式</h3><table>
-<thead>
-<tr>
-<th align="center">To C</th>
-<th align="center">To B</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">羊毛出在狗身上</td>
-<td align="center">一手交钱一手交货</td>
-</tr>
-<tr>
-<td align="center">内容付费<br />广告付费<br />平台抽佣<br />增值服务</td>
-<td align="center">功能付费<br />人数付费<br />需求付费<br />维护付费</td>
-</tr>
-</tbody></table>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ol>
-<li><p>企业内部协同（财务系统等）</p>
-<p>内部专业人员使用；</p>
-<p>定制功能多；</p>
-<p>部署成本高；</p>
-</li>
-<li><p>对外标准产品（钉钉等）</p>
-<p>行业使用广泛；</p>
-<p>定制功能少；</p>
-<p>类似于 C 端；</p>
-</li>
-<li><p>中后台产品（阿里云等）</p>
-<p>没有真正意义的使用者；</p>
-<p>业务 + 技术 + 现状 + 规划</p>
-</li>
-</ol>
-<h1 id="依据"><a href="#依据" class="headerlink" title="依据"></a>依据</h1><h1 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h1><h1 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h1>]]></content>
-      <tags>
-        <tag>product</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>队列</title>
-    <url>/2023/05/12/queue/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><ul>
-<li>只能在末尾插入数据；</li>
-<li>只能在开头读取数据；</li>
-<li>只能移除开头的数据；</li>
-</ul>
-<p>总之，栈是一种先进先出的数据结构。</p>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>队列可以保证请求的顺序，因此可以用来处理异步请求。此外，也能模拟有序事件的处理。</p>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/queue/queue_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/queue/PrinterTest.java">java</a></p>
 ]]></content>
       <tags>
         <tag>data structure and algorithm</tag>
@@ -1868,49 +1691,6 @@ Singleton &lt;-- Client</code></pre>
 ]]></content>
       <tags>
         <tag>data structure and algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>快速排序</title>
-    <url>/2023/05/17/quick-sort/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
-<p>最坏情况：O(n^2)</p>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>data structure and algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>最简明好用的 BP 撰写指南</title>
-    <url>/2023/06/10/reading-note-killer-business-plan/</url>
-    <content><![CDATA[<p>向投资人讲解自己的创业项目，本质上是一次推销。一次精彩的演讲必定是一篇引人入胜的故事，故事创造连接，产生触动，改变观念，进而施加影响。商业计划书（BP）就是创业者第一次对外讲故事的载体。</p>
-<h1 id="企业是做什么的？"><a href="#企业是做什么的？" class="headerlink" title="企业是做什么的？"></a>企业是做什么的？</h1><p>用一个陈述句来定义自己的公司，讲清楚自己的企业是做什么的。</p>
-<h1 id="为什么要做？"><a href="#为什么要做？" class="headerlink" title="为什么要做？"></a>为什么要做？</h1><p>市场发生了什么样的改变，这些为你创造了什么样的机会。</p>
-<p>为什么你的技术、业务和解决方案，在此之前并没有建立起来？</p>
-<p>目标客户面临的具体痛点，以及为什么当下的解决方案并不能解决它。</p>
-<p>如果你的产品成功，世界会变成什么样子。</p>
-<h1 id="做成什么样？"><a href="#做成什么样？" class="headerlink" title="做成什么样？"></a>做成什么样？</h1><p>清晰地表达产品的特性和架构，解释产品是如何工作。</p>
-<p>你的产品如何解决痛点。</p>
-<p>你的护城河。</p>
-<p>市场营销和变现策略。</p>
-<h1 id="目前是什么阶段？"><a href="#目前是什么阶段？" class="headerlink" title="目前是什么阶段？"></a>目前是什么阶段？</h1><p>解释当前产品的现状，如客户获取、使用和留存、单位经济效益（Unit Economics）和损益情况（P&amp;L）。</p>
-<p>解释为何你的产品能够脱颖而出。</p>
-<h1 id="下一阶段的目标是？"><a href="#下一阶段的目标是？" class="headerlink" title="下一阶段的目标是？"></a>下一阶段的目标是？</h1><p>公司和产品接下来的 5 年规划。</p>
-<p>市场有多大，增长有多快，处于什么样的位置。</p>
-<p>如何分配利润。</p>
-<p>竞争对手是谁，如何赢得竞争。</p>
-<h1 id="你的伙伴是谁？"><a href="#你的伙伴是谁？" class="headerlink" title="你的伙伴是谁？"></a>你的伙伴是谁？</h1><p>讲述主要团队成员，和二级管理团队。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>每个要点 3 - 5 张幻灯片，突出重点、关键点和记忆点。</p>
-<p>分享你的愿景；阐述你正在解决的问题；客户成功是什么样的；</p>
-<p>通过解释如何创造价值（产品策略），如何传递价值（市场策略），如何获取价值（变现策略），如何获得1亿美元的收入以及围绕业务的关键护城河来谈论企业和商业模式。</p>
-<p>展示运营指标（获取、使用、留存和转换）、财务数据、产品指标。</p>
-<p><a href="https://www.sequoiacap.cn/article/killer-business-plan/">原文</a></p>
-]]></content>
-      <tags>
-        <tag>reading notes</tag>
       </tags>
   </entry>
   <entry>
@@ -2259,66 +2039,223 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>程序员必读之软件架构</title>
-    <url>/2023/05/06/reading-note-software-architecture-for-developers/</url>
-    <content><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li><p>软件架构不是预先设计；</p>
+    <title>快速排序</title>
+    <url>/2023/05/17/quick-sort/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
+<p>最坏情况：O(n^2)</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>data structure and algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>产品第一课</title>
+    <url>/2023/05/09/product-first/</url>
+    <content><![CDATA[<h1 id="能力"><a href="#能力" class="headerlink" title="能力"></a>能力</h1><h2 id="产品本质"><a href="#产品本质" class="headerlink" title="产品本质"></a>产品本质</h2><p>产品本质（也说产品存在价值）是能够解决”目标用户”的”问题“。</p>
+<p>To C 的产品解决自然人的需求，满足“人”欲，而 To B 的产品满足组织需求，自然人的间接需求，满足“组织”欲。</p>
+<p>”人“欲：</p>
+<p>”组织“欲：节省成本、提升效率、资源整合 </p>
+<h2 id="To-C-和-To-B-的差异"><a href="#To-C-和-To-B-的差异" class="headerlink" title="To C 和 To B 的差异"></a>To C 和 To B 的差异</h2><h3 id="目标用户"><a href="#目标用户" class="headerlink" title="目标用户"></a>目标用户</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">感性</td>
+<td align="center">理性</td>
+</tr>
+<tr>
+<td align="center">注重体验<br />简单易用，学习成本低</td>
+<td align="center">注重效率<br />效率 &gt; 体验</td>
+</tr>
+<tr>
+<td align="center">角色单一</td>
+<td align="center">决策者：关注效率和成本<br />管理者：关注管理职责和工作产出<br />员工：关注能否减轻工作负担</td>
+</tr>
+</tbody></table>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">碎片化<br />时间不固定、随机性强</td>
+<td align="center">固定时间<br />根据工作流程、职责来使用</td>
+</tr>
+<tr>
+<td align="center">生活使用</td>
+<td align="center">工作使用</td>
+</tr>
+</tbody></table>
+<h3 id="产品思维"><a href="#产品思维" class="headerlink" title="产品思维"></a>产品思维</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">追求流量<br />流量优先，提供变现基础</td>
+<td align="center">追求效率<br />目的是简化工作，提高效率</td>
+</tr>
+</tbody></table>
+<h3 id="业务功能"><a href="#业务功能" class="headerlink" title="业务功能"></a>业务功能</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">核心功能为主<br />围绕核心功能建立</td>
+<td align="center">多功能同等重要<br />工作流程没有主次</td>
+</tr>
+</tbody></table>
+<h3 id="使用复杂度"><a href="#使用复杂度" class="headerlink" title="使用复杂度"></a>使用复杂度</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">业务简单</td>
+<td align="center">业务复杂场景多</td>
+</tr>
+<tr>
+<td align="center">简单易用</td>
+<td align="center">需要学习</td>
+</tr>
+<tr>
+<td align="center">生命周期短</td>
+<td align="center">生命周期长</td>
+</tr>
+</tbody></table>
+<h3 id="切换成本"><a href="#切换成本" class="headerlink" title="切换成本"></a>切换成本</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">同质化、忠诚度低</td>
+<td align="center">定制化、上手难度高</td>
+</tr>
+<tr>
+<td align="center">切换成本低</td>
+<td align="center">切换成本高</td>
+</tr>
+</tbody></table>
+<h3 id="运营程度"><a href="#运营程度" class="headerlink" title="运营程度"></a>运营程度</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">重运营</td>
+<td align="center">重运维</td>
+</tr>
+<tr>
+<td align="center">重视拉新、促活</td>
+<td align="center">重视系统稳定、可靠</td>
+</tr>
+<tr>
+<td align="center">用户体验</td>
+<td align="center">功能全面</td>
+</tr>
+</tbody></table>
+<h3 id="商业模式"><a href="#商业模式" class="headerlink" title="商业模式"></a>商业模式</h3><table>
+<thead>
+<tr>
+<th align="center">To C</th>
+<th align="center">To B</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">羊毛出在狗身上</td>
+<td align="center">一手交钱一手交货</td>
+</tr>
+<tr>
+<td align="center">内容付费<br />广告付费<br />平台抽佣<br />增值服务</td>
+<td align="center">功能付费<br />人数付费<br />需求付费<br />维护付费</td>
+</tr>
+</tbody></table>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ol>
+<li><p>企业内部协同（财务系统等）</p>
+<p>内部专业人员使用；</p>
+<p>定制功能多；</p>
+<p>部署成本高；</p>
 </li>
-<li><p>每个团队都需要考虑软件架构；</p>
+<li><p>对外标准产品（钉钉等）</p>
+<p>行业使用广泛；</p>
+<p>定制功能少；</p>
+<p>类似于 C 端；</p>
 </li>
-<li><p>架构师参与编码；</p>
+<li><p>中后台产品（阿里云等）</p>
+<p>没有真正意义的使用者；</p>
+<p>业务 + 技术 + 现状 + 规划</p>
 </li>
-<li><p>UML 不是必须的；</p>
-</li>
-</ul>
-<h1 id="软件架构的本质"><a href="#软件架构的本质" class="headerlink" title="软件架构的本质"></a>软件架构的本质</h1><p>包含一个软件产品从端到端的完整的、与之相关的、重要的完整元素的综合考虑。</p>
-<h1 id="软件架构的好处"><a href="#软件架构的好处" class="headerlink" title="软件架构的好处"></a>软件架构的好处</h1><ol>
-<li>让团队跟随一个清晰的愿景和路线图，无论这个愿景是一人所有还是整个团队共有；</li>
-<li>形成技术领导力，能够更好的协调；</li>
-<li>与人交流的刺激因素，以便回答与重要决策、非功能需求、限制和其他横切关注点相关的问题；</li>
-<li>识别和减轻风险的框架；</li>
-<li>方法和标准的一致性，随之而来的结构良好的代码库；</li>
-<li>正在构建的产品的坚实基础；</li>
-<li>对不同的听众，以不同层次的抽象来交流解决方案的结构</li>
 </ol>
-<h1 id="软件架构的职责"><a href="#软件架构的职责" class="headerlink" title="软件架构的职责"></a>软件架构的职责</h1><h2 id="理解业务目标"><a href="#理解业务目标" class="headerlink" title="理解业务目标"></a>理解业务目标</h2><ol>
-<li>需求。包括功能性需求和非功能性需求等；</li>
-<li>限制。包括环境、人员水平和预算等；</li>
-</ol>
-<h2 id="设计软件"><a href="#设计软件" class="headerlink" title="设计软件"></a>设计软件</h2><ol>
-<li>技术选型；</li>
-<li>架构设计；</li>
-<li>模块拆分；</li>
-</ol>
-<h2 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h2><p>技术选择其实就是风险管理。</p>
-<ol>
-<li>当复杂度或不确定性高的时候降低风险，有利可图时再冒点险；</li>
-<li>主动发现、减轻和承担高优先级的技术风险；</li>
-</ol>
-<h2 id="架构演化"><a href="#架构演化" class="headerlink" title="架构演化"></a>架构演化</h2><p>贯穿软件交付整个过程，持续关注架构演进。</p>
-<h2 id="参与开发"><a href="#参与开发" class="headerlink" title="参与开发"></a>参与开发</h2><ol>
-<li>从开发角度看架构；</li>
-<li>不一定完成日常的编码任务，但要持续地参与到交付中;</li>
-</ol>
-<h2 id="保证软件质量"><a href="#保证软件质量" class="headerlink" title="保证软件质量"></a>保证软件质量</h2><p>保证一条基线，它可以是引入一些标准和工作实践，如编码标准、设计原则和工具。</p>
-<h1 id="软技能"><a href="#软技能" class="headerlink" title="软技能"></a>软技能</h1><h2 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h2><p>创造共有愿景，并带领同事向其前进的能力。</p>
-<h2 id="沟通"><a href="#沟通" class="headerlink" title="沟通"></a>沟通</h2><p>不解释。</p>
-<h2 id="影响力"><a href="#影响力" class="headerlink" title="影响力"></a>影响力</h2><p>说服他人、倾听他人的能力。</p>
-<h2 id="信心"><a href="#信心" class="headerlink" title="信心"></a>信心</h2><p>信心不是傲慢，是领导力、影响力和沟通的基础。</p>
-<h2 id="合作"><a href="#合作" class="headerlink" title="合作"></a>合作</h2><p>倾听、谦虚和响应反馈。</p>
-<h2 id="导师"><a href="#导师" class="headerlink" title="导师"></a>导师</h2><p>辅导、引导和指导下属。</p>
-<h2 id="动力"><a href="#动力" class="headerlink" title="动力"></a>动力</h2><p>不解释。</p>
-<h2 id="润滑剂"><a href="#润滑剂" class="headerlink" title="润滑剂"></a>润滑剂</h2><p>凝聚团队，达成共识。</p>
-<h2 id="政治"><a href="#政治" class="headerlink" title="政治"></a>政治</h2><p>远离但要了解。</p>
-<h2 id="责任感"><a href="#责任感" class="headerlink" title="责任感"></a>责任感</h2><p>不解释。</p>
-<h2 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h2><p>适当授权。</p>
-<h1 id="软件架构的经验"><a href="#软件架构的经验" class="headerlink" title="软件架构的经验"></a>软件架构的经验</h1><h2 id="引入约束"><a href="#引入约束" class="headerlink" title="引入约束"></a>引入约束</h2><p>先从部分控制开始，倾听反馈，以便随着项目的推进再微调。</p>
-<h2 id="包容"><a href="#包容" class="headerlink" title="包容"></a>包容</h2><p>让组内成员参与到软件架构的过程中。</p>
-<h2 id="参与编码"><a href="#参与编码" class="headerlink" title="参与编码"></a>参与编码</h2><p>不解释。</p>
-<h1 id="软件架构的考虑"><a href="#软件架构的考虑" class="headerlink" title="软件架构的考虑"></a>软件架构的考虑</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作"><a href="#为什么软件架构角色应当包含编码、指导与合作" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作-1"><a href="#为什么软件架构角色应当包含编码、指导与合作-1" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="如何用简单的草图让你的软件架构可视化"><a href="#如何用简单的草图让你的软件架构可视化" class="headerlink" title="如何用简单的草图让你的软件架构可视化"></a>如何用简单的草图让你的软件架构可视化</h1><h1 id="为软件生成文档的轻量方法"><a href="#为软件生成文档的轻量方法" class="headerlink" title="为软件生成文档的轻量方法"></a>为软件生成文档的轻量方法</h1><h1 id="为什么敏捷和架构并不冲突"><a href="#为什么敏捷和架构并不冲突" class="headerlink" title="为什么敏捷和架构并不冲突"></a>为什么敏捷和架构并不冲突</h1><h1 id="“恰如其分”的预先设计是什么意思"><a href="#“恰如其分”的预先设计是什么意思" class="headerlink" title="“恰如其分”的预先设计是什么意思"></a>“恰如其分”的预先设计是什么意思</h1><h1 id="如何通过风险风暴来识别风险。"><a href="#如何通过风险风暴来识别风险。" class="headerlink" title="如何通过风险风暴来识别风险。"></a>如何通过风险风暴来识别风险。</h1><h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p><a href="https://book.douban.com/subject/26248182/">程序员必读之软件架构</a></p>
+<h1 id="依据"><a href="#依据" class="headerlink" title="依据"></a>依据</h1><h1 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h1><h1 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h1>]]></content>
+      <tags>
+        <tag>product</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>最简明好用的 BP 撰写指南</title>
+    <url>/2023/06/10/reading-note-killer-business-plan/</url>
+    <content><![CDATA[<p>向投资人讲解自己的创业项目，本质上是一次推销。一次精彩的演讲必定是一篇引人入胜的故事，故事创造连接，产生触动，改变观念，进而施加影响。商业计划书（BP）就是创业者第一次对外讲故事的载体。</p>
+<h1 id="企业是做什么的？"><a href="#企业是做什么的？" class="headerlink" title="企业是做什么的？"></a>企业是做什么的？</h1><p>用一个陈述句来定义自己的公司，讲清楚自己的企业是做什么的。</p>
+<h1 id="为什么要做？"><a href="#为什么要做？" class="headerlink" title="为什么要做？"></a>为什么要做？</h1><p>市场发生了什么样的改变，这些为你创造了什么样的机会。</p>
+<p>为什么你的技术、业务和解决方案，在此之前并没有建立起来？</p>
+<p>目标客户面临的具体痛点，以及为什么当下的解决方案并不能解决它。</p>
+<p>如果你的产品成功，世界会变成什么样子。</p>
+<h1 id="做成什么样？"><a href="#做成什么样？" class="headerlink" title="做成什么样？"></a>做成什么样？</h1><p>清晰地表达产品的特性和架构，解释产品是如何工作。</p>
+<p>你的产品如何解决痛点。</p>
+<p>你的护城河。</p>
+<p>市场营销和变现策略。</p>
+<h1 id="目前是什么阶段？"><a href="#目前是什么阶段？" class="headerlink" title="目前是什么阶段？"></a>目前是什么阶段？</h1><p>解释当前产品的现状，如客户获取、使用和留存、单位经济效益（Unit Economics）和损益情况（P&amp;L）。</p>
+<p>解释为何你的产品能够脱颖而出。</p>
+<h1 id="下一阶段的目标是？"><a href="#下一阶段的目标是？" class="headerlink" title="下一阶段的目标是？"></a>下一阶段的目标是？</h1><p>公司和产品接下来的 5 年规划。</p>
+<p>市场有多大，增长有多快，处于什么样的位置。</p>
+<p>如何分配利润。</p>
+<p>竞争对手是谁，如何赢得竞争。</p>
+<h1 id="你的伙伴是谁？"><a href="#你的伙伴是谁？" class="headerlink" title="你的伙伴是谁？"></a>你的伙伴是谁？</h1><p>讲述主要团队成员，和二级管理团队。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>每个要点 3 - 5 张幻灯片，突出重点、关键点和记忆点。</p>
+<p>分享你的愿景；阐述你正在解决的问题；客户成功是什么样的；</p>
+<p>通过解释如何创造价值（产品策略），如何传递价值（市场策略），如何获取价值（变现策略），如何获得1亿美元的收入以及围绕业务的关键护城河来谈论企业和商业模式。</p>
+<p>展示运营指标（获取、使用、留存和转换）、财务数据、产品指标。</p>
+<p><a href="https://www.sequoiacap.cn/article/killer-business-plan/">原文</a></p>
 ]]></content>
       <tags>
         <tag>reading notes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>队列</title>
+    <url>/2023/05/12/queue/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><ul>
+<li>只能在末尾插入数据；</li>
+<li>只能在开头读取数据；</li>
+<li>只能移除开头的数据；</li>
+</ul>
+<p>总之，栈是一种先进先出的数据结构。</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>队列可以保证请求的顺序，因此可以用来处理异步请求。此外，也能模拟有序事件的处理。</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/queue/queue_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/queue/PrinterTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>data structure and algorithm</tag>
       </tags>
   </entry>
   <entry>
@@ -2854,7 +2791,25 @@ participant business as 商家服务
 <p>协商缓存中，Etag 是 HTTP 中一致性最强的缓存机制，却是最差的缓存机制。但 Etag 和 Last-Modified 是允许一起使用的，服务器会优先验证 Etag，在 Etag 一致的情况下，再去对比 Last-Modified。</p>
 <p>根据约定，协商缓存不仅在浏览器的地址输入、页面链接跳转、新开窗口、前进、后退中生效，而且在用户主动刷新页面（F5）时也同样是生效的，只有用户强制刷新（Ctrl+F5）或者明确禁用缓存（譬如在 DevTools 中设定）时才会失效，此时客户端向服务端发出的请求会自动带有“Cache-Control: no-cache”。</p>
 <p>更多信息：<a href="https://book.douban.com/subject/10746113/">HTTP 权威指南</a></p>
-<h3 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h3><h3 id="传输链路"><a href="#传输链路" class="headerlink" title="传输链路"></a>传输链路</h3><h3 id="内容分发"><a href="#内容分发" class="headerlink" title="内容分发"></a>内容分发</h3><h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><h3 id="服务端缓存"><a href="#服务端缓存" class="headerlink" title="服务端缓存"></a>服务端缓存</h3><h2 id="架构安全"><a href="#架构安全" class="headerlink" title="架构安全"></a>架构安全</h2>]]></content>
+<h3 id="域名解析-DNS"><a href="#域名解析-DNS" class="headerlink" title="域名解析 DNS"></a>域名解析 DNS</h3><p>DNS 就是将域名翻译为域名地址记录（通常是 ip）的系统。域名解析对于大多数信息系统，尤其是对于基于互联网的系统来说是必不可少的组件，却没有太高存在感。不过 DNS 本身的工作过程，本身堪称是示范性的透明多级分流系统。</p>
+<h4 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h4><p>以 <code>www.baidu.com</code> 为例，有如下步骤：</p>
+<ol>
+<li>DNS 会将域名还原为 <code>www.baidu.com.</code>;</li>
+<li>客户端先检查本地的 DNS 缓存；</li>
+<li>客户端将地址发送给本机操作系统中配置的本地 DNS；</li>
+<li>本地 DNS 收到查询请求后，会按照 a. 是否有<code>www.baidu.com</code>的权威服务器; b. 是否有<code>baidu.com</code>的权威服务器; c. 是否有<code>com</code>的权威服务器的顺序，依次查询自己的地址记录，如果都没有查询到，就会一直找到最后点号代表的根域名服务器；</li>
+<li>根据名服务器返回 <code>com</code>的地址记录，通过 <code>com</code> 的权威服务器，得到 <code>baidu.com</code>的地址记录，以此反推，得到 <code>www.baidu.com</code>的权威服务器地址；</li>
+<li>通过 <code>www.baidu.com</code>的权威服务器地址，得到地址记录；</li>
+</ol>
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><ol>
+<li><p>响应速度</p>
+<p>极端情况下，域名解析都需要递归到根域名服务器才能查询到结果，响应速度变慢；</p>
+</li>
+<li><p>中间人攻击</p>
+<p>这是更严重的问题。攻陷根域名或者权威域名是非常困难的，但很多递归底层和本地运营商的 DNS 服务器防护相对松懈，甚至会主动进行劫持（加入广告进行牟利）。一种解决办法是：<a href="https://en.wikipedia.org/wiki/DNS_over_HTTPS">HTTPDNS</a>，通俗的讲：就是讲 DNS 查询转换为 HTTP 请求来查询地址记录。</p>
+</li>
+</ol>
+<h3 id="传输链路"><a href="#传输链路" class="headerlink" title="传输链路"></a>传输链路</h3><h3 id="内容分发"><a href="#内容分发" class="headerlink" title="内容分发"></a>内容分发</h3><h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><h3 id="服务端缓存"><a href="#服务端缓存" class="headerlink" title="服务端缓存"></a>服务端缓存</h3><h2 id="架构安全"><a href="#架构安全" class="headerlink" title="架构安全"></a>架构安全</h2>]]></content>
       <tags>
         <tag>reading notes</tag>
       </tags>
@@ -2915,6 +2870,47 @@ participant business as 商家服务
 <li>Redis 的位图是由多个二进制位组成的数组，通过偏移量对位图中一位或多位进行操作；</li>
 <li>BITCOUNT 命令接受的是字节索引范围，而不是二进制位索引范围；</li>
 <li>因为位图是使用字符串实现的，所以字符串命令也可以用于处理位图命令。但必须先转换；</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>地理坐标</title>
+    <url>/2023/05/10/redis-geo/</url>
+    <content><![CDATA[<p>Redis 地理坐标可以存储经纬度格式的地理坐标，并对这些坐标执行距离计算、范围查找等操作。</p>
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="GEOADD"><a href="#GEOADD" class="headerlink" title="GEOADD"></a>GEOADD</h2><p>将一个或多个地理坐标添加或更新到有序集合中，返回插入元素个数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回 1.添加 qingyuan 到 Guangdong-cities 中</span><br><span class="line">GEOADD Guangdong-cities 113.2099647 23.593675 Qingyuan</span><br><span class="line">-- 返回 4.添加 guangzhou fuoshan dongguan 和 shenzhen 到 Guangdong-cities 中</span><br><span class="line">GEOADD Guangdong-cities 113.2278442 23.1255978 Guangzhou 113.106308 23.0088312 Foshan 113.7943267 22.9761989 Dongguan 114.0538788 22.5551603 Shenzhen</span><br><span class="line"></span><br><span class="line">-- 返回 1.添加 Zhongshan 到 Guangdong-cities 中</span><br><span class="line">GEOADD Guangdong-cities 113 22 Zhongshan</span><br><span class="line">-- 返回 0. 由于 Guangdong-cities 已有 Zhongshan 所以更新 Zhongshan 信息</span><br><span class="line">GEOADD Guangdong-cities 113.4060288 22.5111574 Zhongshan</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn * m). n 为集合中已有元素的个数，m 是需要添加地理坐标的个数。</p>
+<h2 id="GEOPOS"><a href="#GEOPOS" class="headerlink" title="GEOPOS"></a>GEOPOS</h2><p>获取给定位置的坐标，包含经度和纬度，集合中不存在返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 113.40603142976761 22.511156445825442</span><br><span class="line">GEOPOS Guangdong-cities Zhongshan</span><br><span class="line">-- 按顺序返回</span><br><span class="line">-- 114.0538814663887 22.555159205151575  Shenzhen</span><br><span class="line">-- 113.22784155607224 23.125598202060807 Guangzhou</span><br><span class="line">GEOPOS Guangdong-cities Shenzhen Guangzhou</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn * m). n 为集合中已有元素的个数，m 是需要查询地理坐标的个数。</p>
+<h2 id="GEODIST"><a href="#GEODIST" class="headerlink" title="GEODIST"></a>GEODIST</h2><p>计算两个位置之间的直线距离，单位默认是米，集合中元素不存在返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 127364.5547 米</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou</span><br><span class="line"></span><br><span class="line">-- 使用指定单位。 M KM MI FT</span><br><span class="line">-- 127364.5547 米</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou M</span><br><span class="line">-- 127.3646 千米</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou KM</span><br><span class="line">-- 79.1409 英里</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou MI</span><br><span class="line">-- 417862.7122 英尺</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou FT</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn)</p>
+<h2 id="GEORADIUS"><a href="#GEORADIUS" class="headerlink" title="GEORADIUS"></a>GEORADIUS</h2><p>返回以经纬度为中心，指定半径内的地理坐标。</p>
+<p>默认情况下，返回结果是无序的，ASC 或 DESC 可以使结果有序返回。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200km 的地理元素</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM</span><br><span class="line"></span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 MI</span><br><span class="line"></span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时返回距离</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHDIST</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时返回坐标</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHCOORD</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时返回 GEOHASH（数字 HASH）</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHHASH</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时升序返回距离</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHDIST ASC</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，返回 2 个的同时升序返回距离</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHDIST ASC COUNT 2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="GEORADIUSBYMEMBER"><a href="#GEORADIUSBYMEMBER" class="headerlink" title="GEORADIUSBYMEMBER"></a>GEORADIUSBYMEMBER</h2><p>同 GEORADIUS，只是中心为地理坐标中的一个元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 以 Guangzhou 为中心，查询半径为 150km 的地理元素，返回 2 个的同时升序返回距离</span><br><span class="line">GEORADIUSBYMEMBER Guangdong-cities Guangzhou 150 KM WITHDIST ASC COUNT 2</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="GEOHASH"><a href="#GEOHASH" class="headerlink" title="GEOHASH"></a>GEOHASH</h2><p>传入一个或多个位置，返回这些位置的字符串 GEOHASH 值。</p>
+<p>不存在则返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- ws0w0phgp70</span><br><span class="line">GEOHASH Guangdong-cities Qingyuan</span><br><span class="line"></span><br><span class="line">-- ws0w0phgp70 ws0e89curg0</span><br><span class="line">GEOHASH Guangdong-cities Qingyuan Guangzhou</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>Redis的GEO特性允许用户将经纬度格式的地理位置存储到Redis中，并对这些位置执行距离计算、范围查找等操作；</li>
+<li>GEORADIUSBYMEMBER 和 GEORADIUS 命令的作用一样，但前者使用位置，后者使用经纬度；</li>
+<li>Geohash 将用户给经度和纬度转换成单个Geohash值；</li>
+<li>可以使用有序集合来操作地理坐标；</li>
 </ul>
 ]]></content>
       <tags>
@@ -2988,47 +2984,6 @@ participant business as 商家服务
       </tags>
   </entry>
   <entry>
-    <title>地理坐标</title>
-    <url>/2023/05/10/redis-geo/</url>
-    <content><![CDATA[<p>Redis 地理坐标可以存储经纬度格式的地理坐标，并对这些坐标执行距离计算、范围查找等操作。</p>
-<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="GEOADD"><a href="#GEOADD" class="headerlink" title="GEOADD"></a>GEOADD</h2><p>将一个或多个地理坐标添加或更新到有序集合中，返回插入元素个数。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回 1.添加 qingyuan 到 Guangdong-cities 中</span><br><span class="line">GEOADD Guangdong-cities 113.2099647 23.593675 Qingyuan</span><br><span class="line">-- 返回 4.添加 guangzhou fuoshan dongguan 和 shenzhen 到 Guangdong-cities 中</span><br><span class="line">GEOADD Guangdong-cities 113.2278442 23.1255978 Guangzhou 113.106308 23.0088312 Foshan 113.7943267 22.9761989 Dongguan 114.0538788 22.5551603 Shenzhen</span><br><span class="line"></span><br><span class="line">-- 返回 1.添加 Zhongshan 到 Guangdong-cities 中</span><br><span class="line">GEOADD Guangdong-cities 113 22 Zhongshan</span><br><span class="line">-- 返回 0. 由于 Guangdong-cities 已有 Zhongshan 所以更新 Zhongshan 信息</span><br><span class="line">GEOADD Guangdong-cities 113.4060288 22.5111574 Zhongshan</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn * m). n 为集合中已有元素的个数，m 是需要添加地理坐标的个数。</p>
-<h2 id="GEOPOS"><a href="#GEOPOS" class="headerlink" title="GEOPOS"></a>GEOPOS</h2><p>获取给定位置的坐标，包含经度和纬度，集合中不存在返回 nil。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 113.40603142976761 22.511156445825442</span><br><span class="line">GEOPOS Guangdong-cities Zhongshan</span><br><span class="line">-- 按顺序返回</span><br><span class="line">-- 114.0538814663887 22.555159205151575  Shenzhen</span><br><span class="line">-- 113.22784155607224 23.125598202060807 Guangzhou</span><br><span class="line">GEOPOS Guangdong-cities Shenzhen Guangzhou</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn * m). n 为集合中已有元素的个数，m 是需要查询地理坐标的个数。</p>
-<h2 id="GEODIST"><a href="#GEODIST" class="headerlink" title="GEODIST"></a>GEODIST</h2><p>计算两个位置之间的直线距离，单位默认是米，集合中元素不存在返回 nil。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 127364.5547 米</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou</span><br><span class="line"></span><br><span class="line">-- 使用指定单位。 M KM MI FT</span><br><span class="line">-- 127364.5547 米</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou M</span><br><span class="line">-- 127.3646 千米</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou KM</span><br><span class="line">-- 79.1409 英里</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou MI</span><br><span class="line">-- 417862.7122 英尺</span><br><span class="line">GEODIST Guangdong-cities Zhongshan Guangzhou FT</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn)</p>
-<h2 id="GEORADIUS"><a href="#GEORADIUS" class="headerlink" title="GEORADIUS"></a>GEORADIUS</h2><p>返回以经纬度为中心，指定半径内的地理坐标。</p>
-<p>默认情况下，返回结果是无序的，ASC 或 DESC 可以使结果有序返回。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200km 的地理元素</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM</span><br><span class="line"></span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 MI</span><br><span class="line"></span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时返回距离</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHDIST</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时返回坐标</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHCOORD</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时返回 GEOHASH（数字 HASH）</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHHASH</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，同时升序返回距离</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHDIST ASC</span><br><span class="line">-- 以 113.4060288 22.5111574 为中心，查询半径为 200mi 的地理元素，返回 2 个的同时升序返回距离</span><br><span class="line">GEORADIUS Guangdong-cities 113.4060288 22.5111574 200 KM WITHDIST ASC COUNT 2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-<h2 id="GEORADIUSBYMEMBER"><a href="#GEORADIUSBYMEMBER" class="headerlink" title="GEORADIUSBYMEMBER"></a>GEORADIUSBYMEMBER</h2><p>同 GEORADIUS，只是中心为地理坐标中的一个元素。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 以 Guangzhou 为中心，查询半径为 150km 的地理元素，返回 2 个的同时升序返回距离</span><br><span class="line">GEORADIUSBYMEMBER Guangdong-cities Guangzhou 150 KM WITHDIST ASC COUNT 2</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-<h2 id="GEOHASH"><a href="#GEOHASH" class="headerlink" title="GEOHASH"></a>GEOHASH</h2><p>传入一个或多个位置，返回这些位置的字符串 GEOHASH 值。</p>
-<p>不存在则返回 nil。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- ws0w0phgp70</span><br><span class="line">GEOHASH Guangdong-cities Qingyuan</span><br><span class="line"></span><br><span class="line">-- ws0w0phgp70 ws0e89curg0</span><br><span class="line">GEOHASH Guangdong-cities Qingyuan Guangzhou</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>Redis的GEO特性允许用户将经纬度格式的地理位置存储到Redis中，并对这些位置执行距离计算、范围查找等操作；</li>
-<li>GEORADIUSBYMEMBER 和 GEORADIUS 命令的作用一样，但前者使用位置，后者使用经纬度；</li>
-<li>Geohash 将用户给经度和纬度转换成单个Geohash值；</li>
-<li>可以使用有序集合来操作地理坐标；</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基数计数</title>
     <url>/2023/05/09/redis-hyperloglog/</url>
     <content><![CDATA[<p>HyperLogLog 用于估计候选集概率的数据结构。它使得用较小的空间获得近似的准确度。无论集合包含的多少个元素，HyperLogLog 总是使用非常少的内存。</p>
@@ -3052,6 +3007,92 @@ participant business as 商家服务
 <li>HyperLogLog 无论保存多少个元素，只使用固定内存；</li>
 <li>PFMERGE 代替 PFCOUNT，因为 PFCOUNT 内部调用 PFMERGE 命令；</li>
 <li>HyperLogLog 用于计数和去重；</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>集合</title>
+    <url>/2023/05/07/redis-set/</url>
+    <content><![CDATA[<p>Redis 集合允许用户将任意个不相同的元素存储到集合中，这些元素既可以是文本数据，也可以是二进制数据。</p>
+<span id="more"></span>
+
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h2><p>添加一个或多个元素到集合，返回添加元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1</span><br><span class="line">SADD databases &quot;redis&quot;</span><br><span class="line"></span><br><span class="line">-- 2</span><br><span class="line">SADD databases &quot;mongodb&quot; &quot;couchdb&quot;</span><br><span class="line"></span><br><span class="line">-- 3</span><br><span class="line">SADD databases &quot;mysql&quot; &quot;postgresql&quot; &quot;oracle&quot;</span><br><span class="line"></span><br><span class="line">-- 1，因为只有 influxdb 被插入了</span><br><span class="line">SADD databases &quot;influxdb&quot; &quot;mysql&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h2><p>从集合中删除一个或多个元素，返回移除元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">SREM databases &quot;mysql&quot; &quot;redis&quot;</span><br><span class="line"></span><br><span class="line">-- 0</span><br><span class="line">SREM databases &quot;mysql&quot; &quot;redis&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="SMOVE"><a href="#SMOVE" class="headerlink" title="SMOVE"></a>SMOVE</h2><p>将指定元素从 source 集合移动到 target 集合，返回操作结果 bool。</p>
+<p>如果 source 或者指定元素不存在，返回 false。</p>
+<p>如果 target 中已经有指定元素，则只会移除 source 中的元素，返回 true。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 将 mongodb 从 databases 移动到 doc::databases 集合中， true</span><br><span class="line">SMOVE databases doc::databases &quot;mongodb&quot;</span><br><span class="line"></span><br><span class="line">-- false</span><br><span class="line">SMOVE databases doc::databases &quot;mongodb&quot;</span><br><span class="line"></span><br><span class="line">SADD databases &quot;mongodb&quot;</span><br><span class="line">-- doc::databases 已经存在 mongodb，则会删除 databases 中的 mongodb，返回 true</span><br><span class="line">SMOVE databases doc::databases &quot;mongodb&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h2><p>获取集合中所有元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mysql postgresql oracle</span><br><span class="line">SMEMBERS databases</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h2><p>获取集合中元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 3</span><br><span class="line">SCARD databases</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h2><p>检查指定元素是否在集合中，返回 bool。</p>
+<p>如果集合不存在，返回 false。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- true</span><br><span class="line">SISMEMBER databases &quot;mysql&quot;</span><br><span class="line"></span><br><span class="line">-- false</span><br><span class="line">SISMEMBER databases &quot;mongodb&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h2><p>随机获取集合中的指定个数元素，默认为 1。</p>
+<p>当指定个数 &gt; SCARD 时，返回所有。</p>
+<p>如果指定个数 &lt; 0 时，返回指定个数绝对值。</p>
+<p>若集合不存在，返回 nil</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 随机返回 1 个</span><br><span class="line">SRANDMEMBER databases</span><br><span class="line"></span><br><span class="line">-- 随机返回 2 个</span><br><span class="line">SRANDMEMBER databases 2</span><br><span class="line">SRANDMEMBER databases -2</span><br><span class="line"></span><br><span class="line">-- 返回 3 个</span><br><span class="line">SCARD databases</span><br><span class="line">-- 5 &gt; 3，则返回所有</span><br><span class="line">SRANDMEMBER databases 5</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h2><p>同 SRANDMEMBER，区别在于：</p>
+<ol>
+<li>会将返回的元素从集合中移除；</li>
+<li>指定元素不能为 &lt; 0;</li>
+</ol>
+<p>时间复杂度：O(n)</p>
+<h2 id="SINSER"><a href="#SINSER" class="headerlink" title="SINSER"></a>SINSER</h2><p>返回指定集合的交集，若集合不存在，返回空。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 s1 和 s2 的交集</span><br><span class="line">SINTER s1 s2</span><br><span class="line">-- 返回 s1、s2 和 s3 的交集</span><br><span class="line">SINTER s1 s2 s3</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n*m)</p>
+<h2 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h2><p>同 SINTER，有以下区别：</p>
+<ol>
+<li>会将指定集合的交集插入到新的集合中；</li>
+<li>指定集合不存在或没有交集，则返回空，否则返回集合中元素数量；</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line">SADD s3 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 将 s1 s2 s3 的交集插入到 insert 集合中</span><br><span class="line">SINTERSTORE insert s1 s2 s3</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n*m)</p>
+<h2 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h2><p>返回指定集合的并集。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 s1 和 s2 的并集</span><br><span class="line">SUNION s1 s2</span><br><span class="line">-- 返回 s1 和 s22 的并集，s22 不存在，则返回 s1 的集合</span><br><span class="line">SUNION s1 s22</span><br><span class="line">-- 返回 s1、s2 和 s3 的并集</span><br><span class="line">SINTER s1 s2 s3</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(max(n, m))</p>
+<h2 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h2><p>同 SUNION，有以下区别：</p>
+<ol>
+<li>会将指定集合的交集插入到新的集合中；</li>
+<li>指定集合不存在或没有交集，则返回空，否则返回集合中元素数量；</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line">SADD s3 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 将 s1 s2 s3 的并集插入到 union 集合中</span><br><span class="line">SUNIONSTORE union s1 s2 s3</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(max(n, m))</p>
+<h1 id="对比列表"><a href="#对比列表" class="headerlink" title="对比列表"></a>对比列表</h1><ol start="2">
+<li>列表是有序，集合无序；</li>
+<li>列表可以存储重复元素，集合不行；</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>集合只允许添加任意个各不相同的元素；</li>
+<li>所有针对单个元素的集合操作，复杂度都为O(1)；</li>
+<li>集合的存储是无序的；</li>
+<li>SRANDMEMBER 命令 peek 一个随机选中的元素，而 SPOP 命令 pop一个随机选中的元素；</li>
+<li>应该使用集合的 store 操作；</li>
 </ul>
 ]]></content>
       <tags>
@@ -3163,89 +3204,66 @@ participant business as 商家服务
       </tags>
   </entry>
   <entry>
-    <title>集合</title>
-    <url>/2023/05/07/redis-set/</url>
-    <content><![CDATA[<p>Redis 集合允许用户将任意个不相同的元素存储到集合中，这些元素既可以是文本数据，也可以是二进制数据。</p>
-<span id="more"></span>
-
-<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="SADD"><a href="#SADD" class="headerlink" title="SADD"></a>SADD</h2><p>添加一个或多个元素到集合，返回添加元素的数量。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1</span><br><span class="line">SADD databases &quot;redis&quot;</span><br><span class="line"></span><br><span class="line">-- 2</span><br><span class="line">SADD databases &quot;mongodb&quot; &quot;couchdb&quot;</span><br><span class="line"></span><br><span class="line">-- 3</span><br><span class="line">SADD databases &quot;mysql&quot; &quot;postgresql&quot; &quot;oracle&quot;</span><br><span class="line"></span><br><span class="line">-- 1，因为只有 influxdb 被插入了</span><br><span class="line">SADD databases &quot;influxdb&quot; &quot;mysql&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-<h2 id="SREM"><a href="#SREM" class="headerlink" title="SREM"></a>SREM</h2><p>从集合中删除一个或多个元素，返回移除元素的数量。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">SREM databases &quot;mysql&quot; &quot;redis&quot;</span><br><span class="line"></span><br><span class="line">-- 0</span><br><span class="line">SREM databases &quot;mysql&quot; &quot;redis&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-<h2 id="SMOVE"><a href="#SMOVE" class="headerlink" title="SMOVE"></a>SMOVE</h2><p>将指定元素从 source 集合移动到 target 集合，返回操作结果 bool。</p>
-<p>如果 source 或者指定元素不存在，返回 false。</p>
-<p>如果 target 中已经有指定元素，则只会移除 source 中的元素，返回 true。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 将 mongodb 从 databases 移动到 doc::databases 集合中， true</span><br><span class="line">SMOVE databases doc::databases &quot;mongodb&quot;</span><br><span class="line"></span><br><span class="line">-- false</span><br><span class="line">SMOVE databases doc::databases &quot;mongodb&quot;</span><br><span class="line"></span><br><span class="line">SADD databases &quot;mongodb&quot;</span><br><span class="line">-- doc::databases 已经存在 mongodb，则会删除 databases 中的 mongodb，返回 true</span><br><span class="line">SMOVE databases doc::databases &quot;mongodb&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(1)</p>
-<h2 id="SMEMBERS"><a href="#SMEMBERS" class="headerlink" title="SMEMBERS"></a>SMEMBERS</h2><p>获取集合中所有元素。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mysql postgresql oracle</span><br><span class="line">SMEMBERS databases</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-<h2 id="SCARD"><a href="#SCARD" class="headerlink" title="SCARD"></a>SCARD</h2><p>获取集合中元素的数量。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 3</span><br><span class="line">SCARD databases</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(1)</p>
-<h2 id="SISMEMBER"><a href="#SISMEMBER" class="headerlink" title="SISMEMBER"></a>SISMEMBER</h2><p>检查指定元素是否在集合中，返回 bool。</p>
-<p>如果集合不存在，返回 false。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- true</span><br><span class="line">SISMEMBER databases &quot;mysql&quot;</span><br><span class="line"></span><br><span class="line">-- false</span><br><span class="line">SISMEMBER databases &quot;mongodb&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(1)</p>
-<h2 id="SRANDMEMBER"><a href="#SRANDMEMBER" class="headerlink" title="SRANDMEMBER"></a>SRANDMEMBER</h2><p>随机获取集合中的指定个数元素，默认为 1。</p>
-<p>当指定个数 &gt; SCARD 时，返回所有。</p>
-<p>如果指定个数 &lt; 0 时，返回指定个数绝对值。</p>
-<p>若集合不存在，返回 nil</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 随机返回 1 个</span><br><span class="line">SRANDMEMBER databases</span><br><span class="line"></span><br><span class="line">-- 随机返回 2 个</span><br><span class="line">SRANDMEMBER databases 2</span><br><span class="line">SRANDMEMBER databases -2</span><br><span class="line"></span><br><span class="line">-- 返回 3 个</span><br><span class="line">SCARD databases</span><br><span class="line">-- 5 &gt; 3，则返回所有</span><br><span class="line">SRANDMEMBER databases 5</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-<h2 id="SPOP"><a href="#SPOP" class="headerlink" title="SPOP"></a>SPOP</h2><p>同 SRANDMEMBER，区别在于：</p>
-<ol>
-<li>会将返回的元素从集合中移除；</li>
-<li>指定元素不能为 &lt; 0;</li>
-</ol>
-<p>时间复杂度：O(n)</p>
-<h2 id="SINSER"><a href="#SINSER" class="headerlink" title="SINSER"></a>SINSER</h2><p>返回指定集合的交集，若集合不存在，返回空。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 s1 和 s2 的交集</span><br><span class="line">SINTER s1 s2</span><br><span class="line">-- 返回 s1、s2 和 s3 的交集</span><br><span class="line">SINTER s1 s2 s3</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n*m)</p>
-<h2 id="SINTERSTORE"><a href="#SINTERSTORE" class="headerlink" title="SINTERSTORE"></a>SINTERSTORE</h2><p>同 SINTER，有以下区别：</p>
-<ol>
-<li>会将指定集合的交集插入到新的集合中；</li>
-<li>指定集合不存在或没有交集，则返回空，否则返回集合中元素数量；</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line">SADD s3 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 将 s1 s2 s3 的交集插入到 insert 集合中</span><br><span class="line">SINTERSTORE insert s1 s2 s3</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n*m)</p>
-<h2 id="SUNION"><a href="#SUNION" class="headerlink" title="SUNION"></a>SUNION</h2><p>返回指定集合的并集。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 s1 和 s2 的并集</span><br><span class="line">SUNION s1 s2</span><br><span class="line">-- 返回 s1 和 s22 的并集，s22 不存在，则返回 s1 的集合</span><br><span class="line">SUNION s1 s22</span><br><span class="line">-- 返回 s1、s2 和 s3 的并集</span><br><span class="line">SINTER s1 s2 s3</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(max(n, m))</p>
-<h2 id="SUNIONSTORE"><a href="#SUNIONSTORE" class="headerlink" title="SUNIONSTORE"></a>SUNIONSTORE</h2><p>同 SUNION，有以下区别：</p>
-<ol>
-<li>会将指定集合的交集插入到新的集合中；</li>
-<li>指定集合不存在或没有交集，则返回空，否则返回集合中元素数量；</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SADD s1 &quot;a&quot; &quot;b&quot;</span><br><span class="line">SADD s2 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line">SADD s3 &quot;b&quot; &quot;c&quot; &quot;d&quot;</span><br><span class="line"></span><br><span class="line">-- 将 s1 s2 s3 的并集插入到 union 集合中</span><br><span class="line">SUNIONSTORE union s1 s2 s3</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(max(n, m))</p>
-<h1 id="对比列表"><a href="#对比列表" class="headerlink" title="对比列表"></a>对比列表</h1><ol start="2">
-<li>列表是有序，集合无序；</li>
-<li>列表可以存储重复元素，集合不行；</li>
-</ol>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>集合只允许添加任意个各不相同的元素；</li>
-<li>所有针对单个元素的集合操作，复杂度都为O(1)；</li>
-<li>集合的存储是无序的；</li>
-<li>SRANDMEMBER 命令 peek 一个随机选中的元素，而 SPOP 命令 pop一个随机选中的元素；</li>
-<li>应该使用集合的 store 操作；</li>
+    <title>程序员必读之软件架构</title>
+    <url>/2023/05/06/reading-note-software-architecture-for-developers/</url>
+    <content><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li><p>软件架构不是预先设计；</p>
+</li>
+<li><p>每个团队都需要考虑软件架构；</p>
+</li>
+<li><p>架构师参与编码；</p>
+</li>
+<li><p>UML 不是必须的；</p>
+</li>
 </ul>
+<h1 id="软件架构的本质"><a href="#软件架构的本质" class="headerlink" title="软件架构的本质"></a>软件架构的本质</h1><p>包含一个软件产品从端到端的完整的、与之相关的、重要的完整元素的综合考虑。</p>
+<h1 id="软件架构的好处"><a href="#软件架构的好处" class="headerlink" title="软件架构的好处"></a>软件架构的好处</h1><ol>
+<li>让团队跟随一个清晰的愿景和路线图，无论这个愿景是一人所有还是整个团队共有；</li>
+<li>形成技术领导力，能够更好的协调；</li>
+<li>与人交流的刺激因素，以便回答与重要决策、非功能需求、限制和其他横切关注点相关的问题；</li>
+<li>识别和减轻风险的框架；</li>
+<li>方法和标准的一致性，随之而来的结构良好的代码库；</li>
+<li>正在构建的产品的坚实基础；</li>
+<li>对不同的听众，以不同层次的抽象来交流解决方案的结构</li>
+</ol>
+<h1 id="软件架构的职责"><a href="#软件架构的职责" class="headerlink" title="软件架构的职责"></a>软件架构的职责</h1><h2 id="理解业务目标"><a href="#理解业务目标" class="headerlink" title="理解业务目标"></a>理解业务目标</h2><ol>
+<li>需求。包括功能性需求和非功能性需求等；</li>
+<li>限制。包括环境、人员水平和预算等；</li>
+</ol>
+<h2 id="设计软件"><a href="#设计软件" class="headerlink" title="设计软件"></a>设计软件</h2><ol>
+<li>技术选型；</li>
+<li>架构设计；</li>
+<li>模块拆分；</li>
+</ol>
+<h2 id="风险管理"><a href="#风险管理" class="headerlink" title="风险管理"></a>风险管理</h2><p>技术选择其实就是风险管理。</p>
+<ol>
+<li>当复杂度或不确定性高的时候降低风险，有利可图时再冒点险；</li>
+<li>主动发现、减轻和承担高优先级的技术风险；</li>
+</ol>
+<h2 id="架构演化"><a href="#架构演化" class="headerlink" title="架构演化"></a>架构演化</h2><p>贯穿软件交付整个过程，持续关注架构演进。</p>
+<h2 id="参与开发"><a href="#参与开发" class="headerlink" title="参与开发"></a>参与开发</h2><ol>
+<li>从开发角度看架构；</li>
+<li>不一定完成日常的编码任务，但要持续地参与到交付中;</li>
+</ol>
+<h2 id="保证软件质量"><a href="#保证软件质量" class="headerlink" title="保证软件质量"></a>保证软件质量</h2><p>保证一条基线，它可以是引入一些标准和工作实践，如编码标准、设计原则和工具。</p>
+<h1 id="软技能"><a href="#软技能" class="headerlink" title="软技能"></a>软技能</h1><h2 id="领导力"><a href="#领导力" class="headerlink" title="领导力"></a>领导力</h2><p>创造共有愿景，并带领同事向其前进的能力。</p>
+<h2 id="沟通"><a href="#沟通" class="headerlink" title="沟通"></a>沟通</h2><p>不解释。</p>
+<h2 id="影响力"><a href="#影响力" class="headerlink" title="影响力"></a>影响力</h2><p>说服他人、倾听他人的能力。</p>
+<h2 id="信心"><a href="#信心" class="headerlink" title="信心"></a>信心</h2><p>信心不是傲慢，是领导力、影响力和沟通的基础。</p>
+<h2 id="合作"><a href="#合作" class="headerlink" title="合作"></a>合作</h2><p>倾听、谦虚和响应反馈。</p>
+<h2 id="导师"><a href="#导师" class="headerlink" title="导师"></a>导师</h2><p>辅导、引导和指导下属。</p>
+<h2 id="动力"><a href="#动力" class="headerlink" title="动力"></a>动力</h2><p>不解释。</p>
+<h2 id="润滑剂"><a href="#润滑剂" class="headerlink" title="润滑剂"></a>润滑剂</h2><p>凝聚团队，达成共识。</p>
+<h2 id="政治"><a href="#政治" class="headerlink" title="政治"></a>政治</h2><p>远离但要了解。</p>
+<h2 id="责任感"><a href="#责任感" class="headerlink" title="责任感"></a>责任感</h2><p>不解释。</p>
+<h2 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h2><p>适当授权。</p>
+<h1 id="软件架构的经验"><a href="#软件架构的经验" class="headerlink" title="软件架构的经验"></a>软件架构的经验</h1><h2 id="引入约束"><a href="#引入约束" class="headerlink" title="引入约束"></a>引入约束</h2><p>先从部分控制开始，倾听反馈，以便随着项目的推进再微调。</p>
+<h2 id="包容"><a href="#包容" class="headerlink" title="包容"></a>包容</h2><p>让组内成员参与到软件架构的过程中。</p>
+<h2 id="参与编码"><a href="#参与编码" class="headerlink" title="参与编码"></a>参与编码</h2><p>不解释。</p>
+<h1 id="软件架构的考虑"><a href="#软件架构的考虑" class="headerlink" title="软件架构的考虑"></a>软件架构的考虑</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作"><a href="#为什么软件架构角色应当包含编码、指导与合作" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="为什么软件架构角色应当包含编码、指导与合作-1"><a href="#为什么软件架构角色应当包含编码、指导与合作-1" class="headerlink" title="为什么软件架构角色应当包含编码、指导与合作"></a>为什么软件架构角色应当包含编码、指导与合作</h1><h1 id="如何用简单的草图让你的软件架构可视化"><a href="#如何用简单的草图让你的软件架构可视化" class="headerlink" title="如何用简单的草图让你的软件架构可视化"></a>如何用简单的草图让你的软件架构可视化</h1><h1 id="为软件生成文档的轻量方法"><a href="#为软件生成文档的轻量方法" class="headerlink" title="为软件生成文档的轻量方法"></a>为软件生成文档的轻量方法</h1><h1 id="为什么敏捷和架构并不冲突"><a href="#为什么敏捷和架构并不冲突" class="headerlink" title="为什么敏捷和架构并不冲突"></a>为什么敏捷和架构并不冲突</h1><h1 id="“恰如其分”的预先设计是什么意思"><a href="#“恰如其分”的预先设计是什么意思" class="headerlink" title="“恰如其分”的预先设计是什么意思"></a>“恰如其分”的预先设计是什么意思</h1><h1 id="如何通过风险风暴来识别风险。"><a href="#如何通过风险风暴来识别风险。" class="headerlink" title="如何通过风险风暴来识别风险。"></a>如何通过风险风暴来识别风险。</h1><h1 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h1><p><a href="https://book.douban.com/subject/26248182/">程序员必读之软件架构</a></p>
 ]]></content>
       <tags>
-        <tag>redis</tag>
+        <tag>reading notes</tag>
       </tags>
   </entry>
   <entry>
@@ -3301,6 +3319,287 @@ participant business as 商家服务
 ]]></content>
       <tags>
         <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>有序集合</title>
+    <url>/2023/05/08/redis-zset/</url>
+    <content><![CDATA[<p>有序集合同时具有“有序”和“集合” 2 种性质。</p>
+<span id="more"></span>
+
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h2><p>添加一个或多个元素到有序集合，返回添加元素的数量。</p>
+<p>NX 参数：只会操作不存在的元素；</p>
+<p>XX 参数：只会操作存在的元素；</p>
+<p>CH 参数：返回更新元素的个数；</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 4</span><br><span class="line">ZADD salary 3500 &quot;peter&quot; 4000 &quot;jack&quot; 2000 &quot;tom&quot; 5500 &quot;mary&quot;</span><br><span class="line"></span><br><span class="line">-- 更新 member 的 score，没有成员添加，返回 0</span><br><span class="line">ZADD salary 3501 &quot;peter&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 1，增加 hanzhang，并且 peter 不会改变</span><br><span class="line">ZADD salary NX 6000 &quot;hanzhang&quot; 3500 &quot;peter&quot;</span><br><span class="line">-- 返回 0，将 hanzhang 更新为 6000，peter 更新为 3500</span><br><span class="line">ZADD salary XX 6000 &quot;hanzhang&quot; 3500 &quot;peter&quot;</span><br><span class="line">-- 返回 2，将 hanzhang 更新为 6001，peter 更新为 3501</span><br><span class="line">ZADD salary CH XX 6001 &quot;hanzhang&quot; 3501 &quot;peter&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(m * logn)。m 为 member 的数量，n 为成员数量。</p>
+<h2 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h2><p>从集合中删除一个或多个元素，返回移除元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回 1</span><br><span class="line">ZREM salary &quot;peter&quot;</span><br><span class="line">-- 返回 2 </span><br><span class="line">ZREM salary &quot;hanzhang&quot; &quot;tom&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(m * logn)。m 为 member 的数量，n 为成员数量。</p>
+<h2 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h2><p>获取给定 member 的 score。</p>
+<p>不存在的有序集合或 member 返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 4000</span><br><span class="line">ZSCORE salary &quot;jack&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h2><p>将给定 member 的 score 进行增加或减少，返回更新后的 score。</p>
+<p>不存在的有序集合会进行创建。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1000</span><br><span class="line">ZINCRBY salary 1000 &quot;jack&quot;</span><br><span class="line"></span><br><span class="line">-- 2000</span><br><span class="line">ZINCRBY salary 1000 &quot;jack&quot;</span><br><span class="line"></span><br><span class="line">-- 1000</span><br><span class="line">ZINCRBY salary -1000 &quot;jack&quot;</span><br><span class="line"></span><br><span class="line">-- 0</span><br><span class="line">ZINCRBY salary -1000 &quot;jack&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h2><p>返回有序集合中元素个数，有序集合不存在则返回 0.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回元素个数</span><br><span class="line">ZCARD salary</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="ZRANK"><a href="#ZRANK" class="headerlink" title="ZRANK"></a>ZRANK</h2><p>返回元素在有序集合的升序下标，集合或元素不存在，返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1</span><br><span class="line">ZRANK salary &quot;peter&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn)</p>
+<h2 id="ZREVRANK"><a href="#ZREVRANK" class="headerlink" title="ZREVRANK"></a>ZREVRANK</h2><p>返回元素在有序集合的降序下标，集合或元素不存在，返回 nil。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">ZREVRANK salary &quot;peter&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn)</p>
+<h2 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h2><p>获取升序中指定闭区间内的所有 member。</p>
+<p>可以接受负索引，负索引从 -1 开始。</p>
+<p>不存在时，返回空。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- tom peter jack mary</span><br><span class="line"></span><br><span class="line">-- tom peter jack</span><br><span class="line">ZRANGE salary 0 2</span><br><span class="line">-- jack mary</span><br><span class="line">ZRANGE salary  -2 -1</span><br><span class="line">-- tom peter jack</span><br><span class="line">ZRANGE salary  0 -2</span><br><span class="line">-- 以升序获取全部</span><br><span class="line">ZRANGE salary  0 -1</span><br><span class="line">-- 返回 member 的同时，返回 score</span><br><span class="line">ZRANGE salary  0 -1 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn + m)</p>
+<h2 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h2><p>获取降序中指定闭区间内的所有 member。</p>
+<p>可以接受负索引，负索引从 -1 开始。</p>
+<p>不存在时，返回空。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mary jack peter</span><br><span class="line">ZREVRANGE salary 0 2</span><br><span class="line">-- peter tom</span><br><span class="line">ZREVRANGE salary  -2 -1</span><br><span class="line">-- mary jack peter</span><br><span class="line">ZREVRANGE salary  0 -2</span><br><span class="line">-- 以降序获取全部</span><br><span class="line">ZREVRANGE salary  0 -1</span><br><span class="line">-- 返回 member 的同时，返回 score</span><br><span class="line">ZREVRANGE salary  0 -1 WITHSCORES</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn + m)</p>
+<h2 id="ZCOUNT"><a href="#ZCOUNT" class="headerlink" title="ZCOUNT"></a>ZCOUNT</h2><p>返回指定闭区间内成员数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ZADD salary 3500 &quot;peter&quot; 4000 &quot;jack&quot; 2000 &quot;tom&quot; 5500 &quot;mary&quot;</span><br><span class="line"></span><br><span class="line">-- 3，[2000, 4000]</span><br><span class="line">ZCOUNT salary 2000 4000</span><br><span class="line">-- 2, (2000, 4000]</span><br><span class="line">ZCOUNT salary （2000 4000</span><br><span class="line">-- 2, [2000, 4000)</span><br><span class="line">ZCOUNT salary 2000 (4000</span><br><span class="line">-- 1, (2000, 4000)</span><br><span class="line">ZCOUNT salary (2000 (4000</span><br><span class="line">-- 3, [3500, +∞)</span><br><span class="line">ZCOUNT salary 3500 +inf</span><br><span class="line">-- 3, （-∞, 3500]</span><br><span class="line">ZCOUNT salary -inf 3500</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn)</p>
+<h2 id="ZREMRANGEBYRANK"><a href="#ZREMRANGEBYRANK" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h2><p>从升序排列中移除闭区间排名的元素，返回被移除元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">ZREMRANGEBYRANK salary 1 2</span><br><span class="line">-- 2 </span><br><span class="line">ZREMRANGEBYRANK salary -2 -1</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn + m)</p>
+<h2 id="ZREMRANGEBYRANK-1"><a href="#ZREMRANGEBYRANK-1" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h2><p>从升序排列中移除间分值的元素，返回被移除元素的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">ZREMRANGEBYSCORE salary 4000 5500</span><br><span class="line"></span><br><span class="line">-- 1</span><br><span class="line">ZREMRANGEBYSCORE salary （4000 5500</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(logn + m)</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>有序集合同时拥有“有序”和“集合” 2 种性质；</li>
+<li>一般情况下，有序集合的顺序由分值 score 决定，而分值相同的成员排序由 member 的字典序决定；</li>
+<li>member 的分数除了可以是数字之外，还能为 -inf 和 +inf；</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>栈</title>
+    <url>/2023/05/12/stack/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><ul>
+<li>只能在末尾插入数据；</li>
+<li>只能在末尾读取数据；</li>
+<li>只能移除末尾的数据；</li>
+</ul>
+<p>总之，栈是一种先进后出的数据结构。</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>栈用于递归，递归是其他高级算法的基础。</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/stack/stack_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/stack/SyntaxValidatorTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>data structure and algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>适配器模式</title>
+    <url>/2023/05/06/structural-adapter/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个类的接口转换为客户希望的另外一个接口。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>封装有缺陷的接口设计；</li>
+<li>统一多个类的接口设计；</li>
+<li>替换依赖的外部系统；</li>
+<li>兼容老版本接口；</li>
+<li>适配不同格式的数据；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月6日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">---
+title: 继承实现
+---
+classDiagram
+class Target &#123;
+	request()
+&#125;
+
+class Adaptee &#123;
+	specificReqest()
+&#125;
+
+class Adapter &#123;
+	request()
+&#125;
+
+Target &lt;|.. Adapter
+Adaptee &lt;|-- Adapter
+Target &lt;-- Client</code></pre>
+
+<pre><code class="highlight mermaid">---
+title: 组合实现
+---
+classDiagram
+class Target &#123;
+	request()
+&#125;
+
+class Adaptee &#123;
+	specificReqest()
+&#125;
+
+class Adapter &#123;
+	request()
+&#125;
+
+Target &lt;|.. Adapter
+Adaptee o-- Adapter
+Target &lt;-- Client</code></pre>
+
+
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h2><ul>
+<li>定义 Client 使用的接口；</li>
+</ul>
+<h2 id="Adaptee"><a href="#Adaptee" class="headerlink" title="Adaptee"></a>Adaptee</h2><ul>
+<li>已经存在的接口；</li>
+</ul>
+<h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><ul>
+<li>将 Adaptee 适配到 Target 的接口；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 在 Adapter 实例上调用一些操作；</li>
+<li>Adaptee 来实现 Adapter 的操作；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>桥接模式：桥接模式的出发点是将接口和实现分离，使两者可以独立地改变；而适配器模式需要改变一个已有对象的接口；</li>
+<li>装饰器模式：装饰器模式在不改变接口的前提下，增强功能，它对应用程序的透明性比适配器好；</li>
+<li>代理模式：代理模式不改变原有接口。主要目的是控制访问，而非加强功能；</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>如果 Adaptee 接口并不多，组合和继承都可以选择；</li>
+<li>如果 Adaptee 接口很多，而且 Adaptee 和 ITarget 接口定义大部分都相同，继承适配器的代码量少，推荐使用;</li>
+<li>如果 Adaptee 接口很多，而且 Adaptee 和 ITarget 接口定义大部分都不相同，组合适配器更加灵活;</li>
+<li>适配器模式是”补偿“模式，用来补救设计上的缺陷；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/adapter/adapter_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/adapter/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>桥接模式</title>
+    <url>/2023/05/09/structural-bridge/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将抽象部分与实现部分分离，使之可以独立变化。换句话说，当一个类存在两个（或多个）独立变化的维度，通过组合的方式让这两个（或多个）维度可以独立进行扩展。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
+<li>分离抽象和实现；</li>
+<li>提高扩展性；</li>
+<li>实现细节对 Client 透明</li>
+</ol>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>不希望抽象和实现有绑定关系；</li>
+<li>类的抽象以及实现可以通过生成子类的方式进行扩充；</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月9日</td>
+<td align="center">初始化</td>
+</tr>
+</tbody></table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
+
+class Abstraction &#123;
+	&lt;&lt;interface&gt;&gt;
+	operation()
+&#125;
+
+class RefinedAbstraction &#123;
+	operation()
+&#125;
+Abstraction &lt;|.. RefinedAbstraction
+
+class Implementor &#123;
+	&lt;&lt;interface&gt;&gt;
+	operationImp()
+&#125;
+
+class ConcreteImplementorA &#123;
+	operationImp()
+&#125;
+
+class ConcreteImplementorA &#123;
+	operationImp()
+&#125;
+Implementor &lt;|.. ConcreteImplementorA
+Implementor &lt;|.. ConcreteImplementorB
+
+Abstraction o.. Implementor
+Abstraction &lt;-- Client</code></pre>
+
+
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Abstraction"><a href="#Abstraction" class="headerlink" title="Abstraction"></a>Abstraction</h2><ul>
+<li>定义抽象类的接口；</li>
+<li>维护一个指向 Implementor 的指针；</li>
+</ul>
+<h2 id="RefinedAbstraction"><a href="#RefinedAbstraction" class="headerlink" title="RefinedAbstraction"></a>RefinedAbstraction</h2><ul>
+<li>扩展 Abstraction 的接口；</li>
+</ul>
+<h2 id="Implementor"><a href="#Implementor" class="headerlink" title="Implementor"></a>Implementor</h2><ul>
+<li>定义实现类的接口。该接口不一定与 Abstraction 完全一致；</li>
+<li>Implementor 接口仅提供基本操作，而 Abstraction 则定义了基于这些基本操作较高层次的操作；</li>
+</ul>
+<h2 id="ConcreteImplementor"><a href="#ConcreteImplementor" class="headerlink" title="ConcreteImplementor"></a>ConcreteImplementor</h2><ul>
+<li>Implementor 的实现；</li>
+</ul>
+<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
+<li>Client 通过调用 Abstraction 中的接口来操作；</li>
+<li>Abstraction 的实现委托给 ConcreteImplementor 来进行；</li>
+</ol>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
+<li>抽象工厂：用来创建和配置一个特定的桥接模式；</li>
+<li>适配器模式：通常在系统设计完成后使用，桥接模式则在系统开始时就被使用。</li>
+</ul>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>”抽象“并非是抽象类或接口，而是一组行为，真正的业务实现委托给”实现“来完成；</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/bridge/bridge_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/bridge/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
       </tags>
   </entry>
   <entry>
@@ -3405,304 +3704,6 @@ participant business as 商家服务
       </tags>
   </entry>
   <entry>
-    <title>选择排序</title>
-    <url>/2023/05/03/selection-sort/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>选择排序首先会找到数组中最小的元素；其次，交换它和第一个元素；再其次，在剩下的元素中找到最小的元素，将它与数组的第二个元素交换。</p>
-<p>如此往复，直到将整个数组排序。</p>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>由于需要寻找最小的，所以每个元素都需要比较；</li>
-<li>冒泡排序是比较后，满足要求就交换；而选择排序是先比较一轮，最后只交换一次。所以选择排序的步数大概只有冒泡排序的一般，即选择排序比冒泡排序快一倍。</li>
-</ul>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/selection_sort_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/SelectionSortTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>data structure and algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>有序集合</title>
-    <url>/2023/05/08/redis-zset/</url>
-    <content><![CDATA[<p>有序集合同时具有“有序”和“集合” 2 种性质。</p>
-<span id="more"></span>
-
-<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="ZADD"><a href="#ZADD" class="headerlink" title="ZADD"></a>ZADD</h2><p>添加一个或多个元素到有序集合，返回添加元素的数量。</p>
-<p>NX 参数：只会操作不存在的元素；</p>
-<p>XX 参数：只会操作存在的元素；</p>
-<p>CH 参数：返回更新元素的个数；</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 4</span><br><span class="line">ZADD salary 3500 &quot;peter&quot; 4000 &quot;jack&quot; 2000 &quot;tom&quot; 5500 &quot;mary&quot;</span><br><span class="line"></span><br><span class="line">-- 更新 member 的 score，没有成员添加，返回 0</span><br><span class="line">ZADD salary 3501 &quot;peter&quot;</span><br><span class="line"></span><br><span class="line">-- 返回 1，增加 hanzhang，并且 peter 不会改变</span><br><span class="line">ZADD salary NX 6000 &quot;hanzhang&quot; 3500 &quot;peter&quot;</span><br><span class="line">-- 返回 0，将 hanzhang 更新为 6000，peter 更新为 3500</span><br><span class="line">ZADD salary XX 6000 &quot;hanzhang&quot; 3500 &quot;peter&quot;</span><br><span class="line">-- 返回 2，将 hanzhang 更新为 6001，peter 更新为 3501</span><br><span class="line">ZADD salary CH XX 6001 &quot;hanzhang&quot; 3501 &quot;peter&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(m * logn)。m 为 member 的数量，n 为成员数量。</p>
-<h2 id="ZREM"><a href="#ZREM" class="headerlink" title="ZREM"></a>ZREM</h2><p>从集合中删除一个或多个元素，返回移除元素的数量。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回 1</span><br><span class="line">ZREM salary &quot;peter&quot;</span><br><span class="line">-- 返回 2 </span><br><span class="line">ZREM salary &quot;hanzhang&quot; &quot;tom&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(m * logn)。m 为 member 的数量，n 为成员数量。</p>
-<h2 id="ZSCORE"><a href="#ZSCORE" class="headerlink" title="ZSCORE"></a>ZSCORE</h2><p>获取给定 member 的 score。</p>
-<p>不存在的有序集合或 member 返回 nil。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 4000</span><br><span class="line">ZSCORE salary &quot;jack&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(1)</p>
-<h2 id="ZINCRBY"><a href="#ZINCRBY" class="headerlink" title="ZINCRBY"></a>ZINCRBY</h2><p>将给定 member 的 score 进行增加或减少，返回更新后的 score。</p>
-<p>不存在的有序集合会进行创建。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1000</span><br><span class="line">ZINCRBY salary 1000 &quot;jack&quot;</span><br><span class="line"></span><br><span class="line">-- 2000</span><br><span class="line">ZINCRBY salary 1000 &quot;jack&quot;</span><br><span class="line"></span><br><span class="line">-- 1000</span><br><span class="line">ZINCRBY salary -1000 &quot;jack&quot;</span><br><span class="line"></span><br><span class="line">-- 0</span><br><span class="line">ZINCRBY salary -1000 &quot;jack&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(n)</p>
-<h2 id="ZCARD"><a href="#ZCARD" class="headerlink" title="ZCARD"></a>ZCARD</h2><p>返回有序集合中元素个数，有序集合不存在则返回 0.</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 返回元素个数</span><br><span class="line">ZCARD salary</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(1)</p>
-<h2 id="ZRANK"><a href="#ZRANK" class="headerlink" title="ZRANK"></a>ZRANK</h2><p>返回元素在有序集合的升序下标，集合或元素不存在，返回 nil。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 1</span><br><span class="line">ZRANK salary &quot;peter&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn)</p>
-<h2 id="ZREVRANK"><a href="#ZREVRANK" class="headerlink" title="ZREVRANK"></a>ZREVRANK</h2><p>返回元素在有序集合的降序下标，集合或元素不存在，返回 nil。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">ZREVRANK salary &quot;peter&quot;</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn)</p>
-<h2 id="ZRANGE"><a href="#ZRANGE" class="headerlink" title="ZRANGE"></a>ZRANGE</h2><p>获取升序中指定闭区间内的所有 member。</p>
-<p>可以接受负索引，负索引从 -1 开始。</p>
-<p>不存在时，返回空。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- tom peter jack mary</span><br><span class="line"></span><br><span class="line">-- tom peter jack</span><br><span class="line">ZRANGE salary 0 2</span><br><span class="line">-- jack mary</span><br><span class="line">ZRANGE salary  -2 -1</span><br><span class="line">-- tom peter jack</span><br><span class="line">ZRANGE salary  0 -2</span><br><span class="line">-- 以升序获取全部</span><br><span class="line">ZRANGE salary  0 -1</span><br><span class="line">-- 返回 member 的同时，返回 score</span><br><span class="line">ZRANGE salary  0 -1 WITHSCORES</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn + m)</p>
-<h2 id="ZREVRANGE"><a href="#ZREVRANGE" class="headerlink" title="ZREVRANGE"></a>ZREVRANGE</h2><p>获取降序中指定闭区间内的所有 member。</p>
-<p>可以接受负索引，负索引从 -1 开始。</p>
-<p>不存在时，返回空。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- mary jack peter</span><br><span class="line">ZREVRANGE salary 0 2</span><br><span class="line">-- peter tom</span><br><span class="line">ZREVRANGE salary  -2 -1</span><br><span class="line">-- mary jack peter</span><br><span class="line">ZREVRANGE salary  0 -2</span><br><span class="line">-- 以降序获取全部</span><br><span class="line">ZREVRANGE salary  0 -1</span><br><span class="line">-- 返回 member 的同时，返回 score</span><br><span class="line">ZREVRANGE salary  0 -1 WITHSCORES</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn + m)</p>
-<h2 id="ZCOUNT"><a href="#ZCOUNT" class="headerlink" title="ZCOUNT"></a>ZCOUNT</h2><p>返回指定闭区间内成员数量。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ZADD salary 3500 &quot;peter&quot; 4000 &quot;jack&quot; 2000 &quot;tom&quot; 5500 &quot;mary&quot;</span><br><span class="line"></span><br><span class="line">-- 3，[2000, 4000]</span><br><span class="line">ZCOUNT salary 2000 4000</span><br><span class="line">-- 2, (2000, 4000]</span><br><span class="line">ZCOUNT salary （2000 4000</span><br><span class="line">-- 2, [2000, 4000)</span><br><span class="line">ZCOUNT salary 2000 (4000</span><br><span class="line">-- 1, (2000, 4000)</span><br><span class="line">ZCOUNT salary (2000 (4000</span><br><span class="line">-- 3, [3500, +∞)</span><br><span class="line">ZCOUNT salary 3500 +inf</span><br><span class="line">-- 3, （-∞, 3500]</span><br><span class="line">ZCOUNT salary -inf 3500</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn)</p>
-<h2 id="ZREMRANGEBYRANK"><a href="#ZREMRANGEBYRANK" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h2><p>从升序排列中移除闭区间排名的元素，返回被移除元素的数量。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">ZREMRANGEBYRANK salary 1 2</span><br><span class="line">-- 2 </span><br><span class="line">ZREMRANGEBYRANK salary -2 -1</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn + m)</p>
-<h2 id="ZREMRANGEBYRANK-1"><a href="#ZREMRANGEBYRANK-1" class="headerlink" title="ZREMRANGEBYRANK"></a>ZREMRANGEBYRANK</h2><p>从升序排列中移除间分值的元素，返回被移除元素的数量。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-- 2</span><br><span class="line">ZREMRANGEBYSCORE salary 4000 5500</span><br><span class="line"></span><br><span class="line">-- 1</span><br><span class="line">ZREMRANGEBYSCORE salary （4000 5500</span><br></pre></td></tr></table></figure>
-
-<p>时间复杂度：O(logn + m)</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>有序集合同时拥有“有序”和“集合” 2 种性质；</li>
-<li>一般情况下，有序集合的顺序由分值 score 决定，而分值相同的成员排序由 member 的字典序决定；</li>
-<li>member 的分数除了可以是数字之外，还能为 -inf 和 +inf；</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>栈</title>
-    <url>/2023/05/12/stack/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><ul>
-<li>只能在末尾插入数据；</li>
-<li>只能在末尾读取数据；</li>
-<li>只能移除末尾的数据；</li>
-</ul>
-<p>总之，栈是一种先进后出的数据结构。</p>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><p>栈用于递归，递归是其他高级算法的基础。</p>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/stack/stack_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/stack/SyntaxValidatorTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>data structure and algorithm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>桥接模式</title>
-    <url>/2023/05/09/structural-bridge/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将抽象部分与实现部分分离，使之可以独立变化。换句话说，当一个类存在两个（或多个）独立变化的维度，通过组合的方式让这两个（或多个）维度可以独立进行扩展。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>分离抽象和实现；</li>
-<li>提高扩展性；</li>
-<li>实现细节对 Client 透明</li>
-</ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>不希望抽象和实现有绑定关系；</li>
-<li>类的抽象以及实现可以通过生成子类的方式进行扩充；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年5月9日</td>
-<td align="center">初始化</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Abstraction &#123;
-	&lt;&lt;interface&gt;&gt;
-	operation()
-&#125;
-
-class RefinedAbstraction &#123;
-	operation()
-&#125;
-Abstraction &lt;|.. RefinedAbstraction
-
-class Implementor &#123;
-	&lt;&lt;interface&gt;&gt;
-	operationImp()
-&#125;
-
-class ConcreteImplementorA &#123;
-	operationImp()
-&#125;
-
-class ConcreteImplementorA &#123;
-	operationImp()
-&#125;
-Implementor &lt;|.. ConcreteImplementorA
-Implementor &lt;|.. ConcreteImplementorB
-
-Abstraction o.. Implementor
-Abstraction &lt;-- Client</code></pre>
-
-
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Abstraction"><a href="#Abstraction" class="headerlink" title="Abstraction"></a>Abstraction</h2><ul>
-<li>定义抽象类的接口；</li>
-<li>维护一个指向 Implementor 的指针；</li>
-</ul>
-<h2 id="RefinedAbstraction"><a href="#RefinedAbstraction" class="headerlink" title="RefinedAbstraction"></a>RefinedAbstraction</h2><ul>
-<li>扩展 Abstraction 的接口；</li>
-</ul>
-<h2 id="Implementor"><a href="#Implementor" class="headerlink" title="Implementor"></a>Implementor</h2><ul>
-<li>定义实现类的接口。该接口不一定与 Abstraction 完全一致；</li>
-<li>Implementor 接口仅提供基本操作，而 Abstraction 则定义了基于这些基本操作较高层次的操作；</li>
-</ul>
-<h2 id="ConcreteImplementor"><a href="#ConcreteImplementor" class="headerlink" title="ConcreteImplementor"></a>ConcreteImplementor</h2><ul>
-<li>Implementor 的实现；</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>Client 通过调用 Abstraction 中的接口来操作；</li>
-<li>Abstraction 的实现委托给 ConcreteImplementor 来进行；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂：用来创建和配置一个特定的桥接模式；</li>
-<li>适配器模式：通常在系统设计完成后使用，桥接模式则在系统开始时就被使用。</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>”抽象“并非是抽象类或接口，而是一组行为，真正的业务实现委托给”实现“来完成；</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/bridge/bridge_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/bridge/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>适配器模式</title>
-    <url>/2023/05/06/structural-adapter/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个类的接口转换为客户希望的另外一个接口。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>封装有缺陷的接口设计；</li>
-<li>统一多个类的接口设计；</li>
-<li>替换依赖的外部系统；</li>
-<li>兼容老版本接口；</li>
-<li>适配不同格式的数据；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年5月6日</td>
-<td align="center">初始化</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">---
-title: 继承实现
----
-classDiagram
-class Target &#123;
-	request()
-&#125;
-
-class Adaptee &#123;
-	specificReqest()
-&#125;
-
-class Adapter &#123;
-	request()
-&#125;
-
-Target &lt;|.. Adapter
-Adaptee &lt;|-- Adapter
-Target &lt;-- Client</code></pre>
-
-<pre><code class="highlight mermaid">---
-title: 组合实现
----
-classDiagram
-class Target &#123;
-	request()
-&#125;
-
-class Adaptee &#123;
-	specificReqest()
-&#125;
-
-class Adapter &#123;
-	request()
-&#125;
-
-Target &lt;|.. Adapter
-Adaptee o-- Adapter
-Target &lt;-- Client</code></pre>
-
-
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h2><ul>
-<li>定义 Client 使用的接口；</li>
-</ul>
-<h2 id="Adaptee"><a href="#Adaptee" class="headerlink" title="Adaptee"></a>Adaptee</h2><ul>
-<li>已经存在的接口；</li>
-</ul>
-<h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h2><ul>
-<li>将 Adaptee 适配到 Target 的接口；</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><ol>
-<li>Client 在 Adapter 实例上调用一些操作；</li>
-<li>Adaptee 来实现 Adapter 的操作；</li>
-</ol>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>桥接模式：桥接模式的出发点是将接口和实现分离，使两者可以独立地改变；而适配器模式需要改变一个已有对象的接口；</li>
-<li>装饰器模式：装饰器模式在不改变接口的前提下，增强功能，它对应用程序的透明性比适配器好；</li>
-<li>代理模式：代理模式不改变原有接口。主要目的是控制访问，而非加强功能；</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>如果 Adaptee 接口并不多，组合和继承都可以选择；</li>
-<li>如果 Adaptee 接口很多，而且 Adaptee 和 ITarget 接口定义大部分都相同，继承适配器的代码量少，推荐使用;</li>
-<li>如果 Adaptee 接口很多，而且 Adaptee 和 ITarget 接口定义大部分都不相同，组合适配器更加灵活;</li>
-<li>适配器模式是”补偿“模式，用来补救设计上的缺陷；</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/adapter/adapter_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/adapter/ClientTest.java">java</a></p>
-]]></content>
-      <tags>
-        <tag>design pattern</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>组合模式</title>
     <url>/2023/05/07/structural-composite/</url>
     <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将对象组合成树形结构，以表示成”部分-整体“的层次结构。</p>
@@ -3785,6 +3786,57 @@ Component &lt;-- Client</code></pre>
 </ul>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/composite/composite_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/composite/ClientTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>design pattern</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>选择排序</title>
+    <url>/2023/05/03/selection-sort/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>选择排序首先会找到数组中最小的元素；其次，交换它和第一个元素；再其次，在剩下的元素中找到最小的元素，将它与数组的第二个元素交换。</p>
+<p>如此往复，直到将整个数组排序。</p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>由于需要寻找最小的，所以每个元素都需要比较；</li>
+<li>冒泡排序是比较后，满足要求就交换；而选择排序是先比较一轮，最后只交换一次。所以选择排序的步数大概只有冒泡排序的一般，即选择排序比冒泡排序快一倍。</li>
+</ul>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>O(n^2)</p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/selection_sort_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/SelectionSortTest.java">java</a></p>
+]]></content>
+      <tags>
+        <tag>data structure and algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>享元模式</title>
+    <url>/2023/05/10/structural-flyweight/</url>
+    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>享元模式通过共享多个对象所共有的相同状态或是不可变对象，用来复用对象、节省内存。</p>
+<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1. </p>
+<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>1. </p>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
+<li>仅在程序必须支持大量对象且没有足够的内存容量时使用享元模式;</li>
+</ol>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+</table>
+<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram</code></pre>
+
+<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
+<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><p>1. </p>
+<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><p>- </p>
+<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
+<li>不可变对象只能由构造函数的参数进行一次性初始化， 它不能对其他对象公开其设置器或公有成员变量。</li>
+</ul>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/flyweight/flyweight_test.go">golang</a></p>
+<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/flyweight/ClientTest.java">java</a></p>
 ]]></content>
       <tags>
         <tag>design pattern</tag>
@@ -3975,37 +4027,188 @@ Facade &lt;-- Client</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>享元模式</title>
-    <url>/2023/05/10/structural-flyweight/</url>
-    <content><![CDATA[<h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>享元模式通过共享多个对象所共有的相同状态或是不可变对象，用来复用对象、节省内存。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><p>1. </p>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>1. </p>
-<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>仅在程序必须支持大量对象且没有足够的内存容量时使用享元模式;</li>
-</ol>
-<span id="more"></span>
-
-<table>
+    <title>UML 类图</title>
+    <url>/2023/04/30/uml-class-diagram/</url>
+    <content><![CDATA[<table>
 <thead>
 <tr>
 <th align="center">DATE</th>
 <th align="center">CHANGELOG</th>
 </tr>
 </thead>
-</table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram</code></pre>
+<tbody><tr>
+<td align="center">2023年4月30日</td>
+<td align="center">init</td>
+</tr>
+</tbody></table>
+<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
+<pre><code class="highlight mermaid">---
+title: 接口示例
+---
+classDiagram
+class Speaker &#123;
+	&lt;&lt;interface&gt;&gt;
+	speak(String statement) String 
+&#125;</code></pre>
 
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><p>1. </p>
-<h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><p>- </p>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>不可变对象只能由构造函数的参数进行一次性初始化， 它不能对其他对象公开其设置器或公有成员变量。</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/structural/flyweight/flyweight_test.go">golang</a></p>
-<p><a href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/structural/flyweight/ClientTest.java">java</a></p>
+<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
+title: 类示例
+---
+classDiagram
+class Abstract &#123;
+	&lt;&lt;abstract&gt;&gt;
+&#125;</code></pre>
+
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
+<pre><code class="highlight mermaid">---
+title: 类示例
+---
+classDiagram
+class Speakerman &#123;
+	String name
+    speak(String statement) String 
+&#125;</code></pre>
+
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
+<p>-表示 private</p>
+<p>#表示 protected</p>
+<p>~表示 package 或者 internal</p>
+<pre><code class="highlight mermaid">---
+title: 可见性示例
+---
+classDiagram
+class Visibility &#123;
+	+int n1
+	-int n2
+	#int n3
+	~int n4
+	
+	+m1()
+	-m1()
+	#m3()
+	~m4()
+&#125;</code></pre>
+
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
+<p>$表示 static，下划线</p>
+<pre><code class="highlight mermaid">---
+title: 修饰符示例
+---
+classDiagram
+class Modifier &#123;
+	int n1$
+	
+	+m1()*
+    +m2()$
+&#125;</code></pre>
+
+<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
+<p>Man is a Person</p>
+<pre><code class="highlight mermaid">---
+title: 继承示例
+---
+classDiagram
+class Person &#123;
+	
+&#125;
+
+class Man &#123;
+	
+&#125;
+
+Person &lt;|-- Man</code></pre>
+
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
+<p>Bird has Fly ability</p>
+<pre><code class="highlight mermaid">---
+title: 继承示例
+---
+classDiagram
+class Fly &#123;
+	&lt;&lt;interface&gt;&gt;
+&#125;
+
+class Bird &#123;
+	
+&#125;
+
+Fly &lt;|.. Bird</code></pre>
+
+<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
+<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
+<pre><code class="highlight mermaid">---
+title: 聚合示例
+---
+classDiagram
+class Classroom &#123;
+	Blackboard blackboard
+&#125;
+
+class Blackboard &#123;
+	
+&#125;
+
+Classroom o-- Blackboard</code></pre>
+
+<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
+<p>Arm is part of Person </p>
+<pre><code class="highlight mermaid">---
+title: 组合示例
+---
+classDiagram
+class Person &#123;
+	Arm arm
+&#125;
+
+class Arm &#123;
+	
+&#125;
+
+Person *-- Arm</code></pre>
+
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
+<p>Person depand on Water</p>
+<pre><code class="highlight mermaid">---
+title: 依赖示例
+---
+classDiagram
+class Person &#123;
+	Water water
+&#125;
+
+class Water &#123;
+	
+&#125;
+
+Water &lt;.. Person</code></pre>
+
+<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
+<p>Person should know Climate</p>
+<pre><code class="highlight mermaid">---
+title: 关联示例
+---
+classDiagram
+class Person &#123;
+	Climate climate
+&#125;
+
+class Climate &#123;
+	
+&#125;
+
+Climate &lt;-- Person</code></pre>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
+<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
+<li>聚合适用范围比组合更广；</li>
+</ol>
 ]]></content>
       <tags>
-        <tag>design pattern</tag>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -4334,191 +4537,6 @@ Subject &lt;-- Client</code></pre>
 <li>typora-段落</li>
 <li>typora-格式</li>
 </ul>
-]]></content>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>UML 类图</title>
-    <url>/2023/04/30/uml-class-diagram/</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年4月30日</td>
-<td align="center">init</td>
-</tr>
-</tbody></table>
-<p>在 UML 中，类图是静态的。通过展示类、类属性、类操作和类之间的关系，来描述系统结构。</p>
-<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是类途中对现实世界的抽象。</p>
-<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>一组行为的抽象。</p>
-<pre><code class="highlight mermaid">---
-title: 接口示例
----
-classDiagram
-class Speaker &#123;
-	&lt;&lt;interface&gt;&gt;
-	speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h2><pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Abstract &#123;
-	&lt;&lt;abstract&gt;&gt;
-&#125;</code></pre>
-
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><p>具有属性和方法的对象。</p>
-<pre><code class="highlight mermaid">---
-title: 类示例
----
-classDiagram
-class Speakerman &#123;
-	String name
-    speak(String statement) String 
-&#125;</code></pre>
-
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>#表示 public</p>
-<p>-表示 private</p>
-<p>#表示 protected</p>
-<p>~表示 package 或者 internal</p>
-<pre><code class="highlight mermaid">---
-title: 可见性示例
----
-classDiagram
-class Visibility &#123;
-	+int n1
-	-int n2
-	#int n3
-	~int n4
-	
-	+m1()
-	-m1()
-	#m3()
-	~m4()
-&#125;</code></pre>
-
-<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>*表示 abstract，斜体</p>
-<p>$表示 static，下划线</p>
-<pre><code class="highlight mermaid">---
-title: 修饰符示例
----
-classDiagram
-class Modifier &#123;
-	int n1$
-	
-	+m1()*
-    +m2()$
-&#125;</code></pre>
-
-<h1 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h1><p>关系是模型元素之间的连接。</p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>空心三角 + 实线，男人属于人。</p>
-<p>Man is a Person</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Person &#123;
-	
-&#125;
-
-class Man &#123;
-	
-&#125;
-
-Person &lt;|-- Man</code></pre>
-
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>空心三角 + 虚线，鸟能飞。</p>
-<p>Bird has Fly ability</p>
-<pre><code class="highlight mermaid">---
-title: 继承示例
----
-classDiagram
-class Fly &#123;
-	&lt;&lt;interface&gt;&gt;
-&#125;
-
-class Bird &#123;
-	
-&#125;
-
-Fly &lt;|.. Bird</code></pre>
-
-<h2 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h2><p>空心菱形 + 实线，教室拥有黑板，但黑板不是教室的一部分。</p>
-<p>Classroom possess Blaskboard, but Blackboard isn’t part of Classroom </p>
-<pre><code class="highlight mermaid">---
-title: 聚合示例
----
-classDiagram
-class Classroom &#123;
-	Blackboard blackboard
-&#125;
-
-class Blackboard &#123;
-	
-&#125;
-
-Classroom o-- Blackboard</code></pre>
-
-<h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>实心菱形 + 实线，人有胳膊，同时胳膊不能独立存在。</p>
-<p>Arm is part of Person </p>
-<pre><code class="highlight mermaid">---
-title: 组合示例
----
-classDiagram
-class Person &#123;
-	Arm arm
-&#125;
-
-class Arm &#123;
-	
-&#125;
-
-Person *-- Arm</code></pre>
-
-<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p>箭头 + 虚线，人依赖水。</p>
-<p>Person depand on Water</p>
-<pre><code class="highlight mermaid">---
-title: 依赖示例
----
-classDiagram
-class Person &#123;
-	Water water
-&#125;
-
-class Water &#123;
-	
-&#125;
-
-Water &lt;.. Person</code></pre>
-
-<h2 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h2><p>箭头 + 实线，，人需要知道天气。</p>
-<p>Person should know Climate</p>
-<pre><code class="highlight mermaid">---
-title: 关联示例
----
-classDiagram
-class Person &#123;
-	Climate climate
-&#125;
-
-class Climate &#123;
-	
-&#125;
-
-Climate &lt;-- Person</code></pre>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
-<li>继承和实现可以相互替代。使用接口使用实现关系，类之间选择继承关系；</li>
-<li>依赖和关联不常用。因为依赖关系和关联关系可以进一步定义为聚合关系或者组合关系；</li>
-<li>聚合适用范围比组合更广；</li>
-</ol>
 ]]></content>
       <tags>
         <tag>tool</tag>
