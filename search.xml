@@ -594,7 +594,7 @@ participant business as 商家服务
 </ol>
 <h3 id="传输链路"><a href="#传输链路" class="headerlink" title="传输链路"></a>传输链路</h3><p>经过客户端缓存的节流和 DNS 服务的指引，程序发出的请求正式离开客户端，踏上以服务器为目的地的旅途。这就是：传输链路。</p>
 <p>优化链路传输的前端设计原则：<a href="https://developer.yahoo.com/performance/rules.html">雅虎 YSlow-23 条规则</a></p>
-<h4 id="连接数优化"><a href="#连接数优化" class="headerlink" title="连接数优化"></a>连接数优化</h4><p>HTTP&#x2F;3 以前TCP 为传输层的应用层协议，但 HTTP over TCP 这种搭配只能说是 TCP 在当今网络中统治性地位所造就的结果，而不能说它们两者配合工作就是合适的。一旦在技术根基上出现问题，依靠使用者通过 Tricks 去解决，无论如何都难以摆脱“两害相权取其轻”的权衡困境，否则这就不是 Tricks 而是会成为一种标准的设计模式了。</p>
+<h4 id="连接数优化"><a href="#连接数优化" class="headerlink" title="连接数优化"></a>连接数优化</h4><p>HTTP&#x2F;3 以前TCP 为传输层的应用层协议，但 HTTP over TCP 这种搭配只能说是 TCP 在当今网络中统治性地位所造就的结果，而不能说它们两者配合工作就是合适的。</p>
 <p>HTTP 的设计者们也尝试在协议层面去解决连接成本过高的问题，比如 HTTP&#x2F;1.1 中的连接复用技术和 HTTP&#x2F;2 中的多路复用技术，但都不完美。</p>
 <h4 id="传输压缩"><a href="#传输压缩" class="headerlink" title="传输压缩"></a>传输压缩</h4><p>静态预压缩（由于 Web 性能提升，已很少采用）：静态资源预先以 .gz 文件形式存放起来，需要哪个返回哪个；</p>
 <p>即时压缩：整个压缩过程全部在内存的数据流中完成，不必等资源压缩完成再返回响应。缺点是没法在 Header 中添加 Content-Length，因为输出 Header 服务器无法知道压缩后资源的确切大小。为保证持久连接，最初使用 Content-Length 来判断资源是否请求结束，但即时压缩与最初设计冲突。HTTP&#x2F;1.1 版本中修复了这个缺陷，增加了另一种“<a href="https://en.wikipedia.org/wiki/Chunked_transfer_encoding">分块传输编码</a>”（Chunked Transfer Encoding）的资源结束判断机制。</p>
@@ -604,6 +604,7 @@ participant business as 商家服务
 <h4 id="快速-UDP-网络连接"><a href="#快速-UDP-网络连接" class="headerlink" title="快速 UDP 网络连接"></a>快速 UDP 网络连接</h4><p>HTTP 是应用层协议，它的设计不应该过多地考虑底层的传输细节。从职责上讲，持久连接、多路复用、分块编码这些能力，已经或多或少超过了应用层的范畴。要从根本上改进 HTTP，必须直接替换掉 HTTP over TCP 的根基，即替换掉 TCP 传输协议，最新一代 HTTP&#x2F;3 协议的设计重点就在这儿。</p>
 <p><a href="https://en.wikipedia.org/wiki/QUIC">快速 UDP 网络连接</a>（Quick UDP Internet Connections，QUIC）是由 Google 公司推动，以 UDP 协议为基础，不仅能满足 HTTP 传输协议，日后还能支持 SMTP、DNS、SSH、Telnet、NTP 等多种其他上层协议的最新一代互联网标准，即 HTTP over QUIC 的  HTTP&#x2F;3 版本号。</p>
 <p>一方面，可靠传输能力完全是 QUIC 实现。另一方面，面向移动设备的专门支持。</p>
+<h4 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h4><p>一旦在技术根基上出现问题，依靠使用者通过 Tricks 去解决，无论如何都难以摆脱“两害相权取其轻”的权衡困境，否则这就不是 Tricks 而是会成为一种标准的设计模式了。</p>
 <h3 id="内容分发"><a href="#内容分发" class="headerlink" title="内容分发"></a>内容分发</h3><h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><h3 id="服务端缓存"><a href="#服务端缓存" class="headerlink" title="服务端缓存"></a>服务端缓存</h3><h2 id="架构安全"><a href="#架构安全" class="headerlink" title="架构安全"></a>架构安全</h2>]]></content>
       <tags>
         <tag>reading notes</tag>
