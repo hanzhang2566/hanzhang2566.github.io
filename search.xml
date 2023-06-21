@@ -615,6 +615,22 @@ participant business as 商家服务
 <li>根据名服务器返回 <code>com</code>的地址记录，通过 <code>com</code> 的权威服务器，得到 <code>baidu.com</code>的地址记录，以此反推，得到 <code>www.baidu.com</code>的权威服务器地址；</li>
 <li>通过 <code>www.baidu.com</code>的权威服务器地址，得到地址记录；</li>
 </ol>
+<pre><code class="highlight mermaid">sequenceDiagram
+participant browser as 浏览器
+participant local as 本地DNS
+participant authority as 权威DNS
+participant server as 网站服务器
+    browser -&gt;&gt; local: 查询网站icyfenix.cn
+    loop 递归查询
+        local -&gt;&gt; authority: 查询网站icyfenix.cn
+    end
+    authority --&gt;&gt; local: 地址：xxx.xxx.xxx.xxx
+    local --&gt;&gt; browser: 地址：xxx.xxx.xxx.xxx
+    browser -&gt;&gt; server: 请求
+    server --&gt;&gt; browser: 响应</code></pre>
+
+
+
 <h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><ol>
 <li><p>响应速度</p>
 <p>极端情况下，域名解析都需要递归到根域名服务器才能查询到结果，响应速度变慢；</p>
@@ -636,7 +652,70 @@ participant business as 商家服务
 <p><a href="https://en.wikipedia.org/wiki/QUIC">快速 UDP 网络连接</a>（Quick UDP Internet Connections，QUIC）是由 Google 公司推动，以 UDP 协议为基础，不仅能满足 HTTP 传输协议，日后还能支持 SMTP、DNS、SSH、Telnet、NTP 等多种其他上层协议的最新一代互联网标准，即 HTTP over QUIC 的  HTTP&#x2F;3 版本号。</p>
 <p>一方面，可靠传输能力完全是 QUIC 实现。另一方面，面向移动设备的专门支持。</p>
 <h4 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h4><p>一旦在技术根基上出现问题，依靠使用者通过 Tricks 去解决，无论如何都难以摆脱“两害相权取其轻”的权衡困境，否则这就不是 Tricks 而是会成为一种标准的设计模式了。</p>
-<h3 id="内容分发"><a href="#内容分发" class="headerlink" title="内容分发"></a>内容分发</h3><h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><h3 id="服务端缓存"><a href="#服务端缓存" class="headerlink" title="服务端缓存"></a>服务端缓存</h3><h2 id="架构安全"><a href="#架构安全" class="headerlink" title="架构安全"></a>架构安全</h2>]]></content>
+<h3 id="内容分发网络"><a href="#内容分发网络" class="headerlink" title="内容分发网络"></a>内容分发网络</h3><p>如果抛弃其他影响服务质量的因素，仅从网络传输的角度看，一个互联网系统的速度取决于以下四点因素：</p>
+<ol>
+<li>网站服务器接入网络运营商的链路的出口带宽；</li>
+<li>用户客户端接入网络运营商的链路的入口带宽；</li>
+<li>不同运营商之间互联节点的带宽。一般不同运营商只有若干个节点是互通的；</li>
+<li>从网站到用户之间的物理链路传输时延；</li>
+</ol>
+<p>以上四个网络问题，除了第二个只能通过换一个更好的宽带才能解决之外，其余三个都能通过内容分发网络来显著改善。一个运作良好的内容分发网络，能为互联网系统解决跨运营商、跨地域物理距离所导致的时延问题，能为网站流量带宽起到分流、减负的作用。内容分发网络的工作过程，主要涉及域名解析、内容分发、负载均衡和所能支持的 CDN 应用内容四个方面。</p>
+<h4 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h4><ol>
+<li>架设好“icyfenix.cn”的服务器后，会将服务器 IP 地址在 CDN 服务商上注册为“源站”，CDN 服务商会生成一个“源站”的 CNAME 记录；</li>
+<li>将 CNAME 记录注册到域名权威 DNS 和 CNAME 的权威 DNS 上；</li>
+<li>域名权威DNS 发现是 CNAME 记录后，返回给本地 DNS，之后链路解析的主导权就开始由内容分发网络的调度服务接管了；</li>
+<li>CNAME 的权威 DNS 根据负载均衡策略和参数，挑选一个最合适的 CDN 节点，将其 IP 进行返回；</li>
+<li>访问 IP 即可；</li>
+</ol>
+<pre><code class="highlight mermaid">sequenceDiagram
+participant browser as 浏览器
+participant local as 本地DNS
+participant authority as 域名权威DNS
+participant cname as CNAME的权威DNS
+participant cdn as CDN服务器
+participant server as 源站服务器
+    browser -&gt;&gt; local: 查询网站icyfenix.cn
+    loop 递归查询
+        local -&gt;&gt; authority: 查询网站icyfenix.cn
+    end
+    authority --&gt;&gt; local: 返回 CNAME 记录
+    local --&gt;&gt; cname: 查询 CNAME 记录
+    loop 递归查询
+        cname -&gt;&gt; cname: 经过递归查询和负载均衡，确定合适的CDN
+    end
+    cname --&gt;&gt; local: 地址：xxx.xxx.xxx.xxx
+    local --&gt;&gt; browser: 地址：xxx.xxx.xxx.xxx
+    browser -&gt;&gt; cdn: 请求
+    cdn -&gt;&gt; server: 请求
+    server --&gt;&gt; cdn: 响应
+    cdn --&gt;&gt; browser: 响应</code></pre>
+
+
+
+<h4 id="内容分发"><a href="#内容分发" class="headerlink" title="内容分发"></a>内容分发</h4><p>内容分发就是 CDN 获取源站资源的过程，包括“如何获取源站资源”和“如何更新资源” 2 方面。</p>
+<p>如何获取源站资源：</p>
+<ol>
+<li><p>主动分发 PUSH</p>
+<p>由源站主动将资源推送到用户边缘的各个 CDN 缓存节点上。正因如此，它对源站并不是透明的，只对用户一侧单向透明。主动分发一般用于网站要预载大量资源的场景。</p>
+</li>
+<li><p>被动回源 PULL</p>
+<p>由用户访问所触发全自动、双向透明的资源缓存过程。</p>
+</li>
+</ol>
+<p>如何更新资源：</p>
+<p>没有统一标准，取决于 CDN 服务商的实现策略。由于大多数网站的开发和运维人员并不十分了解 HTTP 缓存机制，导致如果 CDN 服务商完全照着 HTTP Headers 来控制缓存失效和更新，效果反而会相当的差，还可能引发其他问题。</p>
+<p>现在，最常见的做法是超时被动失效与手工主动失效相结合。超时失效是指给予缓存资源一定的生存期，超过了生存期就在下次请求时重新被动回源一次。而手工失效是指 CDN 服务商一般会提供给程序调用来失效缓存的接口，在网站更新时，由持续集成的流水线自动调用该接口来实现缓存更新。</p>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><h4 id="CDN-应用"><a href="#CDN-应用" class="headerlink" title="CDN 应用"></a>CDN 应用</h4><ul>
+<li>加速静态资源：本职工作；</li>
+<li>安全防御：CDN 可以视为网站的堡垒机；</li>
+<li>协议提升；</li>
+<li>状态缓存；</li>
+<li>修改资源；</li>
+<li>访问控制；</li>
+<li>注入功能；</li>
+<li>等等</li>
+</ul>
+<h3 id="服务端缓存"><a href="#服务端缓存" class="headerlink" title="服务端缓存"></a>服务端缓存</h3><h2 id="架构安全"><a href="#架构安全" class="headerlink" title="架构安全"></a>架构安全</h2>]]></content>
       <tags>
         <tag>reading notes</tag>
       </tags>
