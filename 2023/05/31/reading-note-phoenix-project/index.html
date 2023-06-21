@@ -29,11 +29,15 @@
 <meta property="og:site_name" content="张晗的个人博客">
 <meta property="og:description" content="⭐⭐⭐⭐⭐ 这是一副帮助开发者、技术决策者的技能地图，一份参考手册。 从架构演进开始，循序渐进走向分布式和云原生。除了不同架构主流方案外，更重要的是叙述了这些方案的来龙去脉、利弊选择，同时提供了代码工程。虽然周老师文笔谦逊，但能感受到文字中蕴含的海纳百川的容量。 技术决策者重要的是取舍，在能满足需求的前提下，最简单的系统就是最好的系统。 在线阅读">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185013674.png">
+<meta property="og:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185454338.png">
+<meta property="og:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185649892.png">
 <meta property="article:published_time" content="2023-05-31T03:06:15.000Z">
-<meta property="article:modified_time" content="2023-06-21T03:12:45.767Z">
+<meta property="article:modified_time" content="2023-06-21T10:57:12.028Z">
 <meta property="article:author" content="张晗_Jeremy">
 <meta property="article:tag" content="reading notes">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185013674.png">
 
 
 <link rel="canonical" href="http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/">
@@ -254,7 +258,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>50 分钟</span>
+      <span>52 分钟</span>
     </span>
 </div>
 
@@ -895,7 +899,26 @@ participant server as 源站服务器
 <p>如何更新资源：</p>
 <p>没有统一标准，取决于 CDN 服务商的实现策略。由于大多数网站的开发和运维人员并不十分了解 HTTP 缓存机制，导致如果 CDN 服务商完全照着 HTTP Headers 来控制缓存失效和更新，效果反而会相当的差，还可能引发其他问题。</p>
 <p>现在，最常见的做法是超时被动失效与手工主动失效相结合。超时失效是指给予缓存资源一定的生存期，超过了生存期就在下次请求时重新被动回源一次。而手工失效是指 CDN 服务商一般会提供给程序调用来失效缓存的接口，在网站更新时，由持续集成的流水线自动调用该接口来实现缓存更新。</p>
-<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><h4 id="CDN-应用"><a href="#CDN-应用" class="headerlink" title="CDN 应用"></a>CDN 应用</h4><ul>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><p>调度后方的多台机器，以统一的接口对外提供服务，承担此职责的技术组件被称为“负载均衡”。真正大型系统的负载均衡往往是多级的。</p>
+<ul>
+<li>四层负载均衡的优势是性能高，七层负载均衡的优势是功能强；</li>
+<li>做多级混合负载均衡，通常应是低层的负载均衡在前，高层的负载均衡在后；</li>
+</ul>
+<ol>
+<li><p>数据链路层负载均衡</p>
+<p>数据链路层负载均衡所做的工作，是修改请求的数据帧中的 MAC 目标地址，让用户原本是发送给负载均衡器的请求的数据帧，被二层交换机根据新的 MAC 目标地址转发到服务器集群中对应的服务器（后文称为“真实服务器”，Real Server）的网卡上，这样真实服务器就获得了一个原本目标并不是发送给它的数据帧。</p>
+<p><img src="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185013674.png" alt="image-20230621185013674"></p>
+<p>数据链路层负载均衡器直接改写目标 MAC 地址的工作原理决定了它与真实的服务器的通信必须是二层可达的。通俗地说就是必须位于同一个子网当中，无法跨 VLAN。优势（效率高）和劣势（不能跨子网）共同决定了数据链路层负载均衡最适合用来做数据中心的第一级均衡设备，用来连接其他的下级负载均衡器。</p>
+</li>
+<li><p>网络层负载均衡</p>
+<p>与链路层类似，网络层通过改变 IP 地址来实现数据包转发。</p>
+<p>IP 隧道：新创建一个数据包，把原来数据包的 Headers 中目标 IP 修改后和 Payload 整体作为另一个新的数据包的 Payload 发送出去。一个缺点是服务器必须支持 IP 隧道协议，另一个是必须专门配置。</p>
+<p><img src="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185454338.png" alt="image-20230621185454338"></p>
+<p>网络地址转换：直接修改源数据包的目标 IP 后发出去。</p>
+<p><img src="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185649892.png" alt="image-20230621185649892"></p>
+</li>
+</ol>
+<h4 id="CDN-应用"><a href="#CDN-应用" class="headerlink" title="CDN 应用"></a>CDN 应用</h4><ul>
 <li>加速静态资源：本职工作；</li>
 <li>安全防御：CDN 可以视为网站的堡垒机；</li>
 <li>协议提升；</li>
@@ -1032,7 +1055,7 @@ participant server as 源站服务器
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:40</span>
+    <span title="站点阅读时长">2:42</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
