@@ -817,6 +817,49 @@ participant server as 源站服务器
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Encode the raw password. Generally, a good encoding algorithm applies a SHA-1 or</span></span><br><span class="line"><span class="comment"> * greater hash combined with an 8-byte or greater randomly generated salt.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">encrypt</span><span class="params">(CharSequence rawPassword)</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>().encode(Optional.ofNullable(rawPassword).orElse(<span class="string">&quot;&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Verify the encoded password obtained from storage matches the submitted raw</span></span><br><span class="line"><span class="comment"> * password after it too is encoded. Returns true if the passwords match, false if</span></span><br><span class="line"><span class="comment"> * they do not. The stored password itself is never decoded.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> rawPassword the raw password to encode and match</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> encodedPassword the encoded password from storage to compare with</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> true if the raw password, after encoding, matches the encoded password from</span></span><br><span class="line"><span class="comment"> * storage</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">matches</span><span class="params">(CharSequence rawPassword, String encodedPassword)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>().matches(rawPassword, encodedPassword);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="传输"><a href="#传输" class="headerlink" title="传输"></a>传输</h3><p>系统如何保证通过网络传输的信息无法被第三方窃听、篡改和冒充？</p>
+<h4 id="摘要、加密与签名"><a href="#摘要、加密与签名" class="headerlink" title="摘要、加密与签名"></a>摘要、加密与签名</h4><p><a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">摘要</a>也称之为数字摘要（Digital Digest）或数字指纹（Digital Fingerprint），意义是在源信息不泄漏的前提下辨别其真伪，易变性保证了从公开的特征上可以甄别出是否来自于源信息，不可逆性保证了从公开的特征并不会暴露出源信息。</p>
+<p>加密与摘要的本质区别在于加密是可逆的，逆过程就是解密。根据加密与解密是否采用同一个密钥，现代密码学算法可分为对称加密算法和非对称加密。对称加密的问题在于：1. 当通信的成员数量增加时，面临密钥管理的难题；2. 密钥如何安全传输。非对称加密将密钥分成公钥和私钥，公钥可以完全公开，无须安全传输的保证。私钥由用户自行保管，不参与任何通信传输。根据这两个密钥加解密方式的不同，使得算法可以提供两种不同的功能：<strong>称为加密的公钥加密，私钥解密</strong>和<strong>称为签名的私钥加密，公钥解密</strong>。</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">特点</th>
+<th align="center">常见实现</th>
+<th align="center">主要用途</th>
+<th align="center">主要局限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">哈希摘要</td>
+<td align="center">易变和不可逆</td>
+<td align="center">MD2&#x2F;4&#x2F;5&#x2F;6、SHA0&#x2F;1&#x2F;256&#x2F;512</td>
+<td align="center">摘要</td>
+<td align="center">无法解密</td>
+</tr>
+<tr>
+<td align="center">对称加密</td>
+<td align="center">密钥相同速度快、设计难度小、明文长度不受限</td>
+<td align="center">DES、AES、RC4、IDEA</td>
+<td align="center">加密</td>
+<td align="center">要解决如何把密钥安全地传递给解密者</td>
+</tr>
+<tr>
+<td align="center">非对称加密</td>
+<td align="center">加解密密钥不同<br/>明文长度不能超过公钥长度。</td>
+<td align="center">RSA、BCDSA、ElGamal</td>
+<td align="center">签名、传递密钥</td>
+<td align="center">性能与加密明文长度受限</td>
+</tr>
+</tbody></table>
+<h4 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h4><p>当我们无法以“签名”的手段来达成信任时，就只能求助于其他途径。1. <strong>基于共同私密信息的信任</strong>；2. <strong>基于权威公证人的信任</strong>。我们并不能假设授权服务器和资源服务器是互相认识的，所以通常不太会采用第一种方式，而第二种就是目前标准的保证公钥可信分发的标准，而数字证书认证中心（Certificate Authority，CA）就是权威公证人。</p>
+<h4 id="传输安全层"><a href="#传输安全层" class="headerlink" title="传输安全层"></a>传输安全层</h4><p>以 TLS 1.2 为例。</p>
+<ol>
+<li><strong>客户端请求</strong>：Client Hello。客户端向服务器请求进行加密通信，在这个请求里面，它会以<strong>明文</strong>的形式，向服务端提供以下信息； </li>
+<li><strong>服务器回应</strong>：Server Hello。服务器接收到客户端的通信请求后，如果客户端声明支持的协议版本和加密算法组合与服务端相匹配的话，就向客户端发出回应。如果不匹配，将会返回一个握手失败的警告提示；</li>
+<li><strong>客户端确认</strong>：Client Handshake Finished。客户端收到服务器应答后，先要验证服务器的证书合法性。如果证书没有问题，客户端就会从证书中取出服务器的公钥，并向服务器发送以下信息若干信息；</li>
+<li><strong>服务端确认</strong>：Server Handshake Finished。服务端向客户端回应最后的确认通知，包括以下信息；</li>
+</ol>
+<p>至此，整个 TLS 握手阶段宣告完成，一个安全的连接就已成功建立。每一个连接建立时，客户端和服务端均通过上面的握手过程协商出了许多信息，此后该连接的通信将使用此密钥和加密算法进行加密、解密和压缩。这种处理方式对上层协议的功能上完全透明的，在传输性能上会有下降，建立在这层安全传输层之上的 HTTP 协议，就被称为“HTTP over SSL&#x2F;TLS”，也即是大家所熟知的 HTTPS。</p>
 <h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>系统如何确保提交到每项服务中的数据是合乎规则的，不会对系统稳定性、数据一致性、正确性产生风险？</p>
 ]]></content>
       <tags>
