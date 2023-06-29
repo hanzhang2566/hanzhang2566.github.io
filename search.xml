@@ -1250,6 +1250,16 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
+    <title>单体架构的目录设计</title>
+    <url>/2023/05/24/best-practice-dir/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">├─api							# 前后端交互</span><br><span class="line">│  ├─advice							# 全局异常处理</span><br><span class="line">│  ├─controller						# 控制器</span><br><span class="line">│  ├─handler						# 自定义返回值处理</span><br><span class="line">│  └─rest							# 请求与响应</span><br><span class="line">│      ├─group							# 分组验证</span><br><span class="line">│      ├─req							# 请求</span><br><span class="line">│      └─vo								# 响应</span><br><span class="line">│          └─convert						# vo 转换器</span><br><span class="line">├─config						# 配置</span><br><span class="line">├─enums							# 枚举</span><br><span class="line">├─exception						# 异常</span><br><span class="line">├─model							# 数据模型</span><br><span class="line">│  └─handler						# 与 db 有关的处理器</span><br><span class="line">├─repository					# 存储接口</span><br><span class="line">│  ├─impl							# 存储实现</span><br><span class="line">│  └─mapper							# 存储 mapper</span><br><span class="line">├─service						# 实现接口</span><br><span class="line">│  ├─helper							# 实现 helper</span><br><span class="line">│  └─impl							# 具体实现</span><br><span class="line">└─util							# 工具类</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>best practice</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringMVC 接口设计</title>
     <url>/2023/05/24/best-practice-mvc/</url>
     <content><![CDATA[<p>请求方式和参数注解可以自由组合。</p>
@@ -1271,16 +1281,6 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 <li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
 </ol>
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
-]]></content>
-      <tags>
-        <tag>best practice</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>单体架构的目录设计</title>
-    <url>/2023/05/24/best-practice-dir/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">├─api							# 前后端交互</span><br><span class="line">│  ├─advice							# 全局异常处理</span><br><span class="line">│  ├─controller						# 控制器</span><br><span class="line">│  ├─handler						# 自定义返回值处理</span><br><span class="line">│  └─rest							# 请求与响应</span><br><span class="line">│      ├─group							# 分组验证</span><br><span class="line">│      ├─req							# 请求</span><br><span class="line">│      └─vo								# 响应</span><br><span class="line">│          └─convert						# vo 转换器</span><br><span class="line">├─config						# 配置</span><br><span class="line">├─enums							# 枚举</span><br><span class="line">├─exception						# 异常</span><br><span class="line">├─model							# 数据模型</span><br><span class="line">│  └─handler						# 与 db 有关的处理器</span><br><span class="line">├─repository					# 存储接口</span><br><span class="line">│  ├─impl							# 存储实现</span><br><span class="line">│  └─mapper							# 存储 mapper</span><br><span class="line">├─service						# 实现接口</span><br><span class="line">│  ├─helper							# 实现 helper</span><br><span class="line">│  └─impl							# 具体实现</span><br><span class="line">└─util							# 工具类</span><br></pre></td></tr></table></figure>
-
 ]]></content>
       <tags>
         <tag>best practice</tag>
