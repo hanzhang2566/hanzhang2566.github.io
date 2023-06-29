@@ -14,8 +14,11 @@
   <entry>
     <title>微服务不是银弹</title>
     <url>/2023/06/28/essay-20230628/</url>
-    <content><![CDATA[<p><a href="https://en.wikipedia.org/wiki/Fred_Brooks">Fred Brooks</a> 在他的两本著作《<a href="https://en.wikipedia.org/wiki/No_Silver_Bullet">没有银弹：软件工程的本质性与附属性工作</a>》和《<a href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month">人月神话：软件项目管理之道</a>》里都反复强调着一个观点：“<strong>软件研发中任何一项技术、方法、架构都不可能是银弹</strong>”。</p>
-<h1 id="目的：为什么选择微服务"><a href="#目的：为什么选择微服务" class="headerlink" title="目的：为什么选择微服务"></a>目的：为什么选择微服务</h1><h2 id="外部因素"><a href="#外部因素" class="headerlink" title="外部因素"></a>外部因素</h2><ul>
+    <content><![CDATA[<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Fred_Brooks">Fred Brooks</a> 在他的两本著作《<a href="https://en.wikipedia.org/wiki/No_Silver_Bullet">没有银弹：软件工程的本质性与附属性工作</a>》和《<a href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month">人月神话：软件项目管理之道</a>》里都反复强调着一个观点：“<strong>软件研发中任何一项技术、方法、架构都不可能是银弹</strong>”。</p>
+</blockquote>
+<h1 id="目的：为什么选择微服务"><a href="#目的：为什么选择微服务" class="headerlink" title="目的：为什么选择微服务"></a>目的：为什么选择微服务</h1><p>微服务的目的是有效的拆分应用，实现敏捷开发和部署。</p>
+<h2 id="外部因素"><a href="#外部因素" class="headerlink" title="外部因素"></a>外部因素</h2><ul>
 <li>没有什么技术能包打天下。考虑到技术异构选择微服务是没有选择、无可避免的。</li>
 <li>人才储备。选择微服务能使高水平开发、运维人员来实现关键业务服务，外围功能交给非核心人员，以便保证系统整体的稳定和局部的容错、自愈与快速迭代。</li>
 <li>甲方要求。甲方招投标文件技术规范明文要求。</li>
@@ -1333,11 +1336,11 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>快速排序</title>
-    <url>/2023/05/17/quick-sort/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
-<p>最坏情况：O(n^2)</p>
+    <title>快速查找</title>
+    <url>/2023/05/17/quick-select/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(n)</p>
+<p>最坏情况：O(nlogn)</p>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
 ]]></content>
@@ -1346,11 +1349,11 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>快速查找</title>
-    <url>/2023/05/17/quick-select/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(n)</p>
-<p>最坏情况：O(nlogn)</p>
+    <title>快速排序</title>
+    <url>/2023/05/17/quick-sort/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
+<p>最坏情况：O(n^2)</p>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
 ]]></content>
