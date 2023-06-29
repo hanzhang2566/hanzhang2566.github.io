@@ -14,7 +14,7 @@
 
 # 联系
 
-如果在搭建个人博客中有任何问题，可以通过 [Issues](https://github.com/hanzhang2566/hanzhang2566.github.io/issues) 或邮件与我取得联系。
+如果在搭建个人博客中有任何问题，可以通过 [Issues](https://github.com/hanzhang2566/hanzhang2566.github.io/issues) 或邮件与我联系。
 
 # 致谢
 
