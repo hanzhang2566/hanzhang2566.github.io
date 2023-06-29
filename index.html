@@ -155,7 +155,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -267,6 +267,116 @@
 <h1 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h1><p>这里是我的个人信息和工作经历。</p>
 <h1 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h1><p>文章标题、文章内容、代码都可以通过搜索查询。</p>
 <h1 id="知识共创协议"><a href="#知识共创协议" class="headerlink" title="知识共创协议"></a>知识共创协议</h1><p>本站使用了最宽松的 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by/4.0/deed.zh">CC 协议</a>，使用仅需署名即可。点击<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/">这里</a>，了解更多。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/06/28/essay-20230628/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="张晗_Jeremy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张晗的个人博客">
+      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 张晗的个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/06/28/essay-20230628/" class="post-title-link" itemprop="url">微服务不是银弹</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-28 21:29:07" itemprop="dateCreated datePublished" datetime="2023-06-28T21:29:07+08:00">2023-06-28</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Fred_Brooks">Fred Brooks</a> 在他的两本著作《<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/No_Silver_Bullet">没有银弹：软件工程的本质性与附属性工作</a>》和《<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month">人月神话：软件项目管理之道</a>》里都反复强调着一个观点：“<strong>软件研发中任何一项技术、方法、架构都不可能是银弹</strong>”。</p>
+<h1 id="目的：为什么选择微服务"><a href="#目的：为什么选择微服务" class="headerlink" title="目的：为什么选择微服务"></a>目的：为什么选择微服务</h1><h2 id="外部因素"><a href="#外部因素" class="headerlink" title="外部因素"></a>外部因素</h2><ul>
+<li>没有什么技术能包打天下。考虑到技术异构选择微服务是没有选择、无可避免的。</li>
+<li>人才储备。选择微服务能使高水平开发、运维人员来实现关键业务服务，外围功能交给非核心人员，以便保证系统整体的稳定和局部的容错、自愈与快速迭代。</li>
+<li>甲方要求。甲方招投标文件技术规范明文要求。</li>
+<li>…</li>
+</ul>
+<h2 id="内部因素"><a href="#内部因素" class="headerlink" title="内部因素"></a>内部因素</h2><ul>
+<li>快速变化业务的自主选择。微服务让系统有更好的可观测性、快速迭代和自愈能力。</li>
+<li>大规模的、业务复杂的、历史包袱沉重的单体系统会自然向微服务演进。</li>
+<li>…</li>
+</ul>
+<h1 id="前提：微服务的条件"><a href="#前提：微服务的条件" class="headerlink" title="前提：微服务的条件"></a>前提：微服务的条件</h1><h2 id="康威定律"><a href="#康威定律" class="headerlink" title="康威定律"></a>康威定律</h2><p>决策者与执行者都能意识到康威定律在软件设计中的关键作用。康威定律的核心观点是“沟通决定设计”，其社会学和管理学的规律决定了假如产品和组织能够经受住市场竞争，长期发展的话，最终都会自发地调整成组织与产品互相匹配的状态。</p>
+<p>为了推进软件架构的微服务化而配合地调整组织架构，通常不是一件容易的事情。因为所有的技术上的决策实际都是政治上的决策。解决这个问题不仅需要执行者有良好的社交能力，还需要更上层的决策者充分理解架构演变同步调整组织结构的必要性，为微服务化打破局部的利益藩篱。</p>
+<h2 id="技术专家"><a href="#技术专家" class="headerlink" title="技术专家"></a>技术专家</h2><p>开发业务的普通程序员可以不去深究跟踪治理、负载均衡、故障隔离、认证授权、伸缩扩展这些系统性的问题，它们被隐藏于软件架构的最底层，被掩埋在基础设施之下。靠谱的软件架构应该要由深刻理解微服务的技术专家来设计建造，健壮的基础设施也离不开有经验的运维专家的持续运维。</p>
+<p>如果整个团队中缺乏能够在微服务架构中撑起系统主干的技术和运维专家，强行进行微服务化并不会有任何好处，至少收益不足以抵消复杂性增加而导致的成本。</p>
+<p>一个残忍的真相是：软件架构的趋势将导致开发者的分层，从如今所有开发者都普遍被认为是“高智商人群”的状态，转变为大部分工业化软件生产工人加上小部分软件设计专家的金字塔结构。</p>
+<h2 id="自治和监控"><a href="#自治和监控" class="headerlink" title="自治和监控"></a>自治和监控</h2><p>由于微服务数量多、发布快，迅速升级和回滚的自动化是必要的，但监控对于任何一个系统都需要。</p>
+<p>微服务自动化的最终目的是构筑一个可持续的生态系统，现阶段仍然是一个过于理想化的目标。建设微服务的不同时期，由不同程度的人力去参与运维完全可行的，只要满足与系统规模和目标相匹配的自动化能力。只有朝着这个目标去发展自动化与监控度量，避免自动化与度量监控反过来成为人与系统的负担。</p>
+<h2 id="复杂性"><a href="#复杂性" class="headerlink" title="复杂性"></a>复杂性</h2><p>架构是演进式设计的，对于小型系统，单体架构就是最好的架构。复杂度的提升自然而然过渡到微服务架构中。</p>
+<h1 id="边界：微服务的粒度"><a href="#边界：微服务的粒度" class="headerlink" title="边界：微服务的粒度"></a>边界：微服务的粒度</h1><h2 id="下界"><a href="#下界" class="headerlink" title="下界"></a>下界</h2><p>微服务粒度的下界是它至少应满足独立，内聚，完备三个特征。</p>
+<p>独立：独立发布、独立部署、独立运行与独立测试。</p>
+<p>内聚：强相关的功能与数据在同一个服务中处理。</p>
+<p>完备：个服务包含至少一项业务实体与对应的完整操作。</p>
+<h2 id="上界"><a href="#上界" class="headerlink" title="上界"></a>上界</h2><p>微服务粒度的上界是一个 2 Pizza Team，能够在一个研发周期内完成的全部需求范围。</p>
+<p>这是由于<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Dunbar%27s_number">邓巴数</a>的存在。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://icyfenix.cn/methodology/forward-msa/">向微服务迈进</a></p>
 
       
     </div>
@@ -591,99 +701,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/26/reading-note-hello-startup/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/26/reading-note-hello-startup/" class="post-title-link" itemprop="url">奔跑吧，程序员</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-05-26 11:06:15" itemprop="dateCreated datePublished" datetime="2023-05-26T11:06:15+08:00">2023-05-26</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>6.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>23 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="⭐⭐⭐⭐"><a href="#⭐⭐⭐⭐" class="headerlink" title="⭐⭐⭐⭐"></a>⭐⭐⭐⭐</h1><p>如果你打算技术创业，那应该全书阅读；如果你没有这样的打算，推荐针对性阅读。作者由于身处外国，很难针对国内读者提供实质帮助，更多是思路上的。</p>
-<p>产品部分，打开了技术开发者的视野；技术部分，特别是代码整洁部分，主要是思路，更细致的落地还需要看别的参考书。例如，《代码大全》、《重构》等；团队部分，求职、招聘对招聘者和应聘者都有值得思考的地方。</p>
-<p>总体来说，还是推荐阅读的。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/05/26/reading-note-hello-startup/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -708,13 +725,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">48k</span>
+    <span title="站点总字数">49k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:54</span>
+    <span title="站点阅读时长">2:58</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持

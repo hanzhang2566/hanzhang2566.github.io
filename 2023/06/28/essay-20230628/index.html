@@ -22,28 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="描述快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。 时间复杂度平均情况：O(n) 最坏情况：O(nlogn) 示例代码golang java">
+    <meta name="description" content="Fred Brooks 在他的两本著作《没有银弹：软件工程的本质性与附属性工作》和《人月神话：软件项目管理之道》里都反复强调着一个观点：“软件研发中任何一项技术、方法、架构都不可能是银弹”。 目的：为什么选择微服务外部因素 没有什么技术能包打天下。考虑到技术异构选择微服务是没有选择、无可避免的。 人才储备。选择微服务能使高水平开发、运维人员来实现关键业务服务，外围功能交给非核心人员，以便保证系统整">
 <meta property="og:type" content="article">
-<meta property="og:title" content="快速查找">
-<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/17/quick-select/index.html">
+<meta property="og:title" content="微服务不是银弹">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/06/28/essay-20230628/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="描述快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。 时间复杂度平均情况：O(n) 最坏情况：O(nlogn) 示例代码golang java">
+<meta property="og:description" content="Fred Brooks 在他的两本著作《没有银弹：软件工程的本质性与附属性工作》和《人月神话：软件项目管理之道》里都反复强调着一个观点：“软件研发中任何一项技术、方法、架构都不可能是银弹”。 目的：为什么选择微服务外部因素 没有什么技术能包打天下。考虑到技术异构选择微服务是没有选择、无可避免的。 人才储备。选择微服务能使高水平开发、运维人员来实现关键业务服务，外围功能交给非核心人员，以便保证系统整">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-17T03:04:06.000Z">
-<meta property="article:modified_time" content="2023-05-24T07:32:59.270Z">
+<meta property="article:published_time" content="2023-06-28T13:29:07.000Z">
+<meta property="article:modified_time" content="2023-06-29T03:28:35.048Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="data structure and algorithm">
+<meta property="article:tag" content="essay">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/17/quick-select/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/06/28/essay-20230628/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/17/quick-select/","path":"2023/05/17/quick-select/","title":"快速查找"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/06/28/essay-20230628/","path":"2023/06/28/essay-20230628/","title":"微服务不是银弹"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>快速查找 | 张晗的个人博客</title>
+<title>微服务不是银弹 | 张晗的个人博客</title>
   
 
 
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">2.</span> <span class="nav-text">时间复杂度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E7%9A%84%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">目的：为什么选择微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E5%9B%A0%E7%B4%A0"><span class="nav-number">1.1.</span> <span class="nav-text">外部因素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E5%9B%A0%E7%B4%A0"><span class="nav-number">1.2.</span> <span class="nav-text">内部因素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">前提：微服务的条件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%B7%E5%A8%81%E5%AE%9A%E5%BE%8B"><span class="nav-number">2.1.</span> <span class="nav-text">康威定律</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E4%B8%93%E5%AE%B6"><span class="nav-number">2.2.</span> <span class="nav-text">技术专家</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E6%B2%BB%E5%92%8C%E7%9B%91%E6%8E%A7"><span class="nav-number">2.3.</span> <span class="nav-text">自治和监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="nav-number">2.4.</span> <span class="nav-text">复杂性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%B2%92%E5%BA%A6"><span class="nav-number">3.</span> <span class="nav-text">边界：微服务的粒度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E7%95%8C"><span class="nav-number">3.1.</span> <span class="nav-text">下界</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E7%95%8C"><span class="nav-number">3.2.</span> <span class="nav-text">上界</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -208,7 +208,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/17/quick-select/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/06/28/essay-20230628/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -221,12 +221,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="快速查找 | 张晗的个人博客">
+      <meta itemprop="name" content="微服务不是银弹 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          快速查找
+          微服务不是银弹
         </h1>
 
         <div class="post-meta-container">
@@ -237,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-17 11:04:06" itemprop="dateCreated datePublished" datetime="2023-05-17T11:04:06+08:00">2023-05-17</time>
+      <time title="创建时间：2023-06-28 21:29:07" itemprop="dateCreated datePublished" datetime="2023-06-28T21:29:07+08:00">2023-06-28</time>
     </span>
 
   
@@ -247,14 +247,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>63</span>
+      <span>1.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -265,11 +265,33 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(n)</p>
-<p>最坏情况：O(nlogn)</p>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
+        <p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Fred_Brooks">Fred Brooks</a> 在他的两本著作《<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/No_Silver_Bullet">没有银弹：软件工程的本质性与附属性工作</a>》和《<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/The_Mythical_Man-Month">人月神话：软件项目管理之道</a>》里都反复强调着一个观点：“<strong>软件研发中任何一项技术、方法、架构都不可能是银弹</strong>”。</p>
+<h1 id="目的：为什么选择微服务"><a href="#目的：为什么选择微服务" class="headerlink" title="目的：为什么选择微服务"></a>目的：为什么选择微服务</h1><h2 id="外部因素"><a href="#外部因素" class="headerlink" title="外部因素"></a>外部因素</h2><ul>
+<li>没有什么技术能包打天下。考虑到技术异构选择微服务是没有选择、无可避免的。</li>
+<li>人才储备。选择微服务能使高水平开发、运维人员来实现关键业务服务，外围功能交给非核心人员，以便保证系统整体的稳定和局部的容错、自愈与快速迭代。</li>
+<li>甲方要求。甲方招投标文件技术规范明文要求。</li>
+<li>…</li>
+</ul>
+<h2 id="内部因素"><a href="#内部因素" class="headerlink" title="内部因素"></a>内部因素</h2><ul>
+<li>快速变化业务的自主选择。微服务让系统有更好的可观测性、快速迭代和自愈能力。</li>
+<li>大规模的、业务复杂的、历史包袱沉重的单体系统会自然向微服务演进。</li>
+<li>…</li>
+</ul>
+<h1 id="前提：微服务的条件"><a href="#前提：微服务的条件" class="headerlink" title="前提：微服务的条件"></a>前提：微服务的条件</h1><h2 id="康威定律"><a href="#康威定律" class="headerlink" title="康威定律"></a>康威定律</h2><p>决策者与执行者都能意识到康威定律在软件设计中的关键作用。康威定律的核心观点是“沟通决定设计”，其社会学和管理学的规律决定了假如产品和组织能够经受住市场竞争，长期发展的话，最终都会自发地调整成组织与产品互相匹配的状态。</p>
+<p>为了推进软件架构的微服务化而配合地调整组织架构，通常不是一件容易的事情。因为所有的技术上的决策实际都是政治上的决策。解决这个问题不仅需要执行者有良好的社交能力，还需要更上层的决策者充分理解架构演变同步调整组织结构的必要性，为微服务化打破局部的利益藩篱。</p>
+<h2 id="技术专家"><a href="#技术专家" class="headerlink" title="技术专家"></a>技术专家</h2><p>开发业务的普通程序员可以不去深究跟踪治理、负载均衡、故障隔离、认证授权、伸缩扩展这些系统性的问题，它们被隐藏于软件架构的最底层，被掩埋在基础设施之下。靠谱的软件架构应该要由深刻理解微服务的技术专家来设计建造，健壮的基础设施也离不开有经验的运维专家的持续运维。</p>
+<p>如果整个团队中缺乏能够在微服务架构中撑起系统主干的技术和运维专家，强行进行微服务化并不会有任何好处，至少收益不足以抵消复杂性增加而导致的成本。</p>
+<p>一个残忍的真相是：软件架构的趋势将导致开发者的分层，从如今所有开发者都普遍被认为是“高智商人群”的状态，转变为大部分工业化软件生产工人加上小部分软件设计专家的金字塔结构。</p>
+<h2 id="自治和监控"><a href="#自治和监控" class="headerlink" title="自治和监控"></a>自治和监控</h2><p>由于微服务数量多、发布快，迅速升级和回滚的自动化是必要的，但监控对于任何一个系统都需要。</p>
+<p>微服务自动化的最终目的是构筑一个可持续的生态系统，现阶段仍然是一个过于理想化的目标。建设微服务的不同时期，由不同程度的人力去参与运维完全可行的，只要满足与系统规模和目标相匹配的自动化能力。只有朝着这个目标去发展自动化与监控度量，避免自动化与度量监控反过来成为人与系统的负担。</p>
+<h2 id="复杂性"><a href="#复杂性" class="headerlink" title="复杂性"></a>复杂性</h2><p>架构是演进式设计的，对于小型系统，单体架构就是最好的架构。复杂度的提升自然而然过渡到微服务架构中。</p>
+<h1 id="边界：微服务的粒度"><a href="#边界：微服务的粒度" class="headerlink" title="边界：微服务的粒度"></a>边界：微服务的粒度</h1><h2 id="下界"><a href="#下界" class="headerlink" title="下界"></a>下界</h2><p>微服务粒度的下界是它至少应满足独立，内聚，完备三个特征。</p>
+<p>独立：独立发布、独立部署、独立运行与独立测试。</p>
+<p>内聚：强相关的功能与数据在同一个服务中处理。</p>
+<p>完备：个服务包含至少一项业务实体与对应的完整操作。</p>
+<h2 id="上界"><a href="#上界" class="headerlink" title="上界"></a>上界</h2><p>微服务粒度的上界是一个 2 Pizza Team，能够在一个研发周期内完成的全部需求范围。</p>
+<p>这是由于<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Dunbar%27s_number">邓巴数</a>的存在。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://icyfenix.cn/methodology/forward-msa/">向微服务迈进</a></p>
 
     </div>
 
@@ -305,7 +327,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/05/17/quick-select/" title="快速查找">http://hanzhang2566.github.io/2023/05/17/quick-select/</a>
+      <a href="http://hanzhang2566.github.io/2023/06/28/essay-20230628/" title="微服务不是银弹">http://hanzhang2566.github.io/2023/06/28/essay-20230628/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
@@ -345,21 +367,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/data-structure-and-algorithm/" rel="tag"># data structure and algorithm</a>
+              <a href="/tags/essay/" rel="tag"># essay</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/05/15/essay-20230515/" rel="prev" title="20230515">
-                  <i class="fa fa-chevron-left"></i> 20230515
+                <a href="/2023/06/21/become-problem-solver/" rel="prev" title="成为问题解决者">
+                  <i class="fa fa-chevron-left"></i> 成为问题解决者
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/05/17/quick-sort/" rel="next" title="快速排序">
-                  快速排序 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
