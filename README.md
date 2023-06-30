@@ -2,7 +2,7 @@
 
 # 预览
 
-
+![image-20230630161406796](https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230630161406796.png)
 
 # 网站搭建
 
