@@ -1,12 +1,8 @@
-这是张晗_Jeremy 的个人博客，记录了我的学习和生活。欢迎各位 Star，并关注我的 BiliBli 和小宇宙。
+这是张晗（Jeremy）[个人博客](https://hanzhang2566.github.io/)的源代码仓库，用来记录了我的学习和生活。欢迎各位 Star，并关注我的 BiliBli 和小宇宙。
 
 # 预览
 
-![preview](https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/preview.png)
 
-# 访问
-
-[点击](https://hanzhang2566.github.io/)
 
 # 网站搭建
 
