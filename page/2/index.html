@@ -382,106 +382,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/24/best-practice-validation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="张晗_Jeremy">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="张晗的个人博客">
-      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 张晗的个人博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/24/best-practice-validation/" class="post-title-link" itemprop="url">SpringMVC 参数校验</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-05-24 13:01:05" itemprop="dateCreated datePublished" datetime="2023-05-24T13:01:05+08:00">2023-05-24</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>204</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-validation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>Controller 类上添加 @Validate 注解。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/param_notnull&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">notnull</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> <span class="meta">@NotEmpty</span> String username)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>Java Bean 中添加校验，配合方法中的 @Validated 注解。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/pojo_notnull&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">notnull</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名&lt;br&gt;</span></span><br><span class="line"><span class="comment">     * username != null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@NotEmpty</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h1><h2 id="group"><a href="#group" class="headerlink" title="group"></a>group</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> ValidationController#email(UserReq)&#125; &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/5/24 16:14 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">EmailGroup</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> ValidationController#login(UserReq)&#125; &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/5/24 16:18 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">LoginGroup</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/pojo_email&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">email</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(value = &#123;EmailGroup.class&#125;)</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PostMapping(&quot;/pojo_login&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(value = &#123;LoginGroup.class&#125;)</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 邮箱</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Email(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/ValidationController.java">here</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/24/best-practice-mvc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -558,6 +458,106 @@
 <li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
 </ol>
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/24/best-practice-validation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="张晗_Jeremy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张晗的个人博客">
+      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 张晗的个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/05/24/best-practice-validation/" class="post-title-link" itemprop="url">SpringMVC 参数校验</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-24 13:01:05" itemprop="dateCreated datePublished" datetime="2023-05-24T13:01:05+08:00">2023-05-24</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>204</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-validation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>Controller 类上添加 @Validate 注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/param_notnull&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">notnull</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> <span class="meta">@NotEmpty</span> String username)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>Java Bean 中添加校验，配合方法中的 @Validated 注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/pojo_notnull&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">notnull</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名&lt;br&gt;</span></span><br><span class="line"><span class="comment">     * username != null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@NotEmpty</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h1><h2 id="group"><a href="#group" class="headerlink" title="group"></a>group</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> ValidationController#email(UserReq)&#125; &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/5/24 16:14 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">EmailGroup</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> ValidationController#login(UserReq)&#125; &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/5/24 16:18 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">LoginGroup</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/pojo_email&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">email</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(value = &#123;EmailGroup.class&#125;)</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PostMapping(&quot;/pojo_login&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(value = &#123;LoginGroup.class&#125;)</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 邮箱</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Email(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/ValidationController.java">here</a></p>
 
       
     </div>
@@ -699,13 +699,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">52k</span>
+    <span title="站点总字数">53k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:09</span>
+    <span title="站点阅读时长">3:14</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持

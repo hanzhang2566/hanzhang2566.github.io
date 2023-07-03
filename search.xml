@@ -953,7 +953,38 @@ participant server as 源站服务器
 <li>网关选型时，应该尽可能选择较成熟的产品实现，性能与可用性之间的平衡也需要权衡。</li>
 <li>在需要高可用的生产环境中，应当考虑在网关之前部署负载均衡器或者<a href="https://en.wikipedia.org/wiki/Equal-cost_multi-path_routing">等价路由器</a>（ECMP），让那些更成熟健壮的设施（往往是硬件物理设备）去充当整个系统的入口地址，这样网关也可以进行扩展了。</li>
 </ul>
-<h2 id="流量治理"><a href="#流量治理" class="headerlink" title="流量治理"></a>流量治理</h2><h2 id="可靠通讯"><a href="#可靠通讯" class="headerlink" title="可靠通讯"></a>可靠通讯</h2><h2 id="可观测性"><a href="#可观测性" class="headerlink" title="可观测性"></a>可观测性</h2>]]></content>
+<h2 id="流量治理"><a href="#流量治理" class="headerlink" title="流量治理"></a>流量治理</h2><h2 id="可靠通讯"><a href="#可靠通讯" class="headerlink" title="可靠通讯"></a>可靠通讯</h2><h2 id="可观测性"><a href="#可观测性" class="headerlink" title="可观测性"></a>可观测性</h2><h3 id="事件日志"><a href="#事件日志" class="headerlink" title="事件日志"></a>事件日志</h3><p>日志用来记录系统运行期间发生过的离散事件。</p>
+<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>日志输出应该无有遗漏地记录信息，格式统一，内容恰当。</p>
+<p><strong>优模式</strong>：</p>
+<ol>
+<li>处理请求的 TraceID。服务收到请求时，如果该请求没有附带 TraceID，就应该自动生成唯一的 TraceID 来对请求进行标记，并使用 logback MDC 自动输出到日志。目的是通过它把请求在分布式系统各个服务中的执行过程串联起来。TraceID 通常也会随着请求的响应返回到客户端，如果响应内容出现了异常，用户便能通过此 ID 快速找到与问题相关的日志;</li>
+<li>系统运行过程中的关键事件。系统进行了哪些操作、发生了与预期不符的情况、运行期间出现未能处理的异常或警告、定期自动执行的任务，等等，都应该在日志中完整记录下来。</li>
+<li>启动时输出配置信息。对于系统启动时或者检测到配置中心变化时更新的配置的逻辑一般只会执行一次，应将非敏感的配置信息输出到日志中，便于诊断时复现。</li>
+</ol>
+<p><strong>反模式</strong>：</p>
+<ol>
+<li>避免打印敏感信息。因为后续索引、存储、归档等步骤后，清理起来将非常麻烦；</li>
+<li>避免慢引用操作。日志信息应该从当前上下文获取，而非专门调用远程服务、数据库或者大量计算得到;</li>
+<li>避免打印追踪诊断信息。日志中不要打印方法输入参数、输出结果、方法执行时长之类的调试信息。日志的职责是记录事件，追踪诊断应由追踪系统去处理，如果没有也建议使用<a href="https://github.com/btraceio/btrace">BTrace</a>或者<a href="https://github.com/alibaba/arthas">Arthas</a>这类“On-The-Fly”的工具来解决；</li>
+<li>避免误导他人；</li>
+</ol>
+<h4 id="收集与缓冲"><a href="#收集与缓冲" class="headerlink" title="收集与缓冲"></a>收集与缓冲</h4><p>分布式系统处理一个请求要跨越多个服务节点，为了能看到跨节点的全部日志，就要有能覆盖整个链路的全局日志系统。这个需求决定了每个节点输出日志到文件后，必须将日志文件统一收集起来集中存储、索引，由此便催生了专门的日志收集器。</p>
+<p>日志收集有较重的 Logstash 和轻量高效的<a href="https://github.com/elastic/beats/tree/master/filebeat">Filebeat</a>（<a href="https://github.com/elastic/beats">Beats</a>框架的产品）。</p>
+<p>日志不追求绝对的完整精确，只追求在代价可承受的范围内保证尽可能地保证较高的数据质量。一种最常用的缓解压力的做法是将日志接收者从 Logstash 和 Elasticsearch 转移至抗压能力更强的队列缓存。譬如在 Logstash 之前架设一个 Kafka 或者 Redis 作为缓冲层，面对突发流量，Logstash 或 Elasticsearch 处理能力出现瓶颈时自动削峰填谷，甚至当它们短时间停顿，也不会丢失日志数据。</p>
+<h4 id="加工与聚合"><a href="#加工与聚合" class="headerlink" title="加工与聚合"></a>加工与聚合</h4><p>日志是非结构化数据，一行日志中通常会包含多项信息，如果不做处理，那在 Elasticsearch 就只能以全文检索的原始方式去使用日志，既不利于统计对比，也不利于条件过滤。</p>
+<p>Logstash 的基本职能是把日志行中的非结构化数据，通过 Grok 表达式语法转换为结构化数据，进行结构化的同时，还可能会根据需要，调用其他插件来完成时间处理、类型转换、查询归类等额外处理工作，然后以 JSON 格式输出到 Elasticsearch 中。</p>
+<p>Logstash 的另一个常见职能是把日志数据进行聚合。</p>
+<h4 id="存储与查询"><a href="#存储与查询" class="headerlink" title="存储与查询"></a>存储与查询</h4><p>Elasticsearch 是整个 Elastic Stack 技术栈的核心，其他步骤的工具，如 Filebeat、Logstash、Kibana 都有替代品，唯独 Elasticsearch 在日志分析这方面完全没有什么值得一提的竞争者，几乎就是解决此问题的唯一答案。Elasticsearch 本身是一款优秀产品，然而更关键的是 Elasticsearch 的优势正好与日志分析的需求完美契合：</p>
+<ul>
+<li>数据特征。日志基于时间的数据流，虽然增长速度很快，但已写入的数据几乎没有再发生变动的可能；</li>
+<li>数据价值。日志基本上只会以最近的数据为检索目标，随着时间推移，早期的数据将逐渐失去价值。这很容易区分出冷数据和热数据，进而对不同数据采用不一样的硬件策略；</li>
+</ul>
+<p>Elasticsearch 只提供了 API 层面的查询能力，它通常搭配 Kibana 一起使用，可以将 Kibana 视为 Elastic Stack 的 GUI 部分。</p>
+<h3 id="链路追踪"><a href="#链路追踪" class="headerlink" title="链路追踪"></a>链路追踪</h3><p>广义上讲，一个完整的分布式追踪系统应该由数据收集、数据存储和数据展示三个相对独立的子系统构成，而狭义上讲的追踪则就只是特指链路追踪数据的收集部分。<a href="https://spring.io/projects/spring-cloud-sleuth">Spring Cloud Sleuth</a>就属于狭义的追踪系统，通常会搭配 Zipkin 作为数据展示，搭配 Elasticsearch 作为数据存储来组合使用，Twitter 的<a href="https://github.com/openzipkin/zipkin">Zipkin</a>、Naver 的<a href="https://github.com/pinpoint-apm/pinpoint">Pinpoint</a>、阿里的鹰眼、大众点评的<a href="https://github.com/dianping/cat">CAT</a>、个人开源的<a href="https://github.com/apache/skywalking">SkyWalking</a> 大多都属于广义的追踪系统，广义的追踪系统又常被称为“APM 系统”（Application Performance Management）。</p>
+<h4 id="追踪和跨度"><a href="#追踪和跨度" class="headerlink" title="追踪和跨度"></a>追踪和跨度</h4><p>追踪：从客户端发起请求抵达系统的边界开始，记录请求流经的每一个服务，直到到向客户端返回响应为止。</p>
+<p>跨度：为了能够记录具体调用了哪些服务，以及调用的顺序、开始时点、执行时长等信息，每次开始调用服务前都要先埋入一个调用记录，即跨度；</p>
+<h4 id="数据收集"><a href="#数据收集" class="headerlink" title="数据收集"></a>数据收集</h4><p>追踪系统根据数据收集方式的差异，可分为三种主流的实现方式，分别是<strong>基于日志的追踪</strong>，<strong>基于服务的追踪</strong>和<strong>基于边车代理的追踪</strong>。</p>
+<h4 id="追踪规范化"><a href="#追踪规范化" class="headerlink" title="追踪规范化"></a>追踪规范化</h4><h3 id="聚合度量"><a href="#聚合度量" class="headerlink" title="聚合度量"></a>聚合度量</h3>]]></content>
       <tags>
         <tag>reading notes</tag>
       </tags>
@@ -1314,31 +1345,6 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>SpringMVC 参数校验</title>
-    <url>/2023/05/24/best-practice-validation/</url>
-    <content><![CDATA[<h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-validation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>Controller 类上添加 @Validate 注解。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/param_notnull&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">notnull</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> <span class="meta">@NotEmpty</span> String username)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>Java Bean 中添加校验，配合方法中的 @Validated 注解。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/pojo_notnull&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">notnull</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名&lt;br&gt;</span></span><br><span class="line"><span class="comment">     * username != null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@NotEmpty</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h1><h2 id="group"><a href="#group" class="headerlink" title="group"></a>group</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> ValidationController#email(UserReq)&#125; &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/5/24 16:14 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">EmailGroup</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> ValidationController#login(UserReq)&#125; &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/5/24 16:18 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">LoginGroup</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/pojo_email&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">email</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(value = &#123;EmailGroup.class&#125;)</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PostMapping(&quot;/pojo_login&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(value = &#123;LoginGroup.class&#125;)</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 邮箱</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Email(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/ValidationController.java">here</a></p>
-]]></content>
-      <tags>
-        <tag>best practice</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringMVC 接口设计</title>
     <url>/2023/05/24/best-practice-mvc/</url>
     <content><![CDATA[<p>请求方式和参数注解可以自由组合。</p>
@@ -1360,6 +1366,31 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
 <li>不要使用 Get 方式来接收 @RequestBody 请求；</li>
 </ol>
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/MvcController.java">here</a></p>
+]]></content>
+      <tags>
+        <tag>best practice</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SpringMVC 参数校验</title>
+    <url>/2023/05/24/best-practice-validation/</url>
+    <content><![CDATA[<h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-validation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a>@RequestParam</h1><p>Controller 类上添加 @Validate 注解。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/param_notnull&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">notnull</span><span class="params">(<span class="meta">@RequestParam(&quot;username&quot;)</span> <span class="meta">@NotEmpty</span> String username)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a>@RequestBody</h1><p>Java Bean 中添加校验，配合方法中的 @Validated 注解。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/pojo_notnull&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">notnull</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名&lt;br&gt;</span></span><br><span class="line"><span class="comment">     * username != null</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull</span></span><br><span class="line">    <span class="meta">@NotEmpty</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h1><h2 id="group"><a href="#group" class="headerlink" title="group"></a>group</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> ValidationController#email(UserReq)&#125; &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/5/24 16:14 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">EmailGroup</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Usage: &#123;<span class="doctag">@link</span> ValidationController#login(UserReq)&#125; &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> * Date: 2023/5/24 16:18 &lt;br/&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> &lt;a href=&quot;mailto:hanzhang2566@foxmail.com&quot;&gt;hanzhang&lt;/a&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">LoginGroup</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="controller"><a href="#controller" class="headerlink" title="controller"></a>controller</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping(&quot;/pojo_email&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">email</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(value = &#123;EmailGroup.class&#125;)</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PostMapping(&quot;/pojo_login&quot;)</span></span><br><span class="line"><span class="keyword">public</span> UserReq <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> <span class="meta">@Validated(value = &#123;LoginGroup.class&#125;)</span> UserReq req)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="POJO"><a href="#POJO" class="headerlink" title="POJO"></a>POJO</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserReq</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@NotNull(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;LoginGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 邮箱</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Email(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="meta">@NotEmpty(groups = &#123;EmailGroup.class&#125;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><a href="https://github.com/hanzhang2566/best-practice/blob/main/springboot/src/main/java/boot/api/controller/ValidationController.java">here</a></p>
 ]]></content>
       <tags>
         <tag>best practice</tag>
@@ -1390,11 +1421,11 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>快速排序</title>
-    <url>/2023/05/17/quick-sort/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
-<p>最坏情况：O(n^2)</p>
+    <title>快速查找</title>
+    <url>/2023/05/17/quick-select/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(n)</p>
+<p>最坏情况：O(nlogn)</p>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
 ]]></content>
@@ -1403,11 +1434,11 @@ n5&#123;&#123;实现并将其开源&#125;&#125;
       </tags>
   </entry>
   <entry>
-    <title>快速查找</title>
-    <url>/2023/05/17/quick-select/</url>
-    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>快速查找结合了二分查找和快速排序，在无序的数组中，每次都会去掉一般的元素进行选择。</p>
-<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(n)</p>
-<p>最坏情况：O(nlogn)</p>
+    <title>快速排序</title>
+    <url>/2023/05/17/quick-sort/</url>
+    <content><![CDATA[<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>通过一趟排序将待排序的数据分割成独立的两部分，其中一部分的所有数据比另一部分的所有数据要小，再按这种方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，使整个数据变成有序序列。</p>
+<h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>平均情况：O(nlogn)</p>
+<p>最坏情况：O(n^2)</p>
 <h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/go-ds-and-algorithms/sort/quick_sort_test.go">golang</a></p>
 <p><a href="https://github.com/hanzhang2566/data-structures-and-algorithms-examples/blob/main/java-ds-and-algorithms/src/test/java/sort/QuickSortTest.java">java</a></p>
 ]]></content>
