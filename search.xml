@@ -981,9 +981,15 @@ participant server as 源站服务器
 </ul>
 <p>Elasticsearch 只提供了 API 层面的查询能力，它通常搭配 Kibana 一起使用，可以将 Kibana 视为 Elastic Stack 的 GUI 部分。</p>
 <h3 id="链路追踪"><a href="#链路追踪" class="headerlink" title="链路追踪"></a>链路追踪</h3><p>广义上讲，一个完整的分布式追踪系统应该由数据收集、数据存储和数据展示三个相对独立的子系统构成，而狭义上讲的追踪则就只是特指链路追踪数据的收集部分。<a href="https://spring.io/projects/spring-cloud-sleuth">Spring Cloud Sleuth</a>就属于狭义的追踪系统，通常会搭配 Zipkin 作为数据展示，搭配 Elasticsearch 作为数据存储来组合使用，Twitter 的<a href="https://github.com/openzipkin/zipkin">Zipkin</a>、Naver 的<a href="https://github.com/pinpoint-apm/pinpoint">Pinpoint</a>、阿里的鹰眼、大众点评的<a href="https://github.com/dianping/cat">CAT</a>、个人开源的<a href="https://github.com/apache/skywalking">SkyWalking</a> 大多都属于广义的追踪系统，广义的追踪系统又常被称为“APM 系统”（Application Performance Management）。</p>
+<p>从目标来看，链路追踪的目的是为排查故障和分析性能提供数据支持。系统对外提供服务的过程中，持续地接受请求并处理响应，同时持续地生成 Trace，按次序整理好 Trace 中每一个 Span 所记录的调用关系，便能绘制出一幅系统的服务调用拓扑图。</p>
+<p>从实现来看，拓扑图在功能上的挑战来源于服务的异构型，非功能性的挑战则是：1. 低性能损耗。越慢的服务越需要追踪；2. 对应用透明。追踪系统通常是运维期才加入的，要对开发人员透明；3. 随应用扩缩；4. 持续监控。否则就难以定位到系统偶尔的抖动行为。</p>
 <h4 id="追踪和跨度"><a href="#追踪和跨度" class="headerlink" title="追踪和跨度"></a>追踪和跨度</h4><p>追踪：从客户端发起请求抵达系统的边界开始，记录请求流经的每一个服务，直到到向客户端返回响应为止。</p>
 <p>跨度：为了能够记录具体调用了哪些服务，以及调用的顺序、开始时点、执行时长等信息，每次开始调用服务前都要先埋入一个调用记录，即跨度；</p>
 <h4 id="数据收集"><a href="#数据收集" class="headerlink" title="数据收集"></a>数据收集</h4><p>追踪系统根据数据收集方式的差异，可分为三种主流的实现方式，分别是<strong>基于日志的追踪</strong>，<strong>基于服务的追踪</strong>和<strong>基于边车代理的追踪</strong>。</p>
+<ul>
+<li>基于日志的追踪是将 Trace、Span 等信息直接输出到应用日志中，然后随着所有节点的日志归集过程汇聚到一起，再从全局日志信息中反推出完整的调用链拓扑关系。只对应用程序有很少的侵入性，对性能影响非常低，缺点是直接依赖于日志的归集过程，由于日志本身不追求绝对连续，使得该方式不精准。代表产品：Spring Cloud Sleuth；</li>
+<li>基于服务的追踪是最常见的方式，实现思路是通过某些手段给目标应用注入追踪探针（Probe），针对 Java 应用一般就是通过 Java Agent 注入的。探针一般会有自己的服务注册、心跳检测等功能，有专门数据收集协议，将监控到的服务调用信息，通过 HTTP 或</li>
+</ul>
 <h4 id="追踪规范化"><a href="#追踪规范化" class="headerlink" title="追踪规范化"></a>追踪规范化</h4><h3 id="聚合度量"><a href="#聚合度量" class="headerlink" title="聚合度量"></a>聚合度量</h3>]]></content>
       <tags>
         <tag>reading notes</tag>
