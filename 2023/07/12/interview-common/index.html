@@ -22,28 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="模式描述将一个复杂对象的构建和表示分离，使得同样的构建过程可以创建出不同对象。 优点 避免构造器参数太多，按需构造； 避免 setter 方法，使对象不可变； 构造和表示代码分开； 更精细控制构造过程；  缺点应用场景 复杂对象的创建独立于创建对象的组成部分时； 需要按需构造时；">
+    <meta name="description" content="语言设计中空引用(null reference)的存在有什么问题？假设你想要将空引用的概念从你的首选语言中移除，可能导致什么结果？问题破坏 Java 编译类型安全性引发 NPE123String s &#x3D; null;&#x2F;&#x2F; 可以通过编译，但运行时 NPEint l &#x3D; s.length();  避免将 NULL 作为一种异常来处理Java 中可在方法签名中加入 NotFoundException； G">
 <meta property="og:type" content="article">
-<meta property="og:title" content="建造者模式">
-<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/01/creational-builder/index.html">
+<meta property="og:title" content="通用问题">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/07/12/interview-common/index.html">
 <meta property="og:site_name" content="张晗的个人博客">
-<meta property="og:description" content="模式描述将一个复杂对象的构建和表示分离，使得同样的构建过程可以创建出不同对象。 优点 避免构造器参数太多，按需构造； 避免 setter 方法，使对象不可变； 构造和表示代码分开； 更精细控制构造过程；  缺点应用场景 复杂对象的创建独立于创建对象的组成部分时； 需要按需构造时；">
+<meta property="og:description" content="语言设计中空引用(null reference)的存在有什么问题？假设你想要将空引用的概念从你的首选语言中移除，可能导致什么结果？问题破坏 Java 编译类型安全性引发 NPE123String s &#x3D; null;&#x2F;&#x2F; 可以通过编译，但运行时 NPEint l &#x3D; s.length();  避免将 NULL 作为一种异常来处理Java 中可在方法签名中加入 NotFoundException； G">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-01T07:09:28.000Z">
-<meta property="article:modified_time" content="2023-05-01T09:58:30.791Z">
+<meta property="article:published_time" content="2023-07-12T03:05:50.000Z">
+<meta property="article:modified_time" content="2023-07-12T03:46:05.900Z">
 <meta property="article:author" content="张晗_Jeremy">
-<meta property="article:tag" content="design pattern">
+<meta property="article:tag" content="interview">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/01/creational-builder/">
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/07/12/interview-common/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/01/creational-builder/","path":"2023/05/01/creational-builder/","title":"建造者模式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/07/12/interview-common/","path":"2023/07/12/interview-common/","title":"通用问题"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>建造者模式 | 张晗的个人博客</title>
+<title>通用问题 | 张晗的个人博客</title>
   
 
 
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模式描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UML-%E7%B1%BB%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">UML 类图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85"><span class="nav-number">6.</span> <span class="nav-text">参与者</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Builder-%E7%B1%BB"><span class="nav-number">6.1.</span> <span class="nav-text">Builder 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Product-%E7%B1%BB"><span class="nav-number">6.2.</span> <span class="nav-text">Product 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-%E7%B1%BB"><span class="nav-number">6.3.</span> <span class="nav-text">Client 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">7.</span> <span class="nav-text">数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.</span> <span class="nav-text">相关模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">9.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">10.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%A9%BA%E5%BC%95%E7%94%A8-null-reference-%E7%9A%84%E5%AD%98%E5%9C%A8%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F%E5%81%87%E8%AE%BE%E4%BD%A0%E6%83%B3%E8%A6%81%E5%B0%86%E7%A9%BA%E5%BC%95%E7%94%A8%E7%9A%84%E6%A6%82%E5%BF%B5%E4%BB%8E%E4%BD%A0%E7%9A%84%E9%A6%96%E9%80%89%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%A7%BB%E9%99%A4%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4%E4%BB%80%E4%B9%88%E7%BB%93%E6%9E%9C%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">语言设计中空引用(null reference)的存在有什么问题？假设你想要将空引用的概念从你的首选语言中移除，可能导致什么结果？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F-Java-%E7%BC%96%E8%AF%91%E7%B1%BB%E5%9E%8B%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">1.1.1.</span> <span class="nav-text">破坏 Java 编译类型安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%8F%91-NPE"><span class="nav-number">1.1.2.</span> <span class="nav-text">引发 NPE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8D"><span class="nav-number">1.2.</span> <span class="nav-text">避免</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86-NULL-%E4%BD%9C%E4%B8%BA%E4%B8%80%E7%A7%8D%E5%BC%82%E5%B8%B8%E6%9D%A5%E5%A4%84%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">将 NULL 作为一种异常来处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optional"><span class="nav-number">1.2.2.</span> <span class="nav-text">Optional</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">后果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E9%87%8D%E8%A6%81%EF%BC%9F%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%80%82%E7%94%A8%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">为什么函数式编程重要？什么时候适用函数式语言？</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -208,7 +208,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/01/creational-builder/">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/07/12/interview-common/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -221,12 +221,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="建造者模式 | 张晗的个人博客">
+      <meta itemprop="name" content="通用问题 | 张晗的个人博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          建造者模式
+          通用问题
         </h1>
 
         <div class="post-meta-container">
@@ -237,7 +237,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-01 15:09:28" itemprop="dateCreated datePublished" datetime="2023-05-01T15:09:28+08:00">2023-05-01</time>
+      <time title="创建时间：2023-07-12 11:05:50" itemprop="dateCreated datePublished" datetime="2023-07-12T11:05:50+08:00">2023-07-12</time>
     </span>
 
   
@@ -247,14 +247,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>254</span>
+      <span>443</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -265,62 +265,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="模式描述"><a href="#模式描述" class="headerlink" title="模式描述"></a>模式描述</h1><p>将一个复杂对象的构建和表示分离，使得同样的构建过程可以创建出不同对象。</p>
-<h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><ol>
-<li>避免构造器参数太多，按需构造；</li>
-<li>避免 setter 方法，使对象不可变；</li>
-<li>构造和表示代码分开；</li>
-<li>更精细控制构造过程；</li>
+        <h1 id="语言设计中空引用-null-reference-的存在有什么问题？假设你想要将空引用的概念从你的首选语言中移除，可能导致什么结果？"><a href="#语言设计中空引用-null-reference-的存在有什么问题？假设你想要将空引用的概念从你的首选语言中移除，可能导致什么结果？" class="headerlink" title="语言设计中空引用(null reference)的存在有什么问题？假设你想要将空引用的概念从你的首选语言中移除，可能导致什么结果？"></a>语言设计中空引用(<a target="_blank" rel="noopener" href="http://programmers.stackexchange.com/questions/12777/are-null-references-really-a-bad-thing">null reference</a>)的存在有什么问题？假设你想要将空引用的概念从你的首选语言中移除，可能导致什么结果？</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="破坏-Java-编译类型安全性"><a href="#破坏-Java-编译类型安全性" class="headerlink" title="破坏 Java 编译类型安全性"></a>破坏 Java 编译类型安全性</h3><h3 id="引发-NPE"><a href="#引发-NPE" class="headerlink" title="引发 NPE"></a>引发 NPE</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="comment">// 可以通过编译，但运行时 NPE</span></span><br><span class="line"><span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> s.length();</span><br></pre></td></tr></table></figure>
+
+<h2 id="避免"><a href="#避免" class="headerlink" title="避免"></a>避免</h2><h3 id="将-NULL-作为一种异常来处理"><a href="#将-NULL-作为一种异常来处理" class="headerlink" title="将 NULL 作为一种异常来处理"></a>将 NULL 作为一种异常来处理</h3><p>Java 中可在方法签名中加入 NotFoundException；</p>
+<p>Golang 中可包装为一个 error 进行返回；</p>
+<h3 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h3><h2 id="后果"><a href="#后果" class="headerlink" title="后果"></a>后果</h2><p>代码变多。</p>
+<h1 id="为什么函数式编程重要？什么时候适用函数式语言？"><a href="#为什么函数式编程重要？什么时候适用函数式语言？" class="headerlink" title="为什么函数式编程重要？什么时候适用函数式语言？"></a>为什么函数式编程重要？什么时候适用函数式语言？</h1><ol>
+<li>设计(design)、架构(architecture)、功能(functionality)和美学(aesthetic)之间有什么区别？讨论一下。</li>
+<li>微软、谷歌、欧朋(opera)和火狐这类公司是如何从他们的浏览器中获利的？</li>
+<li>为什么打开TCP套接字有很大的开销？</li>
+<li>封装的重要性体现在哪儿？</li>
+<li>什么是实时系统？它与普通系统有什么区别？</li>
+<li>实时语言(real-time language)和堆内存分配(heap memory allocation)之间的关系是什么？</li>
+<li>不变性(Immutability)是指: (变量的)值只能在创建的时候被设置一次，之后就不能被改变。为什么不变性对写更加安全的代码有帮助？</li>
+<li>可变值(mutable values)和不可变值(immutable values)有哪些优缺点？</li>
+<li>什么是O&#x2F;R阻抗失衡(Object-Relational impedence mismatch)？</li>
+<li>如果你需要使用缓存，你使用哪些原则来确定缓存的大小？</li>
+<li>TCP和HTTP有什么区别？</li>
+<li>在客户端渲染(client-side rendering)和服务端渲染(server-side rendering)之间，你是如何权衡的？</li>
+<li>如何在一个不可靠的协议之上构建一个可靠的通信协议？</li>
 </ol>
-<h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol>
-<li>复杂对象的创建独立于创建对象的组成部分时；</li>
-<li>需要按需构造时；</li>
-</ol>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th align="center">DATE</th>
-<th align="center">CHANGELOG</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">2023年5月1日</td>
-<td align="center">初始化</td>
-</tr>
-</tbody></table>
-<h1 id="UML-类图"><a href="#UML-类图" class="headerlink" title="UML 类图"></a>UML 类图</h1><pre><code class="highlight mermaid">classDiagram
-
-class Builder &#123;
-	&lt;&lt;static&gt;&gt;
-	setXxx()
-	build() Product
-&#125;
-
-class Product &#123;
-	-Product()
-&#125;
-
-Builder &lt;-- Product
-Builder &lt;-- Client</code></pre>
-
-<h1 id="参与者"><a href="#参与者" class="headerlink" title="参与者"></a>参与者</h1><h2 id="Builder-类"><a href="#Builder-类" class="headerlink" title="Builder 类"></a>Builder 类</h2><ul>
-<li>使用 builder 创建一个 Product</li>
-</ul>
-<h2 id="Product-类"><a href="#Product-类" class="headerlink" title="Product 类"></a>Product 类</h2><ul>
-<li>产品类。</li>
-</ul>
-<h2 id="Client-类"><a href="#Client-类" class="headerlink" title="Client 类"></a>Client 类</h2><p>客户端。</p>
-<h1 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h1><h1 id="相关模式"><a href="#相关模式" class="headerlink" title="相关模式"></a>相关模式</h1><ul>
-<li>抽象工厂：建造者模式是一步一步建造，并通过 build 方法返回；而抽象工厂是立刻返回；</li>
-<li>组合模式：组合模式通常是 Builder 模式生成的。</li>
-</ul>
-<h1 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h1><ul>
-<li>Builder 往往是静态的，也可以是一个接口；</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/go-patterns/creational/builder/builder_test.go">golang</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/hanzhang2566/design-patterns-examples/blob/main/java-patterns/src/test/java/creational/builder/ClientTest.java">java</a></p>
 
     </div>
 
@@ -356,7 +320,7 @@ Builder &lt;-- Client</code></pre>
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://hanzhang2566.github.io/2023/05/01/creational-builder/" title="建造者模式">http://hanzhang2566.github.io/2023/05/01/creational-builder/</a>
+      <a href="http://hanzhang2566.github.io/2023/07/12/interview-common/" title="通用问题">http://hanzhang2566.github.io/2023/07/12/interview-common/</a>
   </li>
   <li class="post-copyright-license">
       <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
@@ -396,21 +360,18 @@ Builder &lt;-- Client</code></pre>
 </div>
 
           <div class="post-tags">
-              <a href="/tags/design-pattern/" rel="tag"># design pattern</a>
+              <a href="/tags/interview/" rel="tag"># interview</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/04/30/structural-facade/" rel="prev" title="门面模式">
-                  <i class="fa fa-chevron-left"></i> 门面模式
+                <a href="/2023/06/28/essay-20230628/" rel="prev" title="微服务不是银弹">
+                  <i class="fa fa-chevron-left"></i> 微服务不是银弹
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/05/01/mermaid/" rel="next" title="Typora 中 Mermaid 的使用">
-                  Typora 中 Mermaid 的使用 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
