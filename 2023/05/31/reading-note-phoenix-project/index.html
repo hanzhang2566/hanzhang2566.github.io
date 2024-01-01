@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="⭐⭐⭐⭐⭐ 这是一副帮助开发者、技术决策者的技能地图，一份参考手册。 从架构演进开始，循序渐进走向分布式和云原生。除了不同架构主流方案外，更重要的是叙述了这些方案的来龙去脉、利弊选择，同时提供了代码工程。虽然周老师文笔谦逊，但能感受到文字中蕴含的海纳百川的容量。 技术决策者重要的是取舍，在能满足需求的前提下，最简单的系统就是最好的系统。 在线阅读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="凤凰架构">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/index.html">
+<meta property="og:site_name" content="张晗的个人博客">
+<meta property="og:description" content="⭐⭐⭐⭐⭐ 这是一副帮助开发者、技术决策者的技能地图，一份参考手册。 从架构演进开始，循序渐进走向分布式和云原生。除了不同架构主流方案外，更重要的是叙述了这些方案的来龙去脉、利弊选择，同时提供了代码工程。虽然周老师文笔谦逊，但能感受到文字中蕴含的海纳百川的容量。 技术决策者重要的是取舍，在能满足需求的前提下，最简单的系统就是最好的系统。 在线阅读">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185013674.png">
+<meta property="og:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185454338.png">
+<meta property="og:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185649892.png">
+<meta property="og:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230622171828070.png">
+<meta property="og:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230625115703078.png">
+<meta property="og:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230625120731535.png">
+<meta property="article:published_time" content="2023-05-31T03:06:15.000Z">
+<meta property="article:modified_time" content="2024-01-01T15:25:29.758Z">
+<meta property="article:author" content="张晗_Jeremy">
+<meta property="article:tag" content="reading notes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185013674.png">
+
+
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/","path":"2023/05/31/reading-note-phoenix-project/","title":"凤凰架构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>凤凰架构 | 张晗的个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">张晗的个人博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">技术的价值是业务</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%94%E8%BF%9B%E4%B8%AD%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">演进中的架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E5%88%86%E5%B8%83%E5%BC%8F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.1.</span> <span class="nav-text">原始分布式时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UNIX-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.1.1.</span> <span class="nav-text">UNIX 的分布式设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%99%E8%AE%AD"><span class="nav-number">1.1.2.</span> <span class="nav-text">教训</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.1.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BD%93%E7%B3%BB%E7%BB%9F%E6%97%B6%E4%BB%A3"><span class="nav-number">1.2.</span> <span class="nav-text">单体系统时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-number">1.2.1.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-number">1.2.2.</span> <span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SOA-%E6%97%B6%E4%BB%A3"><span class="nav-number">1.3.</span> <span class="nav-text">SOA 时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%9F%E5%9B%B1%E5%BC%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">烟囱式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AE%E5%86%85%E6%A0%B8"><span class="nav-number">1.3.2.</span> <span class="nav-text">微内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOA"><span class="nav-number">1.3.4.</span> <span class="nav-text">SOA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="nav-number">1.3.5.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.4.</span> <span class="nav-text">微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">1.4.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.5.</span> <span class="nav-text">后微服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%9C%8D%E5%8A%A1%E6%97%B6%E4%BB%A3"><span class="nav-number">1.6.</span> <span class="nav-text">无服务时代</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%B8%88%E7%9A%84%E8%A7%86%E8%A7%92"><span class="nav-number">2.</span> <span class="nav-text">架构师的视角</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.1.</span> <span class="nav-text">远程服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8-RPC"><span class="nav-number">2.1.1.</span> <span class="nav-text">远程服务调用 RPC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%86%85%E8%B0%83%E7%94%A8"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">进程内调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E8%B0%83%E7%94%A8-IPC"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">进程间调用 IPC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPC-%E7%9A%84%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.1.3.</span> <span class="nav-text">RPC 的三个基本问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.1.1.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RESTful-%E9%A3%8E%E6%A0%BC"><span class="nav-number">2.1.2.</span> <span class="nav-text">RESTful 风格</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%90%86%E8%A7%A3-REST"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">理解 REST</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RESTful-%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">RESTful 系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">不足</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94"><span class="nav-number">2.1.3.</span> <span class="nav-text">对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">事务处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%9C%8D%E5%8A%A1%E5%8D%95%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">2.2.1.</span> <span class="nav-text">单服务单数据源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E5%AD%90%E6%80%A7%E5%92%8C%E6%8C%81%E4%B9%85%E6%80%A7"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">原子性和持久性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E6%80%A7"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">隔离性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-6"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E6%9C%8D%E5%8A%A1%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">2.2.2.</span> <span class="nav-text">单服务多数据源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">二阶段提交</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%8D%E6%8F%90"><span class="nav-number">2.2.2.1.1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.2.2.1.2.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">2.2.2.1.3.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.2.1.4.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E6%AE%B5%E5%BC%8F%E6%8F%90%E4%BA%A4"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">三段式提交</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%8D%95%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">2.2.3.</span> <span class="nav-text">多服务单数据源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E6%9C%8D%E5%8A%A1%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">2.2.4.</span> <span class="nav-text">多服务多数据源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CAP"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">CAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E9%9D%A0%E4%BA%8B%E4%BB%B6%E9%98%9F%E5%88%97"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">可靠事件队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCC-%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.2.4.3.</span> <span class="nav-text">TCC 事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SAGA-%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.2.4.4.</span> <span class="nav-text">SAGA 事务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-number">2.2.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E6%98%8E%E5%A4%9A%E7%BA%A7%E5%88%86%E6%B5%81%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">透明多级分流系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98"><span class="nav-number">2.3.1.</span> <span class="nav-text">客户端缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">强制缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">协商缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90-DNS"><span class="nav-number">2.3.2.</span> <span class="nav-text">域名解析 DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-1"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E9%93%BE%E8%B7%AF"><span class="nav-number">2.3.3.</span> <span class="nav-text">传输链路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%95%B0%E4%BC%98%E5%8C%96"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">连接数优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%8E%8B%E7%BC%A9"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">传输压缩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F-UDP-%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">快速 UDP 网络连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-3"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91%E7%BD%91%E7%BB%9C"><span class="nav-number">2.3.4.</span> <span class="nav-text">内容分发网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90"><span class="nav-number">2.3.4.1.</span> <span class="nav-text">域名解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91"><span class="nav-number">2.3.4.2.</span> <span class="nav-text">内容分发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">2.3.4.3.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CDN-%E5%BA%94%E7%94%A8"><span class="nav-number">2.3.4.4.</span> <span class="nav-text">CDN 应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%BC%93%E5%AD%98"><span class="nav-number">2.3.5.</span> <span class="nav-text">服务端缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%B1%9E%E6%80%A7"><span class="nav-number">2.3.5.1.</span> <span class="nav-text">缓存属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E9%A3%8E%E9%99%A9"><span class="nav-number">2.3.5.2.</span> <span class="nav-text">缓存风险</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-number">2.3.5.3.</span> <span class="nav-text">多级缓存</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E5%AE%89%E5%85%A8"><span class="nav-number">2.4.</span> <span class="nav-text">架构安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">2.4.1.</span> <span class="nav-text">认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-number">2.4.2.</span> <span class="nav-text">授权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RBAC"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">RBAC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OAuth2"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">OAuth2</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%AD%E8%AF%81"><span class="nav-number">2.4.3.</span> <span class="nav-text">凭证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie-Session"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">Cookie-Session</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JWT"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">JWT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AF%86"><span class="nav-number">2.4.4.</span> <span class="nav-text">保密</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E5%AF%86%E7%9A%84%E5%BC%BA%E5%BA%A6"><span class="nav-number">2.4.4.1.</span> <span class="nav-text">保密的强度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8A%A0%E5%AF%86"><span class="nav-number">2.4.4.2.</span> <span class="nav-text">客户端加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%AD%98%E5%82%A8%E5%92%8C%E9%AA%8C%E8%AF%81"><span class="nav-number">2.4.4.3.</span> <span class="nav-text">密码存储和验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93"><span class="nav-number">2.4.5.</span> <span class="nav-text">传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%91%98%E8%A6%81%E3%80%81%E5%8A%A0%E5%AF%86%E4%B8%8E%E7%AD%BE%E5%90%8D"><span class="nav-number">2.4.5.1.</span> <span class="nav-text">摘要、加密与签名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="nav-number">2.4.5.2.</span> <span class="nav-text">数字证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8%E5%B1%82"><span class="nav-number">2.4.5.3.</span> <span class="nav-text">传输安全层</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">2.4.6.</span> <span class="nav-text">验证</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张晗_Jeremy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">张晗_Jeremy</p>
+  <div class="site-description" itemprop="description">Javaer | Gopher | Nerd | Engineer</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/504736668" title="BiliBili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;504736668" rel="noopener me" target="_blank"><i class="fab fa-bilibili fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/hanzhang2566" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hanzhang2566" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hanzhang2566@foxmail.com" title="E-Mail → mailto:hanzhang2566@foxmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.xiaoyuzhoufm.com/podcast/63f5b8656b1dd4904d7c6f89?s=eyJ1IjogIjYxZmVhZjE3MmNiZDdjMDE3NjdmMmYxMSJ9" title="xiaoyuzhouFM → https:&#x2F;&#x2F;www.xiaoyuzhoufm.com&#x2F;podcast&#x2F;63f5b8656b1dd4904d7c6f89?s&#x3D;eyJ1IjogIjYxZmVhZjE3MmNiZDdjMDE3NjdmMmYxMSJ9" rel="noopener me" target="_blank"><i class="fa-solid fa-radio fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="张晗_Jeremy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张晗的个人博客">
+      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="凤凰架构 | 张晗的个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          凤凰架构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-31 11:06:15" itemprop="dateCreated datePublished" datetime="2023-05-31T11:06:15+08:00">2023-05-31</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1:04</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>⭐⭐⭐⭐⭐</p>
+<p>这是一副帮助开发者、技术决策者的技能地图，一份参考手册。</p>
+<p>从架构演进开始，循序渐进走向分布式和云原生。除了不同架构主流方案外，更重要的是叙述了这些方案的来龙去脉、利弊选择，同时提供了代码工程。虽然周老师文笔谦逊，但能感受到文字中蕴含的海纳百川的容量。</p>
+<p>技术决策者重要的是取舍，在能满足需求的前提下，<strong>最简单的系统就是最好的系统</strong>。</p>
+<p><a target="_blank" rel="noopener" href="https://icyfenix.cn/">在线阅读</a></p>
+<span id="more"></span>
+
+<p>技术架构者的第一职责就是做决策权衡，有利有弊才需要决策，有取有舍才需要权衡，如果架构者本身的知识面不足以覆盖所需要决策的内容，不清楚其中利弊，恐怕也就无可避免地陷入选择困难的困境之中。</p>
+<h1 id="演进中的架构"><a href="#演进中的架构" class="headerlink" title="演进中的架构"></a>演进中的架构</h1><p>架构不是被发明出来的，而是持续演进的。</p>
+<h2 id="原始分布式时代"><a href="#原始分布式时代" class="headerlink" title="原始分布式时代"></a>原始分布式时代</h2><h3 id="UNIX-的分布式设计"><a href="#UNIX-的分布式设计" class="headerlink" title="UNIX 的分布式设计"></a>UNIX 的分布式设计</h3><p>保持接口与实现的简单性，比系统的任何其他属性，包括准确性、一致性和完整性，都来得更加重要。</p>
+<h3 id="教训"><a href="#教训" class="headerlink" title="教训"></a>教训</h3><p>某个功能能够进行分布式，不意味着它就应该进行分布式，强行追求透明的分布式操作，只会自寻苦果。</p>
+<p>原因在于：将一个系统拆分到不同的机器中运行，解决服务发现、跟踪、通信、容错、隔离、配置、传输、数据一致性和编码复杂度等带来的问题，所付出的代价远远超过了分布式所取得的收益。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>现实情况下，有两条通往更大规模软件系统的道路。</p>
+<ol>
+<li>尽快提升单机的处理能力，以避免分布式带来的种种问题；</li>
+<li>找到更完美的解决如何构筑分布式系统的解决方案。</li>
+</ol>
+<h2 id="单体系统时代"><a href="#单体系统时代" class="headerlink" title="单体系统时代"></a>单体系统时代</h2><p>“单体”仅仅表明系统中主要的过程调用都是进程内调用，不会发生进程间通信而已。</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><p>对于小型系统，单台机器就足以支撑其良好运行的系统，单体不仅易于开发、易于测试、易于部署，且由于系统中各个功能、模块、方法的调用过程都是进程内调用，不会发生进程间通信因此也是运行效率最高的一种架构风格。</p>
+<h3 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h3><p>劣势必须是基于软件性能需求超过单机，开发人员规模超过 “2 Pizza”范畴的前提下才有价值。</p>
+<p>单体系统的缺陷不是系统如何拆分，而是拆分之后的隔离与自治能力上的欠缺。</p>
+<ol>
+<li>获得了进程内调用的简单、高效等好处的同时，也意味着如果任何一部分代码出现了缺陷，过度消耗了进程空间内的资源，所造成的影响也是全局性的、难以隔离的；</li>
+<li>无法做到单独停止、更新、升级某一部分代码；</li>
+<li>程序升级、修改缺陷往往需要制定专门的停机更新计划，做灰度发布、A&#x2F;B 测试也相对更复杂；</li>
+<li>技术异构困难；</li>
+<li>最重要的一点：单体系统潜在的希望每个组件和代码都尽量可靠，用减少缺陷来搭建可靠系统。由于墨菲定律的存在，观念的转变才是微服务替代单体的底气；</li>
+</ol>
+<h3 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h3><p>摩尔定律减速的同时，为了允许程序出错，为了获得隔离、自治的能力，为了技术异构等目标，程序选择分布式再次成为焦点。</p>
+<p>分布式除了适用微服务架构外，将一个大的单体系统拆分为若干个更小的、不运行在同一个进程的独立服务，衍生出了面向服务架构，也就是 SOA。</p>
+<h2 id="SOA-时代"><a href="#SOA-时代" class="headerlink" title="SOA 时代"></a>SOA 时代</h2><p>为了解决单体服务拆分的问题，面向服务的架构是一次具体地、系统性地成功解决分布式服务主要问题的架构模式。</p>
+<h3 id="烟囱式"><a href="#烟囱式" class="headerlink" title="烟囱式"></a>烟囱式</h3><p>被拆分的服务完全不与其他系统进行互操作和协调。</p>
+<h3 id="微内核"><a href="#微内核" class="headerlink" title="微内核"></a>微内核</h3><p>将各个子系统使用到的公共服务、资源和数据集中到一起，形成一个核心系统，具体业务系统以插件模块形式存在。缺点是：插件模块只能和核心系统交互，相互之间无法通信。</p>
+<h3 id="事件驱动"><a href="#事件驱动" class="headerlink" title="事件驱动"></a>事件驱动</h3><p>在子系统之间建立一套事件队列管道（Event Queues），来自系统外部的消息以事件的形式发送至管道中，各个子系统从管道里获取自己感兴趣、能够处理的事件消息，同时能发送事件到管道中。</p>
+<h3 id="SOA"><a href="#SOA" class="headerlink" title="SOA"></a>SOA</h3><p>是一套软件设计的基础平台。</p>
+<h3 id="结论-2"><a href="#结论-2" class="headerlink" title="结论"></a>结论</h3><p>由于 SOA 过于严格的规范定义，带来过度的复杂性，注定了它只能是少数系统阳春白雪式的精致奢侈品，很难作为一种具有广泛普适性的软件架构风格来推广。</p>
+<h2 id="微服务时代"><a href="#微服务时代" class="headerlink" title="微服务时代"></a>微服务时代</h2><p>微服务是一种通过多个小型服务组合来构建单个应用的架构风格，这些服务围绕业务能力而非特定的技术标准来构建。各个服务可以采用不同的编程语言，不同的数据存储技术，运行在不同的进程之中。服务采取轻量级的通信机制和自动化的部署机制实现通信与运维。</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li><p>围绕业务能力构建——康威定律</p>
+<p>有怎样结构、规模、能力的团队，就会产生出对应结构、规模、能力的产品。这个结论不是某个团队、某个公司遇到的巧合，而是必然的演化结果。</p>
+</li>
+<li><p>分散治理</p>
+<p>服务对应的开发团队有直接对服务运行质量负责的责任，并且有选择性掌控服务各个方面的权力。</p>
+</li>
+<li><p>通过服务来实现组件</p>
+<p>类库是在编译器期静态链接到程序中，而服务是进程外组件。虽然远程服务有更高昂的调用成本，但这是需要隔离与自治能力的必要代价。</p>
+</li>
+<li><p>产品化思维</p>
+<p>开发者不仅应该知道软件如何开发，还应该知道它如何运作，用户如何反馈，乃至售后支持工作是怎样进行的。</p>
+</li>
+<li><p>数据去中心化</p>
+<p>数据应该按领域分散管理、更新、维护、存储。</p>
+</li>
+<li><p>强终端弱管道</p>
+<p>终端是 Endpoint，对应于 RESTful 风格的接口。管道是 SOAP 协议中的概念。</p>
+</li>
+<li><p>容错性设计</p>
+<p>承认服务中总会出错的现实，有机制进行快速的故障检测、服务隔离和恢复重连。</p>
+</li>
+<li><p>演进式设计</p>
+<p>承认服务会被报废淘汰。假如系统中出现不可更改、无可替代的服务，这并不能说明这个服务是多么的优秀、多么的重要，反而是一种系统设计上脆弱的表现。</p>
+</li>
+<li><p>基础设施自动化</p>
+<p>人工难以支持很多服务。</p>
+</li>
+</ol>
+<h3 id="结论-3"><a href="#结论-3" class="headerlink" title="结论"></a>结论</h3><p>微服务所带来的自由是一把双刃开锋的宝剑，当架构者拿起这把宝剑，一刃指向 SOA 定下的复杂技术标准，将选择的权力夺回的同一时刻，另外一刃也正朝向着自己映出冷冷的寒光。</p>
+<h2 id="后微服务时代"><a href="#后微服务时代" class="headerlink" title="后微服务时代"></a>后微服务时代</h2><p>软、硬一体，合力应对微服务架构的问题。</p>
+<p>微服务使用容器作为载体，管理载体的平台则是 k8s。</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">Kubernetes</th>
+<th align="center">Spring Cloud</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">弹性伸缩</td>
+<td align="center">Autoscaling</td>
+<td align="center">N&#x2F;A</td>
+</tr>
+<tr>
+<td align="center">服务发现</td>
+<td align="center">KubeDNS &#x2F; CoreDNS</td>
+<td align="center">Spring Cloud Eureka</td>
+</tr>
+<tr>
+<td align="center">配置中心</td>
+<td align="center">ConfigMap &#x2F; Secret</td>
+<td align="center">Spring Cloud Config</td>
+</tr>
+<tr>
+<td align="center">服务网关</td>
+<td align="center">Ingress Controller</td>
+<td align="center">Spring Cloud Gateway</td>
+</tr>
+<tr>
+<td align="center">负载均衡</td>
+<td align="center">Load Balancer</td>
+<td align="center">Spring Cloud Ribbon</td>
+</tr>
+<tr>
+<td align="center">服务安全</td>
+<td align="center">RBAC API</td>
+<td align="center">Spring Cloud Security</td>
+</tr>
+<tr>
+<td align="center">跟踪监控</td>
+<td align="center">Metrics API &#x2F; Dashboard</td>
+<td align="center">Spring Cloud Turbine</td>
+</tr>
+<tr>
+<td align="center">降级熔断</td>
+<td align="center">N&#x2F;A</td>
+<td align="center">Spring Cloud Hystrix</td>
+</tr>
+</tbody></table>
+<p>k8s 是针对整个容器来管理的，粒度相对粗旷，只能到容器层面，对单个远程服务就很难有效管控。</p>
+<p>为了解决这个问题，虚拟化的基础设施进化到“服务网格”。具体含义是由系统自动在服务容器中注入一个通信代理服务器，在应用毫无感知的情况下，悄然接管应用所有对外通信。这个代理除了实现正常的服务间通信外（称为数据平面通信），还接收来自控制器的指令（称为控制平面通信），根据控制平面中的配置，对数据平面通信的内容进行分析处理，以实现熔断、认证、度量、监控、负载均衡等各种附加功能。这样便实现了既不需要在应用层面加入额外的处理代码，也提供了几乎不亚于程序代码的精细管理能力。</p>
+<h3 id="结论-4"><a href="#结论-4" class="headerlink" title="结论"></a>结论</h3><p>未来 Kubernetes 将会成为服务器端标准的运行环境，如同现在 Linux 系统；服务网格将会成为微服务之间通信交互的主流模式，把“选择什么通信协议”、“怎样调度流量”、“如何认证授权”之类的技术问题隔离于程序代码之外。</p>
+<h2 id="无服务时代"><a href="#无服务时代" class="headerlink" title="无服务时代"></a>无服务时代</h2><p>开发者只需要纯粹地关注业务，不需要考虑技术组件，后端的技术组件是现成的，可以直接取用，没有采购、版权和选型的烦恼；不需要考虑如何部署，部署过程完全是托管到云端的，工作由云端自动完成；不需要考虑算力，有整个数据中心支撑，算力可以认为是无限的；也不需要操心运维，维护系统持续平稳运行是云计算服务商的责任而不再是开发者的责任。</p>
+<h3 id="结论-5"><a href="#结论-5" class="headerlink" title="结论"></a>结论</h3><p>微服务架构是分布式系统这条路当前所能做到的极致，而无服务架构也许是“不分布式”的云端系统这条路的起点。</p>
+<h1 id="架构师的视角"><a href="#架构师的视角" class="headerlink" title="架构师的视角"></a>架构师的视角</h1><h2 id="远程服务"><a href="#远程服务" class="headerlink" title="远程服务"></a>远程服务</h2><p>远程服务将计算机程序的工作范围从单机扩展到网络，从本地延伸至远程，是构建分布式系统的首要基础。</p>
+<h3 id="远程服务调用-RPC"><a href="#远程服务调用-RPC" class="headerlink" title="远程服务调用 RPC"></a>远程服务调用 RPC</h3><h4 id="进程内调用"><a href="#进程内调用" class="headerlink" title="进程内调用"></a>进程内调用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Caller    :  调用者，代码里的 main()</span></span><br><span class="line"><span class="comment">// Callee    ： 被调用者，代码里的 println()</span></span><br><span class="line"><span class="comment">// Call Site ： 调用点，即发生方法调用的指令流位置</span></span><br><span class="line"><span class="comment">// Parameter ： 参数，由 Caller 传递给 Callee 的数据，即 “hello world”</span></span><br><span class="line"><span class="comment">// Retval    ： 返回值，由 Callee 传递给 Caller 的数据。以下代码中如果方法能够正常结束，它是 void，如果方法异常完成，它是对应的异常</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	System.out.println(“hello world”);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>计算机执行步骤：</p>
+<ol>
+<li>传递方法参数：将字符串<code>helloworld</code>的引用地址压栈；</li>
+<li>确定方法版本：根据<code>println()</code>方法的签名，确定其执行版本‘</li>
+<li>执行被调方法：从栈中弹出<code>Parameter</code>的值或引用，以此为输入，执行<code>Callee</code>内部的逻辑；</li>
+<li>返回执行结果：将<code>Callee</code>的执行结果压栈，并将程序的指令流恢复到<code>Call Site</code>的下一条指令，继续向下执行；</li>
+</ol>
+<p>当 <code>main</code> 和 <code>println</code> 分属不同进程中，则：</p>
+<ol>
+<li>压栈执行毫无意义；</li>
+<li>不同语言实现 2 个方法的情况下，版本选择是不可知行为；</li>
+</ol>
+<h4 id="进程间调用-IPC"><a href="#进程间调用-IPC" class="headerlink" title="进程间调用 IPC"></a>进程间调用 IPC</h4><ul>
+<li>管道 | 具名管道：类似于 2 个进程之间的桥梁，通过管道在进程间传递少量字符流或字节流；</li>
+<li>信号：通知目标进程产生某种行为；</li>
+<li>信号量： OS 提供的特殊变量，用于 2 进程之间同步；</li>
+<li>消息队列：可以传递更多消息的管道；</li>
+<li>共享内存：多个进程共享公共内存空间，效率最高；</li>
+<li>套接字接口：消息队列和共享内存只适合于单机多进程通讯，Socket 更加普适；</li>
+</ul>
+<p>RPC 最初是作为 IPC 的一种特例来处理的。但忽略了 8 个问题：</p>
+<ol>
+<li>The network is reliable —— 网络是可靠的。</li>
+<li>Latency is zero —— 延迟是不存在的。</li>
+<li>Bandwidth is infinite —— 带宽是无限的。</li>
+<li>The network is secure —— 网络是安全的。</li>
+<li>Topology doesn’t change —— 拓扑结构是一成不变的。</li>
+<li>There is one administrator —— 总会有一个管理员。</li>
+<li>Transport cost is zero —— 不必考虑传输成本。</li>
+<li>The network is homogeneous —— 网络是同质化的。</li>
+</ol>
+<p>基于以上 8 大问题，证明了 RPC 应该是一种高层次的或者说语言层次的特征，而非 IPC 这样低层次的或者说系统层次的特征，同时否定了 RPC 最初是作为 IPC 的一种特例来处理的可能。</p>
+<h4 id="RPC-的三个基本问题"><a href="#RPC-的三个基本问题" class="headerlink" title="RPC 的三个基本问题"></a>RPC 的三个基本问题</h4><ol>
+<li><p>如何表示数据</p>
+<p>包括了传递给方法的参数，以及方法执行后的返回值。。有效的做法是将交互双方所涉及的数据转换为某种事先约定好的中立数据流格式来进行传输，将数据流转换回不同语言中对应的数据类型来进行使用。也就是说，每种 RPC 协议都要对应各自的<code>序列化协议</code>。例如，gRPC 的 <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers">Protocol Buffers</a>。</p>
+</li>
+<li><p>如何传递数据</p>
+<p>两个服务交互不仅仅使用序列化数据流来表示参数和结果就行，还有譬如异常、超时、安全、认证、授权、事务，等等，都可能产生双方需要交换信息的需求。例如，JSON-RPC 直接使用 HTTP 协议。</p>
+</li>
+<li><p>如何确定方法</p>
+<p>对于不同语言实现的方法，需要根据方法签名转换为进程空间中子过程入口位置的指针。</p>
+</li>
+</ol>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>不同的 RPC 框架所提供的特性或多或少是有矛盾的，很难有某一种 RPC 框架既有面向对象特性、又有高性能，还有简化的大一统框架。</p>
+<h3 id="RESTful-风格"><a href="#RESTful-风格" class="headerlink" title="RESTful 风格"></a>RESTful 风格</h3><h4 id="理解-REST"><a href="#理解-REST" class="headerlink" title="理解 REST"></a>理解 REST</h4><p>REST 即”表征状态转移“。</p>
+<ul>
+<li>资源：信息、数据本身就称为资源；</li>
+<li>表征：服务端向客户端返回资源的特征称为表征。例如，服务端可以返回 HTML、JSON、MD、PDF 等等；</li>
+<li>状态：在特定语境中才能产生的上下文信息称为“状态”。客户端记住状态，请求时告诉服务器称为无状态；服务端保持客户端状态则成为有状态；</li>
+<li>转移：服务端通过某种方式，将资源转换，就是称为转移；</li>
+</ul>
+<h4 id="RESTful-系统"><a href="#RESTful-系统" class="headerlink" title="RESTful 系统"></a>RESTful 系统</h4><ul>
+<li>客户端与服务端分离：服务端提供数据，客户端进行渲染。有利于提高用户界面的跨平台的移植性；</li>
+<li>无状态：服务端无状态在分布式计算中价值很大。但实际上服务端持有内存、会话、数据库或者缓存等已经事实存在，并将长期存在、被广泛使用的主流的方案；</li>
+<li>可缓存：无状态服务虽然提升了系统的可见性、可靠性和可伸缩性，但降低了系统的网络性。因为有状态的设计只需要一次或者少量请求，但无状态设计就要多次请求，为了缓解多次请求的压力，就要增加缓存设计；</li>
+<li>分层系统：客户端不需要知道是否连接到最终的服务器。因为 CDN 可以加速访问过程；</li>
+<li>统一接口：HTTP 协议中提前约定好的 GET、POST 等 7 种动作；</li>
+</ul>
+<h4 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h4><ol>
+<li>面向资源的编程思想只适合做 CRUD，面向过程、面向对象编程才能处理真正复杂的业务逻辑。因为复杂的场景，很难用 HTTP 的统一接口去描述;</li>
+<li>REST 与 HTTP 完全绑定，不适合应用于要求高性能传输的场景中；</li>
+<li>不利于事务；</li>
+<li>REST 没有传输可靠性支持;</li>
+<li>REST 缺乏对资源进行“部分”和“批量”的处理能力。由于 HTTP 协议完全没有对请求资源的结构化描述能力，所以返回资源的哪些内容、以什么数据类型返回等等，都不可能得到协议层面的支持；</li>
+</ol>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>RPC 是将本地的方法调用思路迁移到远程方法调用上，开发者是围绕着“远程方法”去设计两个系统间交互的。这样做的坏处不仅是“如何在异构系统间表示一个方法”、“如何获得接口能够提供的方法清单”，更在于服务的每个方法都是完全独立的，服务使用者必须逐个学习才能正确地使用它们。</p>
+<p>REST 中因为有统一接口的存在，降低服务接口的学习成本；方法是动词，逻辑上每个接口都相互独立，而资源是名词，天生具有集合与层次结构；REST 绑定于 HTTP 协议；</p>
+<h2 id="事务处理"><a href="#事务处理" class="headerlink" title="事务处理"></a>事务处理</h2><p>事务处理的意义是为了保证系统中所有的数据都是符合期望的，且相互关联的数据之间不会产生矛盾，即数据状态的<strong>一致性（Consistency）</strong>。</p>
+<h3 id="单服务单数据源"><a href="#单服务单数据源" class="headerlink" title="单服务单数据源"></a>单服务单数据源</h3><p>这是最基础的事务解决方案。</p>
+<p><a target="_blank" rel="noopener" href="https://icyfenix.cn/architect-perspective/general-architecture/transaction/local.html">基于语义的恢复与隔离算法</a>是数据库关系系统实现 ACID 事务的理论依据。</p>
+<blockquote>
+<p>每当一本书被成功售出时，需要确保以下三件事情被正确地处理：</p>
+<ul>
+<li>用户的账号扣减相应的商品款项。</li>
+<li>商品仓库中扣减库存，将商品标识为待配送状态。</li>
+<li>商家的账号增加相应的商品款项。</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>未提交事务，写入后崩溃</strong>：程序还没修改完三个数据，但数据库已经将其中一个或两个数据的变动写入磁盘，此时出现崩溃，一旦重启之后，数据库必须要有办法得知崩溃前发生过一次不完整的购物操作，将已经修改过的数据从磁盘中恢复成没有改过的样子，以保证<code>原子性</code>。</li>
+<li><strong>已提交事务，写入前崩溃</strong>：程序已经修改完三个数据，但数据库还未将全部三个数据的变动都写入到磁盘，此时出现崩溃，一旦重启之后，数据库必须要有办法得知崩溃前发生过一次完整的购物操作，将还没来得及写入磁盘的那部分数据重新写入，以保证<code>持久性</code>。</li>
+</ul>
+<p>为了处理崩溃恢复，必须将修改数据这个操作所需的全部信息，以日志的形式记录到磁盘中。数据库会根据日志的提交记录（Commit Record）对真正的数据进行修改，完成后再在日志中加入一条“结束记录”（End Record），表示持久化完成。</p>
+<p>Commit Record 方式存在的前提是：所有对数据的真实修改都必须发生在事务提交以后。这对提升数据库性能十分不利。</p>
+<h4 id="原子性和持久性"><a href="#原子性和持久性" class="headerlink" title="原子性和持久性"></a>原子性和持久性</h4><p>原子性保证了事务的多个操作要么都生效要么都不生效，不会存在中间状态；持久性保证了一旦事务生效，就不会再因为任何原因而导致其修改的内容被撤销或丢失。实现原子性和持久性的最大困难是“写入磁盘”这个操作并不是原子的，不仅有“写入”与“未写入”状态，还客观地存在着“正在写”的中间状态。</p>
+<p>为了解决 Commit Record 的问题，ARIES 提出了“Write-Ahead Logging”的日志改进方案，就是允许在事务提交之前，提前写入变动数据。</p>
+<p>Write-Ahead Logging 在崩溃恢复时会执行以下三个阶段的操作：</p>
+<ul>
+<li><strong>分析阶段</strong>（Analysis）：该阶段从最后一次检查点（Checkpoint，可理解为在这个点之前所有应该持久化的变动都已安全落盘）开始扫描日志，找出所有没有 End Record 的事务，组成待恢复的事务集合，这个集合至少会包括 Transaction Table 和 Dirty Page Table 两个组成部分。</li>
+<li><strong>重做阶段</strong>（Redo）：该阶段依据分析阶段中产生的待恢复的事务集合来重演历史（Repeat History），具体操作为：找出所有包含 Commit Record 的日志，将这些日志修改的数据写入磁盘，写入完成后在日志中增加一条 End Record，然后移除出待恢复事务集合。</li>
+<li><strong>回滚阶段</strong>（Undo）：该阶段处理经过分析、重做阶段后剩余的恢复事务集合，此时剩下的都是需要回滚的事务，它们被称为 Loser，根据 Undo Log 中的信息，将已经提前写入磁盘的信息重新改写回去，以达到回滚这些 Loser 事务的目的。</li>
+</ul>
+<h4 id="隔离性"><a href="#隔离性" class="headerlink" title="隔离性"></a>隔离性</h4><p>隔离性保证了并发事务各自读、写的数据互相独立，不会彼此影响。</p>
+<p>现代数据库均提供了以下三种锁：</p>
+<ul>
+<li><p><strong>写锁</strong>（Write Lock，也叫作排他锁，eXclusive Lock，简写为 X-Lock）：如果数据有加写锁，就只有持有写锁的事务才能对数据进行写入操作，数据加持着写锁时，其他事务不能写入数据，也不能施加读锁。</p>
+</li>
+<li><p><strong>读锁</strong>（Read Lock，也叫作共享锁，Shared Lock，简写为 S-Lock）：多个事务可以对同一个数据添加多个读锁，数据被加上读锁后就不能再被加上写锁，所以其他事务不能对该数据进行写入，但仍然可以读取。对于持有读锁的事务，如果该数据只有它自己一个事务加了读锁，允许直接将其升级为写锁，然后写入数据。</p>
+</li>
+<li><p><strong>范围锁</strong>（Range Lock）：对于某个范围直接加排他锁，在这个范围内的数据不能被写入。如下语句是典型的加范围锁的例子：</p>
+<p><code>SELECT * FROM books WHERE price &lt; 100 FOR UPDATE;</code></p>
+</li>
+</ul>
+<ol>
+<li><p>可串行化</p>
+</li>
+<li><p>可重复读</p>
+<p>对事务所涉及的数据加读锁和写锁，且直到事务结束，但不再加范围锁。会产生幻读问题，即在事务执行过程中，两个完全相同的范围查询得到了不同的结果集。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 可重复读</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">count</span>(<span class="number">1</span>) <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> price <span class="operator">&lt;</span> <span class="number">100</span>					<span class="comment">/* 时间顺序：1，事务： T1 */</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 没有范围锁来禁止在该范围内插入新的数据</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> books(name,price) <span class="keyword">VALUES</span> (<span class="string">&#x27;深入理解Java虚拟机&#x27;</span>,<span class="number">90</span>)	   <span class="comment">/* 时间顺序：2，事务： T2 */</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">count</span>(<span class="number">1</span>) <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> price <span class="operator">&lt;</span> <span class="number">100</span>					<span class="comment">/* 时间顺序：3，事务： T1 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 可串行化</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">count</span>(<span class="number">1</span>) <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> price <span class="operator">&lt;</span> <span class="number">100</span>					<span class="comment">/* 时间顺序：1，事务： T1 */</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 由于没有获得范围锁，故阻塞</span></span><br><span class="line"><span class="comment"> * 直到 T1 完成提交</span></span><br><span class="line"><span class="comment"> * 解决幻读问题</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> books(name,price) <span class="keyword">VALUES</span> (<span class="string">&#x27;深入理解Java虚拟机&#x27;</span>,<span class="number">90</span>)	   <span class="comment">/* 时间顺序：2，事务： T2 */</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="built_in">count</span>(<span class="number">1</span>) <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> price <span class="operator">&lt;</span> <span class="number">100</span>					<span class="comment">/* 时间顺序：3，事务： T1 */</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>读已提交</p>
+<p>对事务涉及的数据加的写锁会一直持续到事务结束，但加的读锁在查询操作完成后就马上会释放。会产生不可重复读的问题，即在事务执行过程中，对同一行数据的两次查询得到了不同的结果——不可重复读。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 读已提交</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * T1 第一次读取后，读锁就释放了</span></span><br><span class="line"><span class="comment"> * 缺乏贯穿整个事务周期的读锁，无法禁止读取过的数据发生变化</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;   						<span class="comment">/* 时间顺序：1，事务： T1 */</span></span><br><span class="line"><span class="keyword">UPDATE</span> books <span class="keyword">SET</span> price <span class="operator">=</span> <span class="number">110</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>; <span class="keyword">COMMIT</span>;			<span class="comment">/* 时间顺序：2，事务： T2 */</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * T1 的第二次读到 110</span></span><br><span class="line"><span class="comment"> * 和第一次读到的数据不一致</span></span><br><span class="line"><span class="comment"> * 不可重复读问题</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>; <span class="keyword">COMMIT</span>;   				<span class="comment">/* 时间顺序：3，事务： T1 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 可重复读</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * T1 第一次读取后，读锁会一直持有</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;   						<span class="comment">/* 时间顺序：1，事务： T1 */</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 由于 T2 获取不到写锁，会阻塞</span></span><br><span class="line"><span class="comment"> * 直到 T1 提交</span></span><br><span class="line"><span class="comment"> * 解决不可重复读问</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">UPDATE</span> books <span class="keyword">SET</span> price <span class="operator">=</span> <span class="number">110</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>; <span class="keyword">COMMIT</span>;			<span class="comment">/* 时间顺序：2，事务： T2 */</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * 正常读取</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>; <span class="keyword">COMMIT</span>;   				<span class="comment">/* 时间顺序：3，事务： T1 */</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>读未提交</p>
+<p>对事务涉及的数据只加写锁，会一直持续到事务结束，但完全不加读锁。会产生脏读问题，即在事务执行过程中，一个事务读取到了另一个事务未提交的数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 读未提交</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;   						<span class="comment">/* 时间顺序：1，事务： T1 */</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * 注意没有COMMIT</span></span><br><span class="line"><span class="comment"> * T2 只添加写锁，并未禁止读操作</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">UPDATE</span> books <span class="keyword">SET</span> price <span class="operator">=</span> <span class="number">90</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;					<span class="comment">/* 时间顺序：2，事务： T2 */</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 读到 T2 还未提交的数据 90</span></span><br><span class="line"><span class="comment"> * 脏读问题</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;			  				<span class="comment">/* 时间顺序：3，事务： T1 */</span></span><br><span class="line"><span class="keyword">ROLLBACK</span>;			  										<span class="comment">/* 时间顺序：4，事务： T2 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 读已提交</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;   						<span class="comment">/* 时间顺序：1，事务： T1 */</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * 注意没有COMMIT</span></span><br><span class="line"><span class="comment"> * T2 添加写锁和读锁</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">UPDATE</span> books <span class="keyword">SET</span> price <span class="operator">=</span> <span class="number">90</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;					<span class="comment">/* 时间顺序：2，事务： T2 */</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 由于 id = 1 的数据需要获取读锁后才能读数据</span></span><br><span class="line"><span class="comment"> * 故在 T1 没有提交前，都会阻塞</span></span><br><span class="line"><span class="comment"> * 解决脏读的问题</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> books <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;			  				<span class="comment">/* 时间顺序：3，事务： T1 */</span></span><br><span class="line"><span class="keyword">ROLLBACK</span>;			  										<span class="comment">/* 时间顺序：4，事务： T2 */</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="结论-6"><a href="#结论-6" class="headerlink" title="结论"></a>结论</h4><p>四种隔离级别是各种锁在不同加锁时间上组合应用所产生的结果，以锁为手段来实现隔离性才是数据库表现出不同隔离级别的根本原因。</p>
+<p>四种隔离级别产生的问题都是由于一个事务在读数据过程中，受另外一个写数据的事务影响而破坏了隔离性。也就是“读 + 写”的模式。多版本并发控制 MVCC 是优化该模式的主流方案。</p>
+<p>如果是两个事务同时修改数据，即“写+写”的情况，加锁几乎是唯一可行的解决方案，就要选择是“乐观加锁”还是“悲观加锁”。</p>
+<h3 id="单服务多数据源"><a href="#单服务多数据源" class="headerlink" title="单服务多数据源"></a>单服务多数据源</h3><p>X&#x2F;Open 组织提出了一套处理事务架构 X&#x2F;Open XA，它定义了全局的事务管理器和局部的资源管理器之间的通信接口。</p>
+<p>事务处理器负责协调全局事务，资源管理器用于驱动本地事务。XA 接口是双向的，能在一个事务管理器和多个资源管理器之间形成通信桥梁，通过协调多个数据源的一致动作，实现全局事务的统一提交或者统一回滚。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设：书店的用户、商家、仓库分别处于不同的数据库中</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buyBook</span><span class="params">(PaymentBill bill)</span> &#123;</span><br><span class="line">    userTransaction.begin();</span><br><span class="line">    warehouseTransaction.begin();</span><br><span class="line">    businessTransaction.begin();</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">        userAccountService.pay(bill.getMoney());</span><br><span class="line">        warehouseService.deliver(bill.getItems());</span><br><span class="line">        businessAccountService.receipt(bill.getMoney());</span><br><span class="line">        userTransaction.commit();</span><br><span class="line">        warehouseTransaction.commit();</span><br><span class="line">        <span class="comment">// 此时出现错误，userTransaction 和 warehouseTransaction 已经提交，catch 中 rollback 无济于事</span></span><br><span class="line">        <span class="comment">// 导致一部分数据被提交（user、warehouse），一部分被回滚（business），一致性无法保证</span></span><br><span class="line">        businessTransaction.commit();</span><br><span class="line">	&#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">        userTransaction.rollback();</span><br><span class="line">        warehouseTransaction.rollback();</span><br><span class="line">        businessTransaction.rollback();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="二阶段提交"><a href="#二阶段提交" class="headerlink" title="二阶段提交"></a>二阶段提交</h4><h5 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h5><ol>
+<li>提交阶段的网络短时间内可靠。</li>
+<li>节点失联可恢复。</li>
+</ol>
+<h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><p><strong>准备阶段（投票阶段）</strong>：协调者询问事务的所有参与者是否准备好提交，参与者如果已经准备好提交则回复 Prepared，否则回复 Non-Prepared；</p>
+<p><strong>提交阶段（执行阶段）</strong>：协调者如果在上一阶段收到所有事务参与者回复的 Prepared 消息，则先自己在本地持久化事务状态为 Commit，在此操作完成后向所有参与者发送 Commit 指令，所有参与者立即执行提交操作；否则，任意一个参与者回复了 Non-Prepared 消息，或任意一个参与者超时未回复，协调者将自己的事务状态持久化为 Abort 之后，向所有参与者发送 Abort 指令，参与者立即执行回滚操作；</p>
+<h5 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h5><pre><code class="highlight mermaid">sequenceDiagram
+participant coordinators as 协调者
+participant participants as 参与者
+    coordinators -&gt;&gt; participants: 要求所有参与者进入准备阶段
+    activate participants
+    participants --&gt;&gt; coordinators: 已进入准备阶段
+    deactivate participants
+    
+    coordinators -&gt;&gt; participants: 要求所有参与者进入提交阶段
+    activate participants
+    participants --&gt;&gt; coordinators: 已进入提交阶段
+    deactivate participants
+
+    opt 失败或超时
+ 	   coordinators -&gt;&gt; participants: 要求所有参与者回滚
+ 	   activate participants
+ 	   participants --&gt;&gt; coordinators: 已回滚事务
+ 	   deactivate participants
+    end</code></pre>
+
+
+
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><ol>
+<li>单点问题。协调者很重要；</li>
+<li>性能问题：参与者进行 2 次 RPC，3 次持久化（准备阶段写重做日志，协调者做状态持久化，提交阶段在日志写入 Commit Record）；</li>
+<li>一致性风向：前提会导致一致性风险；</li>
+</ol>
+<h4 id="三段式提交"><a href="#三段式提交" class="headerlink" title="三段式提交"></a>三段式提交</h4><p>三段式提交把原本的两段式提交的<strong>准备阶段</strong>再细分为1. CanCommit、2. PreCommit，把<strong>提交阶段</strong>改称为 DoCommit 阶段。</p>
+<p>CanCommit 是一个询问阶段，协调者让每个参与的数据库根据自身状态，评估该事务是否有可能顺利完成。增加一轮询问阶段，意味着因某个参与者提交时发生崩溃而导致大家全部回滚的风险相对变小。因此，在事务需要回滚的场景中，三段式的性能通常是要比两段式好很多的，但在事务能够正常提交的场景中，两者的性能都依然很差，甚至三段式因为多了一次询问，还要稍微更差一些。</p>
+<p>同样也是由于事务失败回滚概率变小的原因，在三段式提交中，如果在 PreCommit 阶段之后发生了协调者宕机，即参与者没有能等到 DoCommit 的消息的话，默认的操作策略将是提交事务而不是回滚事务或者持续等待，这就相当于避免了协调者单点问题的风险。</p>
+<p>由于事务失败回滚概率变小的原因，PreCommit 阶段之后发生了协调者宕机（即参与者没有能等到 DoCommit），默认策略是提交事务相当于避免了协调者单点问题的风险。</p>
+<p>从以上过程可以看出，三段式提交对单点问题和回滚时的性能问题有所改善，但是它对一致性风险问题并未有任何改进，在这方面它面临的风险甚至反而是略有增加了的。</p>
+<pre><code class="highlight mermaid">sequenceDiagram
+participant coordinators as 协调者
+participant participants as 参与者
+    coordinators -&gt;&gt; participants: 询问阶段：是否有把握完成事务
+    activate participants
+    participants --&gt;&gt; coordinators: 是
+    deactivate participants
+    
+    coordinators -&gt;&gt; participants: 准备阶段：写入日志，锁定资源
+    activate participants
+    participants --&gt;&gt; coordinators: ACK
+    deactivate participants
+    
+    coordinators -&gt;&gt; participants: 提交阶段：提交事务
+    activate participants
+    participants --&gt;&gt; coordinators: 已提交
+    deactivate participants
+    opt 失败
+ 	   coordinators -&gt;&gt; participants: 要求回滚
+ 	   activate participants
+ 	   participants --&gt;&gt; coordinators: 已回滚
+ 	   deactivate participants
+    end
+    
+    opt 超时
+ 	   participants -&gt;&gt; participants: 提交事务
+    end</code></pre>
+
+<h3 id="多服务单数据源"><a href="#多服务单数据源" class="headerlink" title="多服务单数据源"></a>多服务单数据源</h3><pre><code class="highlight mermaid">flowchart LR
+
+user[用户服务]
+business[商家服务]
+commodity[商品服务]
+exchange(交易服务器或消息队列)
+database[(数据库)]
+
+user --&gt; exchange
+business --&gt; exchange
+commodity --&gt; exchange
+
+exchange --&gt; database</code></pre>
+
+<p>一个服务集群里压力最大的往往是数据库，所以该方案往往与实际生产系统相悖。相应地，如果你有充足理由让多个微服务去共享数据库，就向团队解释为什么要服务拆分。</p>
+<h3 id="多服务多数据源"><a href="#多服务多数据源" class="headerlink" title="多服务多数据源"></a>多服务多数据源</h3><p>分布式服务环境下的事务处理机制。</p>
+<h4 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h4><p><strong>分区容忍性</strong>（<strong>P</strong>artition Tolerance）：代表分布式环境中部分节点因网络原因而彼此失联后，即与其他节点形成“网络分区”时，系统仍能正确地提供服务的能力。放弃分区容忍性（CA without P）意味着假设节点之间通信永远是可靠的，可靠系统的通讯在分布式系统中必定不成立。</p>
+<p><strong>可用性</strong>（<strong>A</strong>vailability）：代表系统不间断地提供服务的能力，由可靠性（平均无故障时间）和可维护性（平均可修复时间）计算得出的比例值；放弃可用性（AP without C)意味着一旦网络发生分区，节点之间的信息同步时间可以无限制地延长。此时，问题相当于退化单服务多数据源的场景之中，我们可以通过 2PC&#x2F;3PC 等手段，同时获得分区容忍性和一致性；</p>
+<p><strong>一致性</strong>（<strong>C</strong>onsistency）：代表数据在任何时刻、任何分布式节点中所看到的都是符合预期的。放弃可用性（CP without A）意味着假设一旦发生分区，节点之间所提供的数据可能不一致。&#x3D;&#x3D;放弃一致性是目前分布式系统的主流选择&#x3D;&#x3D;，因为分区容忍性是分布式网络的天然属性，可用性通常是建设分布式的目的。分布式系统种放弃追求强一致性，降低为最终一致性。由于一致性定义变动，ACID 的事务称为”刚性事务“，把分布式事务称为”柔性事务“。</p>
+<h4 id="可靠事件队列"><a href="#可靠事件队列" class="headerlink" title="可靠事件队列"></a>可靠事件队列</h4><p>将最有可能出错的业务以本地事务的方式完成后，采用不断重试的方式（不限于消息系统）来促使同一个分布式事务中的其他关联业务全部完成。</p>
+<pre><code class="highlight mermaid">sequenceDiagram
+participant user as 外部调用
+participant account as 账号服务
+participant mq as 消息队列
+participant warehorse as 仓库服务
+participant business as 商家服务
+    alt 有风险
+        account -&gt;&gt; user: 失败
+    else 评估通过
+        account -&gt;&gt; user: 成功
+    end
+    
+    user -&gt;&gt; account: 启动事务
+    activate account
+		account --&gt;&gt; account: 扣减货款，保存消息
+	    account -&gt;&gt; mq: 提交本地事务，发出消息
+    deactivate account
+    loop 循环直至全部成功
+        mq -&gt;&gt; warehorse: 扣减库存
+        alt 扣减成功
+            warehorse --&gt;&gt; mq: 成功
+        else 业务或网络异常
+            warehorse --&gt;&gt; mq: 失败
+        end
+    end
+    mq --&gt;&gt; account: 更新消息表，仓库服务完成
+
+    loop 循环直至全部成功
+        mq -&gt;&gt; business: 货款收款
+        alt 收款成功
+            business --&gt;&gt; mq: 成功
+        else 业务或网络异常
+            business --&gt;&gt; mq: 失败
+        end
+    end
+    mq --&gt;&gt; account: 更新消息表，商家服务完成</code></pre>
+
+<h4 id="TCC-事务"><a href="#TCC-事务" class="headerlink" title="TCC 事务"></a>TCC 事务</h4><p>TCC 事务是 Try-Confirm-Cancel 的缩写，主要用来解决分布式业务中的隔离性。在具体实现上，TCC 较为烦琐，它是一种业务侵入式较强的事务方案，要求业务处理过程必须拆分为“预留业务资源“（冻结）和“确认&#x2F;释放消费资源”（消费）两个子过程。如同 TCC 的名字所示，它分为以下三个阶段。</p>
+<ul>
+<li><strong>Try</strong>：尝试执行阶段，完成所有业务可执行性的检查（保障一致性），并且预留好全部需用到的业务资源（保障隔离性）。</li>
+<li><strong>Confirm</strong>：确认执行阶段，不进行任何业务检查，直接使用 Try 阶段准备的资源来完成业务处理。Confirm 阶段可能会重复执行，因此本阶段所执行的操作需要具备幂等性。</li>
+<li><strong>Cancel</strong>：取消执行阶段，释放 Try 阶段预留的业务资源。Cancel 阶段可能会重复执行，也需要满足幂等性。</li>
+</ul>
+<p>TCC 类似 2PC 的准备阶段和提交阶段，但 TCC 是位于用户代码层面，而不是在基础设施层面。TCC 在业务执行时只操作预留资源，几乎不会涉及锁和资源的争用，具有很高的性能潜力，也可以根据资源锁定的粒度，带来较高灵活性。但同时带来了更高的开发成本和业务侵入性。我们通常基于某些分布式事务中间件（譬如阿里开源的<a target="_blank" rel="noopener" href="https://seata.io/zh-cn/">Seata</a>）去完成，而非裸实现 TCC。</p>
+<pre><code class="highlight mermaid">sequenceDiagram
+participant user as 外部调用
+participant account as 账号服务
+participant warehorse as 仓库服务
+participant business as 商家服务
+    user -&gt;&gt; account: 业务检查，冻结货款
+    alt 成功
+    	account --&gt;&gt; user: 记录进入 Confirm 阶段
+    else 业务或网络异常
+        account --&gt;&gt; user: 记录进入 Cancel 阶段
+    end
+    
+    user -&gt;&gt; warehorse: 业务检查，冻结商品
+    alt 成功
+    	warehorse --&gt;&gt; user: 记录进入 Confirm 阶段
+    else 业务或网络异常
+        warehorse --&gt;&gt; user: 记录进入 Cancel 阶段
+    end
+    
+    user -&gt;&gt; business: 业务检查
+    alt 成功
+    	business --&gt;&gt; user: 记录进入 Confirm 阶段
+    else 业务或网络异常
+        business --&gt;&gt; user: 记录进入 Cancel 阶段
+    end
+    
+    opt 全部记录均返回 Confirm 阶段
+        loop 循环直至全部成功
+        	user -&gt;&gt; account: 完成业务，扣减冻结的货款
+            user -&gt;&gt; warehorse: 完成业务，扣减冻结的货物
+            user -&gt;&gt; business: 完成业务，货款收款
+    	end
+    end
+    opt 任意服务超时或返回 Cancel 阶段
+        loop 循环直至全部成功
+        	user -&gt;&gt; account: 取消业务，解冻货款
+            user -&gt;&gt; warehorse: 取消业务，解冻货物
+            user -&gt;&gt; business: 取消业务
+    	end
+    end</code></pre>
+
+<h4 id="SAGA-事务"><a href="#SAGA-事务" class="headerlink" title="SAGA 事务"></a>SAGA 事务</h4><p>由于 Try 阶段的冻结操作可能不由自己控制，导致 Try 阶段无法实施。这时就需要另一种柔性事务方案：SAGA 事务，大致思路是把一个大事务分解为可以交错运行的一系列子事务集合。</p>
+<ul>
+<li>大事务拆分若干个小事务，将整个分布式事务 T 分解为 n 个子事务，命名为 T1，T2，…，Ti，…，Tn。每个子事务都应该是或者能被视为是原子行为；</li>
+<li>为每一个子事务设计对应的补偿动作，满足以下条件：<ol>
+<li>Ti 与 Ci都具备幂等性。</li>
+<li>Ti 与 Ci 满足交换律（Commutative），即先执行 Ti 还是先执行 Ci，其效果都是一样的。</li>
+<li>Ci 必须能成功提交，即不考虑 Ci 本身提交失败被回滚的情形，如出现就必须持续重试直至成功，或者要人工介入。</li>
+</ol>
+</li>
+</ul>
+<p>所有事务提交成功，则事务完成。否则，要采取以下两种恢复策略之一：</p>
+<ul>
+<li><strong>正向恢复</strong>（Forward Recovery）：不需要补偿，一直重试失败事务，直到成功。</li>
+<li><strong>反向恢复</strong>（Backward Recovery）：子事务执行失败，一直执行对应的补偿动作，直到成功。</li>
+</ul>
+<p>SAGA 必须保证所有子事务都得以提交或者补偿，但 SAGA 系统本身也有可能会崩溃，所以它必须设计成与数据库类似的日志机制（被称为 SAGA Log）以保证系统恢复后可以追踪到子事务的执行情况。另外，尽管补偿操作通常比冻结&#x2F;撤销容易实现，但保证正向、反向恢复过程的能严谨地进行也需要花费不少的工夫。我们通常基于某些分布式事务中间件（譬如阿里开源的<a target="_blank" rel="noopener" href="https://seata.io/zh-cn/">Seata</a>）去完成，而非裸实现 SAGA。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>通常来说，脏写是一定要避免的，因为脏写情况一旦发生，人工其实也很难进行有效处理。所有传统关系数据库在最低的隔离级别上都仍然要加锁以避免脏写。分布式事务中没有一揽子包治百病的解决办法，因地制宜地选用合适的事务处理方案才是唯一有效的做法。</p>
+<h2 id="透明多级分流系统"><a href="#透明多级分流系统" class="headerlink" title="透明多级分流系统"></a>透明多级分流系统</h2><p>用户请求从浏览器触发，直至末端数据库，然后逐级返回用户浏览器之中。要历经很多部件，作为系统设计者，应该意识到不同的设施、部件在系统中不同的价值。比如：</p>
+<ol>
+<li>本地缓存、CDN、反向代理等位于客户端或网络边缘，需要迅速响应用户请求，避免给后方的 I&#x2F;O 与 CPU 带来压力；</li>
+<li>能够伸缩的服务节点（后端服务），尽量作为业务逻辑的主要载体，以达到机器换并发；</li>
+<li>注册中心、配置中心等，要时刻保持着容错备份以维护高可用；</li>
+<li>系统入口的路由、网关、DB等单点不见，只能依靠机器本身的网络、存储和运算性能来提升处理能力；</li>
+</ol>
+<p>对系统进行流量规划时，充分理解这些部件的价值差异，以及 2 条设计原则：</p>
+<ol>
+<li>尽可能减少单点部件，如果某些单点是无可避免的，则应尽最大限度减少到达单点部件的流量；</li>
+<li>更关键的是：奥卡姆剃刀原则。一方面，要对多级分流的手段有全面的理解和充分的准备，同时意识到这些设施不是越多越好；另一方面，并不是每个系统都追求三高，要依靠的是康威定律，有明确的需求采取部署，在能满足需求的前提下，<strong>最简单的系统就是最好的系统</strong>。</li>
+</ol>
+<h3 id="客户端缓存"><a href="#客户端缓存" class="headerlink" title="客户端缓存"></a>客户端缓存</h3><p>HTTP 协议的无状态性决定了它必须依靠客户端缓存来解决网络传输效率上的缺陷，手段包括：状态缓存、强制缓存和协商缓存。</p>
+<h4 id="强制缓存"><a href="#强制缓存" class="headerlink" title="强制缓存"></a>强制缓存</h4><p>强制缓存是基于时效性的，假设在某个时点到来以前，资源的内容和状态一定不会被改变。因此，客户端无须经过任何请求，在该时点前一直持有和使用该资源的本地缓存副本。</p>
+<p>HTTP 协议中设有以下两类 Header 实现强制缓存。</p>
+<ul>
+<li>Expires ： HTTP&#x2F;1.0</li>
+</ul>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Expires</span><span class="punctuation">: </span>Wed, 8 Apr 2020 07:28:00 GMT</span><br></pre></td></tr></table></figure>
+
+<p>存在问题：</p>
+<ol>
+<li>受限于客户端的本地时间；2. 无法处理涉及到用户身份的私有资源；3. 无法描述“不缓存”；</li>
+</ol>
+<ul>
+<li>Cache-Control : HTTP&#x2F;1.1</li>
+</ul>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>max-age=600</span><br></pre></td></tr></table></figure>
+
+<p>Cache-Control 在客户端的请求 Header 或服务器的响应 Header 中都可以存在，它定义了一系列的参数，且允许自行扩展。主要参数：</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">max-age &amp;&amp; s-maxage</td>
+<td align="center">相对于请求时间多少秒内缓存有效;s 是 share 的缩写，允许被 CDN、代理等持有的缓存有效时间</td>
+</tr>
+<tr>
+<td align="center">public &amp;&amp; private</td>
+<td align="center">public 可以被代理、CDN 等缓存；private 意味着只能由客户端缓存</td>
+</tr>
+<tr>
+<td align="center">no-cache &amp;&amp; no-store</td>
+<td align="center">no-cache 指明该资源不应该被缓存;no-store 不强制会话中相同 URL 资源的重复获取，但禁止浏览器、CDN 等以任何形式保存该资源</td>
+</tr>
+<tr>
+<td align="center">no-transform</td>
+<td align="center">禁止资源被任何形式地修改</td>
+</tr>
+<tr>
+<td align="center">min-fresh</td>
+<td align="center">仅用于客户端的请求 Header，建议服务器能返回一个不少于该时间的缓存资源</td>
+</tr>
+<tr>
+<td align="center">only-if-cached</td>
+<td align="center">求不必给它发送资源的具体内容，此时客户端就仅能使用事先缓存的资源来进行响应</td>
+</tr>
+<tr>
+<td align="center">must-revalidate</td>
+<td align="center">资源过期后，一定需要从服务器中进行获取</td>
+</tr>
+<tr>
+<td align="center">proxy-revalidate</td>
+<td align="center">除了用来提示代理、CDN 等对象外，语义与 must-revalidate 相同</td>
+</tr>
+</tbody></table>
+<h4 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h4><p>协商缓存基于变化检测，在一致性上会有比强制缓存更好的表现，但需要一次变化检测的交互开销，性能上就会略差。HTTP 中协商缓存与强制缓存并没有互斥性，这两套机制是并行工作的。</p>
+<p>协商缓存有两种变动检查机制，分别是检查资源的<code>修改时间</code>和<code>资源唯一标识</code>是否发生变化来检查。它们都是靠一组成对出现的请求、响应 Header 来实现的：</p>
+<ul>
+<li><p>修改时间的方式：Last-Modified 和 If-Modified-Since</p>
+<p>Last-Modified 是服务器的响应 Header，用于告诉客户端这个资源的最后修改时间。对于带有这个 Header 的资源，当客户端需要再次请求时，会通过 If-Modified-Since 把之前收到的资源最后修改时间发送回服务端。如果此时服务端发现资源在该时间后没有被修改过，就只要返回一个没有消息体的 304&#x2F;Not Modified 的响应即可</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">304</span> Not Modified</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>public, max-age=600</span><br><span class="line"><span class="attribute">Last-Modified</span><span class="punctuation">: </span>Wed, 8 Apr 2020 15:31:30 GMT</span><br></pre></td></tr></table></figure>
+
+<p>如果时间有变动，则返回带有 Last-Modified 的 Header，200 的完整响应</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>public, max-age=600</span><br><span class="line"><span class="attribute">Last-Modified</span><span class="punctuation">: </span>Wed, 8 Apr 2020 15:31:30 GMT</span><br><span class="line"></span><br><span class="line"><span class="language-css"><span class="attribute">Content</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>资源标识的方式：Etag 和 If-None-Match</p>
+<p>Etag 是服务器的响应 Header，用于告诉客户端这个资源的唯一标识。当客户端需要再次请求时，会通过 If-None-Match 把之前收到的资源唯一标识发送回服务端。如果此时服务端计算后发现资源的唯一标识与上传回来的一致，说明资源没有被修改过，就只要返回一个没有消息体的 304&#x2F;Not Modified 的响应即可</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">304</span> Not Modified</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>public, max-age=600</span><br><span class="line"><span class="attribute">ETag</span><span class="punctuation">: </span>&quot;28c3f612-ceb0-4ddc-ae35-791ca840c5fa&quot;</span><br></pre></td></tr></table></figure>
+
+<p>如果资源有变动，则返回带有 Last-Modified 的 Header，200 的完整响应</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>public, max-age=600</span><br><span class="line"><span class="attribute">ETag</span><span class="punctuation">: </span>&quot;28c3f612-ceb0-4ddc-ae35-791ca840c5fa&quot;</span><br><span class="line"></span><br><span class="line"><span class="language-css"><span class="attribute">Content</span></span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>强制缓存中，如果 Cache-Control 和 Expires 同时存在，并且语义存在冲突，必须以 Cache-Control 为准。</p>
+<p>协商缓存中，Etag 是 HTTP 中一致性最强的缓存机制，却是最差的缓存机制。但 Etag 和 Last-Modified 是允许一起使用的，服务器会优先验证 Etag，在 Etag 一致的情况下，再去对比 Last-Modified。</p>
+<p>根据约定，协商缓存不仅在浏览器的地址输入、页面链接跳转、新开窗口、前进、后退中生效，而且在用户主动刷新页面（F5）时也同样是生效的，只有用户强制刷新（Ctrl+F5）或者明确禁用缓存（譬如在 DevTools 中设定）时才会失效，此时客户端向服务端发出的请求会自动带有“Cache-Control: no-cache”。</p>
+<p>更多信息：<a target="_blank" rel="noopener" href="https://book.douban.com/subject/10746113/">HTTP 权威指南</a></p>
+<h3 id="域名解析-DNS"><a href="#域名解析-DNS" class="headerlink" title="域名解析 DNS"></a>域名解析 DNS</h3><p>DNS 就是将域名翻译为域名地址记录（通常是 ip）的系统。域名解析对于大多数信息系统，尤其是对于基于互联网的系统来说是必不可少的组件，却没有太高存在感。不过 DNS 本身的工作过程，本身堪称是示范性的透明多级分流系统。</p>
+<h4 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h4><p>以 <code>www.baidu.com</code> 为例，有如下步骤：</p>
+<ol>
+<li>DNS 会将域名还原为 <code>www.baidu.com.</code>;</li>
+<li>客户端先检查本地的 DNS 缓存；</li>
+<li>客户端将地址发送给本机操作系统中配置的本地 DNS；</li>
+<li>本地 DNS 收到查询请求后，会按照 a. 是否有<code>www.baidu.com</code>的权威服务器; b. 是否有<code>baidu.com</code>的权威服务器; c. 是否有<code>com</code>的权威服务器的顺序，依次查询自己的地址记录，如果都没有查询到，就会一直找到最后点号代表的根域名服务器；</li>
+<li>根据名服务器返回 <code>com</code>的地址记录，通过 <code>com</code> 的权威服务器，得到 <code>baidu.com</code>的地址记录，以此反推，得到 <code>www.baidu.com</code>的权威服务器地址；</li>
+<li>通过 <code>www.baidu.com</code>的权威服务器地址，得到地址记录；</li>
+</ol>
+<pre><code class="highlight mermaid">sequenceDiagram
+participant browser as 浏览器
+participant local as 本地DNS
+participant authority as 权威DNS
+participant server as 网站服务器
+    browser -&gt;&gt; local: 查询网站icyfenix.cn
+    loop 递归查询
+        local -&gt;&gt; authority: 查询网站icyfenix.cn
+    end
+    authority --&gt;&gt; local: 地址：xxx.xxx.xxx.xxx
+    local --&gt;&gt; browser: 地址：xxx.xxx.xxx.xxx
+    browser -&gt;&gt; server: 请求
+    server --&gt;&gt; browser: 响应</code></pre>
+
+
+
+<h4 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h4><ol>
+<li><p>响应速度</p>
+<p>极端情况下，域名解析都需要递归到根域名服务器才能查询到结果，响应速度变慢；</p>
+</li>
+<li><p>中间人攻击</p>
+<p>这是更严重的问题。攻陷根域名或者权威域名是非常困难的，但很多递归底层和本地运营商的 DNS 服务器防护相对松懈，甚至会主动进行劫持（加入广告进行牟利）。一种解决办法是：<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DNS_over_HTTPS">HTTPDNS</a>，通俗的讲：就是讲 DNS 查询转换为 HTTP 请求来查询地址记录。</p>
+</li>
+</ol>
+<h3 id="传输链路"><a href="#传输链路" class="headerlink" title="传输链路"></a>传输链路</h3><p>经过客户端缓存的节流和 DNS 服务的指引，程序发出的请求正式离开客户端，踏上以服务器为目的地的旅途。这就是：传输链路。</p>
+<p>优化链路传输的前端设计原则：<a target="_blank" rel="noopener" href="https://developer.yahoo.com/performance/rules.html">雅虎 YSlow-23 条规则</a></p>
+<h4 id="连接数优化"><a href="#连接数优化" class="headerlink" title="连接数优化"></a>连接数优化</h4><p>HTTP&#x2F;3 以前TCP 为传输层的应用层协议，但 HTTP over TCP 这种搭配只能说是 TCP 在当今网络中统治性地位所造就的结果，而不能说它们两者配合工作就是合适的。</p>
+<p>HTTP 的设计者们也尝试在协议层面去解决连接成本过高的问题，比如 HTTP&#x2F;1.1 中的连接复用技术和 HTTP&#x2F;2 中的多路复用技术，但都不完美。</p>
+<h4 id="传输压缩"><a href="#传输压缩" class="headerlink" title="传输压缩"></a>传输压缩</h4><p>静态预压缩（由于 Web 性能提升，已很少采用）：静态资源预先以 .gz 文件形式存放起来，需要哪个返回哪个；</p>
+<p>即时压缩：整个压缩过程全部在内存的数据流中完成，不必等资源压缩完成再返回响应。缺点是没法在 Header 中添加 Content-Length，因为输出 Header 服务器无法知道压缩后资源的确切大小。为保证持久连接，最初使用 Content-Length 来判断资源是否请求结束，但即时压缩与最初设计冲突。HTTP&#x2F;1.1 版本中修复了这个缺陷，增加了另一种“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Chunked_transfer_encoding">分块传输编码</a>”（Chunked Transfer Encoding）的资源结束判断机制。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sat, 11 Apr 2020 04:44:00 GMT</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="language-livecodeserver"><span class="number">25</span></span></span><br><span class="line"><span class="language-livecodeserver">This is <span class="keyword">the</span> data <span class="keyword">in</span> <span class="keyword">the</span> <span class="keyword">first</span> chunk</span></span><br><span class="line"><span class="language-livecodeserver"></span></span><br><span class="line"><span class="language-livecodeserver"><span class="number">1</span>C</span></span><br><span class="line"><span class="language-livecodeserver"><span class="keyword">and</span> this is <span class="keyword">the</span> <span class="keyword">second</span> <span class="literal">one</span></span></span><br><span class="line"><span class="language-livecodeserver"></span></span><br><span class="line"><span class="language-livecodeserver"><span class="number">3</span></span></span><br><span class="line"><span class="language-livecodeserver">con</span></span><br><span class="line"><span class="language-livecodeserver"></span></span><br><span class="line"><span class="language-livecodeserver"><span class="number">8</span></span></span><br><span class="line"><span class="language-livecodeserver">sequence</span></span><br><span class="line"><span class="language-livecodeserver"></span></span><br><span class="line"><span class="language-livecodeserver"><span class="number">0</span></span></span><br><span class="line"><span class="language-livecodeserver"></span></span><br><span class="line"><span class="language-livecodeserver"><span class="string">&quot;This is the data in the first chunk\r\n&quot;</span>      (<span class="number">37</span> 字符 =&gt; 十六进制: <span class="number">0x25</span>)</span></span><br><span class="line"><span class="language-livecodeserver"><span class="string">&quot;and this is the second one\r\n&quot;</span>               (<span class="number">28</span> 字符 =&gt; 十六进制: <span class="number">0x1C</span>)</span></span><br><span class="line"><span class="language-livecodeserver"><span class="string">&quot;con&quot;</span>                                          (<span class="number">3</span>  字符 =&gt; 十六进制: <span class="number">0x03</span>)</span></span><br><span class="line"><span class="language-livecodeserver"><span class="string">&quot;sequence&quot;</span>                                     (<span class="number">8</span>  字符 =&gt; 十六进制: <span class="number">0x08</span>)</span></span><br><span class="line"><span class="language-livecodeserver"><span class="comment"></span></span></span><br><span class="line"><span class="comment"><span class="language-livecodeserver">// 解码后</span></span></span><br><span class="line"><span class="language-livecodeserver">This is <span class="keyword">the</span> data <span class="keyword">in</span> <span class="keyword">the</span> <span class="keyword">first</span> chunk</span></span><br><span class="line"><span class="language-livecodeserver"><span class="keyword">and</span> this is <span class="keyword">the</span> <span class="keyword">second</span> <span class="literal">one</span></span></span><br><span class="line"><span class="language-livecodeserver">consequence</span></span><br></pre></td></tr></table></figure>
+
+<p>到了 HTTP&#x2F;2，由于多路复用和单域名单连接的设计，已经无须再刻意去提持久链接机制了，但数据压缩仍然有节约传输带宽的重要价值。</p>
+<h4 id="快速-UDP-网络连接"><a href="#快速-UDP-网络连接" class="headerlink" title="快速 UDP 网络连接"></a>快速 UDP 网络连接</h4><p>HTTP 是应用层协议，它的设计不应该过多地考虑底层的传输细节。从职责上讲，持久连接、多路复用、分块编码这些能力，已经或多或少超过了应用层的范畴。要从根本上改进 HTTP，必须直接替换掉 HTTP over TCP 的根基，即替换掉 TCP 传输协议，最新一代 HTTP&#x2F;3 协议的设计重点就在这儿。</p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/QUIC">快速 UDP 网络连接</a>（Quick UDP Internet Connections，QUIC）是由 Google 公司推动，以 UDP 协议为基础，不仅能满足 HTTP 传输协议，日后还能支持 SMTP、DNS、SSH、Telnet、NTP 等多种其他上层协议的最新一代互联网标准，即 HTTP over QUIC 的  HTTP&#x2F;3 版本号。</p>
+<p>一方面，可靠传输能力完全是 QUIC 实现。另一方面，面向移动设备的专门支持。</p>
+<h4 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h4><p>一旦在技术根基上出现问题，依靠使用者通过 Tricks 去解决，无论如何都难以摆脱“两害相权取其轻”的权衡困境，否则这就不是 Tricks 而是会成为一种标准的设计模式了。</p>
+<h3 id="内容分发网络"><a href="#内容分发网络" class="headerlink" title="内容分发网络"></a>内容分发网络</h3><p>如果抛弃其他影响服务质量的因素，仅从网络传输的角度看，一个互联网系统的速度取决于以下四点因素：</p>
+<ol>
+<li>网站服务器接入网络运营商的链路的出口带宽；</li>
+<li>用户客户端接入网络运营商的链路的入口带宽；</li>
+<li>不同运营商之间互联节点的带宽。一般不同运营商只有若干个节点是互通的；</li>
+<li>从网站到用户之间的物理链路传输时延；</li>
+</ol>
+<p>以上四个网络问题，除了第二个只能通过换一个更好的宽带才能解决之外，其余三个都能通过内容分发网络来显著改善。一个运作良好的内容分发网络，能为互联网系统解决跨运营商、跨地域物理距离所导致的时延问题，能为网站流量带宽起到分流、减负的作用。内容分发网络的工作过程，主要涉及域名解析、内容分发、负载均衡和所能支持的 CDN 应用内容四个方面。</p>
+<h4 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h4><ol>
+<li>架设好“icyfenix.cn”的服务器后，会将服务器 IP 地址在 CDN 服务商上注册为“源站”，CDN 服务商会生成一个“源站”的 CNAME 记录；</li>
+<li>将 CNAME 记录注册到域名权威 DNS 和 CNAME 的权威 DNS 上；</li>
+<li>域名权威DNS 发现是 CNAME 记录后，返回给本地 DNS，之后链路解析的主导权就开始由内容分发网络的调度服务接管了；</li>
+<li>CNAME 的权威 DNS 根据负载均衡策略和参数，挑选一个最合适的 CDN 节点，将其 IP 进行返回；</li>
+<li>访问 IP 即可；</li>
+</ol>
+<pre><code class="highlight mermaid">sequenceDiagram
+participant browser as 浏览器
+participant local as 本地DNS
+participant authority as 域名权威DNS
+participant cname as CNAME的权威DNS
+participant cdn as CDN服务器
+participant server as 源站服务器
+    browser -&gt;&gt; local: 查询网站icyfenix.cn
+    loop 递归查询
+        local -&gt;&gt; authority: 查询网站icyfenix.cn
+    end
+    authority --&gt;&gt; local: 返回 CNAME 记录
+    local --&gt;&gt; cname: 查询 CNAME 记录
+    loop 递归查询
+        cname -&gt;&gt; cname: 经过递归查询和负载均衡，确定合适的CDN
+    end
+    cname --&gt;&gt; local: 地址：xxx.xxx.xxx.xxx
+    local --&gt;&gt; browser: 地址：xxx.xxx.xxx.xxx
+    browser -&gt;&gt; cdn: 请求
+    cdn -&gt;&gt; server: 请求
+    server --&gt;&gt; cdn: 响应
+    cdn --&gt;&gt; browser: 响应</code></pre>
+
+
+
+<h4 id="内容分发"><a href="#内容分发" class="headerlink" title="内容分发"></a>内容分发</h4><p>内容分发就是 CDN 获取源站资源的过程，包括“如何获取源站资源”和“如何更新资源” 2 方面。</p>
+<p>如何获取源站资源：</p>
+<ol>
+<li><p>主动分发 PUSH</p>
+<p>由源站主动将资源推送到用户边缘的各个 CDN 缓存节点上。正因如此，它对源站并不是透明的，只对用户一侧单向透明。主动分发一般用于网站要预载大量资源的场景。</p>
+</li>
+<li><p>被动回源 PULL</p>
+<p>由用户访问所触发全自动、双向透明的资源缓存过程。</p>
+</li>
+</ol>
+<p>如何更新资源：</p>
+<p>没有统一标准，取决于 CDN 服务商的实现策略。由于大多数网站的开发和运维人员并不十分了解 HTTP 缓存机制，导致如果 CDN 服务商完全照着 HTTP Headers 来控制缓存失效和更新，效果反而会相当的差，还可能引发其他问题。</p>
+<p>现在，最常见的做法是超时被动失效与手工主动失效相结合。超时失效是指给予缓存资源一定的生存期，超过了生存期就在下次请求时重新被动回源一次。而手工失效是指 CDN 服务商一般会提供给程序调用来失效缓存的接口，在网站更新时，由持续集成的流水线自动调用该接口来实现缓存更新。</p>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><p>调度后方的多台机器，以统一的接口对外提供服务，承担此职责的技术组件被称为“负载均衡”。真正大型系统的负载均衡往往是多级的。</p>
+<ul>
+<li>四层负载均衡的优势是性能高，七层负载均衡的优势是功能强；</li>
+<li>做多级混合负载均衡，通常应是低层的负载均衡在前，高层的负载均衡在后；</li>
+</ul>
+<ol>
+<li><p>数据链路层负载均衡</p>
+<p>数据链路层负载均衡所做的工作，是修改请求的数据帧中的 MAC 目标地址，让用户原本是发送给负载均衡器的请求的数据帧，被二层交换机根据新的 MAC 目标地址转发到服务器集群中对应的服务器（后文称为“真实服务器”，Real Server）的网卡上，这样真实服务器就获得了一个原本目标并不是发送给它的数据帧。</p>
+<p><img src="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185013674.png" alt="image-20230621185013674"></p>
+<p>数据链路层负载均衡器直接改写目标 MAC 地址的工作原理决定了它与真实的服务器的通信必须是二层可达的。通俗地说就是必须位于同一个子网当中，无法跨 VLAN。优势（效率高）和劣势（不能跨子网）共同决定了数据链路层负载均衡最适合用来做数据中心的第一级均衡设备，用来连接其他的下级负载均衡器。</p>
+</li>
+<li><p>网络层负载均衡</p>
+<p>与链路层类似，网络层通过改变 IP 地址来实现数据包转发。</p>
+<p>IP 隧道：新创建一个数据包，把原来数据包的 Headers 中目标 IP 修改后和 Payload 整体作为另一个新的数据包的 Payload 发送出去。一个缺点是服务器必须支持 IP 隧道协议，另一个是必须专门配置。</p>
+<p><img src="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185454338.png" alt="image-20230621185454338"></p>
+<p>网络地址转换：直接修改源数据包的目标 IP 后发出去。</p>
+<p><img src="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230621185649892.png" alt="image-20230621185649892"></p>
+<p>在流量压力比较大的时候，NAT 模式的负载均衡会带来较大的性能损失，比起直接路由和 IP 隧道模式，甚至会出现数量级上的下降。因为所有流量都在争抢均衡器出口带宽。</p>
+</li>
+<li><p>应用层负载均衡</p>
+<p>链路层和网络层的负载均衡模式都属于转发，此时客户端到响应请求维持同一条 TCP 通道，但工作在应用层的负载均衡只能进行代理，此时真实服务器、负载均衡器、客户端三者之间由两条独立的 TCP 通道来维持通信。</p>
+<p><img src="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230622171828070.png" alt="image-20230622171828070"></p>
+<p>“代理”这个词，根据“哪一方能感知到”的原则，可以分为“正向代理”、“反向代理”和“透明代理”三类。正向代理就是我们通常简称的代理，指在客户端设置的、代表客户端与服务器通信的代理服务，它是客户端可知，而对服务器透明的。反向代理是指在设置在服务器这一侧，代表真实服务器来与客户端通信的代理服务，此时它对客户端来说是透明的。至于透明代理是指对双方都透明的，配置在网络中间设备上的代理服务，譬如，架设在路由器上的透明翻墙代理。</p>
+</li>
+<li><p>总结</p>
+<p>负载均衡的两大职责是“选择谁来处理用户请求”（均衡策略：轮询、权重轮询、随机、权重随机、一致性哈希、响应速度、最少连接数等）和“将用户请求转发过去”（转发和代理）。</p>
+<p>负载均衡器从实现上又分为软件和硬件。硬件会直接采用应用专用集成电路 ASIC 来实现，如 F5 和 A10。软件分为 OS 层，如 LVS 和应用层，如 Nginx、HAProxy、KeepAlived。</p>
+</li>
+</ol>
+<h4 id="CDN-应用"><a href="#CDN-应用" class="headerlink" title="CDN 应用"></a>CDN 应用</h4><ul>
+<li>加速静态资源：本职工作；</li>
+<li>安全防御：CDN 可以视为网站的堡垒机；</li>
+<li>协议提升；</li>
+<li>状态缓存；</li>
+<li>修改资源；</li>
+<li>访问控制；</li>
+<li>注入功能；</li>
+<li>等等</li>
+</ul>
+<h3 id="服务端缓存"><a href="#服务端缓存" class="headerlink" title="服务端缓存"></a>服务端缓存</h3><p>为系统引入缓存之前，第一件事情是确认你的系统是否真的需要缓存。软件开发中引入缓存的负面作用要明显大于硬件的缓存：1. 开发角度，引入缓存会提高系统复杂度（缓存失效、更新、一致性等问题）；2. 运维角度，缓存会掩盖掉一些缺陷，让问题在更久的时间以后，出现在距离发生现场更远的位置上；3. 安全角度，缓存可能泄漏某些保密数据，也是容易受到攻击的薄弱点。</p>
+<p>冒着上述种种风险，仍能说服你引入缓存的理由，总结起来无外乎以下两种：</p>
+<ol>
+<li>为缓解 CPU 压力而做缓存，顺带提升响应性能。譬如把方法运行结果存储起来、把原本要实时计算的内容提前算好、把一些公用的数据进行复用；</li>
+<li>为缓解 I&#x2F;O 压力而做缓存，顺带提升响应性能。譬如把原本对网络、磁盘等较慢介质的读写访问变为对内存等较快介质的访问；</li>
+</ol>
+<p>出发点是缓解压力，顺带提升性能。如果能通过增强 CPU、I&#x2F;O 本身性能来满足需求，升级硬件往往是更好的解决方案。</p>
+<h4 id="缓存属性"><a href="#缓存属性" class="headerlink" title="缓存属性"></a>缓存属性</h4><ol>
+<li><p>吞吐量：缓存的吞吐量使用 OPS 值，反映了缓存对并发读写操作的效率</p>
+<p><img src="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230625115703078.png" alt="image-20230625115703078"></p>
+</li>
+<li><p>命中率与淘汰策略</p>
+<p>FIFO、LRU、LFU、TinyLFU等等</p>
+</li>
+<li><p>扩展功能：缓存提供的额外功能，如最大容量、失效时间、失效事件、命中率统计等等</p>
+<p>加载器、淘汰策略、失效策略、事件通知、并发级别、容量控制、引用方式、统计信息、持久化等。</p>
+</li>
+<li><p>分布式支持</p>
+<ul>
+<li>访问角度：理论上，更新少、读取多更适合复制式缓存；更新多、读取多更适合集中式缓存。</li>
+</ul>
+</li>
+</ol>
+<h4 id="缓存风险"><a href="#缓存风险" class="headerlink" title="缓存风险"></a>缓存风险</h4><ol>
+<li><p>缓存穿透</p>
+<p>缓存每次都未命中，触及到末端数据库的现象。</p>
+<p>措施：</p>
+<ul>
+<li>可以约定在一定时间内对返回为空的 Key 值依然进行缓存，使得在一段时间内缓存最多被穿透一次；</li>
+<li>恶意攻击导致缓存穿透，通常会在缓存之前设置一个布隆过滤器；</li>
+</ul>
+</li>
+<li><p>缓存击穿</p>
+<p>缓存中某些热点数据突然失效，此时又有多条针对该数据的请求，导致请求穿透缓存，触及到末端数据库的现象。</p>
+<p>措施：</p>
+<ul>
+<li>加锁同步，以请求该数据的 Key 值为锁，使得只有第一个请求可以流入到真实的数据源中，其他线程采取阻塞或重试策略；</li>
+<li>热点数据由代码来手动管理；</li>
+</ul>
+</li>
+<li><p>缓存雪崩</p>
+<p>缓存击穿是针对单个热点数据失效，而大批不同的数据在短时间内一起失效，导致的缓存击穿的现象。</p>
+<p>措施：</p>
+<ul>
+<li>提升缓存系统可用性，建设分布式缓存的集群；</li>
+<li>启用透明多级缓存，各个服务节点一级缓存中的数据通常会具有不一样的加载时间；</li>
+<li>将缓存的生存期从固定时间改为一个时间段内的随机时间；</li>
+</ul>
+</li>
+<li><p>缓存污染</p>
+<p>缓存中的数据和数据源中不一样的现象。</p>
+</li>
+</ol>
+<h4 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a>多级缓存</h4><p><img src="https://gitee.com/Jeremy454/pic-go-upload/raw/master/typora/image-20230625120731535.png" alt="image-20230625120731535"></p>
+<p>使用进程内缓存做一级缓存，分布式缓存做二级缓存，如果能在一级缓存中查询到结果就直接返回，否则便到二级缓存中去查询，再将二级缓存中的结果回填到一级缓存，以后再访问该数据就没有网络请求了。如果二级缓存也查询不到，就发起对最终数据源的查询，将结果回填到一、二级缓存中去。</p>
+<p>当数据发生变动时，在集群内发送推送通知（简单点的话可采用 Redis 的 PUB&#x2F;SUB，求严谨的话引入 ZooKeeper 或 Etcd 来处理），让各个节点的一级缓存自动失效掉相应数据。当访问缓存时，提供统一封装好的一、二级缓存联合查询接口，接口外部是只查询一次，接口内部自动实现优先查询一级缓存，未获取到数据再自动查询二级缓存的逻辑。</p>
+<h2 id="架构安全"><a href="#架构安全" class="headerlink" title="架构安全"></a>架构安全</h2><p>认证、授权和凭证是一个系统中最基础的安全设计，哪怕再简陋的信息系统，大概也不可能忽略掉“用户登录”功能。</p>
+<h3 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h3><p>系统如何正确分辨出操作用户的真实身份？</p>
+<p>Spring Security 和 Apache Shiro</p>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>系统如何控制一个用户该看到哪些数据、能操作哪些功能？</p>
+<h4 id="RBAC"><a href="#RBAC" class="headerlink" title="RBAC"></a>RBAC</h4><p>某用户隶属于什么角色拥有哪些许可可以操作多少资源。</p>
+<h4 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h4><p>面向与解决第三方用户的认证授权问题。</p>
+<h3 id="凭证"><a href="#凭证" class="headerlink" title="凭证"></a>凭证</h3><p>系统如何保证它与用户之间的承诺是双方当时真实意图的体现，是准确、完整且不可抵赖的？</p>
+<h4 id="Cookie-Session"><a href="#Cookie-Session" class="headerlink" title="Cookie-Session"></a>Cookie-Session</h4><p>状态信息存储于服务端，在”安全性“有先天优势，但只是在单节点中是合适的。分布式环境中，由于 CAP 的缘故，状态管理受到局限。</p>
+<h4 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h4><p>JWT 令牌是多方系统中一种优秀的凭证载体，它不需要任何一个服务节点保留任何一点状态信息，就能够保障认证服务与用户之间的承诺是双方当时真实意图的体现。同时，由于 JWT 本身可以携带少量信息，能够较容易地做成无状态服务，在做水平扩展时就不需要像前面 Cookie-Session 方案那样考虑如何部署的问题。</p>
+<h3 id="保密"><a href="#保密" class="headerlink" title="保密"></a>保密</h3><p>系统如何保证敏感数据无法被包括系统管理员在内的内外部人员所窃取、滥用？</p>
+<h4 id="保密的强度"><a href="#保密的强度" class="headerlink" title="保密的强度"></a>保密的强度</h4><p>更高安全强度意味着更多代价。</p>
+<h4 id="客户端加密"><a href="#客户端加密" class="headerlink" title="客户端加密"></a>客户端加密</h4><p>这里的意思是客户端是否要对密码进行加密后，传输到服务端。</p>
+<p>为了保证信息不被黑客窃取而做客户端加密没有太多意义，对绝大多数的信息系统来说，启用 HTTPS 可以说是唯一的实际可行的方案。</p>
+<h4 id="密码存储和验证"><a href="#密码存储和验证" class="headerlink" title="密码存储和验证"></a>密码存储和验证</h4><p>只要配合一定的密码规则约束，譬如密码要求长度、特殊字符等，再配合 HTTPS 传输，已足防御大多数风险了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Encode the raw password. Generally, a good encoding algorithm applies a SHA-1 or</span></span><br><span class="line"><span class="comment"> * greater hash combined with an 8-byte or greater randomly generated salt.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">encrypt</span><span class="params">(CharSequence rawPassword)</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>().encode(Optional.ofNullable(rawPassword).orElse(<span class="string">&quot;&quot;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Verify the encoded password obtained from storage matches the submitted raw</span></span><br><span class="line"><span class="comment"> * password after it too is encoded. Returns true if the passwords match, false if</span></span><br><span class="line"><span class="comment"> * they do not. The stored password itself is never decoded.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> rawPassword the raw password to encode and match</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> encodedPassword the encoded password from storage to compare with</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> true if the raw password, after encoding, matches the encoded password from</span></span><br><span class="line"><span class="comment"> * storage</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">matches</span><span class="params">(CharSequence rawPassword, String encodedPassword)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>().matches(rawPassword, encodedPassword);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="传输"><a href="#传输" class="headerlink" title="传输"></a>传输</h3><p>系统如何保证通过网络传输的信息无法被第三方窃听、篡改和冒充？</p>
+<h4 id="摘要、加密与签名"><a href="#摘要、加密与签名" class="headerlink" title="摘要、加密与签名"></a>摘要、加密与签名</h4><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">摘要</a>也称之为数字摘要（Digital Digest）或数字指纹（Digital Fingerprint），意义是在源信息不泄漏的前提下辨别其真伪，易变性保证了从公开的特征上可以甄别出是否来自于源信息，不可逆性保证了从公开的特征并不会暴露出源信息。</p>
+<p>加密与摘要的本质区别在于加密是可逆的，逆过程就是解密。根据加密与解密是否采用同一个密钥，现代密码学算法可分为对称加密算法和非对称加密。对称加密的问题在于：1. 当通信的成员数量增加时，面临密钥管理的难题；2. 密钥如何安全传输。非对称加密将密钥分成公钥和私钥，公钥可以完全公开，无须安全传输的保证。私钥由用户自行保管，不参与任何通信传输。根据这两个密钥加解密方式的不同，使得算法可以提供两种不同的功能：<strong>称为加密的公钥加密，私钥解密</strong>和<strong>称为签名的私钥加密，公钥解密</strong>。</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">特点</th>
+<th align="center">常见实现</th>
+<th align="center">主要用途</th>
+<th align="center">主要局限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">哈希摘要</td>
+<td align="center">易变和不可逆</td>
+<td align="center">MD2&#x2F;4&#x2F;5&#x2F;6、SHA0&#x2F;1&#x2F;256&#x2F;512</td>
+<td align="center">摘要</td>
+<td align="center">无法解密</td>
+</tr>
+<tr>
+<td align="center">对称加密</td>
+<td align="center">密钥相同速度快、设计难度小、明文长度不受限</td>
+<td align="center">DES、AES、RC4、IDEA</td>
+<td align="center">加密</td>
+<td align="center">要解决如何把密钥安全地传递给解密者</td>
+</tr>
+<tr>
+<td align="center">非对称加密</td>
+<td align="center">加解密密钥不同<br/>明文长度不能超过公钥长度。</td>
+<td align="center">RSA、BCDSA、ElGamal</td>
+<td align="center">签名、传递密钥</td>
+<td align="center">性能与加密明文长度受限</td>
+</tr>
+</tbody></table>
+<h4 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h4><p>当我们无法以“签名”的手段来达成信任时，就只能求助于其他途径。1. <strong>基于共同私密信息的信任</strong>；2. <strong>基于权威公证人的信任</strong>。我们并不能假设授权服务器和资源服务器是互相认识的，所以通常不太会采用第一种方式，而第二种就是目前标准的保证公钥可信分发的标准，而数字证书认证中心（Certificate Authority，CA）就是权威公证人。</p>
+<h4 id="传输安全层"><a href="#传输安全层" class="headerlink" title="传输安全层"></a>传输安全层</h4><p>以 TLS 1.2 为例。</p>
+<ol>
+<li><strong>客户端请求</strong>：Client Hello。客户端向服务器请求进行加密通信，在这个请求里面，它会以<strong>明文</strong>的形式，向服务端提供以下信息； </li>
+<li><strong>服务器回应</strong>：Server Hello。服务器接收到客户端的通信请求后，如果客户端声明支持的协议版本和加密算法组合与服务端相匹配的话，就向客户端发出回应。如果不匹配，将会返回一个握手失败的警告提示；</li>
+<li><strong>客户端确认</strong>：Client Handshake Finished。客户端收到服务器应答后，先要验证服务器的证书合法性。如果证书没有问题，客户端就会从证书中取出服务器的公钥，并向服务器发送以下信息若干信息；</li>
+<li><strong>服务端确认</strong>：Server Handshake Finished。服务端向客户端回应最后的确认通知，包括以下信息；</li>
+</ol>
+<p>至此，整个 TLS 握手阶段宣告完成，一个安全的连接就已成功建立。每一个连接建立时，客户端和服务端均通过上面的握手过程协商出了许多信息，此后该连接的通信将使用此密钥和加密算法进行加密、解密和压缩。这种处理方式对上层协议的功能上完全透明的，在传输性能上会有下降，建立在这层安全传输层之上的 HTTP 协议，就被称为“HTTP over SSL&#x2F;TLS”，也即是大家所熟知的 HTTPS。</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>系统如何确保提交到每项服务中的数据是合乎规则的，不会对系统稳定性、数据一致性、正确性产生风险？</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="张晗_Jeremy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="张晗_Jeremy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>张晗_Jeremy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/" title="凤凰架构">http://hanzhang2566.github.io/2023/05/31/reading-note-phoenix-project/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/images/wechat_channel.png">
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">BiliBili</span>
+          </span>
+
+          <img class="social-item-img" src="/images/bilibili_channel.png">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/reading-notes/" rel="tag"># reading notes</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/05/26/reading-note-hello-startup/" rel="prev" title="奔跑吧，程序员">
+                  <i class="fa fa-chevron-left"></i> 奔跑吧，程序员
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/06/10/reading-note-killer-business-plan/" rel="next" title="最简明好用的 BP 撰写指南">
+                  最简明好用的 BP 撰写指南 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2023 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张晗_Jeremy</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">49k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"forest","dark":"neutral"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.4.3/mermaid.min.js","integrity":"sha256-e0o3JYsdjqKajf9eOe22FhioYSz9WofRY4dLKo3F6do="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+
+</body>
+</html>

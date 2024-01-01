@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="字符串键是 Redis 中最基本的键值对类型，被关联的 k-v 既可以是普通文本数据，有可以是二进制数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/04/redis-string/index.html">
+<meta property="og:site_name" content="张晗的个人博客">
+<meta property="og:description" content="字符串键是 Redis 中最基本的键值对类型，被关联的 k-v 既可以是普通文本数据，有可以是二进制数据。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-04T10:49:09.000Z">
+<meta property="article:modified_time" content="2024-01-01T15:25:29.762Z">
+<meta property="article:author" content="张晗_Jeremy">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/04/redis-string/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/04/redis-string/","path":"2023/05/04/redis-string/","title":"字符串"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>字符串 | 张晗的个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">张晗的个人博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">技术的价值是业务</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SET"><span class="nav-number">1.1.</span> <span class="nav-text">SET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MSET"><span class="nav-number">1.2.</span> <span class="nav-text">MSET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MSETNX"><span class="nav-number">1.3.</span> <span class="nav-text">MSETNX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET"><span class="nav-number">1.4.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MGET"><span class="nav-number">1.5.</span> <span class="nav-text">MGET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GETSET"><span class="nav-number">1.6.</span> <span class="nav-text">GETSET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STRLEN"><span class="nav-number">1.7.</span> <span class="nav-text">STRLEN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GETRANGE"><span class="nav-number">1.8.</span> <span class="nav-text">GETRANGE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SETRANGE"><span class="nav-number">1.9.</span> <span class="nav-text">SETRANGE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APPEND"><span class="nav-number">1.10.</span> <span class="nav-text">APPEND</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">存储方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#INCR"><span class="nav-number">2.1.</span> <span class="nav-text">INCR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#INCRBY"><span class="nav-number">2.2.</span> <span class="nav-text">INCRBY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#INCRBYFLOAT"><span class="nav-number">2.3.</span> <span class="nav-text">INCRBYFLOAT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DECR"><span class="nav-number">2.4.</span> <span class="nav-text">DECR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DECRBY"><span class="nav-number">2.5.</span> <span class="nav-text">DECRBY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DECRBYFLOAT"><span class="nav-number">2.6.</span> <span class="nav-text">DECRBYFLOAT</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98"><span class="nav-number">3.1.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">3.2.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98-Blog"><span class="nav-number">3.3.</span> <span class="nav-text">保存 Blog</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张晗_Jeremy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">张晗_Jeremy</p>
+  <div class="site-description" itemprop="description">Javaer | Gopher | Nerd | Engineer</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/504736668" title="BiliBili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;504736668" rel="noopener me" target="_blank"><i class="fab fa-bilibili fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/hanzhang2566" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hanzhang2566" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hanzhang2566@foxmail.com" title="E-Mail → mailto:hanzhang2566@foxmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.xiaoyuzhoufm.com/podcast/63f5b8656b1dd4904d7c6f89?s=eyJ1IjogIjYxZmVhZjE3MmNiZDdjMDE3NjdmMmYxMSJ9" title="xiaoyuzhouFM → https:&#x2F;&#x2F;www.xiaoyuzhoufm.com&#x2F;podcast&#x2F;63f5b8656b1dd4904d7c6f89?s&#x3D;eyJ1IjogIjYxZmVhZjE3MmNiZDdjMDE3NjdmMmYxMSJ9" rel="noopener me" target="_blank"><i class="fa-solid fa-radio fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/04/redis-string/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="张晗_Jeremy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张晗的个人博客">
+      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="字符串 | 张晗的个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字符串
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-04 18:49:09" itemprop="dateCreated datePublished" datetime="2023-05-04T18:49:09+08:00">2023-05-04</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>字符串键是 Redis 中最基本的键值对类型，被关联的 k-v 既可以是普通文本数据，有可以是二进制数据。</p>
+<span id="more"></span>
+
+<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="SET"><a href="#SET" class="headerlink" title="SET"></a>SET</h2><p>设置 k-v 字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-- 有引号</span><br><span class="line">SET message &quot;hello world&quot;</span><br><span class="line">SET homepage &quot;hanzhang2566.github.io&quot;</span><br><span class="line">SET price &quot;2.56&quot;</span><br><span class="line"></span><br><span class="line">-- 无引号</span><br><span class="line">SET name hanzhang</span><br><span class="line"></span><br><span class="line">-- 覆盖 name</span><br><span class="line">SET name Jeremy</span><br><span class="line"></span><br><span class="line">-- 参数</span><br><span class="line">-- 1. NX：当 key 不存在的情况下生效；否则返回 nil</span><br><span class="line">SET name hanzhang NX</span><br><span class="line">-- 2. XX：当 key 存在的情况下生效；否则返回 nil</span><br><span class="line">SET name hanzhang XX</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="MSET"><a href="#MSET" class="headerlink" title="MSET"></a>MSET</h2><p>设置多个 k-v 字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- 设置 name == hanzhang</span><br><span class="line">-- address == shanghai</span><br><span class="line">-- school == shzu</span><br><span class="line">MSET name hanzhang address shanghai school shzu</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<ul>
+<li>提高操作效率；</li>
+<li>方便多个 k-v 操作；</li>
+</ul>
+<h2 id="MSETNX"><a href="#MSETNX" class="headerlink" title="MSETNX"></a>MSETNX</h2><p>&#x3D;&#x3D;所有&#x3D;&#x3D; k 不存在的情况下，设置多个 k-v 字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- name 和 age 都不存在的情况下，设置成功，返回 true；否则，返回 false</span><br><span class="line">MSETNX  name zhanghan age 28</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h2><p>查询 k-v 字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET message</span><br><span class="line">GET homepage</span><br><span class="line">GET price</span><br><span class="line"></span><br><span class="line">-- 不存在 addres，返回 nil</span><br><span class="line">GET address</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="MGET"><a href="#MGET" class="headerlink" title="MGET"></a>MGET</h2><p>查询多个 k-v 字符串。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 同时查询 name address school</span><br><span class="line">MGET name address school</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<ul>
+<li>提高操作效率；</li>
+<li>方便多个 k-v 操作；</li>
+</ul>
+<h2 id="GETSET"><a href="#GETSET" class="headerlink" title="GETSET"></a>GETSET</h2><p>返回 k 对应的字符串，并设置新值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-- 设置 number == 1</span><br><span class="line">SET number 1</span><br><span class="line">-- 返回 number == 1，同时设置 number == 2</span><br><span class="line">GETSET number 2</span><br><span class="line"></span><br><span class="line">-- number == 2</span><br><span class="line">GET number</span><br><span class="line"></span><br><span class="line">-- counter 不存在，返回 nil，同时设置 counter == 20</span><br><span class="line">GETSET counter 20</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="STRLEN"><a href="#STRLEN" class="headerlink" title="STRLEN"></a>STRLEN</h2><p>获取字符串长度。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-- 返回 len(name)</span><br><span class="line">STRLEN name</span><br><span class="line">-- 不存在，返回 0</span><br><span class="line">STRLEN gender</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="GETRANGE"><a href="#GETRANGE" class="headerlink" title="GETRANGE"></a>GETRANGE</h2><p>获取字符串索引指定闭区间的内容。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SET message &quot;hello world&quot;</span><br><span class="line">-- 获取 message[0,4]闭区间内容</span><br><span class="line">GETRANGE message 0 4</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="SETRANGE"><a href="#SETRANGE" class="headerlink" title="SETRANGE"></a>SETRANGE</h2><p>设置字符串指定索引开始的字符串。</p>
+<p>当设置字符串 &gt; 当前字符串长度时，会自动扩容。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SET message &quot;hello world&quot;</span><br><span class="line"></span><br><span class="line">-- greet world</span><br><span class="line">SETRANGE message 0 &quot;greet&quot;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h2 id="APPEND"><a href="#APPEND" class="headerlink" title="APPEND"></a>APPEND</h2><p>k 存在时，就添加；不存在时，就执行 SET 操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SET message &quot;Redis&quot;</span><br><span class="line">-- APPEND</span><br><span class="line">APPEND message &quot; is a database&quot;</span><br><span class="line">GET message</span><br><span class="line"></span><br><span class="line">-- 类似于 SET</span><br><span class="line">APPEND name &quot;hanzhang&quot;</span><br><span class="line">GET name</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(n)</p>
+<h1 id="存储方式"><a href="#存储方式" class="headerlink" title="存储方式"></a>存储方式</h1><p>如果 k-v 字符串中，v 能够使用 C 语言中 long long int 或者 long double 时，redis 可以把 v 当作数字来处理；否则都是字符串存储。</p>
+<h2 id="INCR"><a href="#INCR" class="headerlink" title="INCR"></a>INCR</h2><p>自增 + 1。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SET num 100</span><br><span class="line">-- 101</span><br><span class="line">INCR num</span><br><span class="line"></span><br><span class="line">-- 不存在，会先初始化为 0，计算后返回</span><br><span class="line">-- 1</span><br><span class="line">INCR i</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="INCRBY"><a href="#INCRBY" class="headerlink" title="INCRBY"></a>INCRBY</h2><p>增加指定数字。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SET num 100</span><br><span class="line">-- 200</span><br><span class="line">INCRBY num 100</span><br><span class="line"></span><br><span class="line">-- 不存在，会先初始化为 0，计算后返回</span><br><span class="line">-- 10</span><br><span class="line">INCRBY i 10</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="INCRBYFLOAT"><a href="#INCRBYFLOAT" class="headerlink" title="INCRBYFLOAT"></a>INCRBYFLOAT</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SET num 100</span><br><span class="line">-- 103.14</span><br><span class="line">INCRBYFLOAT num 3.14</span><br><span class="line"></span><br><span class="line">-- 不存在，会先初始化为 0，计算后返回</span><br><span class="line">-- 3.14</span><br><span class="line">INCRBYFLOAT i 3.14</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：O(1)</p>
+<h2 id="DECR"><a href="#DECR" class="headerlink" title="DECR"></a>DECR</h2><p>对应 INCR，只是减少。</p>
+<h2 id="DECRBY"><a href="#DECRBY" class="headerlink" title="DECRBY"></a>DECRBY</h2><p>对应 INCRBY，只是减少。</p>
+<h2 id="DECRBYFLOAT"><a href="#DECRBYFLOAT" class="headerlink" title="DECRBYFLOAT"></a>DECRBYFLOAT</h2><p>对应 INCRBYFLOAT，只是减少。</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>将数据存储再内存 Redis，而不是硬盘 MySQL。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">put</span><span class="params">(key, value <span class="type">string</span>, expiration <span class="type">int</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">		Addr:     <span class="string">&quot;43.142.129.110:6379&quot;</span>,</span><br><span class="line">		Password: <span class="string">&quot;&quot;</span>, <span class="comment">// no password set</span></span><br><span class="line">		DB:       <span class="number">0</span>,  <span class="comment">// use default DB</span></span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> rdb.Set(context.Background(), key, value, <span class="number">0</span>).Err()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">get</span><span class="params">(key <span class="type">string</span>)</span></span> (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">		Addr:     <span class="string">&quot;43.142.129.110:6379&quot;</span>,</span><br><span class="line">		Password: <span class="string">&quot;&quot;</span>, <span class="comment">// no password set</span></span><br><span class="line">		DB:       <span class="number">0</span>,  <span class="comment">// use default DB</span></span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> rdb.Get(context.Background(), key).Result()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Test</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestPut</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	err := put(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;hanzhang&quot;</span>, <span class="number">0</span>)</span><br><span class="line">	assert.Equal(t, <span class="literal">nil</span>, err)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestGet</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	value, err := get(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">	assert.Equal(t, <span class="literal">nil</span>, err)</span><br><span class="line">	assert.Equal(t, <span class="string">&quot;hanzhang&quot;</span>, value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h2><p>不同进程通过设置字符串键和删除字符串键来模拟获取锁和释放锁。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">acquire</span><span class="params">(key <span class="type">string</span>)</span></span> (<span class="type">bool</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">		Addr:     <span class="string">&quot;43.142.129.110:6379&quot;</span>,</span><br><span class="line">		Password: <span class="string">&quot;&quot;</span>, <span class="comment">// no password set</span></span><br><span class="line">		DB:       <span class="number">0</span>,  <span class="comment">// use default DB</span></span><br><span class="line">	&#125;)</span><br><span class="line">    <span class="comment">// NX 参数确保了代表锁的字符串键只有在没有值的情况下被设置</span></span><br><span class="line">	<span class="keyword">return</span> rdb.SetNX(context.Background(), key, <span class="string">&quot;locked&quot;</span>, <span class="number">0</span>).Result()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">release</span><span class="params">(key <span class="type">string</span>)</span></span> (<span class="type">int64</span>, <span class="type">error</span>) &#123;</span><br><span class="line">	rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">		Addr:     <span class="string">&quot;43.142.129.110:6379&quot;</span>,</span><br><span class="line">		Password: <span class="string">&quot;&quot;</span>, <span class="comment">// no password set</span></span><br><span class="line">		DB:       <span class="number">0</span>,  <span class="comment">// use default DB</span></span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> rdb.Del(context.Background(), key).Result()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Test</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestAcquire</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	b, err := acquire(<span class="string">&quot;lock&quot;</span>)</span><br><span class="line">	assert.Nil(t, err)</span><br><span class="line">	assert.True(t, b)</span><br><span class="line">	b, err = acquire(<span class="string">&quot;lock&quot;</span>)</span><br><span class="line">	assert.Nil(t, err)</span><br><span class="line">	assert.False(t, b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestRelease</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	i, err := release(<span class="string">&quot;lock&quot;</span>)</span><br><span class="line">	assert.Nil(t, err)</span><br><span class="line">	assert.NotEqual(t, <span class="number">0</span>, i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>无法保证该锁只能是锁的持有者才能释放；</li>
+<li>无法设置锁超时时间；</li>
+</ul>
+<h2 id="保存-Blog"><a href="#保存-Blog" class="headerlink" title="保存 Blog"></a>保存 Blog</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SaveBlog</span><span class="params">(title, author <span class="type">string</span>, id <span class="type">int</span>)</span></span> (<span class="type">bool</span>, <span class="type">error</span>) &#123;</span><br><span class="line">   rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">      Addr:     <span class="string">&quot;43.142.129.110:6379&quot;</span>,</span><br><span class="line">      Password: <span class="string">&quot;&quot;</span>, <span class="comment">// no password set</span></span><br><span class="line">      DB:       <span class="number">0</span>,  <span class="comment">// use default DB</span></span><br><span class="line">   &#125;)</span><br><span class="line"></span><br><span class="line">   values := <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>&#123;</span><br><span class="line">      <span class="string">&quot;blog::&quot;</span> + strconv.Itoa(id) + <span class="string">&quot;::id&quot;</span>:     strconv.Itoa(id),</span><br><span class="line">      <span class="string">&quot;blog::&quot;</span> + strconv.Itoa(id) + <span class="string">&quot;::title&quot;</span>:  title,</span><br><span class="line">      <span class="string">&quot;blog::&quot;</span> + strconv.Itoa(id) + <span class="string">&quot;::author&quot;</span>: author,</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> rdb.MSetNX(context.Background(), values).Result()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetBlog</span><span class="params">(id <span class="type">int</span>)</span></span> ([]<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>) &#123;</span><br><span class="line">   rdb := redis.NewClient(&amp;redis.Options&#123;</span><br><span class="line">      Addr:     <span class="string">&quot;43.142.129.110:6379&quot;</span>,</span><br><span class="line">      Password: <span class="string">&quot;&quot;</span>, <span class="comment">// no password set</span></span><br><span class="line">      DB:       <span class="number">0</span>,  <span class="comment">// use default DB</span></span><br><span class="line">   &#125;)</span><br><span class="line">   <span class="keyword">return</span> rdb.MGet(context.Background(),</span><br><span class="line">      <span class="string">&quot;blog::&quot;</span>+strconv.Itoa(id)+<span class="string">&quot;::id&quot;</span>,</span><br><span class="line">      <span class="string">&quot;blog::&quot;</span>+strconv.Itoa(id)+<span class="string">&quot;::title&quot;</span>,</span><br><span class="line">      <span class="string">&quot;blog::&quot;</span>+strconv.Itoa(id)+<span class="string">&quot;::author&quot;</span>).Result()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Test</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestSaveBlog</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	b, err := SaveBlog(<span class="string">&quot;redis-string&quot;</span>, <span class="string">&quot;hanzhang&quot;</span>, <span class="number">1</span>)</span><br><span class="line">	assert.Nil(t, err)</span><br><span class="line">	assert.True(t, b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestGetBlog</span><span class="params">(t *testing.T)</span></span> &#123;</span><br><span class="line">	blog, err := GetBlog(<span class="number">1</span>)</span><br><span class="line">	assert.Nil(t, err)</span><br><span class="line">	fmt.Println(blog)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>k 和 v 都是既可以存储二进制，又可以存储字符串；</li>
+<li>SET、SETNX 和 SETXX；</li>
+<li>MSET、MSETNX 和 MGET 可以减少网络请求，提升程序效率；</li>
+<li>字符串值中正数索引 0 开始，负数索引 -1 开始；</li>
+<li>GETRANGE 是返回索引闭区间；</li>
+<li>SETRANGE 当长度不够时，会自动扩展；</li>
+<li>APPEND 处理键不存在时执行 SET；键存在时，执行 APPEND；</li>
+<li>字符串值满足 C 语言中 long long int 或者 long double 时，当作数字来处理；</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="张晗_Jeremy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="张晗_Jeremy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>张晗_Jeremy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://hanzhang2566.github.io/2023/05/04/redis-string/" title="字符串">http://hanzhang2566.github.io/2023/05/04/redis-string/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/images/wechat_channel.png">
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">BiliBili</span>
+          </span>
+
+          <img class="social-item-img" src="/images/bilibili_channel.png">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/redis/" rel="tag"># redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/05/03/bubble-sort/" rel="prev" title="冒泡排序">
+                  <i class="fa fa-chevron-left"></i> 冒泡排序
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/05/04/behavioral-state/" rel="next" title="状态模式">
+                  状态模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2023 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张晗_Jeremy</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">49k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"forest","dark":"neutral"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.4.3/mermaid.min.js","integrity":"sha256-e0o3JYsdjqKajf9eOe22FhioYSz9WofRY4dLKo3F6do="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+
+</body>
+</html>

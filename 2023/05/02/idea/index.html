@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/orange/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hanzhang2566.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.15.1","exturl":false,"sidebar":{"position":"tight","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="IDEA 是 jetbrains 为 Javaer 打造的 IDE，我基本上 Java、Golang、Python 和 JS 等都用它来编写。 我使用 Toolbox 来管理 jetbrains 的所有产品。 版本IntelliJ IDEA 2022.3.3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的 Intellij IDEA 设置">
+<meta property="og:url" content="http://hanzhang2566.github.io/2023/05/02/idea/index.html">
+<meta property="og:site_name" content="张晗的个人博客">
+<meta property="og:description" content="IDEA 是 jetbrains 为 Javaer 打造的 IDE，我基本上 Java、Golang、Python 和 JS 等都用它来编写。 我使用 Toolbox 来管理 jetbrains 的所有产品。 版本IntelliJ IDEA 2022.3.3">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-02T10:01:51.000Z">
+<meta property="article:modified_time" content="2024-01-01T15:25:29.754Z">
+<meta property="article:author" content="张晗_Jeremy">
+<meta property="article:tag" content="tool">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://hanzhang2566.github.io/2023/05/02/idea/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://hanzhang2566.github.io/2023/05/02/idea/","path":"2023/05/02/idea/","title":"我的 Intellij IDEA 设置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>我的 Intellij IDEA 设置 | 张晗的个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">张晗的个人博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">技术的价值是业务</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90"><span class="nav-number">2.1.</span> <span class="nav-text">强烈推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">推荐使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E9%A2%91%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">3.</span> <span class="nav-text">高频快捷键</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Live-Templates"><span class="nav-number">4.</span> <span class="nav-text">Live Templates</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java"><span class="nav-number">4.1.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go"><span class="nav-number">4.2.</span> <span class="nav-text">Go</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="张晗_Jeremy"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">张晗_Jeremy</p>
+  <div class="site-description" itemprop="description">Javaer | Gopher | Nerd | Engineer</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/504736668" title="BiliBili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;504736668" rel="noopener me" target="_blank"><i class="fab fa-bilibili fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/hanzhang2566" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hanzhang2566" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:hanzhang2566@foxmail.com" title="E-Mail → mailto:hanzhang2566@foxmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.xiaoyuzhoufm.com/podcast/63f5b8656b1dd4904d7c6f89?s=eyJ1IjogIjYxZmVhZjE3MmNiZDdjMDE3NjdmMmYxMSJ9" title="xiaoyuzhouFM → https:&#x2F;&#x2F;www.xiaoyuzhoufm.com&#x2F;podcast&#x2F;63f5b8656b1dd4904d7c6f89?s&#x3D;eyJ1IjogIjYxZmVhZjE3MmNiZDdjMDE3NjdmMmYxMSJ9" rel="noopener me" target="_blank"><i class="fa-solid fa-radio fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://hanzhang2566.github.io/2023/05/02/idea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="张晗_Jeremy">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张晗的个人博客">
+      <meta itemprop="description" content="Javaer | Gopher | Nerd | Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="我的 Intellij IDEA 设置 | 张晗的个人博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我的 Intellij IDEA 设置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-02 18:01:51" itemprop="dateCreated datePublished" datetime="2023-05-02T18:01:51+08:00">2023-05-02</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>529</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>IDEA 是 jetbrains 为 Javaer 打造的 IDE，我基本上 Java、Golang、Python 和 JS 等都用它来编写。</p>
+<p>我使用 <a target="_blank" rel="noopener" href="https://www.jetbrains.com.cn/toolbox-app/">Toolbox</a> 来管理 jetbrains 的所有产品。</p>
+<h1 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h1><p>IntelliJ IDEA 2022.3.3</p>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">DATE</th>
+<th align="center">CHANGELOG</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2023年5月2日</td>
+<td align="center">初始化</td>
+</tr>
+<tr>
+<td align="center">2023年5月13日</td>
+<td align="center">添加 File Structure 快捷键</td>
+</tr>
+</tbody></table>
+<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><h2 id="强烈推荐"><a href="#强烈推荐" class="headerlink" title="强烈推荐"></a>强烈推荐</h2><p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/18824-codeglance-pro">CodeGlance Pro</a>：代码小地图；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/9861-git-commit-template">Git Commit Template</a>：提供 git commit message 的模板，该模板是符合 angular commit msg 提交规范（被很多项目采用）；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7499-gittoolbox">GitToolBox</a>：扩展了 idea 继承 git 的功能；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/9568-go">Go</a>：编写 Go 语言的扩展；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7179-maven-helper">Maven Helper</a>：用来查看 maven 中依赖的插件；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/10119-mybatisx">MyBatisX</a>：提供 mabatis 的支持；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/631-python">Python</a>：编写 Python 语言的扩展；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/10080-rainbow-brackets">Rainbow Barckets</a>：彩虹括号；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/10837-requirements">Requirements</a>：Python 中 pip 依赖的支持；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/14280-restfultool">RestfulTool</a>：快速查看 Spring 中 Restful 接口；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7973-sonarlint">SonarLint</a>：静态代码检查；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/12798-tabnine-ai-code-completion-js-java-python-ts-rust-go-php--more">Tabnine </a>：Copilot 的替代；</p>
+<h2 id="推荐使用"><a href="#推荐使用" class="headerlink" title="推荐使用"></a>推荐使用</h2><p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/17718-github-copilot">GitHub Copilot</a>：我登录不上去，能登录上的推荐；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7177-file-watchers">File Watchers</a>：文件修改后触发操作；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7125-grep-console">Grep Console</a>：高亮标准输出；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/13873-json-helper">Json Helper</a>：JSON 类型转换；</p>
+<p><a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/12132-leetcode-editor">LeetCode Editor</a>：一直供着不敢删除；</p>
+<h1 id="高频快捷键"><a href="#高频快捷键" class="headerlink" title="高频快捷键"></a>高频快捷键</h1><table>
+<thead>
+<tr>
+<th align="center">action</th>
+<th align="center">shortcut</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Settings</td>
+<td align="center">Ctrl + Alt + S</td>
+<td align="center">打开设置</td>
+</tr>
+<tr>
+<td align="center">Project Structure</td>
+<td align="center">Ctrl + Shift + Alt + S</td>
+<td align="center">打开项目结构</td>
+</tr>
+<tr>
+<td align="center">Project</td>
+<td align="center">Alt + 1</td>
+<td align="center">查看项目</td>
+</tr>
+<tr>
+<td align="center">Database</td>
+<td align="center">Alt + 2</td>
+<td align="center">查看数据库</td>
+</tr>
+<tr>
+<td align="center">Structure</td>
+<td align="center">Alt + 7</td>
+<td align="center">查看文件结构</td>
+</tr>
+<tr>
+<td align="center">Parameter Info</td>
+<td align="center">Alt + P</td>
+<td align="center">查看方法参数信息</td>
+</tr>
+<tr>
+<td align="center">Terminal</td>
+<td align="center">Alt + F12</td>
+<td align="center">打开终端</td>
+</tr>
+<tr>
+<td align="center">Move Caret to Line Start</td>
+<td align="center">Alt + 向左箭头</td>
+<td align="center">光标到行头</td>
+</tr>
+<tr>
+<td align="center">Move Caret to Line End</td>
+<td align="center">Alt + 向右箭头</td>
+<td align="center">光标到行尾</td>
+</tr>
+<tr>
+<td align="center">Delete Line</td>
+<td align="center">Alt + Backspace</td>
+<td align="center">删除一行</td>
+</tr>
+<tr>
+<td align="center">Split Line</td>
+<td align="center">Ctrl + Enter</td>
+<td align="center">光标到下一行</td>
+</tr>
+<tr>
+<td align="center">Select Tab #1-6</td>
+<td align="center">Ctrl + 1-6</td>
+<td align="center">选择 1-6 编号的 Tab</td>
+</tr>
+<tr>
+<td align="center">Up</td>
+<td align="center">Ctrl + P</td>
+<td align="center">光标向上一行</td>
+</tr>
+<tr>
+<td align="center">Commit</td>
+<td align="center">Ctrl + K</td>
+<td align="center">提交</td>
+</tr>
+<tr>
+<td align="center">Down</td>
+<td align="center">Ctrl + N</td>
+<td align="center">光标向下一行</td>
+</tr>
+<tr>
+<td align="center">Duplicate Line or Selection</td>
+<td align="center">Ctrl + D</td>
+<td align="center">复制一行</td>
+</tr>
+<tr>
+<td align="center">Close Tab</td>
+<td align="center">Ctrl + W</td>
+<td align="center">关闭 Tab</td>
+</tr>
+<tr>
+<td align="center">Split and Move Right</td>
+<td align="center">Ctrl + \</td>
+<td align="center">右分割</td>
+</tr>
+<tr>
+<td align="center">Undo</td>
+<td align="center">Ctrl + Z</td>
+<td align="center">撤销</td>
+</tr>
+<tr>
+<td align="center">File Structure</td>
+<td align="center">Ctrl + F12</td>
+<td align="center">查看文件结构</td>
+</tr>
+<tr>
+<td align="center">Redo</td>
+<td align="center">Ctrl + Shift + Z</td>
+<td align="center">反撤销</td>
+</tr>
+<tr>
+<td align="center">Rollback</td>
+<td align="center">Ctrl + Alt + Z</td>
+<td align="center">回滚改动</td>
+</tr>
+</tbody></table>
+<h1 id="Live-Templates"><a href="#Live-Templates" class="headerlink" title="Live Templates"></a>Live Templates</h1><h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><table>
+<thead>
+<tr>
+<th align="center">shortcut</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">fori</td>
+<td align="center">for (int i &#x3D; 0; i &lt; param; i++) {}</td>
+</tr>
+<tr>
+<td align="center">iter</td>
+<td align="center">for range loop</td>
+</tr>
+<tr>
+<td align="center">souf</td>
+<td align="center">System.out.printf();</td>
+</tr>
+<tr>
+<td align="center">sout</td>
+<td align="center">System.out.println();</td>
+</tr>
+<tr>
+<td align="center">souc</td>
+<td align="center">System.out::println</td>
+</tr>
+<tr>
+<td align="center">soutm</td>
+<td align="center">System.out.println(“$CLASS_NAME$.$METHOD_NAME$”);</td>
+</tr>
+<tr>
+<td align="center">soutv</td>
+<td align="center">System.out.println(“$EXPR_COPY$ &#x3D; “ + $EXPR$);</td>
+</tr>
+<tr>
+<td align="center">thr</td>
+<td align="center">throw new</td>
+</tr>
+</tbody></table>
+<h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><table>
+<thead>
+<tr>
+<th align="center">shortcut</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">fori</td>
+<td align="center">for i:&#x3D;0; i &lt; param; i++ {}</td>
+</tr>
+<tr>
+<td align="center">iter</td>
+<td align="center">for range loop</td>
+</tr>
+<tr>
+<td align="center">err</td>
+<td align="center">if err !&#x3D; nil {}</td>
+</tr>
+</tbody></table>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>Help - Keyboard Shortcuts PDF</p>
+<p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/idea/">下载</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="张晗_Jeremy 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="张晗_Jeremy 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>张晗_Jeremy
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://hanzhang2566.github.io/2023/05/02/idea/" title="我的 Intellij IDEA 设置">http://hanzhang2566.github.io/2023/05/02/idea/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY</a> 许可协议。
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </span>
+
+          <img class="social-item-img" src="/images/wechat_channel.png">
+      </div>
+
+      <div class="social-item">
+          <span class="social-link">
+            <span class="icon">
+              <i class="fab fa-bilibili"></i>
+            </span>
+
+            <span class="label">BiliBili</span>
+          </span>
+
+          <img class="social-item-img" src="/images/bilibili_channel.png">
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/tool/" rel="tag"># tool</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/05/01/mermaid/" rel="prev" title="Typora 中 Mermaid 的使用">
+                  <i class="fa fa-chevron-left"></i> Typora 中 Mermaid 的使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/05/02/behavioral-observer/" rel="next" title="观察者模式">
+                  观察者模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2023 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张晗_Jeremy</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">49k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:58</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 支持
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"forest","dark":"neutral"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.4.3/mermaid.min.js","integrity":"sha256-e0o3JYsdjqKajf9eOe22FhioYSz9WofRY4dLKo3F6do="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+
+</body>
+</html>
